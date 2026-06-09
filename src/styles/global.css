@@ -68,17 +68,32 @@ p {
   color: var(--color-primary-neon);
 }
 
-/* Hidden state for scroll animations */
+/* Hidden state for scroll animations (Fallback for non-supporting browsers) */
 .scroll-animate {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(40px);
   will-change: opacity, transform;
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.scroll-animate.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .scroll-animate {
+      animation: reveal-on-scroll linear both;
+      animation-timeline: view(block);
+      animation-range: entry 5% cover 25%;
+    }
+    
+    @keyframes reveal-on-scroll {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
 }
 
 /* Background Glow Orbs */

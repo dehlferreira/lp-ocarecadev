@@ -11,24 +11,28 @@ const initAnalytics = () => {
 };
 
 const initScrollAnimations = () => {
-  // Intersection Observer para elementos .scroll-reveal
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  };
-
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+  // Intersection Observer atuando como Fallback para navegadores sem suporte a CSS Scroll-Driven Animations
+  if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          // Calcula o progresso para que a animação termine em 25% de visibilidade (0.25)
+          const ratio = entry.intersectionRatio;
+          const progress = Math.min(ratio / 0.25, 1);
+          
+          entry.target.style.opacity = progress.toString();
+          entry.target.style.transform = `translateY(${(1 - progress) * 40}px)`;
+        }
+      },
+      {
+        threshold: Array.from({ length: 101 }, (_, i) => i / 100),
       }
-    });
-  }, observerOptions);
+    );
 
-  const revealElements = document.querySelectorAll('.scroll-animate');
-  revealElements.forEach(el => observer.observe(el));
+    document.querySelectorAll('.scroll-animate').forEach((el) => {
+      observer.observe(el);
+    });
+  }
 
   // Lógica de Scroll e Scrubbing via requestAnimationFrame (Conforme SPEC-004)
   const heroTitle = document.getElementById('hero-title');
