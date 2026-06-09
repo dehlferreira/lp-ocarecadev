@@ -4,13 +4,15 @@ export interface Props {
   href?: string;
   type?: 'primary' | 'ghost';
   class?: string;
+  id?: string;
+  [x: string]: any;
 }
 
-const { text, href, type = 'primary', class: className } = Astro.props;
+const { text, href, type = 'primary', class: className, id, ...rest } = Astro.props;
 const Tag = href ? 'a' : 'button';
 ---
 
-<Tag href={href} class:list={['btn', `btn-${type}`, className]}>
+<Tag href={href} id={id} class:list={['btn', `btn-${type}`, className]} {...rest}>
   {text ? text : <slot />}
 </Tag>
 
@@ -22,36 +24,89 @@ const Tag = href ? 'a' : 'button';
     padding: 0.8rem 1.8rem;
     font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 100px; /* Formato Pill moderno */
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animação mais elástica */
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    position: relative;
+    overflow: hidden;
+    /* Correção para backdrop-filter no Safari Mobile */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  
+  .btn:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  /* Ajuste para mobile para não ficar muito grande */
+  @media (max-width: 768px) {
+    .btn {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+    }
   }
 
   .btn-primary {
-    background-color: var(--color-primary-neon);
-    color: #000;
-    border: 1px solid var(--color-primary-neon);
-    box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+    background: linear-gradient(135deg, rgba(0, 255, 157, 0.4) 0%, rgba(0, 255, 157, 0.15) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-text-primary);
+    border: 1px solid rgba(0, 255, 157, 0.6);
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Luz suave */
+    box-shadow: 0 4px 20px rgba(0, 255, 157, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    text-shadow: 0 0 8px rgba(0, 255, 157, 0.6);
+    animation: pulse-neon 2s infinite alternate;
+  }
+
+  @keyframes pulse-neon {
+    0% { box-shadow: 0 4px 20px rgba(0, 255, 157, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15); }
+    100% { box-shadow: 0 4px 30px rgba(0, 255, 157, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.2); }
   }
 
   .btn-primary:hover {
-    background-color: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
-    box-shadow: 0 0 25px rgba(0, 255, 157, 0.6);
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgba(0, 255, 157, 0.6) 0%, rgba(0, 255, 157, 0.25) 100%);
+    border-color: var(--color-primary-neon);
+    border-top-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 25px rgba(0, 255, 157, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px) scale(1.02) translateZ(0);
+    -webkit-transform: translateY(-3px) scale(1.02) translateZ(0);
+    animation: none; /* Pausa o pulso no hover */
   }
 
   .btn-ghost {
-    background-color: transparent;
-    color: var(--color-primary-neon);
-    border: 1px solid var(--color-primary-neon);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
   }
 
   .btn-ghost:hover {
-    background-color: rgba(0, 255, 157, 0.1);
-    box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px) scale(1.02) translateZ(0);
+    -webkit-transform: translateY(-3px) scale(1.02) translateZ(0);
+  }
+
+  /* Brilho diagonal passando pelo botão (Shine effect) */
+  .btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-20deg);
+    transition: all 0.7s ease;
+  }
+
+  .btn:hover::after {
+    left: 150%;
   }
 </style>

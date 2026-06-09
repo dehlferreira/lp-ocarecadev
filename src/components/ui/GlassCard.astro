@@ -2,12 +2,14 @@
 export interface Props {
   class?: string;
   padding?: string;
+  highlight?: boolean;
+  [x: string]: any;
 }
 
-const { class: className, padding = '2rem' } = Astro.props;
+const { class: className, padding = '2rem', highlight, ...rest } = Astro.props;
 ---
 
-<div class:list={['glass-card', className]} style={`padding: ${padding};`}>
+<div class:list={['glass-card', className, { 'highlight-card': highlight }]} style={`padding: ${padding};`} {...rest}>
   <slot />
 </div>
 
@@ -18,12 +20,14 @@ const { class: className, padding = '2rem' } = Astro.props;
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
   }
   
   .glass-card:hover {
-    border-color: rgba(0, 255, 157, 0.4);
+    border-color: var(--glass-border-highlight);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 255, 157, 0.15);
     transform: translateY(-5px);
   }
 </style>

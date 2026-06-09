@@ -7,13 +7,13 @@ import avatar1 from '../../assets/images/avatar_1.png';
 <section id="social-proof" class="section-social">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title scroll-reveal">Eles já estão faturando</h2>
-      <p class="section-subtitle scroll-reveal delay-100">Depoimentos reais de quem escalou com nossas Landing Pages.</p>
+      <h2 class="section-title scroll-animate">Eles já estão faturando</h2>
+      <p class="section-subtitle scroll-animate delay-100">Depoimentos reais de quem escalou com nossas Landing Pages.</p>
     </div>
 
     <div class="proof-grid">
       <!-- Depoimento 1 -->
-      <GlassCard class="scroll-reveal delay-200">
+      <GlassCard class="scroll-animate delay-200">
         <div class="proof-author">
           <Image src={avatar1} alt="Cliente 1" class="avatar-img" />
           <div class="author-info">
@@ -26,7 +26,7 @@ import avatar1 from '../../assets/images/avatar_1.png';
       </GlassCard>
 
       <!-- Depoimento 2 (Simulado) -->
-      <GlassCard class="scroll-reveal delay-300">
+      <GlassCard class="scroll-animate delay-300">
         <div class="proof-author">
           <div class="avatar-placeholder placeholder-1"></div>
           <div class="author-info">
@@ -39,7 +39,7 @@ import avatar1 from '../../assets/images/avatar_1.png';
       </GlassCard>
 
       <!-- Depoimento 3 (Simulado) -->
-      <GlassCard class="scroll-reveal delay-400">
+      <GlassCard class="scroll-animate delay-400">
         <div class="proof-author">
           <div class="avatar-placeholder placeholder-2"></div>
           <div class="author-info">
@@ -160,21 +160,4 @@ import avatar1 from '../../assets/images/avatar_1.png';
     letter-spacing: 2px;
   }
 
-  /* Base state for scroll reveal animation (SPEC-004) */
-  :global(.scroll-reveal) {
-    opacity: 0;
-    transform: translateY(40px);
-    will-change: opacity, transform;
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  
-  :global(.scroll-reveal.visible) {
-    opacity: 1;
-    transform: translateY(0);
-  }
 
-  :global(.delay-100) { transition-delay: 100ms; }
-  :global(.delay-200) { transition-delay: 200ms; }
-  :global(.delay-300) { transition-delay: 300ms; }
-  :global(.delay-400) { transition-delay: 400ms; }
-</style>

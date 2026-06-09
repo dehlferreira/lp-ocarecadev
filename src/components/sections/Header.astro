@@ -7,19 +7,73 @@ import GlassCard from '../ui/GlassCard.astro';
   <div class="container">
     <GlassCard class="header-card">
       <div class="logo">
-        <img src="/images/logo-horizontal.webp" alt="OCARECADEV Logo" style="height: 30px;" />
+        <img src="/images/logo-horizontal.webp" alt="OCARECADEV Logo" />
       </div>
+      
+      <!-- Desktop Nav -->
       <nav class="nav">
         <a href="#hero">Início</a>
         <a href="#social-proof">Resultados</a>
         <a href="#pricing">Planos</a>
       </nav>
-      <div class="cta">
-        <Button type="primary" href="https://wa.me/5511999999999" id="btn-header-cta" class="btn-small" text="Falar com Consultor" />
+
+      <div class="cta-and-menu">
+        <div class="cta desktop-cta">
+          <Button type="primary" href="https://wa.me/5511999999999" id="btn-header-cta" class="btn-small" text="Falar com Consultor" />
+        </div>
+        <div class="cta mobile-cta">
+          <Button type="primary" href="https://wa.me/5511999999999" id="btn-header-cta-mobile" class="btn-small" text="Contato" />
+        </div>
+        <button class="mobile-menu-toggle" aria-label="Abrir menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
       </div>
     </GlassCard>
   </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobile-menu">
+    <nav class="mobile-nav">
+      <a href="#hero" class="mobile-nav-link">Início</a>
+      <a href="#social-proof" class="mobile-nav-link">Resultados</a>
+      <a href="#pricing" class="mobile-nav-link">Planos</a>
+    </nav>
+  </div>
 </header>
+
+<style is:global>
+  .header-card {
+    padding: 0.8rem 1rem !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 100px !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    z-index: 51;
+    position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .header-card {
+      padding: 0.8rem 1.5rem !important;
+    }
+  }
+
+  .btn-small {
+    padding: 8px 14px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  @media (min-width: 768px) {
+    .btn-small {
+      padding: 8px 16px !important;
+      font-size: 0.875rem !important;
+    }
+  }
+</style>
 
 <style>
   .main-header {
@@ -36,26 +90,26 @@ import GlassCard from '../ui/GlassCard.astro';
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    padding: 0 1rem;
-  }
-
-  /* O Card sobrescreve o padding original para ficar menorzinho no header */
-  :global(.header-card) {
-    padding: 1rem 2rem !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(10, 10, 10, 0.8) !important;
+    padding: 0 0.5rem;
   }
 
   .logo {
-    font-weight: 800;
-    font-size: 1.5rem;
-    letter-spacing: 0.1em;
-    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
   }
 
+  .logo img {
+    height: 24px !important; /* Smaller on mobile */
+  }
 
+  @media (min-width: 768px) {
+    .logo img {
+      height: 30px !important;
+    }
+    .container {
+      padding: 0 1rem;
+    }
+  }
 
   .nav {
     display: none;
@@ -70,19 +124,165 @@ import GlassCard from '../ui/GlassCard.astro';
   }
 
   .nav a {
-    color: var(--color-text-secondary);
+    color: var(--color-text-secondary, #a1a1aa);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
   }
 
   .nav a:hover {
-    color: var(--color-text-primary);
+    color: var(--color-text-primary, #ffffff);
   }
 
-  /* Ajuste no botão se passarmos via classe */
-  :global(.btn-small) {
-    padding: 8px 16px !important;
-    font-size: 0.875rem !important;
+  .cta-and-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .desktop-cta {
+    display: none;
+  }
+  
+  .mobile-cta {
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .desktop-cta {
+      display: block;
+    }
+    .mobile-cta {
+      display: none;
+    }
+    .cta-and-menu {
+      gap: 1rem;
+    }
+  }
+
+  /* Hamburger Menu Button */
+  .mobile-menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 52;
+  }
+
+  .hamburger-line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-text-primary, #ffffff);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: left center;
+  }
+
+  @media (min-width: 768px) {
+    .mobile-menu-toggle {
+      display: none;
+    }
+  }
+
+  /* Hamburger Active State */
+  .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg);
+  }
+
+  .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg);
+  }
+
+  /* Mobile Menu Overlay */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(10, 10, 12, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 49; /* Below header card but above rest of page */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    transform: translateY(-100%);
+  }
+
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .mobile-nav-link {
+    color: var(--color-text-primary, #ffffff);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .mobile-nav-link:hover, .mobile-nav-link:active {
+    color: var(--color-primary, #10b981);
+    transform: scale(1.05);
   }
 </style>
+
+<script>
+  // Mobile Menu Logic
+  const setupMobileMenu = () => {
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileMenuOverlay = document.getElementById('mobile-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    if (mobileMenuToggle && mobileMenuOverlay && mobileMenuToggle.parentNode) {
+      // Remove evt listeners prev to avoid multiple bindings
+      const newToggle = mobileMenuToggle.cloneNode(true) as HTMLElement;
+      mobileMenuToggle.parentNode.replaceChild(newToggle, mobileMenuToggle);
+      
+      const toggleMenu = () => {
+        newToggle.classList.toggle('active');
+        mobileMenuOverlay.classList.toggle('active');
+        document.body.style.overflow = mobileMenuOverlay.classList.contains('active') ? 'hidden' : '';
+      };
+
+      newToggle.addEventListener('click', toggleMenu);
+
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          newToggle.classList.remove('active');
+          mobileMenuOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+  };
+
+  // Run on first load
+  setupMobileMenu();
+  
+  // Run on Astro view transitions
+  document.addEventListener('astro:page-load', setupMobileMenu);
+</script>

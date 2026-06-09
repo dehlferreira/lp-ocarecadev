@@ -13,9 +13,11 @@
   --color-text-secondary: #A3A3A3;
   
   /* Tokens para Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(0, 255, 157, 0.2);
-  --glass-blur: 16px;
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-border-highlight: rgba(0, 255, 157, 0.4);
+  --glass-blur: 24px;
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 * {
@@ -47,6 +49,7 @@ ul {
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
   border-radius: 16px;
+  box-shadow: var(--glass-shadow);
 }
 
 /* Base utility classes for typography */
@@ -77,3 +80,42 @@ p {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Background Glow Orbs */
+.glow-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--color-primary-neon);
+  opacity: 0.15;
+}
+
+.glow-orb-1 {
+  width: 500px;
+  height: 500px;
+  top: -100px;
+  left: -150px;
+}
+
+.glow-orb-2 {
+  width: 600px;
+  height: 600px;
+  bottom: -150px;
+  right: -200px;
+  opacity: 0.12;
+}
+
+.glow-orb-3 {
+  width: 400px;
+  height: 400px;
+  top: 40%;
+  left: 30%;
+  opacity: 0.08;
+}
+
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
