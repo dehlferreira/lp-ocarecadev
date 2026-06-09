@@ -137,6 +137,8 @@ import heroMockup from '../../assets/images/hero-mockup.webp';
     filter: blur(128px);
     opacity: 0.2;
     z-index: 1;
+    transition: translate 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: translate, transform;
   }
 
   .light-1 {
@@ -145,6 +147,8 @@ import heroMockup from '../../assets/images/hero-mockup.webp';
     width: 400px;
     height: 400px;
     background-color: var(--color-primary-neon);
+    translate: calc(var(--mouse-x) * -180px) calc(var(--mouse-y) * -180px);
+    animation: float-neon 12s ease-in-out infinite alternate;
   }
 
   .light-2 {
@@ -153,5 +157,13 @@ import heroMockup from '../../assets/images/hero-mockup.webp';
     width: 400px;
     height: 400px;
     background-color: #00A666;
+    translate: calc(var(--mouse-x) * 150px) calc(var(--mouse-y) * 150px);
+    animation: float-neon 15s ease-in-out infinite alternate-reverse;
+  }
+
+  @keyframes float-neon {
+    0% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.2) translate(100px, -100px); }
+    100% { transform: scale(0.8) translate(-100px, 100px); }
   }
 </style>

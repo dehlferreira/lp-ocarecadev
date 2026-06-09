@@ -82,9 +82,20 @@ const initScrollAnimations = () => {
   window.requestAnimationFrame(onScroll);
 };
 
+const initMouseTracking = () => {
+  document.addEventListener('mousemove', (e) => {
+    // Valores de -1 a 1, onde 0 é o centro da tela
+    const x = (e.clientX / window.innerWidth) * 2 - 1;
+    const y = (e.clientY / window.innerHeight) * 2 - 1;
+    document.documentElement.style.setProperty('--mouse-x', x);
+    document.documentElement.style.setProperty('--mouse-y', y);
+  }, { passive: true });
+};
+
 const init = () => {
   initAnalytics();
   initScrollAnimations();
+  initMouseTracking();
 };
 
 if (document.readyState === 'loading') {

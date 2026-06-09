@@ -18,6 +18,10 @@
   --glass-border-highlight: rgba(0, 255, 157, 0.4);
   --glass-blur: 24px;
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  /* Variáveis de Mouse Tracking para Parallax */
+  --mouse-x: 0;
+  --mouse-y: 0;
 }
 
 * {
@@ -105,6 +109,8 @@ p {
   pointer-events: none;
   background-color: var(--color-primary-neon);
   opacity: 0.15;
+  transition: translate 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: translate, transform;
 }
 
 .glow-orb-1 {
@@ -112,6 +118,8 @@ p {
   height: 500px;
   top: -100px;
   left: -150px;
+  translate: calc(var(--mouse-x) * -150px) calc(var(--mouse-y) * -150px);
+  animation: float-orb-1 20s ease-in-out infinite alternate;
 }
 
 .glow-orb-2 {
@@ -120,6 +128,8 @@ p {
   bottom: -150px;
   right: -200px;
   opacity: 0.12;
+  translate: calc(var(--mouse-x) * 120px) calc(var(--mouse-y) * 120px);
+  animation: float-orb-2 25s ease-in-out infinite alternate-reverse;
 }
 
 .glow-orb-3 {
@@ -128,6 +138,26 @@ p {
   top: 40%;
   left: 30%;
   opacity: 0.08;
+  translate: calc(var(--mouse-x) * -100px) calc(var(--mouse-y) * -100px);
+  animation: float-orb-3 15s ease-in-out infinite alternate;
+}
+
+@keyframes float-orb-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(80px, -100px) scale(1.15); }
+  100% { transform: translate(-60px, 60px) scale(0.85); }
+}
+
+@keyframes float-orb-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-100px, 80px) scale(1.2); }
+  100% { transform: translate(60px, -60px) scale(0.8); }
+}
+
+@keyframes float-orb-3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 100px) scale(1.25); }
+  100% { transform: translate(-80px, -80px) scale(0.8); }
 }
 
 .delay-100 { transition-delay: 100ms; }
