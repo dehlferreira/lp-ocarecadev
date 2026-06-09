@@ -8,8 +8,9 @@ interface Props {
 
 const { title, description = "OCARECADEV - Máquinas de Geração de Clientes" } = Astro.props;
 
-// Absolute URL para a imagem de preview funcionar corretamente no WhatsApp/Redes Sociais
-const ogImage = new URL('/images/logo-vertical.webp', Astro.url);
+// Absolute URL para a imagem de preview (WhatsApp exige formato PNG/JPG, WebP costuma falhar)
+const siteUrl = Astro.site || Astro.url;
+const ogImage = new URL('/images/logo-vertical.png', siteUrl);
 ---
 
 <!doctype html>
