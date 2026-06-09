@@ -18,6 +18,7 @@ import Button from '../ui/Button.astro';
         <div class="plan-price">
           R$ 297<span>/único</span>
         </div>
+        <p class="plan-installments">ou 12x de R$ 24,75 sem juros</p>
         <ul class="plan-features">
           <li>✓ Setup em 24h</li>
           <li>✓ 1 Sessão de Estrutura</li>
@@ -32,11 +33,13 @@ import Button from '../ui/Button.astro';
 
       <!-- Plano 2 (Destaque) -->
       <GlassCard class="scroll-animate delay-300 pricing-card highlight-card" highlight={true}>
+        <div class="recommended-badge">Recomendado</div>
         <h3 class="plan-name">LANDING QUE VENDE</h3>
         <p class="plan-desc">O equilíbrio perfeito para escalar.</p>
         <div class="plan-price text-gradient">
           R$ 997<span>/único</span>
         </div>
+        <p class="plan-installments highlight-installments">ou 12x de R$ 83,08 sem juros</p>
         <ul class="plan-features text-bright">
           <li>✓ Setup em 3 dias</li>
           <li>✓ Design Glassmorphism</li>
@@ -56,6 +59,7 @@ import Button from '../ui/Button.astro';
         <div class="plan-price">
           R$ 2.497<span>/único</span>
         </div>
+        <p class="plan-installments">ou 12x de R$ 208,08 sem juros</p>
         <ul class="plan-features">
           <li>✓ Tudo do plano anterior</li>
           <li>✓ Múltiplas Páginas (Funil)</li>
@@ -127,6 +131,25 @@ import Button from '../ui/Button.astro';
     height: fit-content;
     display: flex;
     flex-direction: column;
+    position: relative;
+  }
+
+  .recommended-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--color-primary-neon), #00A666);
+    color: var(--color-bg-dark);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 4px 15px rgba(0, 255, 157, 0.3);
+    white-space: nowrap;
+    z-index: 10;
   }
 
   :global(.highlight-card) {
@@ -150,7 +173,20 @@ import Button from '../ui/Button.astro';
     font-size: 2.5rem;
     font-weight: 800;
     color: var(--color-text-primary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
+    line-height: 1.1;
+  }
+
+  .plan-installments {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2.5rem;
+    font-weight: 500;
+  }
+
+  .highlight-installments {
+    color: var(--color-primary-neon);
+    font-weight: 600;
   }
 
   .plan-price span {

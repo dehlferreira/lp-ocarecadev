@@ -1,5 +1,5 @@
 ---
-import GlassCard from '../ui/GlassCard.astro';
+import GlassCard from "../ui/GlassCard.astro";
 ---
 
 <section id="about" class="section-about">
@@ -7,22 +7,29 @@ import GlassCard from '../ui/GlassCard.astro';
     <div class="about-grid">
       <div class="about-image scroll-animate">
         <div class="image-wrapper">
-          <img src="/images/perfil.webp" alt="André - OCARECADEV" class="profile-img" />
+          <img
+            src="/images/perfil.webp"
+            alt="André - OCARECADEV"
+            class="profile-img"
+          />
           <div class="neon-glow"></div>
         </div>
       </div>
-      
+
       <div class="about-content scroll-animate delay-200">
         <h2 class="section-title">Sobre o Especialista</h2>
         <p class="about-desc">
-          Olá, eu sou o <strong>André Luiz Ferreira</strong>, criador da <span class="text-neon">OCARECADEV</span>. 
-          Minha missão é transformar "sites bonitinhos" em verdadeiras máquinas de conversão. 
+          Olá, eu sou o <strong>André Luiz Ferreira</strong>, criador da <span
+            class="text-neon">OCARECADEV</span
+          >. Minha missão é transformar "sites bonitinhos" em verdadeiras
+          máquinas de conversão.
         </p>
         <p class="about-desc">
-          Com experiência profunda em desenvolvimento web e estratégias de alta performance, 
-          ajudo negócios a escalarem seus resultados com páginas projetadas milimetricamente para vender.
+          Com experiência profunda em desenvolvimento web e estratégias de alta
+          performance, ajudo negócios a escalarem seus resultados com páginas
+          projetadas milimetricamente para vender.
         </p>
-        
+
         <div class="stats-grid">
           <GlassCard class="stat-card" padding="1rem">
             <h3>+50</h3>
@@ -84,6 +91,7 @@ import GlassCard from '../ui/GlassCard.astro';
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 25%; /* Ajusta o enquadramento mais para o topo (rosto) */
     border-radius: 50%;
     position: relative;
     z-index: 2;

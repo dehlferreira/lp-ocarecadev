@@ -7,6 +7,9 @@ interface Props {
 }
 
 const { title, description = "OCARECADEV - Máquinas de Geração de Clientes" } = Astro.props;
+
+// Absolute URL para a imagem de preview funcionar corretamente no WhatsApp/Redes Sociais
+const ogImage = new URL('/images/logo-vertical.webp', Astro.url);
 ---
 
 <!doctype html>
@@ -15,9 +18,23 @@ const { title, description = "OCARECADEV - Máquinas de Geração de Clientes" }
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+
+		<!-- Open Graph / Preview Link Settings -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={ogImage} />
 
 		<!-- Tracking com Partytown (SPEC-005) -->
 		<!-- Google Analytics -->

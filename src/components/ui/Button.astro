@@ -21,6 +21,8 @@ const Tag = href ? 'a' : 'button';
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    white-space: nowrap;
     padding: 0.8rem 1.8rem;
     font-size: 1.1rem;
     font-weight: 600;
@@ -28,7 +30,7 @@ const Tag = href ? 'a' : 'button';
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animação mais elástica */
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px; /* Reduzi levemente o tracking para caber melhor */
     position: relative;
     overflow: hidden;
     /* Correção para backdrop-filter no Safari Mobile */
