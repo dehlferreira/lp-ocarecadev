@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/sections/Header.astro';
+import Hero from '../components/sections/Hero.astro';
+import SocialProof from '../components/sections/SocialProof.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import About from '../components/sections/About.astro';
+import Footer from '../components/sections/Footer.astro';
+---
+
+<Layout title="OCARECADEV | Máquinas de Geração de Clientes">
+	<Header />
+	<main>
+		<Hero />
+		<SocialProof />
+		<About />
+		<Pricing />
+	</main>
+	<Footer />
+
+  <!-- Script para disparar eventos de conversão (SPEC-005) -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Analytics
+      const ctaButtons = document.querySelectorAll('.btn-pricing-cta, #btn-hero-primary, #btn-header-cta');
+      ctaButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (typeof fbq === 'function') fbq('track', 'Lead');
+          if (typeof gtag === 'function') {
+            gtag('event', 'generate_lead', { currency: 'BRL', value: 997.00 });
+          }
+        });
+      });
+
+      // Animações de Scroll (SPEC-004)
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Remove a observação após animar a primeira vez
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Elementos que aparecem ao rolar (fade up em seções)
+      const revealElements = document.querySelectorAll('.scroll-reveal');
+      revealElements.forEach(el => observer.observe(el));
+
+      // Efeito de Parallax / Fade no Hero
+      const heroTitle = document.getElementById('hero-title');
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      const heroImage = document.getElementById('hero-image');
+
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        
+        // Efeito Header Glassmorphism dinâmico
+        const header = document.getElementById('main-header');
+        if (header) {
+          if (scrolled > 50) {
+            header.style.backgroundColor = 'rgba(10, 10, 10, 0.9)';
+            header.style.backdropFilter = 'blur(16px)';
+            header.style.borderBottom = '1px solid var(--glass-border)';
+          } else {
+            header.style.backgroundColor = 'transparent';
+            header.style.backdropFilter = 'none';
+            header.style.borderBottom = 'none';
+          }
+        }
+
+        // Parallax Hero
+        if (scrolled < window.innerHeight && heroTitle && heroSubtitle && heroImage) {
+          // Desloca elementos em velocidades diferentes e faz fade
+          const opacity = Math.max(1 - (scrolled / 500), 0);
+          heroTitle.style.transform = `translateY(${scrolled * 0.3}px)`;
+          heroTitle.style.opacity = opacity;
+          
+          heroSubtitle.style.transform = `translateY(${scrolled * 0.4}px)`;
+          heroSubtitle.style.opacity = opacity;
+          
+          heroImage.style.transform = `translateY(${scrolled * 0.15}px)`;
+          heroImage.style.opacity = opacity;
+        }
+      });
+    });
+  </script>
+</Layout>

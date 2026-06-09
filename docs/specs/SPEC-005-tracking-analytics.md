@@ -1,6 +1,6 @@
 # SPEC-005: Integração de Tracking (Partytown & Analytics)
 
-**Status:** [ ] Pendente | [ ] Em Progresso | [ ] Implementada
+**Status:** [x] Pendente | [x] Em Progresso | [x] Implementada
 
 > **⚠️ INSTRUÇÃO PARA AGENTES DE IA:**
 > Durante a execução desta especificação, você deve consultar este arquivo. Ao finalizar a implementação técnica, é sua obrigação retornar a este documento, marcar as caixas do `Definition of Done` (DoD) que foram concluídas e atualizar o **Status** no topo para `[x] Implementada`.
@@ -26,8 +26,8 @@ Para que a OCARECADEV analise suas campanhas de publicidade, a landing page prec
 - O número do WhatsApp deve ser puxado da variável de ambiente correspondente (`WHATSAPP_NUMBER` e `WHATSAPP_MESSAGE_DEFAULT`).
 
 ## 3. Definition of Done (DoD)
-- [ ] Partytown configurado e habilitado no `astro.config.mjs`.
-- [ ] Scripts do GA4 e Meta Pixel implementados no cabeçalho com o tipo `text/partytown`.
-- [ ] As chaves (IDs) foram parametrizadas via variáveis de ambiente.
-- [ ] Os cliques nos CTAs encaminham para o WhatsApp passando as mensagens padrão e tentam enviar o evento de Lead.
-- [ ] Auditoria do Lighthouse mostra que os scripts de terceiros não estão estrangulando o TBT (Total Blocking Time).
+- [x] Partytown configurado e habilitado no `astro.config.mjs`.
+- [x] Scripts do GA4 e Meta Pixel implementados no cabeçalho com o tipo `text/partytown`.
+- [x] As chaves (IDs) foram parametrizadas via variáveis de ambiente.
+- [x] Os cliques nos CTAs encaminham para o WhatsApp passando as mensagens padrão e tentam enviar o evento de Lead.
+- [x] Auditoria do Lighthouse mostra que os scripts de terceiros não estão estrangulando o TBT (Total Blocking Time).

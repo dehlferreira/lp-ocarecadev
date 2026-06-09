@@ -1,6 +1,6 @@
 # SPEC-006: Geração de Imagens e Mockups via IA
 
-**Status:** [ ] Pendente | [ ] Em Progresso | [ ] Implementada
+**Status:** [x] Pendente | [x] Em Progresso | [x] Implementada
 
 > **⚠️ INSTRUÇÃO PARA AGENTES DE IA:**
 > Durante a execução desta especificação, você deve consultar este arquivo. Ao finalizar a implementação técnica, é sua obrigação retornar a este documento, marcar as caixas do `Definition of Done` (DoD) que foram concluídas e atualizar o **Status** no topo para `[x] Implementada`.
@@ -12,7 +12,7 @@ Os PRDs (002 e 005) exigem que espaços ilustrativos na landing page (como a Her
 
 ### 2.1. Geração de Imagens (Tool: `generate_image`)
 O agente de IA deverá gerar no mínimo as seguintes imagens:
-- **Mockup Hero Section:** Uma ilustração em 3D isométrica ou estilo tecnológico/glassmorphism de um dashboard de alta conversão, para flutuar ao lado ou abaixo da copy principal na `Hero.astro`.
+- **Mockup Hero Section:** Uma ilustração em 3D isométrica ou estilo tecnológico/glassmorphism de um dashboard de alta conversão, para flutuar ao lado ou abaixo da copy principal na `Hero.astro`. **Atenção: O prompt DEVE exigir explicitamente o uso da paleta de cores "Dark UI with Neon Mint/Green accents" para combinar perfeitamente com a identidade visual da marca.**
 - **Avatares/Imagens de Apoio (Opcional):** Imagens de avatares genéricos ou de clientes para compor os prints de prova social, caso não tenhamos as imagens reais no repositório.
 
 ### 2.2. Otimização (WebP/AVIF)
@@ -25,7 +25,7 @@ O agente de IA deverá gerar no mínimo as seguintes imagens:
 - Elas serão integradas nos componentes durante a execução da `SPEC-003` (ou posteriormente se esta rodar depois).
 
 ## 3. Definition of Done (DoD)
-- [ ] A ferramenta `generate_image` foi utilizada para criar o mockup visual 3D/tecnológico da Hero Section.
-- [ ] As imagens geradas foram salvas dentro do diretório `src/assets/images/`.
-- [ ] O formato das imagens ou a integração com o componente `<Image />` do Astro garante a conversão para WebP/AVIF.
-- [ ] O layout principal não sofre gargalos de carregamento por culpa dessas imagens.
+- [x] A ferramenta `generate_image` foi utilizada para criar o mockup visual 3D/tecnológico da Hero Section respeitando a paleta Dark + Verde Neon.
+- [x] As imagens geradas foram salvas dentro do diretório `src/assets/images/`.
+- [x] O formato das imagens ou a integração com o componente `<Image />` do Astro garante a conversão para WebP/AVIF.
+- [x] O layout principal não sofre gargalos de carregamento por culpa dessas imagens.

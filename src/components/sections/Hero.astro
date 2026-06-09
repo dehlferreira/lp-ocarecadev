@@ -1,0 +1,157 @@
+---
+import Button from '../ui/Button.astro';
+import { Image } from 'astro:assets';
+import heroMockup from '../../assets/images/hero-mockup.png';
+---
+
+<section id="hero" class="hero-section">
+  <!-- Efeitos de Luz de Fundo Neon -->
+  <div class="neon-light light-1"></div>
+  <div class="neon-light light-2"></div>
+
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <h1 class="hero-title" id="hero-title">
+        Construímos sua <br/>
+        <span class="text-gradient">Máquina de Clientes</span>
+      </h1>
+      <p class="hero-subtitle" id="hero-subtitle">
+        Páginas de alta conversão focadas em vendas. Sem templates prontos, engenharia de ponta para escalar o seu negócio.
+      </p>
+      <div class="hero-ctas" id="hero-ctas">
+        <Button type="primary" href="#pricing" id="btn-hero-primary" class="btn-large">
+          Quero minha Máquina
+        </Button>
+        <Button type="ghost" href="#social-proof" class="btn-large">
+          Ver Resultados
+        </Button>
+      </div>
+    </div>
+    <div class="hero-visual" id="hero-image">
+      <Image src={heroMockup} alt="Dashboard de Alta Conversão" class="hero-img" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 0 4rem;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Textos */
+  .hero-content {
+    text-align: left;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    will-change: transform, opacity;
+  }
+
+  @media (min-width: 768px) {
+    .hero-title {
+      font-size: 4.5rem;
+    }
+  }
+
+  .text-gradient {
+    color: transparent;
+    background-image: linear-gradient(to right, var(--color-primary-neon), #00A666);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+    max-width: 500px;
+    will-change: transform, opacity;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    will-change: transform, opacity;
+  }
+
+  :global(.btn-large) {
+    font-size: 1.125rem !important;
+    padding: 16px 32px !important;
+  }
+
+  /* Imagem visual */
+  .hero-visual {
+    position: relative;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 50px rgba(139, 92, 246, 0.3));
+    transition: transform 0.5s ease;
+    will-change: transform, opacity;
+  }
+
+  .hero-img:hover {
+    transform: translateY(-10px);
+  }
+
+  /* Efeitos de Luz */
+  .neon-light {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    filter: blur(128px);
+    opacity: 0.2;
+    z-index: 1;
+  }
+
+  .light-1 {
+    top: 25%;
+    left: 25%;
+    width: 400px;
+    height: 400px;
+    background-color: var(--color-primary-neon);
+  }
+
+  .light-2 {
+    bottom: 25%;
+    right: 25%;
+    width: 400px;
+    height: 400px;
+    background-color: #00A666;
+  }
+</style>

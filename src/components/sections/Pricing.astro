@@ -1,0 +1,197 @@
+---
+import GlassCard from '../ui/GlassCard.astro';
+import Button from '../ui/Button.astro';
+---
+
+<section id="pricing" class="section-pricing">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title scroll-reveal">Escolha a sua Máquina</h2>
+      <p class="section-subtitle scroll-reveal delay-100">Planos transparentes e focados em ROI imediato.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Plano 1 -->
+      <GlassCard class="scroll-reveal delay-200 pricing-card">
+        <h3 class="plan-name">OCARECADEV EXPRESS</h3>
+        <p class="plan-desc">Para quem precisa validar rápido.</p>
+        <div class="plan-price">
+          R$ 297<span>/único</span>
+        </div>
+        <ul class="plan-features">
+          <li>✓ Setup em 24h</li>
+          <li>✓ 1 Sessão de Estrutura</li>
+          <li>✓ SEO Básico</li>
+          <li class="disabled">✗ Otimização de Imagens AVIF</li>
+          <li class="disabled">✗ Tracking Avançado</li>
+        </ul>
+        <Button type="ghost" class="btn-full btn-pricing-cta" href="https://wa.me/5511999999999?text=Olá, tenho interesse no plano EXPRESS">
+          Começar Agora
+        </Button>
+      </GlassCard>
+
+      <!-- Plano 2 (Destaque) -->
+      <GlassCard class="scroll-reveal delay-300 pricing-card highlight-card" highlight={true}>
+        <h3 class="plan-name">LANDING QUE VENDE</h3>
+        <p class="plan-desc">O equilíbrio perfeito para escalar.</p>
+        <div class="plan-price text-gradient">
+          R$ 997<span>/único</span>
+        </div>
+        <ul class="plan-features text-bright">
+          <li>✓ Setup em 3 dias</li>
+          <li>✓ Design Glassmorphism</li>
+          <li>✓ Tracking Avançado (Meta/GA4)</li>
+          <li>✓ Otimização Imagens WebP/AVIF</li>
+          <li>✓ Animações de Scroll (Vanilla)</li>
+        </ul>
+        <Button type="primary" class="btn-full btn-pricing-cta" href="https://wa.me/5511999999999?text=Olá, tenho interesse no plano LANDING QUE VENDE">
+          Garantir Minha Vaga
+        </Button>
+      </GlassCard>
+
+      <!-- Plano 3 -->
+      <GlassCard class="scroll-reveal delay-400 pricing-card">
+        <h3 class="plan-name">MÁQUINA DE CLIENTES</h3>
+        <p class="plan-desc">Para líderes de mercado.</p>
+        <div class="plan-price">
+          R$ 2.497<span>/único</span>
+        </div>
+        <ul class="plan-features">
+          <li>✓ Tudo do plano anterior</li>
+          <li>✓ Múltiplas Páginas (Funil)</li>
+          <li>✓ Teste A/B Configurado</li>
+          <li>✓ Suporte Prioritário 30 dias</li>
+          <li>✓ Integração CRM</li>
+        </ul>
+        <Button type="ghost" class="btn-full btn-pricing-cta" href="https://wa.me/5511999999999?text=Olá, tenho interesse no plano MÁQUINA DE CLIENTES">
+          Falar com Especialista
+        </Button>
+      </GlassCard>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-pricing {
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 3rem;
+    }
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+  }
+
+  .pricing-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .pricing-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Cards Internos */
+  :global(.pricing-card) {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+
+  :global(.highlight-card) {
+    transform: scale(1.05);
+    z-index: 10;
+  }
+
+  .plan-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .plan-desc {
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-price span {
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: #9ca3af;
+  }
+
+  .text-gradient {
+    color: transparent;
+    background-image: linear-gradient(to right, var(--color-primary-neon), #00A666);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+
+  .plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    flex-grow: 1;
+    color: #d1d5db;
+  }
+
+  .plan-features li {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .text-bright li {
+    color: #f3f4f6;
+    font-weight: 600;
+  }
+
+  .plan-features .disabled {
+    opacity: 0.4;
+  }
+
+  :global(.btn-full) {
+    width: 100%;
+    justify-content: center;
+  }
+</style>

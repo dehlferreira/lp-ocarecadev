@@ -1,7 +1,7 @@
 # ADR-007: Arquitetura de Tema e Design Tokens
 
 ## Contexto
-O design da página demanda um estilo muito específico e premium, focado em **Glassmorphism**, com forte ênfase em Dark Mode, fundos translúcidos e cores accent (neon/vibrantes). Conforme decidido no ADR-002 (utilização de Vanilla CSS/CSS Modules), precisamos de uma forma de gerenciar as cores, espaçamentos, tipografia e os tokens de vidro (blur, rgba, bordas) de maneira global para que todas as seções e landing pages mantenham consistência visual.
+O design da página demanda um estilo muito específico e premium, focado em **Glassmorphism**, com forte ênfase em Dark Mode, fundos translúcidos e cor accent principal definida como **Verde Neon / Mint** (ex: `#00FF9D`). Conforme decidido no ADR-002 (utilização de Vanilla CSS/CSS Modules), precisamos de uma forma de gerenciar as cores, espaçamentos, tipografia e os tokens de vidro (blur, rgba, bordas) de maneira global para que todas as seções e landing pages mantenham consistência visual.
 
 ## Opções Analisadas
 

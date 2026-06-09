@@ -1,0 +1,180 @@
+---
+import GlassCard from '../ui/GlassCard.astro';
+import { Image } from 'astro:assets';
+import avatar1 from '../../assets/images/avatar_1.png';
+---
+
+<section id="social-proof" class="section-social">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title scroll-reveal">Eles já estão faturando</h2>
+      <p class="section-subtitle scroll-reveal delay-100">Depoimentos reais de quem escalou com nossas Landing Pages.</p>
+    </div>
+
+    <div class="proof-grid">
+      <!-- Depoimento 1 -->
+      <GlassCard class="scroll-reveal delay-200">
+        <div class="proof-author">
+          <Image src={avatar1} alt="Cliente 1" class="avatar-img" />
+          <div class="author-info">
+            <h4>Roberto Almeida</h4>
+            <span>CEO, TechGrowth</span>
+          </div>
+        </div>
+        <p class="proof-text">"Nossas conversões dobraram na primeira semana após o lançamento. O design e a velocidade da página são absurdos."</p>
+        <div class="stars">★★★★★</div>
+      </GlassCard>
+
+      <!-- Depoimento 2 (Simulado) -->
+      <GlassCard class="scroll-reveal delay-300">
+        <div class="proof-author">
+          <div class="avatar-placeholder placeholder-1"></div>
+          <div class="author-info">
+            <h4>Mariana Costa</h4>
+            <span>Mentora de Vendas</span>
+          </div>
+        </div>
+        <p class="proof-text">"Sempre sofri com sites lentos que perdiam clientes no meio do caminho. A OCARECADEV resolveu isso e entregou uma verdadeira máquina de vendas."</p>
+        <div class="stars">★★★★★</div>
+      </GlassCard>
+
+      <!-- Depoimento 3 (Simulado) -->
+      <GlassCard class="scroll-reveal delay-400">
+        <div class="proof-author">
+          <div class="avatar-placeholder placeholder-2"></div>
+          <div class="author-info">
+            <h4>Carlos Moura</h4>
+            <span>Sócio, Agência XYZ</span>
+          </div>
+        </div>
+        <p class="proof-text">"Ter um código limpo e analytics injetado certinho nos botões me economizou muito tempo. O tracking funciona perfeitamente."</p>
+        <div class="stars">★★★★★</div>
+      </GlassCard>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-social {
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 3rem;
+    }
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+  }
+
+  .proof-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .proof-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .proof-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .avatar-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary-neon);
+    object-fit: cover;
+  }
+
+  .avatar-placeholder {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid var(--glass-border);
+  }
+
+  .placeholder-1 {
+    background: linear-gradient(to top right, #3b82f6, #7c3aed);
+    border-color: #00A666;
+  }
+
+  .placeholder-2 {
+    background: linear-gradient(to top right, #4ade80, #3b82f6);
+  }
+
+  .author-info h4 {
+    color: var(--color-text-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .author-info span {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .proof-text {
+    color: #e5e5e5;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .stars {
+    color: var(--color-primary-neon);
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+  }
+
+  /* Base state for scroll reveal animation (SPEC-004) */
+  :global(.scroll-reveal) {
+    opacity: 0;
+    transform: translateY(40px);
+    will-change: opacity, transform;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  :global(.scroll-reveal.visible) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  :global(.delay-100) { transition-delay: 100ms; }
+  :global(.delay-200) { transition-delay: 200ms; }
+  :global(.delay-300) { transition-delay: 300ms; }
+  :global(.delay-400) { transition-delay: 400ms; }
+</style>

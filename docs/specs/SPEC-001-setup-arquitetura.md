@@ -1,6 +1,6 @@
 # SPEC-001: Setup e Arquitetura Inicial
 
-**Status:** [ ] Pendente | [ ] Em Progresso | [ ] Implementada
+**Status:** [x] Pendente | [x] Em Progresso | [x] Implementada
 
 > **⚠️ INSTRUÇÃO PARA AGENTES DE IA:**
 > Durante a execução desta especificação, você deve consultar este arquivo. Ao finalizar a implementação técnica, é sua obrigação retornar a este documento, marcar as caixas do `Definition of Done` (DoD) que foram concluídas e atualizar o **Status** no topo para `[x] Implementada`.
@@ -28,15 +28,20 @@ Criar ou garantir a existência das seguintes pastas dentro de `src/`:
 - Criar o arquivo `src/styles/global.css`.
 - Importar fontes (`Inter` ou `Outfit` via Google Fonts no CSS).
 - Definir variáveis CSS no `:root`:
-  - Cores: Background dark (`#0a0a0a`), text-primary (`#ffffff`), text-secondary (`#a3a3a3`).
-  - Accent colors (ex: `var(--accent-primary)` para botões e manchas de luz).
+  - Cores: Background dark (`#0A0A0A`), text-primary (`#FFFFFF`), text-secondary (`#A3A3A3`).
+  - Accent colors: `var(--color-primary-neon)` (`#00FF9D`) para botões e manchas de luz (Verde Neon / Mint).
   - Valores Glassmorphism: `var(--glass-bg)` (fundo translúcido), `var(--glass-border)` (borda fina), `var(--glass-blur)` (desfoque).
 - Adicionar um CSS Reset básico.
 - Garantir que o `global.css` esteja importado no arquivo de Layout principal (`src/layouts/Layout.astro`).
 
+### 2.4. Importação e Conversão de Assets
+- Copiar os arquivos `logo-horizontal.jpg`, `logo-vertical.jpg` e `perfil.PNG` do diretório `docs/referencias/logos-perfil/` para a pasta do projeto (ex: `public/images/` ou `src/assets/images/`).
+- O agente responsável por esta migração DEVE converter essas imagens do formato original (JPG/PNG) para o formato moderno otimizado `.webp`, mantendo a transparência e qualidade.
+
 ## 3. Definition of Done (DoD)
-- [ ] O projeto Astro compila e roda perfeitamente via `npm run dev`.
-- [ ] O `package.json` está presente e as dependências instaladas.
-- [ ] A estrutura de pastas definida no requisito 2.2 existe e está correta.
-- [ ] O arquivo `global.css` contém as variáveis CSS nativas (ADR-007) e está sendo carregado no `Layout.astro`.
-- [ ] A página principal (`index.astro`) renderiza com sucesso as cores de fundo corretas estabelecidas pelo tema.
+- [x] O projeto Astro compila e roda perfeitamente via `npm run dev`.
+- [x] O `package.json` está presente e as dependências instaladas.
+- [x] A estrutura de pastas definida no requisito 2.2 existe e está correta.
+- [x] O arquivo `global.css` contém as variáveis CSS nativas (ADR-007) e está sendo carregado no `Layout.astro`.
+- [x] A página principal (`index.astro`) renderiza com sucesso as cores de fundo corretas estabelecidas pelo tema.
+- [x] As imagens de logo e perfil foram copiadas de `docs/referencias/logos-perfil/` para os assets do projeto e convertidas para formato `.webp`.

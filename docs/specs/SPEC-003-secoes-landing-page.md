@@ -1,6 +1,6 @@
 # SPEC-003: Montagem das Seções da Landing Page
 
-**Status:** [ ] Pendente | [ ] Em Progresso | [ ] Implementada
+**Status:** [x] Pendente | [x] Em Progresso | [x] Implementada
 
 > **⚠️ INSTRUÇÃO PARA AGENTES DE IA:**
 > Durante a execução desta especificação, você deve consultar este arquivo. Ao finalizar a implementação técnica, é sua obrigação retornar a este documento, marcar as caixas do `Definition of Done` (DoD) que foram concluídas e atualizar o **Status** no topo para `[x] Implementada`.
@@ -40,7 +40,7 @@ Com a base do Astro pronta e os componentes de UI (Botões e Cards de Vidro) fin
 - Editar `src/pages/index.astro` para importar e renderizar sequencialmente: `<Header />`, `<Hero />`, `<SocialProof />`, `<Pricing />`, `<Footer />`.
 
 ## 3. Definition of Done (DoD)
-- [ ] Todas as 5 seções principais foram codificadas como componentes Astro independentes em `src/components/sections/`.
-- [ ] A página principal (`index.astro`) importa e renderiza as 5 seções na ordem correta.
-- [ ] Os layouts de cada seção são responsivos (mobile-first mente, PRD-002).
-- [ ] As informações e preços corretos dos produtos (conforme PRD-001) foram inseridos em `Pricing.astro`.
+- [x] Todas as 5 seções principais foram codificadas como componentes Astro independentes em `src/components/sections/`.
+- [x] A página principal (`index.astro`) importa e renderiza as 5 seções na ordem correta.
+- [x] Os layouts de cada seção são responsivos (mobile-first mente, PRD-002).
+- [x] As informações e preços corretos dos produtos (conforme PRD-001) foram inseridos em `Pricing.astro`.

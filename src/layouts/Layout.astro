@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "OCARECADEV - Máquinas de Geração de Clientes" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+		<!-- Tracking com Partytown (SPEC-005) -->
+		<!-- Google Analytics -->
+		<script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`}></script>
+		<script type="text/partytown" define:vars={{ gaId: import.meta.env.PUBLIC_GA_ID }}>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', gaId);
+		</script>
+		<!-- Meta Pixel -->
+		<script type="text/partytown" define:vars={{ pixelId: import.meta.env.PUBLIC_META_PIXEL_ID }}>
+		  !function(f,b,e,v,n,t,s)
+		  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+		  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+		  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+		  n.queue=[];t=b.createElement(e);t.async=!0;
+		  t.src=v;s=b.getElementsByTagName(e)[0];
+		  s.parentNode.insertBefore(t,s)}(window, document,'script',
+		  'https://connect.facebook.net/en_US/fbevents.js');
+		  fbq('init', pixelId);
+		  fbq('track', 'PageView');
+		</script>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

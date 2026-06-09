@@ -1,0 +1,88 @@
+---
+import Button from '../ui/Button.astro';
+import GlassCard from '../ui/GlassCard.astro';
+---
+
+<header class="main-header" id="main-header">
+  <div class="container">
+    <GlassCard class="header-card">
+      <div class="logo">
+        <img src="/images/logo-horizontal.webp" alt="OCARECADEV Logo" style="height: 30px;" />
+      </div>
+      <nav class="nav">
+        <a href="#hero">Início</a>
+        <a href="#social-proof">Resultados</a>
+        <a href="#pricing">Planos</a>
+      </nav>
+      <div class="cta">
+        <Button type="primary" href="https://wa.me/5511999999999" id="btn-header-cta" class="btn-small" text="Falar com Consultor" />
+      </div>
+    </GlassCard>
+  </div>
+</header>
+
+<style>
+  .main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    padding: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  /* O Card sobrescreve o padding original para ficar menorzinho no header */
+  :global(.header-card) {
+    padding: 1rem 2rem !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.8) !important;
+  }
+
+  .logo {
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    color: var(--color-text-primary);
+  }
+
+
+
+  .nav {
+    display: none;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .nav {
+      display: flex;
+    }
+  }
+
+  .nav a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  .nav a:hover {
+    color: var(--color-text-primary);
+  }
+
+  /* Ajuste no botão se passarmos via classe */
+  :global(.btn-small) {
+    padding: 8px 16px !important;
+    font-size: 0.875rem !important;
+  }
+</style>

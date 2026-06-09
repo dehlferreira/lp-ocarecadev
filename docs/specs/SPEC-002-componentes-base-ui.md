@@ -1,6 +1,6 @@
 # SPEC-002: Componentes Base de UI
 
-**Status:** [ ] Pendente | [ ] Em Progresso | [ ] Implementada
+**Status:** [x] Pendente | [x] Em Progresso | [x] Implementada
 
 > **⚠️ INSTRUÇÃO PARA AGENTES DE IA:**
 > Durante a execução desta especificação, você deve consultar este arquivo. Ao finalizar a implementação técnica, é sua obrigação retornar a este documento, marcar as caixas do `Definition of Done` (DoD) que foram concluídas e atualizar o **Status** no topo para `[x] Implementada`.
@@ -27,7 +27,7 @@ Após o setup da arquitetura (SPEC-001), precisamos criar a biblioteca de compon
 - Requisito mínimo: Garantir que títulos grandes tenham estilo padronizado no CSS para o tema dark (cores brancas, subtítulos em cinza).
 
 ## 3. Definition of Done (DoD)
-- [ ] `Button.astro` criado e suportando variação visual (primary, ghost).
-- [ ] `GlassCard.astro` criado exibindo o estilo central de Glassmorphism.
-- [ ] Os componentes estão estilizados via Vanilla CSS (tags `<style>` locais no `.astro` ou globais usando CSS Modules/Vars).
-- [ ] Hover effects implementados nos componentes de interação (como botões).
+- [x] `Button.astro` criado e suportando variação visual (primary, ghost).
+- [x] `GlassCard.astro` criado exibindo o estilo central de Glassmorphism.
+- [x] Os componentes estão estilizados via Vanilla CSS (tags `<style>` locais no `.astro` ou globais usando CSS Modules/Vars).
+- [x] Hover effects implementados nos componentes de interação (como botões).

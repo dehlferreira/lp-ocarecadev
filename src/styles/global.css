@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+:root {
+  /* Fundo da Página (Base Dark) */
+  --color-bg-dark: #0A0A0A;
+  
+  /* Cor Accent Principal (Verde Neon / Mint) */
+  --color-primary-neon: #00FF9D;
+  --color-primary-hover: #00E58B;
+  
+  /* Textos Principais */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A3A3A3;
+  
+  /* Tokens para Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(0, 255, 157, 0.2);
+  --glass-blur: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-primary);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+/* Base utility classes for typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Utilities for neon text */
+.text-neon {
+  color: var(--color-primary-neon);
+}
+
+/* Hidden state for scroll animations */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

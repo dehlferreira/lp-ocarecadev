@@ -1,6 +1,6 @@
 # SPEC-004: Animações e Lógica de Scroll (Vanilla JS)
 
-**Status:** [ ] Pendente | [ ] Em Progresso | [ ] Implementada
+**Status:** [x] Pendente | [x] Em Progresso | [x] Implementada
 
 > **⚠️ INSTRUÇÃO PARA AGENTES DE IA:**
 > Durante a execução desta especificação, você deve consultar este arquivo. Ao finalizar a implementação técnica, é sua obrigação retornar a este documento, marcar as caixas do `Definition of Done` (DoD) que foram concluídas e atualizar o **Status** no topo para `[x] Implementada`.
@@ -22,7 +22,7 @@ O engajamento da landing page depende diretamente das animações atreladas ao s
 - Performance: Somente alterar `transform` e `opacity` para evitar saltos (Layout shift) durante a animação (PRD-003).
 
 ## 3. Definition of Done (DoD)
-- [ ] O script Vanilla JS para captura de scroll + Intersection Observer foi implementado sem o uso de bibliotecas pesadas externas (ex: GSAP).
-- [ ] O scroll funciona e repassa valores variáveis/classes sem causar gargalo de performance no navegador.
-- [ ] Os cards de Preço e elementos de Prova Social realizam animação leve (entrada/fade) ao entrar na tela.
-- [ ] A animação atende a diretriz estrita de alterar somente `transform` e/`opacity` e contém o css `will-change: transform` nos alvos principais.
+- [x] O script Vanilla JS para captura de scroll + Intersection Observer foi implementado sem o uso de bibliotecas pesadas externas (ex: GSAP).
+- [x] O scroll funciona e repassa valores variáveis/classes sem causar gargalo de performance no navegador.
+- [x] Os cards de Preço e elementos de Prova Social realizam animação leve (entrada/fade) ao entrar na tela.
+- [x] A animação atende a diretriz estrita de alterar somente `transform` e/`opacity` e contém o css `will-change: transform` nos alvos principais.
