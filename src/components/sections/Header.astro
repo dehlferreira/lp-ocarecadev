@@ -1,6 +1,6 @@
 ---
-import Button from '../ui/Button.astro';
-import GlassCard from '../ui/GlassCard.astro';
+import Button from "../ui/Button.astro";
+import GlassCard from "../ui/GlassCard.astro";
 ---
 
 <header class="main-header" id="main-header">
@@ -9,7 +9,7 @@ import GlassCard from '../ui/GlassCard.astro';
       <div class="logo">
         <img src="/images/logo-horizontal.webp" alt="OCARECADEV Logo" />
       </div>
-      
+
       <!-- Desktop Nav -->
       <nav class="nav">
         <a href="#hero">Início</a>
@@ -19,10 +19,22 @@ import GlassCard from '../ui/GlassCard.astro';
 
       <div class="cta-and-menu">
         <div class="cta desktop-cta">
-          <Button type="primary" href="https://wa.me/5511999999999" id="btn-header-cta" class="btn-small" text="Falar com Consultor" />
+          <Button
+            type="primary"
+            href="https://wa.me/5511999999999"
+            id="btn-header-cta"
+            class="btn-small"
+            text="Falar com Consultor"
+          />
         </div>
         <div class="cta mobile-cta">
-          <Button type="primary" href="https://wa.me/5511999999999" id="btn-header-cta-mobile" class="btn-small" text="Contato" />
+          <Button
+            type="primary"
+            href="https://wa.me/5511999999999"
+            id="btn-header-cta-mobile"
+            class="btn-small"
+            text="Contato"
+          />
         </div>
         <button class="mobile-menu-toggle" aria-label="Abrir menu">
           <span class="hamburger-line"></span>
@@ -66,7 +78,7 @@ import GlassCard from '../ui/GlassCard.astro';
     padding: 8px 14px !important;
     font-size: 0.8rem !important;
   }
-  
+
   @media (min-width: 768px) {
     .btn-small {
       padding: 8px 16px !important;
@@ -143,7 +155,7 @@ import GlassCard from '../ui/GlassCard.astro';
   .desktop-cta {
     display: none;
   }
-  
+
   .mobile-cta {
     display: block;
   }
@@ -241,10 +253,13 @@ import GlassCard from '../ui/GlassCard.astro';
     font-size: 1.5rem;
     font-weight: 700;
     text-decoration: none;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
   }
 
-  .mobile-nav-link:hover, .mobile-nav-link:active {
+  .mobile-nav-link:hover,
+  .mobile-nav-link:active {
     color: var(--color-primary, #10b981);
     transform: scale(1.05);
   }
@@ -253,28 +268,32 @@ import GlassCard from '../ui/GlassCard.astro';
 <script>
   // Mobile Menu Logic
   const setupMobileMenu = () => {
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileMenuOverlay = document.getElementById('mobile-menu');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-    
+    const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+    const mobileMenuOverlay = document.getElementById("mobile-menu");
+    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
     if (mobileMenuToggle && mobileMenuOverlay && mobileMenuToggle.parentNode) {
       // Remove evt listeners prev to avoid multiple bindings
       const newToggle = mobileMenuToggle.cloneNode(true) as HTMLElement;
       mobileMenuToggle.parentNode.replaceChild(newToggle, mobileMenuToggle);
-      
+
       const toggleMenu = () => {
-        newToggle.classList.toggle('active');
-        mobileMenuOverlay.classList.toggle('active');
-        document.body.style.overflow = mobileMenuOverlay.classList.contains('active') ? 'hidden' : '';
+        newToggle.classList.toggle("active");
+        mobileMenuOverlay.classList.toggle("active");
+        document.body.style.overflow = mobileMenuOverlay.classList.contains(
+          "active",
+        )
+          ? "hidden"
+          : "";
       };
 
-      newToggle.addEventListener('click', toggleMenu);
+      newToggle.addEventListener("click", toggleMenu);
 
-      mobileNavLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          newToggle.classList.remove('active');
-          mobileMenuOverlay.classList.remove('active');
-          document.body.style.overflow = '';
+      mobileNavLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          newToggle.classList.remove("active");
+          mobileMenuOverlay.classList.remove("active");
+          document.body.style.overflow = "";
         });
       });
     }
@@ -282,7 +301,7 @@ import GlassCard from '../ui/GlassCard.astro';
 
   // Run on first load
   setupMobileMenu();
-  
+
   // Run on Astro view transitions
-  document.addEventListener('astro:page-load', setupMobileMenu);
+  document.addEventListener("astro:page-load", setupMobileMenu);
 </script>
