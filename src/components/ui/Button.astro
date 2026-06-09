@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  text: string;
+  text?: string;
   href?: string;
   type?: 'primary' | 'ghost';
   class?: string;
@@ -11,7 +11,7 @@ const Tag = href ? 'a' : 'button';
 ---
 
 <Tag href={href} class:list={['btn', `btn-${type}`, className]}>
-  {text}
+  {text ? text : <slot />}
 </Tag>
 
 <style>
