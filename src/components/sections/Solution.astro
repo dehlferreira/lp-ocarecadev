@@ -1,0 +1,126 @@
+---
+import GlassCard from '../ui/GlassCard.astro';
+import HeroMockup from '../ui/HeroMockup.astro';
+---
+
+<section id="solucao" class="section-solution section-fade-top section-fade-bottom">
+  <div class="neon-glow"></div>
+
+  <div class="container">
+    <GlassCard class="solution-card scroll-animate">
+      <h2 class="solution-title">
+        Agora imagina ter uma página que trabalha por você todos os dias
+      </h2>
+      
+      <p class="solution-text">Na OCARECADEV, nós não criamos "sites bonitos".</p>
+      
+      <p class="solution-highlight">
+        👉 Nós criamos páginas pensadas para gerar <span class="text-neon">clientes</span>.
+      </p>
+
+      <div class="solution-mockup-container scroll-animate delay-100">
+        <HeroMockup />
+      </div>
+      
+      <p class="solution-text last">
+        Cada detalhe é feito para uma coisa:<br/>
+        fazer o visitante clicar, entrar em contato e virar <span class="text-neon">cliente</span>.
+      </p>
+    </GlassCard>
+  </div>
+</section>
+
+<style>
+  .section-solution {
+    padding: 4rem 0;
+    position: relative;
+    background-color: #030303;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .section-solution {
+      padding: 8rem 0;
+    }
+  }
+
+  .neon-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 255, 157, 0.1) 0%, rgba(0,0,0,0) 70%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  :global(.solution-card) {
+    text-align: center;
+    padding: 2rem 1.5rem !important;
+  }
+
+  @media (min-width: 768px) {
+    :global(.solution-card) {
+      padding: 4rem 2rem !important;
+    }
+  }
+
+  .solution-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: 2.5rem;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 768px) {
+    .solution-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .solution-text {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .solution-text.last {
+    margin-bottom: 0;
+    margin-top: 1.5rem;
+  }
+
+  .solution-highlight {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    background: rgba(0, 255, 157, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    display: inline-block;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .solution-highlight {
+      font-size: 1.5rem;
+    }
+  }
+
+  .solution-mockup-container {
+    max-width: 700px;
+    margin: 1rem auto 0.5rem;
+  }
+</style>

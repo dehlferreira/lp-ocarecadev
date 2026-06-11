@@ -1,0 +1,95 @@
+---
+import GlassCard from '../ui/GlassCard.astro';
+---
+
+<section id="faq" class="section-faq section-fade-top section-fade-bottom">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title scroll-animate">Ainda com dúvidas?</h2>
+    </div>
+
+    <div class="faq-grid">
+      <GlassCard class="faq-item scroll-animate delay-100">
+        <h3>Preciso entender de tecnologia?</h3>
+        <p>Não. Nós cuidamos de tudo.</p>
+      </GlassCard>
+
+      <GlassCard class="faq-item scroll-animate delay-200">
+        <h3>Em quanto tempo fica pronto?</h3>
+        <p>A partir de 48h no plano Express.</p>
+      </GlassCard>
+
+      <GlassCard class="faq-item scroll-animate delay-300">
+        <h3>Vou conseguir editar depois?</h3>
+        <p>Sim, você terá acesso.</p>
+      </GlassCard>
+
+      <GlassCard class="faq-item scroll-animate delay-400">
+        <h3>Isso realmente funciona?</h3>
+        <p>Funciona quando é feito da forma certa — e é isso que fazemos.</p>
+      </GlassCard>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-faq {
+    padding: 4rem 0;
+    position: relative;
+    background-color: #010101;
+  }
+
+  @media (min-width: 768px) {
+    .section-faq {
+      padding: 6rem 0;
+    }
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .faq-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  :global(.faq-item) {
+    padding: 1.5rem 2rem !important;
+  }
+
+  :global(.faq-item) h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  :global(.faq-item) p {
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+</style>

@@ -1,12 +1,21 @@
 ---
 import GlassCard from '../ui/GlassCard.astro';
+import BeforeAfterMockup from '../ui/BeforeAfterMockup.astro';
 ---
 
 <section id="social-proof" class="section-social section-fade-top section-fade-bottom" style="--fade-from: #010101;">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title scroll-animate">Eles já estão faturando</h2>
-      <p class="section-subtitle scroll-animate delay-100">Depoimentos reais de quem escalou com nossas Landing Pages.</p>
+      <h2 class="section-title scroll-animate"><span class="text-neon">Resultados</span> falam mais que qualquer promessa</h2>
+      <ul class="section-subtitle-list scroll-animate delay-100">
+        <li>✓ Mais mensagens no WhatsApp</li>
+        <li>✓ Mais pedidos de orçamento</li>
+        <li>✓ Mais <span class="text-neon">clientes</span> entrando todos os dias</li>
+      </ul>
+    </div>
+
+    <div class="mockup-container scroll-animate delay-150">
+      <BeforeAfterMockup />
     </div>
 
     <div class="proof-grid">
@@ -54,9 +63,15 @@ import GlassCard from '../ui/GlassCard.astro';
 
 <style>
   .section-social {
-    padding: 6rem 0;
+    padding: 4rem 0;
     position: relative;
-    overflow: hidden;
+    background-color: #010101;
+  }
+
+  @media (min-width: 768px) {
+    .section-social {
+      padding: 6rem 0;
+    }
   }
 
   .container {
@@ -74,10 +89,16 @@ import GlassCard from '../ui/GlassCard.astro';
   }
 
   .section-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
     color: var(--color-text-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 2.5rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -86,9 +107,30 @@ import GlassCard from '../ui/GlassCard.astro';
     }
   }
 
-  .section-subtitle {
+  .section-subtitle-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     font-size: 1.125rem;
     color: var(--color-text-secondary);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .section-subtitle-list {
+      flex-direction: row;
+      justify-content: center;
+      gap: 2rem;
+    }
+  }
+
+  .mockup-container {
+    max-width: 760px;
+    margin: 0 auto 4rem;
+    padding: 0 0.5rem;
   }
 
   .proof-grid {

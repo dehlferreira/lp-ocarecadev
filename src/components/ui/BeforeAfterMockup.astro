@@ -1,0 +1,239 @@
+---
+// Mockup CSS: comparação "Antes" (site genérico) x "Depois" (página premium neon).
+// Sem texto em inglês — substitui a imagem gerada por IA `mockup-antes-depois`.
+---
+
+<div class="ba-mockup">
+  <!-- ANTES: site genérico e sem graça -->
+  <figure class="ba-card before">
+    <span class="ba-tag tag-before">Antes</span>
+    <div class="win win-dull">
+      <div class="win-bar">
+        <span class="d"></span><span class="d"></span><span class="d"></span>
+      </div>
+      <div class="win-body">
+        <div class="dull-hero">
+          <span class="block w-60 h-8"></span>
+          <span class="block w-40 h-5"></span>
+          <span class="block w-24 h-7 btn-dull"></span>
+        </div>
+        <div class="dull-grid">
+          <span class="block sq"></span>
+          <span class="block sq"></span>
+          <span class="block sq"></span>
+        </div>
+      </div>
+    </div>
+  </figure>
+
+  <div class="ba-arrow" aria-hidden="true">→</div>
+
+  <!-- DEPOIS: página premium dark + neon -->
+  <figure class="ba-card after">
+    <span class="ba-tag tag-after">Depois</span>
+    <div class="win win-premium">
+      <div class="win-bar bar-dark">
+        <span class="d"></span><span class="d"></span><span class="d"></span>
+      </div>
+      <div class="win-body body-dark">
+        <div class="prem-hero">
+          <span class="badge"></span>
+          <span class="block w-60 h-8 bright"></span>
+          <span class="block w-44 h-5 mid"></span>
+          <span class="block w-28 h-8 btn-neon"></span>
+        </div>
+        <div class="prem-grid">
+          <span class="block card-neon"></span>
+          <span class="block card-neon"></span>
+          <span class="block card-neon"></span>
+        </div>
+      </div>
+    </div>
+  </figure>
+</div>
+
+<style>
+  .ba-mockup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .ba-card {
+    position: relative;
+    flex: 1;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .ba-tag {
+    position: absolute;
+    top: -12px;
+    left: 12px;
+    z-index: 3;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+  }
+
+  .tag-before {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .tag-after {
+    background: linear-gradient(135deg, var(--color-primary-neon), #00A666);
+    color: var(--color-bg-dark);
+    box-shadow: 0 4px 14px rgba(0, 255, 157, 0.3);
+  }
+
+  .win {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .win-dull {
+    background: #e9eaec;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+    opacity: 0.85;
+    filter: saturate(0.6);
+  }
+
+  .win-premium {
+    background: #0c0e11;
+    box-shadow:
+      0 18px 44px rgba(0, 0, 0, 0.55),
+      0 0 40px rgba(0, 255, 157, 0.14);
+  }
+
+  .win-bar {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    padding: 0.5rem 0.7rem;
+    background: #d4d6da;
+  }
+
+  .bar-dark {
+    background: #15181d;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .d {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .bar-dark .d {
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  .win-body {
+    padding: 1.1rem 1rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 190px;
+  }
+
+  .dull-hero,
+  .prem-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .block {
+    display: block;
+    border-radius: 5px;
+  }
+
+  /* Tamanhos */
+  .w-24 { width: 60px; }
+  .w-28 { width: 72px; }
+  .w-40 { width: 56%; }
+  .w-44 { width: 62%; }
+  .w-60 { width: 78%; }
+  .h-5 { height: 7px; }
+  .h-7 { height: 24px; }
+  .h-8 { height: 11px; }
+
+  /* ANTES (cinza) */
+  .dull-hero .block { background: rgba(0, 0, 0, 0.18); }
+  .btn-dull { background: rgba(0, 0, 0, 0.3) !important; border-radius: 6px; }
+
+  .dull-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  .sq {
+    aspect-ratio: 1;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+  }
+
+  /* DEPOIS (neon) */
+  .body-dark { background: linear-gradient(160deg, rgba(0,255,157,0.06), transparent 60%); }
+
+  .badge {
+    width: 46px;
+    height: 9px;
+    border-radius: 20px;
+    background: rgba(0, 255, 157, 0.18);
+    border: 1px solid rgba(0, 255, 157, 0.3);
+  }
+
+  .bright { background: rgba(255, 255, 255, 0.85); }
+  .mid { background: rgba(255, 255, 255, 0.35); }
+
+  .btn-neon {
+    background: linear-gradient(135deg, var(--color-primary-neon), #00A666) !important;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 255, 157, 0.35);
+  }
+
+  .prem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  .card-neon {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(0, 255, 157, 0.18);
+  }
+  .card-neon:nth-child(2) { border-color: rgba(0, 255, 157, 0.35); }
+
+  .ba-arrow {
+    flex-shrink: 0;
+    font-size: 1.6rem;
+    color: var(--color-primary-neon);
+    text-shadow: 0 0 12px rgba(0, 255, 157, 0.6);
+  }
+
+  @media (max-width: 600px) {
+    .ba-mockup {
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+    .ba-card { width: 100%; }
+    .ba-arrow { transform: rotate(90deg); }
+  }
+</style>

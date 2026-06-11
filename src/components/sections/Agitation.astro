@@ -1,0 +1,98 @@
+---
+import FrustrationChart from '../ui/FrustrationChart.astro';
+---
+
+<section id="agitacao" class="section-agitation section-fade-bottom">
+  <div class="container">
+    <div class="agitation-content">
+      <p class="agitation-big scroll-animate">
+        Você investiu tempo, dinheiro…<br/>
+        e no fim, tem só uma página parada na internet.
+      </p>
+
+      <div class="agitation-words scroll-animate delay-100">
+        <p>Sem retorno.</p>
+        <p>Sem previsibilidade.</p>
+        <p>Sem controle.</p>
+      </div>
+
+      <div class="frustration-img-container scroll-animate delay-150">
+        <FrustrationChart />
+      </div>
+
+      <p class="agitation-highlight scroll-animate delay-200">
+        👉 Isso não é um site. É um <span class="text-neon">custo</span>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-agitation {
+    padding: 4rem 0;
+    position: relative;
+    background-color: #010101;
+  }
+
+  @media (min-width: 768px) {
+    .section-agitation {
+      padding: 8rem 0;
+    }
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+  }
+
+  .agitation-big {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1.3;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .agitation-big {
+      font-size: 2.5rem;
+    }
+  }
+
+  .agitation-words {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .agitation-words {
+      font-size: 1.5rem;
+    }
+  }
+
+  .frustration-img-container {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  .agitation-highlight {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+  }
+
+  @media (min-width: 768px) {
+    .agitation-highlight {
+      font-size: 1.75rem;
+    }
+  }
+</style>

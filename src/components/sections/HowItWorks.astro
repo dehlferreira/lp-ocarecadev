@@ -1,0 +1,123 @@
+---
+import GlassCard from '../ui/GlassCard.astro';
+---
+
+<section id="como-funciona" class="section-how section-fade-top section-fade-bottom">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title scroll-animate">Um processo simples, direto e focado em <span class="text-neon">resultado</span></h2>
+    </div>
+
+    <div class="steps-grid">
+      <GlassCard class="step-card scroll-animate delay-100">
+        <div class="step-number">01</div>
+        <h3 class="step-title">Estrutura validada</h3>
+        <p class="step-desc">Usamos modelos que já funcionam</p>
+      </GlassCard>
+
+      <GlassCard class="step-card scroll-animate delay-200">
+        <div class="step-number">02</div>
+        <h3 class="step-title">Personalização</h3>
+        <p class="step-desc">Adaptamos para o seu negócio</p>
+      </GlassCard>
+
+      <GlassCard class="step-card scroll-animate delay-300">
+        <div class="step-number">03</div>
+        <h3 class="step-title">Publicação rápida</h3>
+        <p class="step-desc">Seu site no ar em poucos dias</p>
+      </GlassCard>
+
+      <GlassCard class="step-card scroll-animate delay-400">
+        <div class="step-number">04</div>
+        <h3 class="step-title">Geração de leads</h3>
+        <p class="step-desc">Visitantes viram contatos no WhatsApp</p>
+      </GlassCard>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-how {
+    padding: 4rem 0;
+    position: relative;
+    background-color: #0A0A0A;
+  }
+
+  @media (min-width: 768px) {
+    .section-how {
+      padding: 8rem 0;
+    }
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 3rem;
+    }
+  }
+
+  .steps-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .steps-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  :global(.step-card) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem !important;
+  }
+
+  .step-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-primary-neon);
+    margin-bottom: 1rem;
+    line-height: 1;
+    opacity: 0.5;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-desc {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+  }
+</style>

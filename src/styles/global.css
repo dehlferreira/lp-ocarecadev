@@ -72,11 +72,31 @@ p {
   color: var(--color-primary-neon);
 }
 
+/* Compensa o header fixo ao navegar por âncoras (#pricing, #como-funciona, etc.) */
+html {
+  scroll-behavior: smooth;
+}
+
+:target,
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 /* Hidden state for scroll animations (Fallback for non-supporting browsers) */
 .scroll-animate {
   opacity: 0;
   transform: translateY(40px);
   will-change: opacity, transform;
+}
+
+/* Acessibilidade: usuários com "reduzir movimento" não disparam as animações
+   scroll-driven nem o fallback JS, então o conteúdo precisa ser visível de imediato.
+   Sem isso, todo .scroll-animate ficaria opacity:0 permanentemente no Chrome/Edge. */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-animate {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,10 +1,14 @@
 ---
-import Button from '../ui/Button.astro';
-import { Image } from 'astro:assets';
-import heroPerfil from '../../assets/images/hero-perfil.webp';
+import Button from "../ui/Button.astro";
+import { Image } from "astro:assets";
+import heroPerfil from "../../assets/images/hero-perfil.webp";
 ---
 
-<section id="hero" class="hero-section section-fade-bottom" style="--fade-to: #0A0A0A;">
+<section
+  id="hero"
+  class="hero-section section-fade-bottom"
+  style="--fade-to: #0A0A0A;"
+>
   <!-- Efeitos de Luz de Fundo Neon -->
   <div class="neon-light light-1"></div>
   <div class="neon-light light-2"></div>
@@ -12,23 +16,69 @@ import heroPerfil from '../../assets/images/hero-perfil.webp';
   <div class="container hero-grid">
     <div class="hero-content">
       <h1 class="hero-title" id="hero-title">
-        Construímos sua <br/>
-        <span class="text-gradient">Máquina de Clientes</span>
+        Seu site não precisa ser bonito.<br />
+        Precisa trazer <span class="text-neon">clientes</span> todos os dias.
       </h1>
       <p class="hero-subtitle" id="hero-subtitle">
-        Páginas de alta conversão focadas em vendas. Sem templates prontos, engenharia de ponta para escalar o seu negócio.
+        Criamos páginas pensadas para transformar visitantes em <span
+          class="text-neon">clientes</span
+        > — mesmo que hoje seu site não gere nenhum <span class="text-neon"
+          >resultado</span
+        >.
       </p>
       <div class="hero-ctas" id="hero-ctas">
-        <Button type="primary" href="#pricing" id="btn-hero-primary" class="btn-large">
-          Quero minha Máquina
+        <Button
+          type="primary"
+          href="#pricing"
+          id="btn-hero-primary"
+          class="btn-large btn-cta-primary"
+        >
+          <span>Quero minha página que vende</span>
+          <svg
+            class="cta-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+          </svg>
         </Button>
-        <Button type="ghost" href="#social-proof" class="btn-large">
-          Ver Resultados
+        <Button
+          type="ghost"
+          href="#como-funciona"
+          class="btn-large btn-cta-ghost"
+        >
+          <svg
+            class="cta-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10"></circle><polygon
+              points="10 8 16 12 10 16 10 8"
+              fill="currentColor"
+              stroke="none"></polygon>
+          </svg>
+          <span>Ver como funciona</span>
         </Button>
       </div>
     </div>
     <div class="hero-visual" id="hero-image">
-      <Image src={heroPerfil} alt="André - Especialista em Landing Pages" class="hero-img" loading="eager" fetchpriority="high" />
+      <Image
+        src={heroPerfil}
+        alt="André - Especialista em Landing Pages"
+        class="hero-img"
+        loading="eager"
+        fetchpriority="high"
+      />
     </div>
   </div>
 </section>
@@ -40,7 +90,7 @@ import heroPerfil from '../../assets/images/hero-perfil.webp';
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8rem 0 4rem;
+    padding: 8rem 0 3rem;
     overflow: hidden;
     background-color: #010101;
 
@@ -73,6 +123,9 @@ import heroPerfil from '../../assets/images/hero-perfil.webp';
   }
 
   @media (min-width: 768px) {
+    .hero-section {
+      padding: 8rem 0 4rem;
+    }
     .hero-grid {
       grid-template-columns: 1fr 1fr;
     }
@@ -84,42 +137,109 @@ import heroPerfil from '../../assets/images/hero-perfil.webp';
   }
 
   .hero-title {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 800;
     color: var(--color-text-primary);
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
+    line-height: 1.15;
+    margin-bottom: 1rem;
   }
 
   @media (min-width: 768px) {
     .hero-title {
-      font-size: 4.5rem;
+      font-size: 3.25rem;
+      line-height: 1.08;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .hero-title {
+      font-size: 3.5rem;
     }
   }
 
   .text-gradient {
     color: transparent;
-    background-image: linear-gradient(to right, var(--color-primary-neon), #00A666);
+    background-image: linear-gradient(
+      to right,
+      var(--color-primary-neon),
+      #00a666
+    );
     background-clip: text;
     -webkit-background-clip: text;
   }
 
   .hero-subtitle {
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: var(--color-text-secondary);
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
     max-width: 500px;
+    line-height: 1.5;
+  }
+
+  @media (min-width: 768px) {
+    .hero-subtitle {
+      font-size: 1.15rem;
+    }
   }
 
   .hero-ctas {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.9rem;
+  }
+
+  /* Ícones dentro dos CTAs */
+  .hero-ctas :global(.btn) {
+    gap: 0.6rem;
+  }
+
+  .hero-ctas :global(.cta-icon) {
+    width: 1.15em;
+    height: 1.15em;
+    flex-shrink: 0;
+  }
+
+  /* Micro-interação: seta desliza ao passar o mouse */
+  .hero-ctas :global(.btn-cta-primary .cta-icon) {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .hero-ctas :global(.btn-cta-primary:hover .cta-icon) {
+    transform: translateX(5px);
+  }
+
+  /* Ícone "play" cresce levemente no hover */
+  .hero-ctas :global(.btn-cta-ghost .cta-icon) {
+    color: var(--color-primary-neon);
+    transition: transform 0.3s ease;
+  }
+
+  .hero-ctas :global(.btn-cta-ghost:hover .cta-icon) {
+    transform: scale(1.12);
+  }
+
+  /* Mobile: botões full-width e alinhados (tap targets maiores) */
+  @media (max-width: 767px) {
+    .hero-ctas {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+    }
+    .hero-ctas :global(.btn) {
+      width: 100%;
+    }
   }
 
   :global(.btn-large) {
-    font-size: 1.125rem !important;
-    padding: 16px 32px !important;
+    font-size: 1rem !important;
+    padding: 13px 24px !important;
+  }
+
+  @media (min-width: 768px) {
+    :global(.btn-large) {
+      font-size: 1.125rem !important;
+      padding: 16px 32px !important;
+    }
   }
 
   /* Imagem visual */
@@ -159,14 +279,20 @@ import heroPerfil from '../../assets/images/hero-perfil.webp';
     left: 5%;
     width: 400px;
     height: 400px;
-    background-color: #00A666;
+    background-color: #00a666;
     translate: calc(var(--mouse-x) * 100px) calc(var(--mouse-y) * 100px);
     animation: float-neon 15s ease-in-out infinite alternate-reverse;
   }
 
   @keyframes float-neon {
-    0% { transform: scale(1) translate(0, 0); }
-    50% { transform: scale(1.2) translate(100px, -100px); }
-    100% { transform: scale(0.8) translate(-100px, 100px); }
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    50% {
+      transform: scale(1.2) translate(100px, -100px);
+    }
+    100% {
+      transform: scale(0.8) translate(-100px, 100px);
+    }
   }
 </style>

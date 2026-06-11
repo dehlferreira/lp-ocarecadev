@@ -47,11 +47,9 @@ const initScrollAnimations = () => {
     document.documentElement.style.setProperty('--scroll-y', scrolled + 'px');
 
     if (header) {
-      if (scrolled > 50) {
-        header.style.padding = '0.5rem 1rem';
-      } else {
-        header.style.padding = '1rem';
-      }
+      // Anima só o padding vertical (encolhe ao rolar); o horizontal fica no CSS
+      // para o header manter o mesmo gutter das seções (1rem).
+      header.style.paddingBlock = scrolled > 50 ? '0.5rem' : '1rem';
     }
 
     // Hero "Dissolve com Blur" — animação cinematográfica bidirecional

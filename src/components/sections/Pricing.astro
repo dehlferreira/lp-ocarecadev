@@ -8,28 +8,27 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
 <section id="pricing" class="section-pricing section-fade-top">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title scroll-animate">Escolha a sua Máquina</h2>
-      <p class="section-subtitle scroll-animate delay-100">Planos transparentes e focados em ROI imediato.</p>
+      <h2 class="section-title scroll-animate">Escolha o plano ideal para o seu momento</h2>
     </div>
 
     <div class="pricing-grid">
       <!-- Plano 1 -->
       <GlassCard class="scroll-animate delay-200 pricing-card">
         <h3 class="plan-name">OCARECADEV EXPRESS</h3>
-        <p class="plan-desc">Para quem precisa validar rápido.</p>
+        <p class="plan-desc">Para quem precisa entrar no ar rápido.</p>
         <div class="plan-price">
           R$ 297<span>/único</span>
         </div>
         <p class="plan-installments">ou 12x de R$ 24,75 sem juros</p>
         <ul class="plan-features">
-          <li>✓ Setup em 24h</li>
-          <li>✓ 1 Sessão de Estrutura</li>
-          <li>✓ SEO Básico</li>
-          <li class="disabled">✗ Otimização de Imagens AVIF</li>
-          <li class="disabled">✗ Tracking Avançado</li>
+          <li>✓ Landing page simples</li>
+          <li>✓ Template validado</li>
+          <li>✓ Personalização básica</li>
+          <li>✓ Botão direto para WhatsApp</li>
+          <li>✓ Entrega em até 48h</li>
         </ul>
         <Button type="ghost" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano EXPRESS`}>
-          Começar Agora
+          Quero começar rápido
         </Button>
       </GlassCard>
 
@@ -37,40 +36,41 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
       <GlassCard class="scroll-animate delay-300 pricing-card highlight-card" highlight={true}>
         <div class="recommended-badge">Recomendado</div>
         <h3 class="plan-name">LANDING QUE VENDE</h3>
-        <p class="plan-desc">O equilíbrio perfeito para escalar.</p>
+        <p class="plan-desc">Para quem quer gerar <span class="text-neon">clientes</span> de verdade.</p>
         <div class="plan-price text-gradient">
           R$ 997<span>/único</span>
         </div>
         <p class="plan-installments highlight-installments">ou 12x de R$ 83,08 sem juros</p>
         <ul class="plan-features text-bright">
-          <li>✓ Setup em 3 dias</li>
-          <li>✓ Design Glassmorphism</li>
-          <li>✓ Tracking Avançado (Meta/GA4)</li>
-          <li>✓ Otimização Imagens WebP/AVIF</li>
-          <li>✓ Animações de Scroll (Vanilla)</li>
+          <li>✓ Estrutura focada em conversão</li>
+          <li>✓ Design premium</li>
+          <li>✓ CTA estratégico</li>
+          <li>✓ Integração WhatsApp e Analytics</li>
+          <li>✓ Tracking de cliques e leads</li>
+          <li>✓ 1 revisão estratégica</li>
         </ul>
         <Button type="primary" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano LANDING QUE VENDE`}>
-          Garantir Minha Vaga
+          Quero uma página que gera clientes
         </Button>
       </GlassCard>
 
       <!-- Plano 3 -->
       <GlassCard class="scroll-animate delay-400 pricing-card">
         <h3 class="plan-name">MÁQUINA DE CLIENTES</h3>
-        <p class="plan-desc">Para líderes de mercado.</p>
+        <p class="plan-desc">Para quem quer presença profissional e escala.</p>
         <div class="plan-price">
           R$ 2.497<span>/único</span>
         </div>
         <p class="plan-installments">ou 12x de R$ 208,08 sem juros</p>
         <ul class="plan-features">
-          <li>✓ Tudo do plano anterior</li>
-          <li>✓ Múltiplas Páginas (Funil)</li>
-          <li>✓ Teste A/B Configurado</li>
-          <li>✓ Suporte Prioritário 30 dias</li>
-          <li>✓ Integração CRM</li>
+          <li>✓ 3 a 5 páginas completas</li>
+          <li>✓ Estrutura estratégica</li>
+          <li>✓ Integrações e tracking</li>
+          <li>✓ Pronto para tráfego pago</li>
+          <li>✓ Otimização de conversão</li>
         </ul>
         <Button type="ghost" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano MÁQUINA DE CLIENTES`}>
-          Falar com Especialista
+          Quero um sistema completo
         </Button>
       </GlassCard>
     </div>
@@ -79,9 +79,15 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
 
 <style>
   .section-pricing {
-    padding: 6rem 0;
+    padding: 4rem 0;
     position: relative;
-    overflow: hidden;
+    background-color: #030303;
+  }
+
+  @media (min-width: 768px) {
+    .section-pricing {
+      padding: 6rem 0;
+    }
   }
 
   .container {
@@ -99,10 +105,16 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
   }
 
   .section-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
     color: var(--color-text-primary);
     margin-bottom: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 2.5rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -172,11 +184,17 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
   }
 
   .plan-price {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
     color: var(--color-text-primary);
-    margin-bottom: 0;
-    line-height: 1.1;
+    margin: 1.5rem 0;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 768px) {
+    .plan-price {
+      font-size: 2.5rem;
+    }
   }
 
   .plan-installments {

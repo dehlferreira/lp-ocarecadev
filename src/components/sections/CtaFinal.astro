@@ -1,0 +1,102 @@
+---
+import Button from '../ui/Button.astro';
+const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
+---
+
+<section id="cta-final" class="section-cta section-fade-top">
+  <div class="neon-glow-large"></div>
+  
+  <div class="container">
+    <div class="cta-content scroll-animate">
+      <h2 class="cta-title">Agora a decisão é sua</h2>
+      
+      <p class="cta-desc">
+        Continuar com um site que não traz <span class="text-neon">resultado</span><br/>
+        ou ter uma página que gera <span class="text-neon">clientes</span> todos os dias.
+      </p>
+      
+      <Button type="primary" class="btn-large pulse-animation" href={`https://wa.me/${whatsappNumber}?text=Olá, quero uma página que gera clientes!`}>
+        Falar no WhatsApp agora
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-cta {
+    padding: 4rem 0;
+    position: relative;
+    background-color: #0A0A0A;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .section-cta {
+      padding: 8rem 0;
+    }
+  }
+
+  .neon-glow-large {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(0, 255, 157, 0.15) 0%, rgba(0,0,0,0) 70%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .cta-title {
+      font-size: 3.5rem;
+    }
+  }
+
+  .cta-desc {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .cta-desc {
+      font-size: 1.25rem;
+    }
+  }
+
+  :global(.pulse-animation) {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(0, 255, 157, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); }
+  }
+
+  :global(.btn-large) {
+    font-size: 1.25rem !important;
+    padding: 18px 40px !important;
+  }
+</style>
