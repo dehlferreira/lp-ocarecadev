@@ -1,10 +1,8 @@
 ---
 import GlassCard from '../ui/GlassCard.astro';
-import { Image } from 'astro:assets';
-import avatar1 from '../../assets/images/avatar_1.webp';
 ---
 
-<section id="social-proof" class="section-social">
+<section id="social-proof" class="section-social section-fade-top section-fade-bottom" style="--fade-from: #010101;">
   <div class="container">
     <div class="section-header">
       <h2 class="section-title scroll-animate">Eles já estão faturando</h2>
@@ -15,7 +13,7 @@ import avatar1 from '../../assets/images/avatar_1.webp';
       <!-- Depoimento 1 -->
       <GlassCard class="scroll-animate delay-200">
         <div class="proof-author">
-          <Image src={avatar1} alt="Cliente 1" class="avatar-img" />
+          <div class="avatar-placeholder placeholder-0">RA</div>
           <div class="author-info">
             <h4>Roberto Almeida</h4>
             <span>CEO, TechGrowth</span>
@@ -28,7 +26,7 @@ import avatar1 from '../../assets/images/avatar_1.webp';
       <!-- Depoimento 2 (Simulado) -->
       <GlassCard class="scroll-animate delay-300">
         <div class="proof-author">
-          <div class="avatar-placeholder placeholder-1"></div>
+          <div class="avatar-placeholder placeholder-1">MC</div>
           <div class="author-info">
             <h4>Mariana Costa</h4>
             <span>Mentora de Vendas</span>
@@ -41,7 +39,7 @@ import avatar1 from '../../assets/images/avatar_1.webp';
       <!-- Depoimento 3 (Simulado) -->
       <GlassCard class="scroll-animate delay-400">
         <div class="proof-author">
-          <div class="avatar-placeholder placeholder-2"></div>
+          <div class="avatar-placeholder placeholder-2">CM</div>
           <div class="author-info">
             <h4>Carlos Moura</h4>
             <span>Sócio, Agência XYZ</span>
@@ -124,6 +122,20 @@ import avatar1 from '../../assets/images/avatar_1.webp';
     height: 64px;
     border-radius: 50%;
     border: 2px solid var(--glass-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary, #ffffff);
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  .placeholder-0 {
+    background: linear-gradient(to top right, #00FF9D, #00663d);
+    border-color: #00E58B;
   }
 
   .placeholder-1 {

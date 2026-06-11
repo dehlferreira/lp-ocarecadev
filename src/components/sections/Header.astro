@@ -1,13 +1,15 @@
 ---
 import Button from "../ui/Button.astro";
 import GlassCard from "../ui/GlassCard.astro";
+import { Image } from "astro:assets";
+import logoHorizontal from "../../assets/images/logo-ocareca-horizontal.webp";
 ---
 
 <header class="main-header" id="main-header">
   <div class="container">
     <GlassCard class="header-card">
       <div class="logo">
-        <img src="/images/logo-ocareca-horizontal.webp" alt="OCARECADEV Logo" />
+        <Image src={logoHorizontal} alt="OCARECADEV Logo" />
       </div>
 
       <!-- Desktop Nav -->
@@ -112,11 +114,14 @@ import GlassCard from "../ui/GlassCard.astro";
 
   .logo img {
     height: 36px !important; /* Maior no mobile */
+    width: auto !important;
+    object-fit: contain;
   }
 
   @media (min-width: 768px) {
     .logo img {
       height: 48px !important; /* Maior no desktop */
+      width: auto !important;
     }
     .container {
       padding: 0 1rem;

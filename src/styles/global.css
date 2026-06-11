@@ -164,3 +164,47 @@ p {
 .delay-200 { transition-delay: 200ms; }
 .delay-300 { transition-delay: 300ms; }
 .delay-400 { transition-delay: 400ms; }
+
+/* ── Transição suave entre seções ── */
+/* Pseudo-element no topo de cada seção que cria um gradiente
+   mesclando a cor da seção anterior com a atual */
+.section-fade-top {
+  position: relative;
+}
+
+.section-fade-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(
+    to bottom,
+    var(--fade-from, var(--color-bg-dark)),
+    transparent
+  );
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Também um gradiente sutil no rodapé de cada seção */
+.section-fade-bottom {
+  position: relative;
+}
+
+.section-fade-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(
+    to top,
+    var(--fade-to, var(--color-bg-dark)),
+    transparent
+  );
+  z-index: 5;
+  pointer-events: none;
+}

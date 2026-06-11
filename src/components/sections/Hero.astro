@@ -1,10 +1,10 @@
 ---
 import Button from '../ui/Button.astro';
 import { Image } from 'astro:assets';
-import heroMockup from '../../assets/images/hero-mockup.webp';
+import heroPerfil from '../../assets/images/hero-perfil.webp';
 ---
 
-<section id="hero" class="hero-section">
+<section id="hero" class="hero-section section-fade-bottom" style="--fade-to: #0A0A0A;">
   <!-- Efeitos de Luz de Fundo Neon -->
   <div class="neon-light light-1"></div>
   <div class="neon-light light-2"></div>
@@ -28,7 +28,7 @@ import heroMockup from '../../assets/images/hero-mockup.webp';
       </div>
     </div>
     <div class="hero-visual" id="hero-image">
-      <Image src={heroMockup} alt="Dashboard de Alta Conversão" class="hero-img" />
+      <Image src={heroPerfil} alt="André - Especialista em Landing Pages" class="hero-img" />
     </div>
   </div>
 </section>
@@ -42,6 +42,13 @@ import heroMockup from '../../assets/images/hero-mockup.webp';
     justify-content: center;
     padding: 8rem 0 4rem;
     overflow: hidden;
+    background-color: #010101;
+
+    /* Scroll-driven dissolve defaults */
+    --hero-opacity: 1;
+    --hero-blur: 0px;
+    --hero-scale: 1;
+    --hero-translate-y: 0px;
   }
 
   .container {
@@ -57,6 +64,12 @@ import heroMockup from '../../assets/images/hero-mockup.webp';
     display: grid;
     gap: 3rem;
     align-items: center;
+    /* Dissolve com Blur — driven by JS custom properties */
+    opacity: var(--hero-opacity);
+    filter: blur(var(--hero-blur));
+    transform: scale(var(--hero-scale)) translateY(var(--hero-translate-y));
+    will-change: opacity, filter, transform;
+    transform-origin: center top;
   }
 
   @media (min-width: 768px) {
@@ -76,7 +89,6 @@ import heroMockup from '../../assets/images/hero-mockup.webp';
     color: var(--color-text-primary);
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    will-change: transform, opacity;
   }
 
   @media (min-width: 768px) {
@@ -97,14 +109,12 @@ import heroMockup from '../../assets/images/hero-mockup.webp';
     color: var(--color-text-secondary);
     margin-bottom: 2rem;
     max-width: 500px;
-    will-change: transform, opacity;
   }
 
   .hero-ctas {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    will-change: transform, opacity;
   }
 
   :global(.btn-large) {
@@ -120,13 +130,6 @@ import heroMockup from '../../assets/images/hero-mockup.webp';
   .hero-img {
     width: 100%;
     height: auto;
-    filter: drop-shadow(0 0 50px rgba(139, 92, 246, 0.3));
-    transition: transform 0.5s ease;
-    will-change: transform, opacity;
-  }
-
-  .hero-img:hover {
-    transform: translateY(-10px);
   }
 
   /* Efeitos de Luz */
@@ -142,22 +145,22 @@ import heroMockup from '../../assets/images/hero-mockup.webp';
   }
 
   .light-1 {
-    top: 25%;
-    left: 25%;
-    width: 400px;
-    height: 400px;
+    top: -10%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
     background-color: var(--color-primary-neon);
-    translate: calc(var(--mouse-x) * -180px) calc(var(--mouse-y) * -180px);
+    translate: calc(var(--mouse-x) * -100px) calc(var(--mouse-y) * -100px);
     animation: float-neon 12s ease-in-out infinite alternate;
   }
 
   .light-2 {
-    bottom: 25%;
-    right: 25%;
+    top: 5%;
+    left: 5%;
     width: 400px;
     height: 400px;
     background-color: #00A666;
-    translate: calc(var(--mouse-x) * 150px) calc(var(--mouse-y) * 150px);
+    translate: calc(var(--mouse-x) * 100px) calc(var(--mouse-y) * 100px);
     animation: float-neon 15s ease-in-out infinite alternate-reverse;
   }
 

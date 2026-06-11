@@ -35,9 +35,7 @@ const initScrollAnimations = () => {
   }
 
   // Lógica de Scroll e Scrubbing via requestAnimationFrame (Conforme SPEC-004)
-  const heroTitle = document.getElementById('hero-title');
-  const heroSubtitle = document.getElementById('hero-subtitle');
-  const heroImage = document.getElementById('hero-image');
+
   const header = document.getElementById('main-header');
 
   let ticking = false;
@@ -56,16 +54,28 @@ const initScrollAnimations = () => {
       }
     }
 
-    if (scrolled < window.innerHeight && heroTitle && heroSubtitle && heroImage) {
-      const opacity = Math.max(1 - (scrolled / 500), 0);
-      heroTitle.style.transform = `translateY(${scrolled * 0.3}px)`;
-      heroTitle.style.opacity = opacity.toString();
-      
-      heroSubtitle.style.transform = `translateY(${scrolled * 0.4}px)`;
-      heroSubtitle.style.opacity = opacity.toString();
-      
-      heroImage.style.transform = `translateY(${scrolled * 0.15}px)`;
-      heroImage.style.opacity = opacity.toString();
+    // Hero "Dissolve com Blur" — animação cinematográfica bidirecional
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
+      const heroHeight = heroSection.offsetHeight;
+      const isMobile = window.innerWidth < 768;
+      // No mobile, só começa a animar depois que a foto já apareceu (35% da hero)
+      const scrollOffset = isMobile ? heroHeight * 0.35 : 0;
+      const effectiveScroll = Math.max(scrolled - scrollOffset, 0);
+      // Progresso de 0 (início) a 1 (saiu da viewport)
+      const rawProgress = Math.min(effectiveScroll / (heroHeight * 0.6), 1);
+      // Ease-out para suavidade
+      const progress = rawProgress * rawProgress;
+
+      const opacity = 1 - progress;
+      const blur = progress * 12; // até 12px de blur
+      const scale = 1 - progress * 0.06; // escala de 1.0 → 0.94
+      const translateY = progress * -30; // leve lift de -30px
+
+      heroSection.style.setProperty('--hero-opacity', opacity);
+      heroSection.style.setProperty('--hero-blur', blur + 'px');
+      heroSection.style.setProperty('--hero-scale', scale);
+      heroSection.style.setProperty('--hero-translate-y', translateY + 'px');
     }
 
     ticking = false;

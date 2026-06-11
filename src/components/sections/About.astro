@@ -1,14 +1,16 @@
 ---
 import GlassCard from "../ui/GlassCard.astro";
+import { Image } from "astro:assets";
+import perfilImage from "../../assets/images/perfil.webp";
 ---
 
-<section id="about" class="section-about">
+<section id="about" class="section-about section-fade-top section-fade-bottom">
   <div class="container">
     <div class="about-grid">
       <div class="about-image scroll-animate">
         <div class="image-wrapper">
-          <img
-            src="/images/perfil.webp"
+          <Image
+            src={perfilImage}
             alt="André - OCARECADEV"
             class="profile-img"
           />
