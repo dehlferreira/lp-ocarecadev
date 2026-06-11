@@ -11,6 +11,12 @@ const { title, description = "OCARECADEV - Máquinas de Geração de Clientes" }
 // Absolute URL para a imagem de preview (WhatsApp exige formato PNG/JPG, WebP costuma falhar)
 const siteUrl = Astro.site || Astro.url;
 const ogImage = new URL('/images/logo-vertical.png', siteUrl);
+
+const gaId = import.meta.env.PUBLIC_GA_ID;
+const pixelId = import.meta.env.PUBLIC_META_PIXEL_ID;
+
+const isGaEnabled = gaId && gaId !== 'G-XXXXXXXXXX';
+const isPixelEnabled = pixelId && pixelId !== '1234567890';
 ---
 
 <!doctype html>
@@ -38,27 +44,32 @@ const ogImage = new URL('/images/logo-vertical.png', siteUrl);
 		<meta property="twitter:image" content={ogImage} />
 
 		<!-- Tracking com Partytown (SPEC-005) -->
-		<!-- Google Analytics -->
-		<script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`}></script>
-		<script type="text/partytown" define:vars={{ gaId: import.meta.env.PUBLIC_GA_ID }}>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-		  gtag('config', gaId);
-		</script>
-		<!-- Meta Pixel -->
-		<script type="text/partytown" define:vars={{ pixelId: import.meta.env.PUBLIC_META_PIXEL_ID }}>
-		  !function(f,b,e,v,n,t,s)
-		  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-		  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-		  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-		  n.queue=[];t=b.createElement(e);t.async=!0;
-		  t.src=v;s=b.getElementsByTagName(e)[0];
-		  s.parentNode.insertBefore(t,s)}(window, document,'script',
-		  'https://connect.facebook.net/en_US/fbevents.js');
-		  fbq('init', pixelId);
-		  fbq('track', 'PageView');
-		</script>
+		{isGaEnabled && (
+			<!-- Google Analytics -->
+			<script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+			<script type="text/partytown" define:vars={{ gaId }}>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+			  gtag('config', gaId);
+			</script>
+		)}
+		
+		{isPixelEnabled && (
+			<!-- Meta Pixel -->
+			<script type="text/partytown" define:vars={{ pixelId }}>
+			  !function(f,b,e,v,n,t,s)
+			  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+			  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+			  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+			  n.queue=[];t=b.createElement(e);t.async=!0;
+			  t.src=v;s=b.getElementsByTagName(e)[0];
+			  s.parentNode.insertBefore(t,s)}(window, document,'script',
+			  'https://connect.facebook.net/en_US/fbevents.js');
+			  fbq('init', pixelId);
+			  fbq('track', 'PageView');
+			</script>
+		)}
 	</head>
 	<body>
 		<div class="glow-orb glow-orb-1"></div>
