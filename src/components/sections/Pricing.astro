@@ -1,6 +1,8 @@
 ---
 import GlassCard from '../ui/GlassCard.astro';
 import Button from '../ui/Button.astro';
+
+const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
 ---
 
 <section id="pricing" class="section-pricing section-fade-top">
@@ -26,7 +28,7 @@ import Button from '../ui/Button.astro';
           <li class="disabled">✗ Otimização de Imagens AVIF</li>
           <li class="disabled">✗ Tracking Avançado</li>
         </ul>
-        <Button type="ghost" class="btn-full btn-pricing-cta" href="https://wa.me/5511999999999?text=Olá, tenho interesse no plano EXPRESS">
+        <Button type="ghost" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano EXPRESS`}>
           Começar Agora
         </Button>
       </GlassCard>
@@ -47,7 +49,7 @@ import Button from '../ui/Button.astro';
           <li>✓ Otimização Imagens WebP/AVIF</li>
           <li>✓ Animações de Scroll (Vanilla)</li>
         </ul>
-        <Button type="primary" class="btn-full btn-pricing-cta" href="https://wa.me/5511999999999?text=Olá, tenho interesse no plano LANDING QUE VENDE">
+        <Button type="primary" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano LANDING QUE VENDE`}>
           Garantir Minha Vaga
         </Button>
       </GlassCard>
@@ -67,7 +69,7 @@ import Button from '../ui/Button.astro';
           <li>✓ Suporte Prioritário 30 dias</li>
           <li>✓ Integração CRM</li>
         </ul>
-        <Button type="ghost" class="btn-full btn-pricing-cta" href="https://wa.me/5511999999999?text=Olá, tenho interesse no plano MÁQUINA DE CLIENTES">
+        <Button type="ghost" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano MÁQUINA DE CLIENTES`}>
           Falar com Especialista
         </Button>
       </GlassCard>

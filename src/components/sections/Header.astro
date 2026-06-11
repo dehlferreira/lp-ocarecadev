@@ -3,13 +3,22 @@ import Button from "../ui/Button.astro";
 import GlassCard from "../ui/GlassCard.astro";
 import { Image } from "astro:assets";
 import logoHorizontal from "../../assets/images/logo-ocareca-horizontal.webp";
+
+const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
+const whatsappMessage = import.meta.env.WHATSAPP_MESSAGE_DEFAULT || 'Olá, tenho interesse.';
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 ---
 
 <header class="main-header" id="main-header">
   <div class="container">
     <GlassCard class="header-card">
       <div class="logo">
-        <Image src={logoHorizontal} alt="OCARECADEV Logo" />
+        <Image
+          src={logoHorizontal}
+          alt="OCARECADEV Logo"
+          loading="eager"
+          fetchpriority="high"
+        />
       </div>
 
       <!-- Desktop Nav -->
@@ -23,7 +32,7 @@ import logoHorizontal from "../../assets/images/logo-ocareca-horizontal.webp";
         <div class="cta desktop-cta">
           <Button
             type="primary"
-            href="https://wa.me/5511999999999"
+            href={whatsappUrl}
             id="btn-header-cta"
             class="btn-small"
             text="Falar com Consultor"
@@ -32,7 +41,7 @@ import logoHorizontal from "../../assets/images/logo-ocareca-horizontal.webp";
         <div class="cta mobile-cta">
           <Button
             type="primary"
-            href="https://wa.me/5511999999999"
+            href={whatsappUrl}
             id="btn-header-cta-mobile"
             class="btn-small"
             text="Contato"
