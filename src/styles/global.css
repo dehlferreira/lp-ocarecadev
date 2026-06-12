@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+/* Google Fonts agora carregado via <link> no Layout.astro para evitar render-blocking */
 
 :root {
   /* Fundo da Página (Base Dark) */
@@ -130,7 +130,13 @@ section[id] {
   background-color: var(--color-primary-neon);
   opacity: 0.15;
   transition: translate 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: translate, transform;
+}
+
+/* Mobile: desabilita glow orbs para economizar GPU (3x blur 120px é muito pesado) */
+@media (max-width: 767px) {
+  .glow-orb {
+    display: none;
+  }
 }
 
 .glow-orb-1 {
