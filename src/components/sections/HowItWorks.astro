@@ -1,5 +1,35 @@
 ---
 import GlassCard from '../ui/GlassCard.astro';
+import Icon from '../ui/Icon.astro';
+
+const steps = [
+  {
+    num: '01',
+    icon: 'layout-template',
+    title: 'Estrutura validada',
+    desc: 'Usamos modelos que já funcionam',
+  },
+  {
+    num: '02',
+    icon: 'sliders-horizontal',
+    title: 'Personalização',
+    desc: 'Adaptamos para o seu negócio',
+  },
+  {
+    num: '03',
+    icon: 'rocket',
+    title: 'Publicação rápida',
+    desc: 'Seu site no ar em poucos dias',
+  },
+  {
+    num: '04',
+    icon: 'trending-up',
+    title: 'Geração de leads',
+    desc: 'Visitantes viram contatos no WhatsApp',
+  },
+];
+
+const delays = ['delay-100', 'delay-200', 'delay-300', 'delay-400'];
 ---
 
 <section id="como-funciona" class="section-how section-fade-top section-fade-bottom">
@@ -9,29 +39,18 @@ import GlassCard from '../ui/GlassCard.astro';
     </div>
 
     <div class="steps-grid">
-      <GlassCard class="step-card scroll-animate delay-100">
-        <div class="step-number">01</div>
-        <h3 class="step-title">Estrutura validada</h3>
-        <p class="step-desc">Usamos modelos que já funcionam</p>
-      </GlassCard>
-
-      <GlassCard class="step-card scroll-animate delay-200">
-        <div class="step-number">02</div>
-        <h3 class="step-title">Personalização</h3>
-        <p class="step-desc">Adaptamos para o seu negócio</p>
-      </GlassCard>
-
-      <GlassCard class="step-card scroll-animate delay-300">
-        <div class="step-number">03</div>
-        <h3 class="step-title">Publicação rápida</h3>
-        <p class="step-desc">Seu site no ar em poucos dias</p>
-      </GlassCard>
-
-      <GlassCard class="step-card scroll-animate delay-400">
-        <div class="step-number">04</div>
-        <h3 class="step-title">Geração de leads</h3>
-        <p class="step-desc">Visitantes viram contatos no WhatsApp</p>
-      </GlassCard>
+      {steps.map((step, i) => (
+        <GlassCard class={`step-card scroll-animate anim-scale ${delays[i]}`}>
+          <div class="step-top">
+            <span class="step-icon">
+              <Icon name={step.icon} size={24} />
+            </span>
+            <span class="step-num">{step.num}</span>
+          </div>
+          <h3 class="step-title">{step.title}</h3>
+          <p class="step-desc">{step.desc}</p>
+        </GlassCard>
+      ))}
     </div>
   </div>
 </section>
@@ -78,6 +97,7 @@ import GlassCard from '../ui/GlassCard.astro';
   .steps-grid {
     display: grid;
     gap: 2rem;
+    position: relative;
   }
 
   @media (min-width: 768px) {
@@ -97,16 +117,71 @@ import GlassCard from '../ui/GlassCard.astro';
     flex-direction: column;
     align-items: flex-start;
     padding: 2rem !important;
+    position: relative;
+    overflow: visible;
   }
 
-  .step-number {
-    font-size: 3rem;
-    font-weight: 900;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--color-primary-neon);
-    margin-bottom: 1rem;
+  .step-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Badge do ícone — quadrado arredondado com tint neon */
+  .step-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    color: var(--color-primary-neon);
+    background: rgba(0, 255, 157, 0.08);
+    border: 1px solid rgba(0, 255, 157, 0.25);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08),
+      0 4px 16px rgba(0, 255, 157, 0.12);
+  }
+
+  /* Número preenchido com gradiente neon (substitui o text-stroke quebrado) */
+  .step-num {
+    font-size: 2.75rem;
+    font-weight: 800;
     line-height: 1;
-    opacity: 0.5;
+    letter-spacing: -0.02em;
+    color: transparent;
+    background-image: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(0, 255, 157, 0.28)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Conector horizontal entre os cards (somente desktop 4-col) */
+  @media (min-width: 1024px) {
+    :global(.step-card)::after {
+      content: '';
+      position: absolute;
+      top: calc(2rem + 26px); /* centro vertical do badge de 52px */
+      right: -2rem;
+      width: 2rem;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        rgba(0, 255, 157, 0.4),
+        rgba(0, 255, 157, 0)
+      );
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    :global(.step-card):last-child::after {
+      display: none;
+    }
   }
 
   .step-title {

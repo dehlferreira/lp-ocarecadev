@@ -1,21 +1,23 @@
 ---
 import GlassCard from '../ui/GlassCard.astro';
 import HeroMockup from '../ui/HeroMockup.astro';
+import Icon from '../ui/Icon.astro';
 ---
 
 <section id="solucao" class="section-solution section-fade-top section-fade-bottom">
   <div class="neon-glow"></div>
 
   <div class="container">
-    <GlassCard class="solution-card scroll-animate">
+    <GlassCard class="solution-card scroll-animate anim-scale">
       <h2 class="solution-title">
         Agora imagina ter uma página que trabalha por você todos os dias
       </h2>
-      
+
       <p class="solution-text">Na OCARECADEV, nós não criamos "sites bonitos".</p>
-      
+
       <p class="solution-highlight">
-        👉 Nós criamos páginas pensadas para gerar <span class="text-neon">clientes</span>.
+        <span class="highlight-icon"><Icon name="arrow-right" size={20} stroke={2.5} /></span>
+        Nós criamos páginas pensadas para gerar <span class="text-neon">clientes</span>.
       </p>
 
       <div class="solution-mockup-container scroll-animate delay-100">
@@ -109,8 +111,16 @@ import HeroMockup from '../ui/HeroMockup.astro';
     padding: 1.5rem;
     border-radius: 12px;
     border: 1px solid rgba(0, 255, 157, 0.2);
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
     margin-bottom: 2.5rem;
+  }
+
+  .solution-highlight .highlight-icon {
+    display: inline-flex;
+    color: var(--color-primary-neon);
+    flex-shrink: 0;
   }
 
   @media (min-width: 768px) {

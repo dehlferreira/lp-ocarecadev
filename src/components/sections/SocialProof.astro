@@ -1,6 +1,43 @@
 ---
 import GlassCard from '../ui/GlassCard.astro';
 import BeforeAfterMockup from '../ui/BeforeAfterMockup.astro';
+import Icon from '../ui/Icon.astro';
+
+const benefits = [
+  'Mais mensagens no WhatsApp',
+  'Mais pedidos de orçamento',
+  'Mais <span class="text-neon">clientes</span> entrando todos os dias',
+];
+
+const testimonials = [
+  {
+    initials: 'RA',
+    placeholder: 'placeholder-0',
+    name: 'Roberto Almeida',
+    role: 'CEO, TechGrowth',
+    text: '"Nossas conversões dobraram na primeira semana após o lançamento. O design e a velocidade da página são absurdos."',
+    anim: 'anim-left',
+    delay: 'delay-200',
+  },
+  {
+    initials: 'MC',
+    placeholder: 'placeholder-1',
+    name: 'Mariana Costa',
+    role: 'Mentora de Vendas',
+    text: '"Sempre sofri com sites lentos que perdiam clientes no meio do caminho. A OCARECADEV resolveu isso e entregou uma verdadeira máquina de vendas."',
+    anim: 'anim-scale',
+    delay: 'delay-300',
+  },
+  {
+    initials: 'CM',
+    placeholder: 'placeholder-2',
+    name: 'Carlos Moura',
+    role: 'Sócio, Agência XYZ',
+    text: '"Ter um código limpo e analytics injetado certinho nos botões me economizou muito tempo. O tracking funciona perfeitamente."',
+    anim: 'anim-right',
+    delay: 'delay-400',
+  },
+];
 ---
 
 <section id="social-proof" class="section-social section-fade-top section-fade-bottom" style="--fade-from: #010101;">
@@ -8,55 +45,35 @@ import BeforeAfterMockup from '../ui/BeforeAfterMockup.astro';
     <div class="section-header">
       <h2 class="section-title scroll-animate"><span class="text-neon">Resultados</span> falam mais que qualquer promessa</h2>
       <ul class="section-subtitle-list scroll-animate delay-100">
-        <li>✓ Mais mensagens no WhatsApp</li>
-        <li>✓ Mais pedidos de orçamento</li>
-        <li>✓ Mais <span class="text-neon">clientes</span> entrando todos os dias</li>
+        {benefits.map((benefit) => (
+          <li>
+            <span class="check-icon"><Icon name="check" size={15} stroke={3} /></span>
+            <span set:html={benefit} />
+          </li>
+        ))}
       </ul>
     </div>
 
-    <div class="mockup-container scroll-animate delay-150">
+    <div class="mockup-container scroll-animate anim-scale delay-150">
       <BeforeAfterMockup />
     </div>
 
     <div class="proof-grid">
-      <!-- Depoimento 1 -->
-      <GlassCard class="scroll-animate delay-200">
-        <div class="proof-author">
-          <div class="avatar-placeholder placeholder-0">RA</div>
-          <div class="author-info">
-            <h4>Roberto Almeida</h4>
-            <span>CEO, TechGrowth</span>
+      {testimonials.map((t) => (
+        <GlassCard class={`scroll-animate ${t.anim} ${t.delay}`}>
+          <div class="proof-author">
+            <div class={`avatar-placeholder ${t.placeholder}`}>{t.initials}</div>
+            <div class="author-info">
+              <h4>{t.name}</h4>
+              <span>{t.role}</span>
+            </div>
           </div>
-        </div>
-        <p class="proof-text">"Nossas conversões dobraram na primeira semana após o lançamento. O design e a velocidade da página são absurdos."</p>
-        <div class="stars">★★★★★</div>
-      </GlassCard>
-
-      <!-- Depoimento 2 (Simulado) -->
-      <GlassCard class="scroll-animate delay-300">
-        <div class="proof-author">
-          <div class="avatar-placeholder placeholder-1">MC</div>
-          <div class="author-info">
-            <h4>Mariana Costa</h4>
-            <span>Mentora de Vendas</span>
+          <p class="proof-text">{t.text}</p>
+          <div class="stars">
+            {Array.from({ length: 5 }).map(() => <Icon name="star" size={18} />)}
           </div>
-        </div>
-        <p class="proof-text">"Sempre sofri com sites lentos que perdiam clientes no meio do caminho. A OCARECADEV resolveu isso e entregou uma verdadeira máquina de vendas."</p>
-        <div class="stars">★★★★★</div>
-      </GlassCard>
-
-      <!-- Depoimento 3 (Simulado) -->
-      <GlassCard class="scroll-animate delay-400">
-        <div class="proof-author">
-          <div class="avatar-placeholder placeholder-2">CM</div>
-          <div class="author-info">
-            <h4>Carlos Moura</h4>
-            <span>Sócio, Agência XYZ</span>
-          </div>
-        </div>
-        <p class="proof-text">"Ter um código limpo e analytics injetado certinho nos botões me economizou muito tempo. O tracking funciona perfeitamente."</p>
-        <div class="stars">★★★★★</div>
-      </GlassCard>
+        </GlassCard>
+      ))}
     </div>
   </div>
 </section>
@@ -125,6 +142,25 @@ import BeforeAfterMockup from '../ui/BeforeAfterMockup.astro';
       justify-content: center;
       gap: 2rem;
     }
+  }
+
+  .section-subtitle-list li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .check-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    color: var(--color-primary-neon);
+    background: rgba(0, 255, 157, 0.1);
+    border: 1px solid rgba(0, 255, 157, 0.3);
   }
 
   .mockup-container {
@@ -210,8 +246,8 @@ import BeforeAfterMockup from '../ui/BeforeAfterMockup.astro';
   .stars {
     color: var(--color-primary-neon);
     margin-top: 1rem;
-    font-size: 1.25rem;
-    letter-spacing: 2px;
+    display: flex;
+    gap: 3px;
   }
 
 

@@ -1,6 +1,7 @@
 ---
 // Mockup CSS: comparação "Antes" (site genérico) x "Depois" (página premium neon).
 // Sem texto em inglês — substitui a imagem gerada por IA `mockup-antes-depois`.
+import Icon from './Icon.astro';
 ---
 
 <div class="ba-mockup">
@@ -26,7 +27,7 @@
     </div>
   </figure>
 
-  <div class="ba-arrow" aria-hidden="true">→</div>
+  <div class="ba-arrow" aria-hidden="true"><Icon name="arrow-right" size={28} stroke={2.5} /></div>
 
   <!-- DEPOIS: página premium dark + neon -->
   <figure class="ba-card after">
@@ -223,9 +224,9 @@
 
   .ba-arrow {
     flex-shrink: 0;
-    font-size: 1.6rem;
+    display: inline-flex;
     color: var(--color-primary-neon);
-    text-shadow: 0 0 12px rgba(0, 255, 157, 0.6);
+    filter: drop-shadow(0 0 10px rgba(0, 255, 157, 0.6));
   }
 
   @media (max-width: 600px) {

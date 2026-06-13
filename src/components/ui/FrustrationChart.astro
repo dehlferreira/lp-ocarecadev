@@ -1,6 +1,7 @@
 ---
 // Mockup CSS/SVG: tela escura com gráfico de performance em queda (tom de dor).
 // Sem texto em inglês — substitui a imagem gerada por IA `frustration-screen`.
+import Icon from './Icon.astro';
 ---
 
 <div class="frustration-mockup">
@@ -23,7 +24,7 @@
           <span class="bar w-28"></span>
           <span class="bar w-16 dim"></span>
         </div>
-        <span class="trend-down">▼ -68%</span>
+        <span class="trend-down"><Icon name="trending-down" size={14} stroke={2.5} /> -68%</span>
       </div>
 
       <div class="chart">
@@ -161,6 +162,9 @@
   .w-28 { width: 112px; }
 
   .trend-down {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     font-size: 0.8rem;
     font-weight: 700;
     color: #ff5c5c;

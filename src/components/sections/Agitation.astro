@@ -1,5 +1,6 @@
 ---
 import FrustrationChart from '../ui/FrustrationChart.astro';
+import Icon from '../ui/Icon.astro';
 ---
 
 <section id="agitacao" class="section-agitation section-fade-bottom">
@@ -16,12 +17,13 @@ import FrustrationChart from '../ui/FrustrationChart.astro';
         <p>Sem controle.</p>
       </div>
 
-      <div class="frustration-img-container scroll-animate delay-150">
+      <div class="frustration-img-container scroll-animate anim-scale delay-150">
         <FrustrationChart />
       </div>
 
-      <p class="agitation-highlight scroll-animate delay-200">
-        👉 Isso não é um site. É um <span class="text-neon">custo</span>.
+      <p class="agitation-highlight scroll-animate anim-scale delay-200">
+        <span class="highlight-icon"><Icon name="arrow-right" size={22} stroke={2.5} /></span>
+        Isso não é um site. É um <span class="text-neon">custo</span>.
       </p>
     </div>
   </div>
@@ -88,6 +90,14 @@ import FrustrationChart from '../ui/FrustrationChart.astro';
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--color-text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .highlight-icon {
+    display: inline-flex;
+    color: var(--color-primary-neon);
   }
 
   @media (min-width: 768px) {

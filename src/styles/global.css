@@ -30,11 +30,19 @@
   box-sizing: border-box;
 }
 
+/* overflow-x: clip em html + body contém os elementos que entram deslocados
+   (anim-right em translateX(48px), glows e cards escalados) sem criar um
+   scroll-container — diferente de `hidden`, não quebra position: sticky/fixed
+   nem é ignorado no mobile (iOS Safari), que era a origem do "espaço na direita". */
+html {
+  overflow-x: clip;
+}
+
 body {
   background-color: var(--color-bg-dark);
   color: var(--color-text-primary);
   font-family: 'Outfit', sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -82,40 +90,72 @@ section[id] {
   scroll-margin-top: 6rem;
 }
 
-/* Hidden state for scroll animations (Fallback for non-supporting browsers) */
+/* ── Scroll Reveal: estado inicial (oculto) ──
+   Hidden state também serve de fallback para navegadores sem suporte a
+   CSS Scroll-Driven Animations (Safari/Firefox antigos) — o JS interpola a partir daqui.
+   Variantes dão direção/escala diferentes para fugir do "tudo subindo de baixo". */
 .scroll-animate {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(32px);
   will-change: opacity, transform;
 }
+
+.scroll-animate.anim-left { transform: translateX(-48px); }
+.scroll-animate.anim-right { transform: translateX(48px); }
+.scroll-animate.anim-scale { transform: scale(0.94); }
+.scroll-animate.anim-rise-sm { transform: translateY(18px); }
 
 /* Acessibilidade: usuários com "reduzir movimento" não disparam as animações
    scroll-driven nem o fallback JS, então o conteúdo precisa ser visível de imediato.
    Sem isso, todo .scroll-animate ficaria opacity:0 permanentemente no Chrome/Edge. */
 @media (prefers-reduced-motion: reduce) {
   .scroll-animate {
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   @supports ((animation-timeline: view()) and (animation-range: entry)) {
     .scroll-animate {
-      animation: reveal-on-scroll linear both;
+      animation: reveal-rise cubic-bezier(0.16, 1, 0.3, 1) both;
       animation-timeline: view(block);
-      animation-range: entry 5% cover 25%;
+      animation-range: entry 5% cover 28%;
     }
-    
-    @keyframes reveal-on-scroll {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+
+    /* Cada variante mapeia para seu próprio keyframe */
+    .scroll-animate.anim-left { animation-name: reveal-left; }
+    .scroll-animate.anim-right { animation-name: reveal-right; }
+    .scroll-animate.anim-scale { animation-name: reveal-scale; }
+    .scroll-animate.anim-rise-sm { animation-name: reveal-rise-sm; }
+
+    /* Stagger real para scroll-scrubbed: deslocamos a janela de entrada por item,
+       criando uma cascata conforme a seção entra na viewport (não um delay temporal). */
+    .scroll-animate.delay-100 { animation-range: entry 9% cover 31%; }
+    .scroll-animate.delay-150 { animation-range: entry 11% cover 32%; }
+    .scroll-animate.delay-200 { animation-range: entry 13% cover 34%; }
+    .scroll-animate.delay-300 { animation-range: entry 17% cover 37%; }
+    .scroll-animate.delay-400 { animation-range: entry 21% cover 40%; }
+
+    @keyframes reveal-rise {
+      from { opacity: 0; transform: translateY(32px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes reveal-rise-sm {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes reveal-left {
+      from { opacity: 0; transform: translateX(-48px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes reveal-right {
+      from { opacity: 0; transform: translateX(48px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes reveal-scale {
+      from { opacity: 0; transform: scale(0.94); }
+      to { opacity: 1; transform: scale(1); }
     }
   }
 }

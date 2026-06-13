@@ -1,6 +1,7 @@
 ---
 import GlassCard from '../ui/GlassCard.astro';
 import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
 
 const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
 ---
@@ -13,7 +14,7 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
 
     <div class="pricing-grid">
       <!-- Plano 1 -->
-      <GlassCard class="scroll-animate delay-200 pricing-card">
+      <GlassCard class="scroll-animate anim-left delay-200 pricing-card">
         <h3 class="plan-name">OCARECADEV EXPRESS</h3>
         <p class="plan-desc">Para quem precisa entrar no ar rápido.</p>
         <div class="plan-price">
@@ -21,11 +22,11 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
         </div>
         <p class="plan-installments">ou 12x de R$ 24,75 sem juros</p>
         <ul class="plan-features">
-          <li>✓ Landing page simples</li>
-          <li>✓ Template validado</li>
-          <li>✓ Personalização básica</li>
-          <li>✓ Botão direto para WhatsApp</li>
-          <li>✓ Entrega em até 48h</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Landing page simples</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Template validado</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Personalização básica</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Botão direto para WhatsApp</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Entrega em até 48h</li>
         </ul>
         <Button type="ghost" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano EXPRESS`}>
           Quero começar rápido
@@ -33,7 +34,7 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
       </GlassCard>
 
       <!-- Plano 2 (Destaque) -->
-      <GlassCard class="scroll-animate delay-300 pricing-card highlight-card" highlight={true}>
+      <GlassCard class="scroll-animate anim-scale delay-300 pricing-card highlight-card" highlight={true}>
         <div class="recommended-badge">Recomendado</div>
         <h3 class="plan-name">LANDING QUE VENDE</h3>
         <p class="plan-desc">Para quem quer gerar <span class="text-neon">clientes</span> de verdade.</p>
@@ -42,12 +43,12 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
         </div>
         <p class="plan-installments highlight-installments">ou 12x de R$ 83,08 sem juros</p>
         <ul class="plan-features text-bright">
-          <li>✓ Estrutura focada em conversão</li>
-          <li>✓ Design premium</li>
-          <li>✓ CTA estratégico</li>
-          <li>✓ Integração WhatsApp e Analytics</li>
-          <li>✓ Tracking de cliques e leads</li>
-          <li>✓ 1 revisão estratégica</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Estrutura focada em conversão</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Design premium</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>CTA estratégico</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Integração WhatsApp e Analytics</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Tracking de cliques e leads</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>1 revisão estratégica</li>
         </ul>
         <Button type="primary" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano LANDING QUE VENDE`}>
           Quero uma página que gera clientes
@@ -55,7 +56,7 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
       </GlassCard>
 
       <!-- Plano 3 -->
-      <GlassCard class="scroll-animate delay-400 pricing-card">
+      <GlassCard class="scroll-animate anim-right delay-400 pricing-card">
         <h3 class="plan-name">MÁQUINA DE CLIENTES</h3>
         <p class="plan-desc">Para quem quer presença profissional e escala.</p>
         <div class="plan-price">
@@ -63,11 +64,11 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
         </div>
         <p class="plan-installments">ou 12x de R$ 208,08 sem juros</p>
         <ul class="plan-features">
-          <li>✓ 3 a 5 páginas completas</li>
-          <li>✓ Estrutura estratégica</li>
-          <li>✓ Integrações e tracking</li>
-          <li>✓ Pronto para tráfego pago</li>
-          <li>✓ Otimização de conversão</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>3 a 5 páginas completas</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Estrutura estratégica</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Integrações e tracking</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Pronto para tráfego pago</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Otimização de conversão</li>
         </ul>
         <Button type="ghost" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano MÁQUINA DE CLIENTES`}>
           Quero um sistema completo
@@ -167,8 +168,15 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
   }
 
   :global(.highlight-card) {
-    transform: scale(1.05);
     z-index: 10;
+  }
+
+  /* O destaque só escala no layout de 3 colunas; no mobile (coluna única, largura
+     cheia) o scale(1.05) faria o card vazar ~5% para fora da viewport. */
+  @media (min-width: 768px) {
+    :global(.highlight-card) {
+      transform: scale(1.05);
+    }
   }
 
   .plan-name {
@@ -234,7 +242,20 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.65rem;
+  }
+
+  .feat-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    color: var(--color-primary-neon);
+    background: rgba(0, 255, 157, 0.1);
+    border: 1px solid rgba(0, 255, 157, 0.25);
   }
 
   .text-bright li {

@@ -1,25 +1,37 @@
 ---
+import Icon from '../ui/Icon.astro';
+
+const pains = [
+  'Seu site não gera <span class="text-neon">leads</span>',
+  'Ninguém clica no seu botão',
+  'Você depende de indicação',
+  'E quando não indicam… você não vende',
+];
+const delays = ['delay-100', 'delay-150', 'delay-200', 'delay-300'];
 ---
 
 <section id="problema" class="section-problem section-fade-top section-fade-bottom">
   <div class="container">
     <div class="problem-content">
       <h2 class="problem-title scroll-animate">
-        Se você já tem um site e ele não te traz <span class="text-neon">clientes</span>, 
+        Se você já tem um site e ele não te traz <span class="text-neon">clientes</span>,
         ele não serve pra nada.
       </h2>
-      
+
       <p class="problem-desc scroll-animate delay-100">A verdade é simples:</p>
-      
-      <ul class="problem-list scroll-animate delay-200">
-        <li>✗ Seu site não gera <span class="text-neon">leads</span></li>
-        <li>✗ Ninguém clica no seu botão</li>
-        <li>✗ Você depende de indicação</li>
-        <li>✗ E quando não indicam… você não vende</li>
+
+      <ul class="problem-list">
+        {pains.map((pain, i) => (
+          <li class={`scroll-animate anim-rise-sm ${delays[i]}`}>
+            <span class="pain-icon"><Icon name="x" size={16} stroke={2.5} /></span>
+            <span set:html={pain} />
+          </li>
+        ))}
       </ul>
-      
-      <p class="problem-highlight scroll-animate delay-300">
-        👉 você nem sabe o que está errado
+
+      <p class="problem-highlight scroll-animate anim-scale delay-400">
+        <span class="highlight-icon"><Icon name="arrow-right" size={20} stroke={2.5} /></span>
+        você nem sabe o que está errado
       </p>
     </div>
   </div>
@@ -83,13 +95,36 @@
   .problem-list li {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.85rem;
+  }
+
+  /* Badge circular para o "x" — vermelho dessaturado, sóbrio (não emoji) */
+  .pain-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.25);
   }
 
   .problem-highlight {
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--color-text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .highlight-icon {
+    display: inline-flex;
+    color: var(--color-primary-neon);
   }
 
   @media (min-width: 768px) {

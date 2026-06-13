@@ -13,15 +13,28 @@ const initAnalytics = () => {
 const initScrollAnimations = () => {
   // Intersection Observer atuando como Fallback para navegadores sem suporte a CSS Scroll-Driven Animations
   if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) {
+    // easeOutExpo — mesma sensação de "settle" suave do cubic-bezier usado no CSS scroll-driven
+    const ease = (t) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
+
+    // Mapeia a variante do elemento para o transform interpolado (e = progresso já suavizado)
+    const variantTransform = (el, e) => {
+      const cl = el.classList;
+      if (cl.contains('anim-left')) return `translateX(${(1 - e) * -48}px)`;
+      if (cl.contains('anim-right')) return `translateX(${(1 - e) * 48}px)`;
+      if (cl.contains('anim-scale')) return `scale(${0.94 + e * 0.06})`;
+      if (cl.contains('anim-rise-sm')) return `translateY(${(1 - e) * 18}px)`;
+      return `translateY(${(1 - e) * 32}px)`;
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          // Calcula o progresso para que a animação termine em 25% de visibilidade (0.25)
-          const ratio = entry.intersectionRatio;
-          const progress = Math.min(ratio / 0.25, 1);
-          
-          entry.target.style.opacity = progress.toString();
-          entry.target.style.transform = `translateY(${(1 - progress) * 40}px)`;
+          // Progresso para a animação terminar em ~28% de visibilidade
+          const progress = Math.min(entry.intersectionRatio / 0.28, 1);
+          const e = ease(progress);
+
+          entry.target.style.opacity = e.toString();
+          entry.target.style.transform = variantTransform(entry.target, e);
         }
       },
       {
