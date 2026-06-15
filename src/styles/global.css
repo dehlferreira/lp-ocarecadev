@@ -3,15 +3,15 @@
 :root {
   /* Fundo da Página (Base Dark) */
   --color-bg-dark: #0A0A0A;
-  
+
   /* Cor Accent Principal (Verde Neon / Mint) */
   --color-primary-neon: #00FF9D;
   --color-primary-hover: #00E58B;
-  
+
   /* Textos Principais */
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #A3A3A3;
-  
+
   /* Tokens para Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.15);
@@ -65,7 +65,12 @@ ul {
 }
 
 /* Base utility classes for typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--color-text-primary);
   line-height: 1.2;
 }
@@ -100,10 +105,21 @@ section[id] {
   will-change: opacity, transform;
 }
 
-.scroll-animate.anim-left { transform: translateX(-48px); }
-.scroll-animate.anim-right { transform: translateX(48px); }
-.scroll-animate.anim-scale { transform: scale(0.94); }
-.scroll-animate.anim-rise-sm { transform: translateY(18px); }
+.scroll-animate.anim-left {
+  transform: translateX(-48px);
+}
+
+.scroll-animate.anim-right {
+  transform: translateX(48px);
+}
+
+.scroll-animate.anim-scale {
+  transform: scale(0.94);
+}
+
+.scroll-animate.anim-rise-sm {
+  transform: translateY(18px);
+}
 
 /* Acessibilidade: usuários com "reduzir movimento" não disparam as animações
    scroll-driven nem o fallback JS, então o conteúdo precisa ser visível de imediato.
@@ -124,38 +140,322 @@ section[id] {
     }
 
     /* Cada variante mapeia para seu próprio keyframe */
-    .scroll-animate.anim-left { animation-name: reveal-left; }
-    .scroll-animate.anim-right { animation-name: reveal-right; }
-    .scroll-animate.anim-scale { animation-name: reveal-scale; }
-    .scroll-animate.anim-rise-sm { animation-name: reveal-rise-sm; }
+    .scroll-animate.anim-left {
+      animation-name: reveal-left;
+    }
+
+    .scroll-animate.anim-right {
+      animation-name: reveal-right;
+    }
+
+    .scroll-animate.anim-scale {
+      animation-name: reveal-scale;
+    }
+
+    .scroll-animate.anim-rise-sm {
+      animation-name: reveal-rise-sm;
+    }
 
     /* Stagger real para scroll-scrubbed: deslocamos a janela de entrada por item,
        criando uma cascata conforme a seção entra na viewport (não um delay temporal). */
-    .scroll-animate.delay-100 { animation-range: entry 9% cover 31%; }
-    .scroll-animate.delay-150 { animation-range: entry 11% cover 32%; }
-    .scroll-animate.delay-200 { animation-range: entry 13% cover 34%; }
-    .scroll-animate.delay-300 { animation-range: entry 17% cover 37%; }
-    .scroll-animate.delay-400 { animation-range: entry 21% cover 40%; }
+    .scroll-animate.delay-100 {
+      animation-range: entry 9% cover 31%;
+    }
+
+    .scroll-animate.delay-150 {
+      animation-range: entry 11% cover 32%;
+    }
+
+    .scroll-animate.delay-200 {
+      animation-range: entry 13% cover 34%;
+    }
+
+    .scroll-animate.delay-300 {
+      animation-range: entry 17% cover 37%;
+    }
+
+    .scroll-animate.delay-400 {
+      animation-range: entry 21% cover 40%;
+    }
 
     @keyframes reveal-rise {
-      from { opacity: 0; transform: translateY(32px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(32px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     @keyframes reveal-rise-sm {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     @keyframes reveal-left {
-      from { opacity: 0; transform: translateX(-48px); }
-      to { opacity: 1; transform: translateX(0); }
+      from {
+        opacity: 0;
+        transform: translateX(-48px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
+
     @keyframes reveal-right {
-      from { opacity: 0; transform: translateX(48px); }
-      to { opacity: 1; transform: translateX(0); }
+      from {
+        opacity: 0;
+        transform: translateX(48px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
+
     @keyframes reveal-scale {
-      from { opacity: 0; transform: scale(0.94); }
-      to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.94);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Scrollytelling — Pinned Scroll + Scrubbing  (ADR-011 / SPEC-009)
+   A seção "trava" (sticky) e os elementos internos são revelados conforme o
+   scroll avança, liberando ao terminar. Tudo em CSS nativo (view-timeline +
+   animation-timeline), rodando no compositor → fluido no mobile, zero JS.
+
+   Estrutura:
+     <div class="scrolly" style="--scrolly-track: 320vh">   ← trilho alto
+       <div class="scrolly__stage">                          ← painel preso
+         ...conteúdo com .scrolly-step / .scrolly-progress...
+       </div>
+     </div>
+
+   Fallback: fora do @supports (Safari/Firefox antigos) ou com reduced-motion,
+   .scrolly vira bloco normal, .scrolly__stage fica estático e os steps são
+   visíveis (sem opacity:0, pois o estado oculto só existe dentro do @supports).
+   ────────────────────────────────────────────────────────────────────────── */
+.scrolly {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: contain)) {
+    .scrolly {
+      height: var(--scrolly-track, 300vh);
+      view-timeline-name: --scrolly;
+      view-timeline-axis: block;
+    }
+
+    .scrolly__stage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Reveal escalonado: cada step ocupa uma fatia da fase `contain`
+       (= janela em que a seção está efetivamente pinada). As faixas se
+       adaptam à quantidade de passos via o modificador .scrolly--N, para
+       que o reveal preencha quase todo o pin (sem scroll "morto" no fim). */
+    .scrolly-step {
+      animation: scrolly-rise linear both;
+      animation-timeline: --scrolly;
+      will-change: opacity, transform;
+    }
+
+    /* 4 passos */
+    .scrolly--4 .s-1 {
+      animation-range: contain 4% contain 22%;
+    }
+
+    .scrolly--4 .s-2 {
+      animation-range: contain 26% contain 44%;
+    }
+
+    .scrolly--4 .s-3 {
+      animation-range: contain 48% contain 66%;
+    }
+
+    .scrolly--4 .s-4 {
+      animation-range: contain 70% contain 88%;
+    }
+
+    /* 5 passos */
+    .scrolly--5 .s-1 {
+      animation-range: contain 4% contain 18%;
+    }
+
+    .scrolly--5 .s-2 {
+      animation-range: contain 21% contain 35%;
+    }
+
+    .scrolly--5 .s-3 {
+      animation-range: contain 38% contain 52%;
+    }
+
+    .scrolly--5 .s-4 {
+      animation-range: contain 55% contain 69%;
+    }
+
+    .scrolly--5 .s-5 {
+      animation-range: contain 72% contain 88%;
+    }
+
+    /* 7 passos */
+    .scrolly--7 .s-1 {
+      animation-range: contain 3% contain 13%;
+    }
+
+    .scrolly--7 .s-2 {
+      animation-range: contain 15% contain 25%;
+    }
+
+    .scrolly--7 .s-3 {
+      animation-range: contain 27% contain 37%;
+    }
+
+    .scrolly--7 .s-4 {
+      animation-range: contain 39% contain 49%;
+    }
+
+    .scrolly--7 .s-5 {
+      animation-range: contain 51% contain 61%;
+    }
+
+    .scrolly--7 .s-6 {
+      animation-range: contain 63% contain 73%;
+    }
+
+    .scrolly--7 .s-7 {
+      animation-range: contain 75% contain 88%;
+    }
+
+    /* Variantes de direção (mesmas faixas, basta combinar com .s-N) */
+    .scrolly-step.from-left {
+      animation-name: scrolly-left;
+    }
+
+    .scrolly-step.from-right {
+      animation-name: scrolly-right;
+    }
+
+    .scrolly-step.from-scale {
+      animation-name: scrolly-scale;
+    }
+
+    /* Barra de progresso que preenche durante o pin */
+    .scrolly-progress {
+      transform-origin: top center;
+      animation: scrolly-fill-y linear both;
+      animation-timeline: --scrolly;
+      animation-range: contain 2% contain 88%;
+    }
+
+    .scrolly-progress.is-horizontal {
+      transform-origin: left center;
+      animation-name: scrolly-fill-x;
+    }
+
+    @keyframes scrolly-rise {
+      from {
+        opacity: 0;
+        transform: translateY(38px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes scrolly-left {
+      from {
+        opacity: 0;
+        transform: translateX(-44px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes scrolly-right {
+      from {
+        opacity: 0;
+        transform: translateX(44px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes scrolly-scale {
+      from {
+        opacity: 0;
+        transform: scale(0.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes scrolly-fill-y {
+      from {
+        transform: scaleY(0);
+      }
+
+      to {
+        transform: scaleY(1);
+      }
+    }
+
+    @keyframes scrolly-fill-x {
+      from {
+        transform: scaleX(0);
+      }
+
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    /* Mobile: trilhos mais curtos para a página não ficar cansativa */
+    @media (max-width: 767px) {
+      .scrolly {
+        height: var(--scrolly-track-mobile, var(--scrolly-track, 240vh));
+      }
     }
   }
 }
@@ -209,27 +509,62 @@ section[id] {
 }
 
 @keyframes float-orb-1 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(80px, -100px) scale(1.15); }
-  100% { transform: translate(-60px, 60px) scale(0.85); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(80px, -100px) scale(1.15);
+  }
+
+  100% {
+    transform: translate(-60px, 60px) scale(0.85);
+  }
 }
 
 @keyframes float-orb-2 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-100px, 80px) scale(1.2); }
-  100% { transform: translate(60px, -60px) scale(0.8); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-100px, 80px) scale(1.2);
+  }
+
+  100% {
+    transform: translate(60px, -60px) scale(0.8);
+  }
 }
 
 @keyframes float-orb-3 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(60px, 100px) scale(1.25); }
-  100% { transform: translate(-80px, -80px) scale(0.8); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(60px, 100px) scale(1.25);
+  }
+
+  100% {
+    transform: translate(-80px, -80px) scale(0.8);
+  }
 }
 
-.delay-100 { transition-delay: 100ms; }
-.delay-200 { transition-delay: 200ms; }
-.delay-300 { transition-delay: 300ms; }
-.delay-400 { transition-delay: 400ms; }
+.delay-100 {
+  transition-delay: 100ms;
+}
+
+.delay-200 {
+  transition-delay: 200ms;
+}
+
+.delay-300 {
+  transition-delay: 300ms;
+}
+
+.delay-400 {
+  transition-delay: 400ms;
+}
 
 /* ── Transição suave entre seções ── */
 /* Pseudo-element no topo de cada seção que cria um gradiente
@@ -245,11 +580,9 @@ section[id] {
   left: 0;
   right: 0;
   height: 120px;
-  background: linear-gradient(
-    to bottom,
-    var(--fade-from, var(--color-bg-dark)),
-    transparent
-  );
+  background: linear-gradient(to bottom,
+      var(--fade-from, var(--color-bg-dark)),
+      transparent);
   z-index: 5;
   pointer-events: none;
 }
@@ -266,11 +599,9 @@ section[id] {
   left: 0;
   right: 0;
   height: 120px;
-  background: linear-gradient(
-    to top,
-    var(--fade-to, var(--color-bg-dark)),
-    transparent
-  );
+  background: linear-gradient(to top,
+      var(--fade-to, var(--color-bg-dark)),
+      transparent);
   z-index: 5;
   pointer-events: none;
 }

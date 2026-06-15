@@ -1,30 +1,45 @@
 ---
-import FrustrationChart from '../ui/FrustrationChart.astro';
-import Icon from '../ui/Icon.astro';
+import FrustrationChart from "../ui/FrustrationChart.astro";
+import Icon from "../ui/Icon.astro";
 ---
 
 <section id="agitacao" class="section-agitation section-fade-bottom">
-  <div class="container">
-    <div class="agitation-content">
-      <p class="agitation-big scroll-animate">
-        Você investiu tempo, dinheiro…<br/>
-        e no fim, tem só uma página parada na internet.
-      </p>
+  <div
+    class="scrolly scrolly--4"
+    style="--scrolly-track: 300vh; --scrolly-track-mobile: 260vh;"
+  >
+    <div class="scrolly__stage">
+      <div class="container">
+        <!-- Desktop: texto e imagem lado a lado. Mobile: empilhado (textos primeiro, imagem depois).
+             Reveal em sequência: textos (s-1..s-3) e, por fim, o gráfico (s-4). -->
+        <div class="agitation-content">
+          <div class="ag-text">
+            <p class="agitation-big scrolly-step s-1">
+              Você investiu tempo, dinheiro…<br />
+              e no fim, tem só uma página parada na internet.
+            </p>
 
-      <div class="agitation-words scroll-animate delay-100">
-        <p>Sem retorno.</p>
-        <p>Sem previsibilidade.</p>
-        <p>Sem controle.</p>
+            <div class="agitation-words scrolly-step s-2">
+              <p>Sem retorno.</p>
+              <p>Sem previsibilidade.</p>
+              <p>Sem controle.</p>
+            </div>
+
+            <p class="agitation-highlight scrolly-step from-scale s-3">
+              <span class="highlight-icon"
+                ><Icon name="arrow-right" size={22} stroke={2.5} /></span
+              >
+              <span
+                >Isso não é um site. É um <span class="text-neon">custo</span>.</span
+              >
+            </p>
+          </div>
+
+          <div class="frustration-img-container scrolly-step from-scale s-4">
+            <FrustrationChart />
+          </div>
+        </div>
       </div>
-
-      <div class="frustration-img-container scroll-animate anim-scale delay-150">
-        <FrustrationChart />
-      </div>
-
-      <p class="agitation-highlight scroll-animate anim-scale delay-200">
-        <span class="highlight-icon"><Icon name="arrow-right" size={22} stroke={2.5} /></span>
-        Isso não é um site. É um <span class="text-neon">custo</span>.
-      </p>
     </div>
   </div>
 </section>
@@ -43,7 +58,7 @@ import Icon from '../ui/Icon.astro';
   }
 
   .container {
-    max-width: 800px;
+    max-width: 1040px;
     margin: 0 auto;
     width: 100%;
     padding: 0 1rem;
@@ -52,12 +67,44 @@ import Icon from '../ui/Icon.astro';
     text-align: center;
   }
 
+  /* Mobile: coluna única (textos primeiro, imagem depois) */
+  .agitation-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  /* Desktop: lado a lado */
+  @media (min-width: 768px) {
+    .agitation-content {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      align-items: center;
+      gap: 3.5rem;
+      text-align: left;
+    }
+  }
+
+  .ag-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .ag-text {
+      align-items: flex-start;
+      gap: 2rem;
+    }
+  }
+
   .agitation-big {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-text-primary);
     line-height: 1.3;
-    margin-bottom: 3rem;
   }
 
   @media (min-width: 768px) {
@@ -72,7 +119,6 @@ import Icon from '../ui/Icon.astro';
     gap: 0.5rem;
     font-size: 1.25rem;
     color: var(--color-text-secondary);
-    margin-bottom: 3rem;
   }
 
   @media (min-width: 768px) {
@@ -81,28 +127,36 @@ import Icon from '../ui/Icon.astro';
     }
   }
 
-  .frustration-img-container {
-    max-width: 600px;
-    margin: 0 auto 3rem;
-  }
-
   .agitation-highlight {
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--color-text-primary);
     display: inline-flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.6rem;
+    text-align: left;
   }
 
   .highlight-icon {
     display: inline-flex;
     color: var(--color-primary-neon);
+    flex-shrink: 0;
   }
 
   @media (min-width: 768px) {
     .agitation-highlight {
       font-size: 1.75rem;
+    }
+  }
+
+  .frustration-img-container {
+    max-width: 600px;
+    width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .frustration-img-container {
+      max-width: 380px;
     }
   }
 </style>

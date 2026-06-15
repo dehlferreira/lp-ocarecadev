@@ -38,6 +38,15 @@
   padding: 1rem;
 }
 
+/* Mobile: reduz o respiro lateral/vertical para o mockup (com seus badges
+   flutuantes) caber sem estourar a largura nem ocupar altura demais quando
+   usado dentro de uma seção pinada (100svh). */
+@media (max-width: 767px) {
+  .hero-mockup-wrapper {
+    padding: 1.5rem 0.25rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .hero-mockup-wrapper {
     transform: scale(1.15);

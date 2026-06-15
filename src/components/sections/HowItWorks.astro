@@ -29,28 +29,32 @@ const steps = [
   },
 ];
 
-const delays = ['delay-100', 'delay-200', 'delay-300', 'delay-400'];
 ---
 
 <section id="como-funciona" class="section-how section-fade-top section-fade-bottom">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title scroll-animate">Um processo simples, direto e focado em <span class="text-neon">resultado</span></h2>
-    </div>
+  <div class="scrolly scrolly--5" style="--scrolly-track: 360vh; --scrolly-track-mobile: 300vh;">
+    <div class="scrolly__stage">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title scrolly-step s-1">Um processo simples, direto e focado em <span class="text-neon">resultado</span></h2>
+          <span class="how-progress scrolly-progress is-horizontal" aria-hidden="true"></span>
+        </div>
 
-    <div class="steps-grid">
-      {steps.map((step, i) => (
-        <GlassCard class={`step-card scroll-animate anim-scale ${delays[i]}`}>
-          <div class="step-top">
-            <span class="step-icon">
-              <Icon name={step.icon} size={24} />
-            </span>
-            <span class="step-num">{step.num}</span>
-          </div>
-          <h3 class="step-title">{step.title}</h3>
-          <p class="step-desc">{step.desc}</p>
-        </GlassCard>
-      ))}
+        <div class="steps-grid">
+          {steps.map((step, i) => (
+            <GlassCard class={`step-card scrolly-step from-scale s-${i + 2}`}>
+              <div class="step-top">
+                <span class="step-icon">
+                  <Icon name={step.icon} size={24} />
+                </span>
+                <span class="step-num">{step.num}</span>
+              </div>
+              <h3 class="step-title">{step.title}</h3>
+              <p class="step-desc">{step.desc}</p>
+            </GlassCard>
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -79,11 +83,17 @@ const delays = ['delay-100', 'delay-200', 'delay-300', 'delay-400'];
 
   .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      margin-bottom: 3.5rem;
+    }
   }
 
   .section-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 800;
     color: var(--color-text-primary);
   }
@@ -94,15 +104,29 @@ const delays = ['delay-100', 'delay-200', 'delay-300', 'delay-400'];
     }
   }
 
+  /* Barra de progresso que preenche conforme os passos são revelados (scrollytelling) */
+  .how-progress {
+    display: block;
+    width: min(220px, 70%);
+    height: 4px;
+    margin: 1.5rem auto 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-primary-neon), #00A666);
+    box-shadow: 0 0 16px rgba(0, 255, 157, 0.45);
+    /* fallback (sem scroll-driven): barra cheia */
+    transform: scaleX(1);
+  }
+
   .steps-grid {
     display: grid;
-    gap: 2rem;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
     position: relative;
   }
 
   @media (min-width: 768px) {
     .steps-grid {
-      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
     }
   }
 
@@ -194,5 +218,31 @@ const delays = ['delay-100', 'delay-200', 'delay-300', 'delay-400'];
   .step-desc {
     color: var(--color-text-secondary);
     font-size: 1rem;
+  }
+
+  /* Mobile: layout 2x2 compacto para caber na seção pinada (100svh) */
+  @media (max-width: 767px) {
+    :global(.section-how .step-card) {
+      padding: 1.25rem !important;
+    }
+    .step-top {
+      margin-bottom: 0.85rem;
+    }
+    .step-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+    }
+    .step-num {
+      font-size: 2rem;
+    }
+    .step-title {
+      font-size: 1.05rem;
+      margin-bottom: 0.35rem;
+    }
+    .step-desc {
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
   }
 </style>

@@ -28,7 +28,7 @@ import Icon from './Icon.astro';
       </div>
 
       <div class="chart">
-        <svg viewBox="0 0 320 140" preserveAspectRatio="none" aria-hidden="true">
+        <svg viewBox="0 0 320 140" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <!-- grid -->
           <line x1="0" y1="35" x2="320" y2="35" class="grid" />
           <line x1="0" y1="70" x2="320" y2="70" class="grid" />
@@ -175,8 +175,11 @@ import Icon from './Icon.astro';
     white-space: nowrap;
   }
 
+  /* aspect-ratio mantém a proporção do viewBox (320:140) em qualquer largura,
+     sem esticar/distorcer o traço no mobile (antes: height fixo + preserveAspectRatio="none") */
   .chart {
-    height: 150px;
+    width: 100%;
+    aspect-ratio: 320 / 140;
     margin-bottom: 1.4rem;
   }
 

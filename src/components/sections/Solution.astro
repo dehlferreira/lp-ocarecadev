@@ -5,30 +5,34 @@ import Icon from '../ui/Icon.astro';
 ---
 
 <section id="solucao" class="section-solution section-fade-top section-fade-bottom">
-  <div class="neon-glow"></div>
+  <div class="scrolly scrolly--5" style="--scrolly-track: 340vh; --scrolly-track-mobile: 300vh;">
+    <div class="scrolly__stage">
+      <div class="neon-glow"></div>
 
-  <div class="container">
-    <GlassCard class="solution-card scroll-animate anim-scale">
-      <h2 class="solution-title">
-        Agora imagina ter uma página que trabalha por você todos os dias
-      </h2>
+      <div class="container">
+        <GlassCard class="solution-card">
+          <h2 class="solution-title scrolly-step s-1">
+            Agora imagina ter uma página que trabalha por você todos os dias
+          </h2>
 
-      <p class="solution-text">Na OCARECADEV, nós não criamos "sites bonitos".</p>
+          <p class="solution-text scrolly-step s-2">Na OCARECADEV, nós não criamos "sites bonitos".</p>
 
-      <p class="solution-highlight">
-        <span class="highlight-icon"><Icon name="arrow-right" size={20} stroke={2.5} /></span>
-        Nós criamos páginas pensadas para gerar <span class="text-neon">clientes</span>.
-      </p>
+          <p class="solution-highlight scrolly-step from-scale s-3">
+            <span class="highlight-icon"><Icon name="arrow-right" size={20} stroke={2.5} /></span>
+            <span>Nós criamos páginas pensadas para gerar <span class="text-neon">clientes</span>.</span>
+          </p>
 
-      <div class="solution-mockup-container scroll-animate delay-100">
-        <HeroMockup />
+          <div class="solution-mockup-container scrolly-step from-scale s-4">
+            <HeroMockup />
+          </div>
+
+          <p class="solution-text last scrolly-step s-5">
+            Cada detalhe é feito para uma coisa:<br/>
+            fazer o visitante clicar, entrar em contato e virar <span class="text-neon">cliente</span>.
+          </p>
+        </GlassCard>
       </div>
-      
-      <p class="solution-text last">
-        Cada detalhe é feito para uma coisa:<br/>
-        fazer o visitante clicar, entrar em contato e virar <span class="text-neon">cliente</span>.
-      </p>
-    </GlassCard>
+    </div>
   </div>
 </section>
 
@@ -37,7 +41,8 @@ import Icon from '../ui/Icon.astro';
     padding: 4rem 0;
     position: relative;
     background-color: #030303;
-    overflow: hidden;
+    /* clip (não hidden) contém o glow sem quebrar o position: sticky do palco */
+    overflow: clip;
   }
 
   @media (min-width: 768px) {
@@ -112,9 +117,10 @@ import Icon from '../ui/Icon.astro';
     border-radius: 12px;
     border: 1px solid rgba(0, 255, 157, 0.2);
     display: inline-flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.6rem;
     margin-bottom: 2.5rem;
+    text-align: left;
   }
 
   .solution-highlight .highlight-icon {
@@ -132,5 +138,32 @@ import Icon from '../ui/Icon.astro';
   .solution-mockup-container {
     max-width: 700px;
     margin: 1rem auto 0.5rem;
+  }
+
+  /* Mobile: comprime tudo para o card caber na seção pinada (100svh) */
+  @media (max-width: 767px) {
+    :global(.solution-card) {
+      padding: 1.5rem 1.25rem !important;
+    }
+    .solution-title {
+      font-size: 1.3rem;
+      margin-bottom: 1.1rem;
+    }
+    .solution-text {
+      font-size: 1rem;
+      margin-bottom: 0.85rem;
+    }
+    .solution-highlight {
+      font-size: 1.05rem;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .solution-text.last {
+      margin-top: 1rem;
+    }
+    .solution-mockup-container {
+      max-width: 300px;
+      margin: 0.25rem auto;
+    }
   }
 </style>

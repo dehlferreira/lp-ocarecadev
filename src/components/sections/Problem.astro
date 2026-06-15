@@ -7,32 +7,35 @@ const pains = [
   'Você depende de indicação',
   'E quando não indicam… você não vende',
 ];
-const delays = ['delay-100', 'delay-150', 'delay-200', 'delay-300'];
 ---
 
 <section id="problema" class="section-problem section-fade-top section-fade-bottom">
-  <div class="container">
-    <div class="problem-content">
-      <h2 class="problem-title scroll-animate">
-        Se você já tem um site e ele não te traz <span class="text-neon">clientes</span>,
-        ele não serve pra nada.
-      </h2>
+  <div class="scrolly scrolly--7" style="--scrolly-track: 300vh; --scrolly-track-mobile: 260vh;">
+    <div class="scrolly__stage">
+      <div class="container">
+        <div class="problem-content">
+          <h2 class="problem-title scrolly-step s-1">
+            Se você já tem um site e ele não te traz <span class="text-neon">clientes</span>,
+            ele não serve pra nada.
+          </h2>
 
-      <p class="problem-desc scroll-animate delay-100">A verdade é simples:</p>
+          <p class="problem-desc scrolly-step s-2">A verdade é simples:</p>
 
-      <ul class="problem-list">
-        {pains.map((pain, i) => (
-          <li class={`scroll-animate anim-rise-sm ${delays[i]}`}>
-            <span class="pain-icon"><Icon name="x" size={16} stroke={2.5} /></span>
-            <span set:html={pain} />
-          </li>
-        ))}
-      </ul>
+          <ul class="problem-list">
+            {pains.map((pain, i) => (
+              <li class={`scrolly-step from-left s-${i + 3}`}>
+                <span class="pain-icon"><Icon name="x" size={16} stroke={2.5} /></span>
+                <span set:html={pain} />
+              </li>
+            ))}
+          </ul>
 
-      <p class="problem-highlight scroll-animate anim-scale delay-400">
-        <span class="highlight-icon"><Icon name="arrow-right" size={20} stroke={2.5} /></span>
-        você nem sabe o que está errado
-      </p>
+          <p class="problem-highlight scrolly-step from-scale s-7">
+            <span class="highlight-icon"><Icon name="arrow-right" size={20} stroke={2.5} /></span>
+            você nem sabe o que está errado
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
