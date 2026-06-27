@@ -1,43 +1,40 @@
-# Astro Starter Kit: Minimal
+# OCARECADEV — Landing Page
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Landing page de conversão da OCARECADEV, construída com **Astro 6** (SSG estático), CSS vanilla e animações scroll-driven nativas.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Documentação
 
-## 🚀 Project Structure
+A documentação técnica do projeto está em [`docs/`](docs/):
 
-Inside of your Astro project, you'll see the following folders and files:
+| Pasta                        | Conteúdo                                                        |
+| ---------------------------- | --------------------------------------------------------------- |
+| [`docs/prds/`](docs/prds/)   | Requisitos de produto (negócio, design, animações, performance) |
+| [`docs/adrs/`](docs/adrs/)   | Decisões arquiteturais (Astro, CSS, scrollytelling, tracking)   |
+| [`docs/specs/`](docs/specs/) | Especificações de implementação com Definition of Done          |
+| [`guide.md`](guide.md)       | Referência de boas práticas para CSS Scroll-Driven Animations   |
+
+## Estrutura
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+├── components/
+│   ├── sections/   # Seções da landing (Hero, Problem, Pricing, etc.)
+│   └── ui/         # Componentes reutilizáveis (Button, GlassCard, Icon)
+├── layouts/        # Layout principal
+├── pages/          # Rotas (index.astro)
+├── scripts/        # scrollAnimations.js (Hero dissolve + fallback IO)
+└── styles/         # global.css (tema, scroll-animate, scrollytelling)
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Comandos
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| Comando           | Ação                               |
+| ----------------- | ---------------------------------- |
+| `npm install`     | Instala dependências               |
+| `npm run dev`     | Servidor local em `localhost:4321` |
+| `npm run build`   | Build de produção em `./dist/`     |
+| `npm run preview` | Preview do build local             |
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Variáveis de ambiente
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Copie `.env.example` para `.env` e configure `WHATSAPP_NUMBER`, `GA_MEASUREMENT_ID` e `META_PIXEL_ID` conforme necessário.

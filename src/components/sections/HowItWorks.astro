@@ -31,8 +31,8 @@ const steps = [
 
 ---
 
-<section id="como-funciona" class="section-how section-fade-top section-fade-bottom">
-  <div class="scrolly scrolly--5" style="--scrolly-track: 360vh; --scrolly-track-mobile: 300vh;">
+<section id="como-funciona" class="section-how scrolly-section section-fade-top section-fade-bottom">
+  <div class="scrolly scrolly--5" style="--scrolly-track: 360vh; --scrolly-track-mobile: 260vh;">
     <div class="scrolly__stage">
       <div class="container">
         <div class="section-header">
@@ -61,24 +61,7 @@ const steps = [
 
 <style>
   .section-how {
-    padding: 4rem 0;
-    position: relative;
     background-color: #0A0A0A;
-  }
-
-  @media (min-width: 768px) {
-    .section-how {
-      padding: 8rem 0;
-    }
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 10;
   }
 
   .section-header {
@@ -222,6 +205,15 @@ const steps = [
 
   /* Mobile: layout 2x2 compacto para caber na seção pinada (100svh) */
   @media (max-width: 767px) {
+    .section-header {
+      margin-bottom: 1.25rem;
+    }
+    .section-title {
+      font-size: 1.35rem;
+    }
+    .how-progress {
+      margin-top: 0.85rem;
+    }
     :global(.section-how .step-card) {
       padding: 1.25rem !important;
     }

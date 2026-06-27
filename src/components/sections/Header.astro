@@ -109,13 +109,6 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     transition: all 0.3s ease;
   }
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 1rem;
-  }
-
   .logo {
     display: flex;
     align-items: center;
@@ -129,11 +122,8 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
 
   @media (min-width: 768px) {
     .logo img {
-      height: 48px !important; /* Maior no desktop */
+      height: 48px !important;
       width: auto !important;
-    }
-    .container {
-      padding: 0 1rem;
     }
   }
 
@@ -234,7 +224,7 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     background: rgba(10, 10, 12, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);

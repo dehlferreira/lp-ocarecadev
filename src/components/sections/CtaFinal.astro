@@ -6,7 +6,7 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
 <section id="cta-final" class="section-cta section-fade-top">
   <div class="neon-glow-large"></div>
   
-  <div class="container">
+  <div class="container container--narrow">
     <div class="cta-content scroll-animate anim-scale">
       <h2 class="cta-title">Agora a decisão é sua</h2>
       
@@ -49,15 +49,6 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
     pointer-events: none;
   }
 
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 10;
-  }
-
   .cta-title {
     font-size: 2rem;
     font-weight: 800;
@@ -98,5 +89,25 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
   :global(.btn-large) {
     font-size: 1.25rem !important;
     padding: 18px 40px !important;
+  }
+
+  @media (max-width: 767px) {
+    .neon-glow-large {
+      width: 100%;
+      max-width: 400px;
+      height: 400px;
+    }
+    .cta-title {
+      font-size: 1.65rem;
+    }
+    .cta-desc {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    :global(.section-cta .btn-large) {
+      width: 100%;
+      font-size: 1rem !important;
+      padding: 14px 24px !important;
+    }
   }
 </style>

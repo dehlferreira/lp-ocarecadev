@@ -50,6 +50,21 @@ const Tag = href ? 'a' : 'button';
     }
   }
 
+  /* CTAs dos cards de pricing — uma linha só (escopo do Button vence sobre Pricing) */
+  .btn-pricing-cta {
+    white-space: nowrap;
+    font-size: 0.875rem;
+    letter-spacing: 0.03em;
+    padding: 0.75rem 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .btn-pricing-cta {
+      font-size: 0.8125rem;
+      padding: 0.75rem 0.875rem;
+    }
+  }
+
   .btn-primary {
     background: linear-gradient(135deg, rgba(0, 255, 157, 0.4) 0%, rgba(0, 255, 157, 0.15) 100%);
     backdrop-filter: blur(8px);

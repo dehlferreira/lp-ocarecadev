@@ -36,6 +36,12 @@ const ICONS: Record<string, { body: string; filled?: boolean }> = {
   'trending-down': {
     body: '<polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/>',
   },
+  instagram: {
+    body: '<rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>',
+  },
+  tiktok: {
+    body: '<path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>',
+  },
 };
 
 const icon = ICONS[name] ?? ICONS.check;

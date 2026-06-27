@@ -29,12 +29,12 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
           <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Entrega em até 48h</li>
         </ul>
         <Button type="ghost" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano EXPRESS`}>
-          Quero começar rápido
+          Quero começar já
         </Button>
       </GlassCard>
 
       <!-- Plano 2 (Destaque) -->
-      <GlassCard class="scroll-animate anim-scale delay-300 pricing-card highlight-card" highlight={true}>
+      <GlassCard class="scroll-animate anim-scale delay-300 pricing-card" highlight={true}>
         <div class="recommended-badge">Recomendado</div>
         <h3 class="plan-name">LANDING QUE VENDE</h3>
         <p class="plan-desc">Para quem quer gerar <span class="text-neon">clientes</span> de verdade.</p>
@@ -51,7 +51,7 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
           <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>1 revisão estratégica</li>
         </ul>
         <Button type="primary" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano LANDING QUE VENDE`}>
-          Quero uma página que gera clientes
+          Quero gerar clientes
         </Button>
       </GlassCard>
 
@@ -71,7 +71,7 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
           <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Otimização de conversão</li>
         </ul>
         <Button type="ghost" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano MÁQUINA DE CLIENTES`}>
-          Quero um sistema completo
+          Quero escalar
         </Button>
       </GlassCard>
     </div>
@@ -91,15 +91,6 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
     }
   }
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 10;
-  }
-
   .section-header {
     text-align: center;
     margin-bottom: 4rem;
@@ -114,39 +105,40 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
 
   @media (min-width: 768px) {
     .section-title {
-      font-size: 2.5rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .section-title {
       font-size: 3rem;
     }
-  }
-
-  .section-subtitle {
-    font-size: 1.125rem;
-    color: var(--color-text-secondary);
   }
 
   .pricing-grid {
     display: grid;
     gap: 2rem;
-    align-items: center;
+    align-items: stretch;
   }
 
   @media (min-width: 768px) {
     .pricing-grid {
       grid-template-columns: repeat(3, 1fr);
+      align-items: center;
     }
   }
 
   /* Cards Internos */
   :global(.pricing-card) {
-    height: fit-content;
     display: flex;
     flex-direction: column;
     position: relative;
+    height: 100%;
+  }
+
+  @media (min-width: 768px) {
+    :global(.pricing-card) {
+      height: auto;
+    }
+
+    :global(.pricing-card:not(.highlight-card)) {
+      min-height: 34.5rem;
+      align-self: center;
+    }
   }
 
   .recommended-badge {
@@ -168,14 +160,53 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
   }
 
   :global(.highlight-card) {
-    z-index: 10;
+    z-index: 2;
   }
 
-  /* O destaque só escala no layout de 3 colunas; no mobile (coluna única, largura
-     cheia) o scale(1.05) faria o card vazar ~5% para fora da viewport. */
   @media (min-width: 768px) {
-    :global(.highlight-card) {
-      transform: scale(1.05);
+    :global(.pricing-card.highlight-card) {
+      transform: scale(1.07);
+      padding: 3.25rem 2.35rem !important;
+      min-height: 41rem;
+      align-self: center;
+      border-color: rgba(0, 255, 157, 0.45) !important;
+      background: rgba(0, 255, 157, 0.07) !important;
+      box-shadow:
+        0 0 0 1px rgba(0, 255, 157, 0.22),
+        0 14px 44px rgba(0, 255, 157, 0.2),
+        0 28px 72px rgba(0, 0, 0, 0.45);
+    }
+
+    :global(.pricing-card.highlight-card:hover) {
+      transform: scale(1.07) translateY(-5px);
+      border-color: rgba(0, 255, 157, 0.65) !important;
+      background: rgba(0, 255, 157, 0.1) !important;
+      box-shadow:
+        0 0 0 1px rgba(0, 255, 157, 0.35),
+        0 18px 52px rgba(0, 255, 157, 0.3),
+        0 32px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    :global(.highlight-card) .plan-name {
+      font-size: 1.65rem;
+    }
+
+    :global(.highlight-card) .plan-price {
+      font-size: 2.75rem;
+    }
+
+    .recommended-badge {
+      padding: 0.5rem 1.4rem;
+      font-size: 0.8rem;
+      box-shadow: 0 6px 22px rgba(0, 255, 157, 0.45);
+    }
+  }
+
+  @media (max-width: 767px) {
+    :global(.pricing-card.highlight-card) {
+      border-color: rgba(0, 255, 157, 0.4) !important;
+      background: rgba(0, 255, 157, 0.05) !important;
+      box-shadow: 0 8px 36px rgba(0, 255, 157, 0.16);
     }
   }
 
@@ -270,5 +301,36 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
   :global(.btn-full) {
     width: 100%;
     justify-content: center;
+    margin-top: auto;
+  }
+
+  @media (max-width: 767px) {
+    .section-header {
+      margin-bottom: 2.5rem;
+    }
+    .section-title {
+      font-size: 1.65rem;
+    }
+    .pricing-grid {
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+    :global(.pricing-card) {
+      padding: 1.5rem !important;
+      height: auto;
+    }
+    .plan-name {
+      font-size: 1.25rem;
+    }
+    .plan-price {
+      font-size: 1.75rem;
+    }
+    .plan-installments {
+      margin-bottom: 1.5rem;
+    }
+    .plan-features li {
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
   }
 </style>

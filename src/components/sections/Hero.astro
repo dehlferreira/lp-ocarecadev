@@ -85,7 +85,7 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
 
 <style>
   .hero-section {
-    min-height: 100vh;
+    min-height: 100svh;
     position: relative;
     display: flex;
     align-items: center;
@@ -94,31 +94,20 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     overflow: hidden;
     background-color: #010101;
 
-    /* Scroll-driven dissolve defaults */
+    /* Scroll-driven dissolve defaults (opacity + transform only) */
     --hero-opacity: 1;
-    --hero-blur: 0px;
     --hero-scale: 1;
     --hero-translate-y: 0px;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 10;
   }
 
   .hero-grid {
     display: grid;
     gap: 3rem;
     align-items: center;
-    /* Dissolve com Blur — driven by JS custom properties */
+    /* Dissolve — driven by JS custom properties (compositor-only) */
     opacity: var(--hero-opacity);
-    filter: blur(var(--hero-blur));
     transform: scale(var(--hero-scale)) translateY(var(--hero-translate-y));
-    will-change: opacity, filter, transform;
+    will-change: opacity, transform;
     transform-origin: center top;
   }
 

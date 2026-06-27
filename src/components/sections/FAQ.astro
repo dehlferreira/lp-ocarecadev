@@ -3,7 +3,7 @@ import GlassCard from '../ui/GlassCard.astro';
 ---
 
 <section id="faq" class="section-faq section-fade-top section-fade-bottom">
-  <div class="container">
+  <div class="container container--narrow">
     <div class="section-header">
       <h2 class="section-title scroll-animate">Ainda com dúvidas?</h2>
     </div>
@@ -45,15 +45,6 @@ import GlassCard from '../ui/GlassCard.astro';
     }
   }
 
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 10;
-  }
-
   .section-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -91,5 +82,20 @@ import GlassCard from '../ui/GlassCard.astro';
   :global(.faq-item) p {
     color: var(--color-text-secondary);
     margin: 0;
+  }
+
+  @media (max-width: 767px) {
+    .section-header {
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-size: 1.65rem;
+    }
+    :global(.faq-item) {
+      padding: 1.25rem 1.25rem !important;
+    }
+    :global(.faq-item) h3 {
+      font-size: 1.05rem;
+    }
   }
 </style>

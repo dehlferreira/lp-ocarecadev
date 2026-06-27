@@ -47,17 +47,12 @@ const initScrollAnimations = () => {
     });
   }
 
-  // Lógica de Scroll e Scrubbing via requestAnimationFrame (Conforme SPEC-004)
-
   const header = document.getElementById('main-header');
 
   let ticking = false;
 
   const onScroll = () => {
     const scrolled = window.scrollY;
-    
-    // Repassa o scroll absoluto para o CSS (Variável Global conforme Spec-004)
-    document.documentElement.style.setProperty('--scroll-y', scrolled + 'px');
 
     if (header) {
       // Anima só o padding vertical (encolhe ao rolar); o horizontal fica no CSS
@@ -65,7 +60,7 @@ const initScrollAnimations = () => {
       header.style.paddingBlock = scrolled > 50 ? '0.5rem' : '1rem';
     }
 
-    // Hero "Dissolve com Blur" — animação cinematográfica bidirecional
+    // Hero dissolve — opacity + transform only (compositor-friendly, PRD-003)
     const heroSection = document.getElementById('hero');
     if (heroSection) {
       const heroHeight = heroSection.offsetHeight;
@@ -73,18 +68,14 @@ const initScrollAnimations = () => {
       // No mobile, só começa a animar depois que a foto já apareceu (35% da hero)
       const scrollOffset = isMobile ? heroHeight * 0.35 : 0;
       const effectiveScroll = Math.max(scrolled - scrollOffset, 0);
-      // Progresso de 0 (início) a 1 (saiu da viewport)
       const rawProgress = Math.min(effectiveScroll / (heroHeight * 0.6), 1);
-      // Ease-out para suavidade
       const progress = rawProgress * rawProgress;
 
       const opacity = 1 - progress;
-      const blur = progress * 12; // até 12px de blur
-      const scale = 1 - progress * 0.06; // escala de 1.0 → 0.94
-      const translateY = progress * -30; // leve lift de -30px
+      const scale = 1 - progress * 0.06;
+      const translateY = progress * -30;
 
       heroSection.style.setProperty('--hero-opacity', opacity);
-      heroSection.style.setProperty('--hero-blur', blur + 'px');
       heroSection.style.setProperty('--hero-scale', scale);
       heroSection.style.setProperty('--hero-translate-y', translateY + 'px');
     }
@@ -99,13 +90,14 @@ const initScrollAnimations = () => {
     }
   }, { passive: true });
 
-  // Dispara uma vez no início para ajustar estado inicial do Header e CSS Var
   window.requestAnimationFrame(onScroll);
 };
 
 const initMouseTracking = () => {
+  // Só em dispositivos com ponteiro fino (desktop); orbs/glows estão ocultos no mobile
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+
   document.addEventListener('mousemove', (e) => {
-    // Valores de -1 a 1, onde 0 é o centro da tela
     const x = (e.clientX / window.innerWidth) * 2 - 1;
     const y = (e.clientY / window.innerHeight) * 2 - 1;
     document.documentElement.style.setProperty('--mouse-x', x);

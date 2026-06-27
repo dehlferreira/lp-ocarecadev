@@ -16,8 +16,7 @@ const testimonials = [
     name: 'Roberto Almeida',
     role: 'CEO, TechGrowth',
     text: '"Nossas conversões dobraram na primeira semana após o lançamento. O design e a velocidade da página são absurdos."',
-    anim: 'anim-left',
-    delay: 'delay-200',
+    variant: 'from-left',
   },
   {
     initials: 'MC',
@@ -25,8 +24,7 @@ const testimonials = [
     name: 'Mariana Costa',
     role: 'Mentora de Vendas',
     text: '"Sempre sofri com sites lentos que perdiam clientes no meio do caminho. A OCARECADEV resolveu isso e entregou uma verdadeira máquina de vendas."',
-    anim: 'anim-scale',
-    delay: 'delay-300',
+    variant: 'from-scale',
   },
   {
     initials: 'CM',
@@ -34,93 +32,428 @@ const testimonials = [
     name: 'Carlos Moura',
     role: 'Sócio, Agência XYZ',
     text: '"Ter um código limpo e analytics injetado certinho nos botões me economizou muito tempo. O tracking funciona perfeitamente."',
-    anim: 'anim-right',
-    delay: 'delay-400',
+    variant: 'from-right',
   },
 ];
 ---
 
-<section id="social-proof" class="section-social section-fade-top section-fade-bottom" style="--fade-from: #010101;">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title scroll-animate"><span class="text-neon">Resultados</span> falam mais que qualquer promessa</h2>
-      <ul class="section-subtitle-list scroll-animate delay-100">
-        {benefits.map((benefit) => (
-          <li>
-            <span class="check-icon"><Icon name="check" size={15} stroke={3} /></span>
-            <span set:html={benefit} />
-          </li>
-        ))}
-      </ul>
-    </div>
+<section id="social-proof" class="section-social scrolly-section section-fade-top section-fade-bottom" style="--fade-from: #010101;">
+  <!-- Desktop: uma sequência com 5 passos -->
+  <div class="proof-desktop">
+    <div class="scrolly scrolly--5" style="--scrolly-track: 420vh;">
+      <div class="scrolly__stage">
+        <div class="container">
+          <div class="proof-content">
+            <div class="section-header scrolly-step s-1">
+              <h2 class="section-title">
+                <span class="text-neon">Resultados</span> falam mais que qualquer promessa
+              </h2>
+              <ul class="section-subtitle-list">
+                {benefits.map((benefit) => (
+                  <li>
+                    <span class="check-icon"><Icon name="check" size={15} stroke={3} /></span>
+                    <span set:html={benefit} />
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-    <div class="mockup-container scroll-animate anim-scale delay-150">
-      <BeforeAfterMockup />
-    </div>
+            <div class="mockup-container scrolly-step from-scale s-2">
+              <BeforeAfterMockup />
+            </div>
 
-    <div class="proof-grid">
-      {testimonials.map((t) => (
-        <GlassCard class={`scroll-animate ${t.anim} ${t.delay}`}>
-          <div class="proof-author">
-            <div class={`avatar-placeholder ${t.placeholder}`}>{t.initials}</div>
-            <div class="author-info">
-              <h4>{t.name}</h4>
-              <span>{t.role}</span>
+            <div class="proof-grid">
+              {testimonials.map((t, i) => (
+                <GlassCard
+                  class={`proof-card scrolly-step ${t.variant} s-${i + 3}`}
+                  padding="1.5rem"
+                >
+                  <div class="proof-author">
+                    <div class={`avatar-placeholder ${t.placeholder}`}>{t.initials}</div>
+                    <div class="author-info">
+                      <h4>{t.name}</h4>
+                      <span>{t.role}</span>
+                    </div>
+                  </div>
+                  <p class="proof-text">{t.text}</p>
+                  <div class="stars">
+                    {Array.from({ length: 5 }).map(() => <Icon name="star" size={18} />)}
+                  </div>
+                </GlassCard>
+              ))}
             </div>
           </div>
-          <p class="proof-text">{t.text}</p>
-          <div class="stars">
-            {Array.from({ length: 5 }).map(() => <Icon name="star" size={18} />)}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile: duas sequências — intro (título + mockup) e depoimentos -->
+  <div class="proof-mobile">
+    <div
+      class="scrolly scrolly--2 proof-mobile-intro"
+      style="--scrolly-timeline: --proof-intro; --scrolly-track-mobile: 240vh;"
+    >
+      <div class="scrolly__stage">
+        <div class="container">
+          <div class="proof-content">
+            <div class="section-header scrolly-step s-1">
+              <h2 class="section-title">
+                <span class="text-neon">Resultados</span> falam mais que qualquer promessa
+              </h2>
+              <ul class="section-subtitle-list">
+                {benefits.map((benefit) => (
+                  <li>
+                    <span class="check-icon"><Icon name="check" size={15} stroke={3} /></span>
+                    <span set:html={benefit} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="mockup-container scrolly-step from-scale s-2">
+              <BeforeAfterMockup />
+            </div>
           </div>
-        </GlassCard>
-      ))}
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="scrolly scrolly--3 proof-mobile-quotes"
+      style="--scrolly-timeline: --proof-quotes; --scrolly-track-mobile: 280vh;"
+    >
+      <div class="scrolly__stage">
+        <div class="container">
+          <div class="proof-grid proof-mobile-quotes-grid">
+            {testimonials.map((t, i) => (
+              <GlassCard
+                class={`proof-card scrolly-step ${t.variant} s-${i + 1}`}
+                padding="1.5rem"
+              >
+                <div class="proof-author">
+                  <div class={`avatar-placeholder ${t.placeholder}`}>{t.initials}</div>
+                  <div class="author-info">
+                    <h4>{t.name}</h4>
+                    <span>{t.role}</span>
+                  </div>
+                </div>
+                <p class="proof-text">{t.text}</p>
+                <div class="stars">
+                  {Array.from({ length: 5 }).map(() => <Icon name="star" size={18} />)}
+                </div>
+              </GlassCard>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
   .section-social {
-    padding: 4rem 0;
     position: relative;
     background-color: #010101;
   }
 
+  .proof-desktop {
+    display: none;
+  }
+
+  .proof-mobile {
+    display: block;
+  }
+
   @media (min-width: 768px) {
-    .section-social {
-      padding: 6rem 0;
+    .proof-desktop {
+      display: block;
+    }
+
+    .proof-mobile {
+      display: none;
     }
   }
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
+  .section-social .scrolly__stage {
+    justify-content: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .section-social .scrolly__stage {
+      padding-top: 1.25rem;
+      padding-bottom: 1.25rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .section-social .scrolly__stage {
+      padding-top: 0.75rem;
+      padding-bottom: 1rem;
+    }
+
+    /* Intro mobile: centraliza o bloco quando o scrolly completa */
+    .proof-mobile-intro .scrolly__stage {
+      justify-content: center;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .proof-mobile-intro .proof-content {
+      width: 100%;
+    }
+
+    .proof-mobile-intro .section-header {
+      margin-bottom: 1.25rem;
+    }
+
+    .proof-mobile-intro .section-title {
+      font-size: 1.45rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .proof-mobile-intro .section-subtitle-list {
+      font-size: 0.875rem;
+      gap: 0.35rem;
+    }
+
+    .proof-mobile-intro .mockup-container {
+      margin-bottom: 0;
+      max-width: min(100%, 400px);
+    }
+
+    /* Mockup só ocupa espaço depois de revelado — permite centralizar título sozinho no passo 1 */
+    .proof-mobile-intro .mockup-container.scrolly-step {
+      animation-name: proof-mockup-enter !important;
+    }
+
+    @keyframes proof-mockup-enter {
+      from {
+        opacity: 0;
+        transform: scale(0.94) translateY(20px);
+        max-height: 0;
+        overflow: hidden;
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+        max-height: 520px;
+        overflow: visible;
+      }
+    }
+
+    /* Mockup compacto empilhado — cabe com o título no palco pinado */
+    .proof-mobile-intro .mockup-container :global(.ba-mockup) {
+      flex-direction: column;
+      gap: 0.85rem;
+      align-items: stretch;
+    }
+
+    .proof-mobile-intro .mockup-container :global(.ba-card) {
+      width: 100%;
+    }
+
+    .proof-mobile-intro .mockup-container :global(.ba-arrow) {
+      transform: rotate(90deg);
+      align-self: center;
+    }
+
+    .proof-mobile-intro .mockup-container :global(.ba-arrow svg) {
+      width: 20px;
+      height: 20px;
+    }
+
+    .proof-mobile-intro .mockup-container :global(.win-body) {
+      min-height: 100px;
+      padding: 0.5rem 0.5rem 0.6rem;
+      gap: 0.4rem;
+    }
+
+    .proof-mobile-intro .mockup-container :global(.win-bar) {
+      padding: 0.3rem 0.45rem;
+    }
+
+    .proof-mobile-intro .mockup-container :global(.d) {
+      width: 5px;
+      height: 5px;
+    }
+
+    .proof-mobile-intro .mockup-container :global(.ba-tag) {
+      font-size: 0.58rem;
+      padding: 0.12rem 0.45rem;
+      top: -8px;
+      left: 6px;
+    }
+
+    .proof-mobile-intro .mockup-container :global(.dull-hero),
+    .proof-mobile-intro .mockup-container :global(.prem-hero) {
+      gap: 0.4rem;
+    }
+
+    .proof-mobile-intro .mockup-container :global(.h-7) {
+      height: 18px;
+    }
+
+    .proof-mobile-intro .mockup-container :global(.badge) {
+      width: 36px;
+      height: 7px;
+    }
+
+    /* Depoimentos mobile: centraliza o bloco quando o scrolly completa */
+    .proof-mobile-quotes .scrolly__stage {
+      justify-content: center;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .proof-mobile-quotes .proof-mobile-quotes-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      width: 100%;
+    }
+
+    /* Cards só ocupam espaço depois de revelados — centraliza cada passo */
+    .proof-mobile-quotes .proof-card.scrolly-step.from-left {
+      animation-name: proof-quote-left !important;
+    }
+
+    .proof-mobile-quotes .proof-card.scrolly-step.from-scale {
+      animation-name: proof-quote-scale !important;
+    }
+
+    .proof-mobile-quotes .proof-card.scrolly-step.from-right {
+      animation-name: proof-quote-right !important;
+    }
+
+    @keyframes proof-quote-left {
+      from {
+        opacity: 0;
+        transform: translateX(-44px);
+        max-height: 0;
+        overflow: hidden;
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+        max-height: 200px;
+        overflow: visible;
+      }
+    }
+
+    @keyframes proof-quote-scale {
+      from {
+        opacity: 0;
+        transform: scale(0.92);
+        max-height: 0;
+        overflow: hidden;
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+        max-height: 200px;
+        overflow: visible;
+      }
+    }
+
+    @keyframes proof-quote-right {
+      from {
+        opacity: 0;
+        transform: translateX(44px);
+        max-height: 0;
+        overflow: hidden;
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+        max-height: 200px;
+        overflow: visible;
+      }
+    }
+
+    .proof-mobile-quotes :global(.proof-card) {
+      padding: 1.15rem !important;
+    }
+
+    .proof-mobile-quotes .proof-author {
+      gap: 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .proof-mobile-quotes .avatar-placeholder {
+      width: 44px;
+      height: 44px;
+      font-size: 0.95rem;
+    }
+
+    .proof-mobile-quotes .author-info h4 {
+      font-size: 1rem;
+    }
+
+    .proof-mobile-quotes .author-info span {
+      font-size: 0.8rem;
+    }
+
+    .proof-mobile-quotes .proof-text {
+      font-size: 0.85rem;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .proof-mobile-quotes .stars {
+      margin-top: 0.65rem;
+    }
+
+    .proof-mobile-quotes .stars :global(svg) {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .proof-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 10;
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      margin-bottom: 2rem;
+    }
   }
 
   .section-title {
-    font-size: 2rem;
+    font-size: 1.65rem;
     font-weight: 800;
     color: var(--color-text-primary);
-    margin-bottom: 1.5rem;
+    margin: 0 0 1rem;
+    line-height: 1.2;
   }
 
   @media (min-width: 768px) {
     .section-title {
       font-size: 2.5rem;
+      margin-bottom: 1.25rem;
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .section-title {
-      font-size: 3rem;
+      font-size: 2.75rem;
     }
   }
 
@@ -131,7 +464,7 @@ const testimonials = [
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    font-size: 1.125rem;
+    font-size: 0.95rem;
     color: var(--color-text-secondary);
     align-items: center;
   }
@@ -140,7 +473,19 @@ const testimonials = [
     .section-subtitle-list {
       flex-direction: row;
       justify-content: center;
-      gap: 2rem;
+      flex-wrap: wrap;
+      gap: 1.25rem 2rem;
+      font-size: 1rem;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .section-subtitle-list {
+      align-items: flex-start;
+      text-align: left;
+      max-width: 320px;
+      margin: 0 auto;
     }
   }
 
@@ -164,19 +509,48 @@ const testimonials = [
   }
 
   .mockup-container {
+    width: 100%;
     max-width: 760px;
-    margin: 0 auto 4rem;
-    padding: 0 0.5rem;
+    margin: 0 auto 2.5rem;
+    padding: 0 0.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .mockup-container {
+      max-width: 680px;
+      margin-bottom: 1.5rem;
+      padding: 0 0.5rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .mockup-container {
+      padding: 0;
+    }
   }
 
   .proof-grid {
     display: grid;
-    gap: 2rem;
+    gap: 1.25rem;
+    width: 100%;
   }
 
   @media (min-width: 768px) {
     .proof-grid {
       grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  :global(.proof-card) {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  @media (min-width: 768px) {
+    :global(.section-social .proof-card) {
+      padding: 1.25rem !important;
     }
   }
 
@@ -184,31 +558,38 @@ const testimonials = [
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
-  .avatar-img {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 2px solid var(--color-primary-neon);
-    object-fit: cover;
+  @media (min-width: 768px) {
+    .proof-author {
+      gap: 0.85rem;
+    }
   }
 
   .avatar-placeholder {
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     border: 2px solid var(--glass-border);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-text-primary, #ffffff);
     text-transform: uppercase;
     line-height: 1;
     letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .avatar-placeholder {
+      width: 52px;
+      height: 52px;
+      font-size: 1.25rem;
+    }
   }
 
   .placeholder-0 {
@@ -230,6 +611,13 @@ const testimonials = [
     font-weight: 700;
     font-size: 1.1rem;
     margin: 0;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 768px) {
+    .author-info h4 {
+      font-size: 1rem;
+    }
   }
 
   .author-info span {
@@ -237,10 +625,26 @@ const testimonials = [
     font-size: 0.875rem;
   }
 
+  @media (min-width: 768px) {
+    .author-info span {
+      font-size: 0.8rem;
+    }
+  }
+
   .proof-text {
     color: #e5e5e5;
     font-style: italic;
     line-height: 1.6;
+    font-size: 0.9rem;
+    margin: 0;
+    flex: 1;
+  }
+
+  @media (min-width: 768px) {
+    .proof-text {
+      font-size: 0.875rem;
+      line-height: 1.45;
+    }
   }
 
   .stars {
@@ -250,4 +654,9 @@ const testimonials = [
     gap: 3px;
   }
 
-
+  @media (min-width: 768px) {
+    .stars {
+      margin-top: 0.75rem;
+    }
+  }
+</style>

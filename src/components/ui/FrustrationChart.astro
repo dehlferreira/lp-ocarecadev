@@ -2,9 +2,15 @@
 // Mockup CSS/SVG: tela escura com gráfico de performance em queda (tom de dor).
 // Sem texto em inglês — substitui a imagem gerada por IA `frustration-screen`.
 import Icon from './Icon.astro';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
 ---
 
-<div class="frustration-mockup">
+<div class:list={['frustration-mockup', { 'frustration-mockup--compact': compact }]}>
   <div class="screen">
     <!-- Barra do "navegador" -->
     <div class="screen-bar">
@@ -227,5 +233,44 @@ import Icon from './Icon.astro';
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 10px;
+  }
+
+  /* Variante compacta: seções pinadas (Agitação) — menos chrome, sem stats */
+  .frustration-mockup--compact .screen-body {
+    padding: 0.85rem 0.9rem 1rem;
+  }
+
+  .frustration-mockup--compact .screen-bar {
+    padding: 0.45rem 0.65rem;
+  }
+
+  .frustration-mockup--compact .dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .frustration-mockup--compact .dash-head {
+    margin-bottom: 0.75rem;
+  }
+
+  .frustration-mockup--compact .chart {
+    margin-bottom: 0;
+  }
+
+  .frustration-mockup--compact .stats {
+    display: none;
+  }
+
+  .frustration-mockup--compact .trend-down {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.45rem;
+  }
+
+  .frustration-mockup--compact .bar {
+    height: 6px;
+  }
+
+  .frustration-mockup--compact .bar.dim {
+    height: 5px;
   }
 </style>

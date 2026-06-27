@@ -2,15 +2,15 @@
 
 :root {
   /* Fundo da Página (Base Dark) */
-  --color-bg-dark: #0A0A0A;
+  --color-bg-dark: #0a0a0a;
 
   /* Cor Accent Principal (Verde Neon / Mint) */
-  --color-primary-neon: #00FF9D;
-  --color-primary-hover: #00E58B;
+  --color-primary-neon: #00ff9d;
+  --color-primary-hover: #00e58b;
 
   /* Textos Principais */
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #A3A3A3;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a3a3a3;
 
   /* Tokens para Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.04);
@@ -22,6 +22,15 @@
   /* Variáveis de Mouse Tracking para Parallax */
   --mouse-x: 0;
   --mouse-y: 0;
+
+  /* Altura do header fixo — usado no pin do scrollytelling */
+  --header-offset: 4.5rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-offset: 6.5rem;
+  }
 }
 
 * {
@@ -41,7 +50,7 @@ html {
 body {
   background-color: var(--color-bg-dark);
   color: var(--color-text-primary);
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
@@ -93,6 +102,47 @@ html {
 :target,
 section[id] {
   scroll-margin-top: 6rem;
+}
+
+/* Layout utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.container--narrow {
+  max-width: 800px;
+}
+
+.container--medium {
+  max-width: 900px;
+}
+
+/* Seções pinadas: padding vertical fica no fade, não no palco sticky */
+.scrolly-section {
+  padding: 0;
+  position: relative;
+}
+
+/* Dentro do pin, scroll-animate cede lugar ao scrolly-step (sem matar a animação do step) */
+@media (min-width: 768px) {
+  .scrolly .scroll-animate:not(.scrolly-step) {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Mobile: desabilita animações infinitas dentro do palco pinado (GPU) */
+@media (max-width: 767px) {
+  .scrolly__stage .animate-floaty,
+  .scrolly__stage .anim-enter-scale {
+    animation: none !important;
+  }
 }
 
 /* ── Scroll Reveal: estado inicial (oculto) ──
@@ -265,14 +315,14 @@ section[id] {
   @supports ((animation-timeline: view()) and (animation-range: contain)) {
     .scrolly {
       height: var(--scrolly-track, 300vh);
-      view-timeline-name: --scrolly;
+      view-timeline-name: var(--scrolly-timeline, --scrolly);
       view-timeline-axis: block;
     }
 
     .scrolly__stage {
       position: sticky;
-      top: 0;
-      height: 100svh;
+      top: var(--header-offset);
+      height: calc(100svh - var(--header-offset));
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -286,8 +336,30 @@ section[id] {
        que o reveal preencha quase todo o pin (sem scroll "morto" no fim). */
     .scrolly-step {
       animation: scrolly-rise linear both;
-      animation-timeline: --scrolly;
+      animation-timeline: var(--scrolly-timeline, --scrolly);
       will-change: opacity, transform;
+    }
+
+    /* 2 passos */
+    .scrolly--2 .s-1 {
+      animation-range: contain 4% contain 42%;
+    }
+
+    .scrolly--2 .s-2 {
+      animation-range: contain 46% contain 88%;
+    }
+
+    /* 3 passos */
+    .scrolly--3 .s-1 {
+      animation-range: contain 4% contain 28%;
+    }
+
+    .scrolly--3 .s-2 {
+      animation-range: contain 32% contain 56%;
+    }
+
+    .scrolly--3 .s-3 {
+      animation-range: contain 60% contain 88%;
     }
 
     /* 4 passos */
@@ -374,7 +446,7 @@ section[id] {
     .scrolly-progress {
       transform-origin: top center;
       animation: scrolly-fill-y linear both;
-      animation-timeline: --scrolly;
+      animation-timeline: var(--scrolly-timeline, --scrolly);
       animation-range: contain 2% contain 88%;
     }
 
@@ -574,15 +646,17 @@ section[id] {
 }
 
 .section-fade-top::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 120px;
-  background: linear-gradient(to bottom,
-      var(--fade-from, var(--color-bg-dark)),
-      transparent);
+  background: linear-gradient(
+    to bottom,
+    var(--fade-from, var(--color-bg-dark)),
+    transparent
+  );
   z-index: 5;
   pointer-events: none;
 }
@@ -593,15 +667,17 @@ section[id] {
 }
 
 .section-fade-bottom::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 120px;
-  background: linear-gradient(to top,
-      var(--fade-to, var(--color-bg-dark)),
-      transparent);
+  background: linear-gradient(
+    to top,
+    var(--fade-to, var(--color-bg-dark)),
+    transparent
+  );
   z-index: 5;
   pointer-events: none;
 }
