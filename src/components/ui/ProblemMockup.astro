@@ -1,0 +1,48 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<div class:list={['problem-mockup', { 'problem-mockup--compact': compact }]}>
+  <div class="audit-window">
+    <div class="audit-bar">
+      <span></span><span></span><span></span>
+      <div>seusite.com.br</div>
+    </div>
+    <div class="audit-body">
+      <div class="page-preview">
+        <span class="preview-kicker">Sua empresa</span>
+        <strong>Uma frase que poderia servir para qualquer negocio</strong>
+        <p>Descricao sem prioridade e sem uma acao clara para o visitante.</p>
+        <span class="weak-cta">Conheca nossos servicos</span>
+      </div>
+      <div class="audit-findings">
+        <span><i></i> Oferta confusa</span>
+        <span><i></i> Botao sem destaque</span>
+        <span><i></i> Sem proximo passo</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .problem-mockup { width: 100%; max-width: 480px; margin: 0 auto; }
+  .problem-mockup--compact { height: 100%; max-width: none; }
+  .audit-window { display: flex; height: 100%; overflow: hidden; flex-direction: column; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; background: #101214; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.58), 0 0 42px rgba(255, 92, 92, 0.1); }
+  .audit-bar { display: flex; align-items: center; gap: 0.38rem; padding: 0.55rem 0.7rem; border-bottom: 1px solid rgba(255, 255, 255, 0.06); background: #171a1e; }
+  .audit-bar span { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); }
+  .audit-bar div { flex: 1; margin-left: 0.45rem; padding: 0.22rem 0.45rem; border-radius: 3px; color: rgba(255, 255, 255, 0.32); background: rgba(255, 255, 255, 0.04); font-size: 0.59rem; text-align: left; }
+  .audit-body { display: grid; flex: 1; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr); gap: 0.65rem; padding: 0.75rem; }
+  .page-preview { padding: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 6px; color: rgba(255, 255, 255, 0.65); background: #1b1e22; text-align: left; }
+  .preview-kicker { display: block; color: rgba(255, 255, 255, 0.34); font-size: 0.56rem; font-weight: 700; text-transform: uppercase; }
+  .page-preview strong { display: block; margin-top: 0.32rem; color: rgba(255, 255, 255, 0.78); font-size: 0.78rem; line-height: 1.16; }
+  .page-preview p { margin: 0.5rem 0 0; color: rgba(255, 255, 255, 0.38); font-size: 0.61rem; line-height: 1.35; }
+  .weak-cta { display: inline-flex; margin-top: 0.65rem; padding: 0.36rem 0.48rem; border-radius: 4px; color: rgba(255, 255, 255, 0.42); background: rgba(255, 255, 255, 0.1); font-size: 0.56rem; font-weight: 700; }
+  .audit-findings { display: flex; flex-direction: column; justify-content: center; gap: 0.45rem; text-align: left; }
+  .audit-findings span { display: flex; align-items: center; gap: 0.38rem; padding: 0.45rem; border-left: 2px solid #ff6868; color: rgba(255, 255, 255, 0.7); background: rgba(255, 92, 92, 0.07); font-size: 0.61rem; font-weight: 700; line-height: 1.2; }
+  .audit-findings i { width: 5px; height: 5px; flex: 0 0 5px; border-radius: 50%; background: #ff6868; }
+  @media (max-width: 767px) { .problem-mockup--compact { height: auto; } .audit-body { grid-template-columns: 1fr; gap: 0.55rem; padding: 0.6rem; } .page-preview { padding: 0.65rem; } .preview-kicker { font-size: 0.62rem; } .page-preview strong { font-size: 0.86rem; } .page-preview p { font-size: 0.68rem; } .weak-cta { font-size: 0.62rem; } .audit-findings { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.3rem; } .audit-findings span { min-height: 42px; padding: 0.34rem; font-size: 0.6rem; } }
+</style>

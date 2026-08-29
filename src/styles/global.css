@@ -171,6 +171,13 @@ section[id] {
   transform: translateY(18px);
 }
 
+@media (max-width: 767px) {
+  .scroll-animate.anim-left,
+  .scroll-animate.anim-right {
+    transform: translateY(24px);
+  }
+}
+
 /* Acessibilidade: usuários com "reduzir movimento" não disparam as animações
    scroll-driven nem o fallback JS, então o conteúdo precisa ser visível de imediato.
    Sem isso, todo .scroll-animate ficaria opacity:0 permanentemente no Chrome/Edge. */
@@ -204,6 +211,18 @@ section[id] {
 
     .scroll-animate.anim-rise-sm {
       animation-name: reveal-rise-sm;
+    }
+
+    @media (max-width: 767px) {
+      .scroll-animate.anim-left,
+      .scroll-animate.anim-right {
+        animation-name: reveal-mobile-rise;
+      }
+
+      .scrolly-step.from-left,
+      .scrolly-step.from-right {
+        animation-name: scrolly-rise !important;
+      }
     }
 
     /* Stagger real para scroll-scrubbed: deslocamos a janela de entrada por item,
@@ -287,6 +306,18 @@ section[id] {
         transform: scale(1);
       }
     }
+
+    @keyframes reveal-mobile-rise {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   }
 }
 
@@ -338,6 +369,12 @@ section[id] {
       animation: scrolly-rise linear both;
       animation-timeline: var(--scrolly-timeline, --scrolly);
       will-change: opacity, transform;
+    }
+
+    section:target .scrolly-step.s-1 {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
     }
 
     /* 2 passos */

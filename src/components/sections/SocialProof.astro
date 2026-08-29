@@ -1,662 +1,92 @@
 ---
 import GlassCard from '../ui/GlassCard.astro';
-import BeforeAfterMockup from '../ui/BeforeAfterMockup.astro';
 import Icon from '../ui/Icon.astro';
 
 const benefits = [
   'Mais mensagens no WhatsApp',
-  'Mais pedidos de orçamento',
+  'Mais pedidos de orcamento',
   'Mais <span class="text-neon">clientes</span> entrando todos os dias',
 ];
 
 const testimonials = [
   {
     initials: 'RA',
-    placeholder: 'placeholder-0',
+    tone: 'tone-neon',
     name: 'Roberto Almeida',
     role: 'CEO, TechGrowth',
-    text: '"Nossas conversões dobraram na primeira semana após o lançamento. O design e a velocidade da página são absurdos."',
-    variant: 'from-left',
+    text: '"Nossas conversoes dobraram na primeira semana apos o lancamento. O design e a velocidade da pagina sao absurdos."',
   },
   {
     initials: 'MC',
-    placeholder: 'placeholder-1',
+    tone: 'tone-blue',
     name: 'Mariana Costa',
     role: 'Mentora de Vendas',
-    text: '"Sempre sofri com sites lentos que perdiam clientes no meio do caminho. A OCARECADEV resolveu isso e entregou uma verdadeira máquina de vendas."',
-    variant: 'from-scale',
+    text: '"Sempre sofri com sites lentos que perdiam clientes no meio do caminho. A OCARECADEV resolveu isso e entregou uma verdadeira maquina de vendas."',
   },
   {
     initials: 'CM',
-    placeholder: 'placeholder-2',
+    tone: 'tone-coral',
     name: 'Carlos Moura',
-    role: 'Sócio, Agência XYZ',
-    text: '"Ter um código limpo e analytics injetado certinho nos botões me economizou muito tempo. O tracking funciona perfeitamente."',
-    variant: 'from-right',
+    role: 'Socio, Agencia XYZ',
+    text: '"Ter um codigo limpo e analytics injetado certinho nos botoes me economizou muito tempo. O tracking funciona perfeitamente."',
   },
 ];
 ---
 
-<section id="social-proof" class="section-social scrolly-section section-fade-top section-fade-bottom" style="--fade-from: #010101;">
-  <!-- Desktop: uma sequência com 5 passos -->
-  <div class="proof-desktop">
-    <div class="scrolly scrolly--5" style="--scrolly-track: 420vh;">
-      <div class="scrolly__stage">
-        <div class="container">
-          <div class="proof-content">
-            <div class="section-header scrolly-step s-1">
-              <h2 class="section-title">
-                <span class="text-neon">Resultados</span> falam mais que qualquer promessa
-              </h2>
-              <ul class="section-subtitle-list">
-                {benefits.map((benefit) => (
-                  <li>
-                    <span class="check-icon"><Icon name="check" size={15} stroke={3} /></span>
-                    <span set:html={benefit} />
-                  </li>
-                ))}
-              </ul>
-            </div>
+<section id="social-proof" class="section-social section-fade-top section-fade-bottom" style="--fade-from: #010101;">
+  <div class="container">
+    <div class="proof-content">
+      <header class="section-header">
+        <h2 class="section-title"><span class="text-neon">Resultados</span> falam mais que qualquer promessa</h2>
+        <ul class="section-subtitle-list">
+          {benefits.map((benefit) => (
+            <li>
+              <span class="check-icon"><Icon name="check" size={15} stroke={3} /></span>
+              <span set:html={benefit} />
+            </li>
+          ))}
+        </ul>
+      </header>
 
-            <div class="mockup-container scrolly-step from-scale s-2">
-              <BeforeAfterMockup />
+      <div class="proof-grid">
+        {testimonials.map((testimonial) => (
+          <GlassCard class="proof-card" padding="1.4rem">
+            <div class="proof-author">
+              <div class:list={['avatar-placeholder', testimonial.tone]}>{testimonial.initials}</div>
+              <div class="author-info">
+                <h3>{testimonial.name}</h3>
+                <span>{testimonial.role}</span>
+              </div>
             </div>
-
-            <div class="proof-grid">
-              {testimonials.map((t, i) => (
-                <GlassCard
-                  class={`proof-card scrolly-step ${t.variant} s-${i + 3}`}
-                  padding="1.5rem"
-                >
-                  <div class="proof-author">
-                    <div class={`avatar-placeholder ${t.placeholder}`}>{t.initials}</div>
-                    <div class="author-info">
-                      <h4>{t.name}</h4>
-                      <span>{t.role}</span>
-                    </div>
-                  </div>
-                  <p class="proof-text">{t.text}</p>
-                  <div class="stars">
-                    {Array.from({ length: 5 }).map(() => <Icon name="star" size={18} />)}
-                  </div>
-                </GlassCard>
-              ))}
+            <p class="proof-text">{testimonial.text}</p>
+            <div class="stars" aria-label="5 estrelas">
+              {Array.from({ length: 5 }).map(() => <Icon name="star" size={17} />)}
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mobile: duas sequências — intro (título + mockup) e depoimentos -->
-  <div class="proof-mobile">
-    <div
-      class="scrolly scrolly--2 proof-mobile-intro"
-      style="--scrolly-timeline: --proof-intro; --scrolly-track-mobile: 240vh;"
-    >
-      <div class="scrolly__stage">
-        <div class="container">
-          <div class="proof-content">
-            <div class="section-header scrolly-step s-1">
-              <h2 class="section-title">
-                <span class="text-neon">Resultados</span> falam mais que qualquer promessa
-              </h2>
-              <ul class="section-subtitle-list">
-                {benefits.map((benefit) => (
-                  <li>
-                    <span class="check-icon"><Icon name="check" size={15} stroke={3} /></span>
-                    <span set:html={benefit} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div class="mockup-container scrolly-step from-scale s-2">
-              <BeforeAfterMockup />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="scrolly scrolly--3 proof-mobile-quotes"
-      style="--scrolly-timeline: --proof-quotes; --scrolly-track-mobile: 280vh;"
-    >
-      <div class="scrolly__stage">
-        <div class="container">
-          <div class="proof-grid proof-mobile-quotes-grid">
-            {testimonials.map((t, i) => (
-              <GlassCard
-                class={`proof-card scrolly-step ${t.variant} s-${i + 1}`}
-                padding="1.5rem"
-              >
-                <div class="proof-author">
-                  <div class={`avatar-placeholder ${t.placeholder}`}>{t.initials}</div>
-                  <div class="author-info">
-                    <h4>{t.name}</h4>
-                    <span>{t.role}</span>
-                  </div>
-                </div>
-                <p class="proof-text">{t.text}</p>
-                <div class="stars">
-                  {Array.from({ length: 5 }).map(() => <Icon name="star" size={18} />)}
-                </div>
-              </GlassCard>
-            ))}
-          </div>
-        </div>
+          </GlassCard>
+        ))}
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .section-social {
-    position: relative;
-    background-color: #010101;
-  }
-
-  .proof-desktop {
-    display: none;
-  }
-
-  .proof-mobile {
-    display: block;
-  }
-
-  @media (min-width: 768px) {
-    .proof-desktop {
-      display: block;
-    }
-
-    .proof-mobile {
-      display: none;
-    }
-  }
-
-  .section-social .scrolly__stage {
-    justify-content: flex-start;
-  }
-
-  @media (min-width: 768px) {
-    .section-social .scrolly__stage {
-      padding-top: 1.25rem;
-      padding-bottom: 1.25rem;
-    }
-  }
-
-  @media (max-width: 767px) {
-    .section-social .scrolly__stage {
-      padding-top: 0.75rem;
-      padding-bottom: 1rem;
-    }
-
-    /* Intro mobile: centraliza o bloco quando o scrolly completa */
-    .proof-mobile-intro .scrolly__stage {
-      justify-content: center;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    .proof-mobile-intro .proof-content {
-      width: 100%;
-    }
-
-    .proof-mobile-intro .section-header {
-      margin-bottom: 1.25rem;
-    }
-
-    .proof-mobile-intro .section-title {
-      font-size: 1.45rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .proof-mobile-intro .section-subtitle-list {
-      font-size: 0.875rem;
-      gap: 0.35rem;
-    }
-
-    .proof-mobile-intro .mockup-container {
-      margin-bottom: 0;
-      max-width: min(100%, 400px);
-    }
-
-    /* Mockup só ocupa espaço depois de revelado — permite centralizar título sozinho no passo 1 */
-    .proof-mobile-intro .mockup-container.scrolly-step {
-      animation-name: proof-mockup-enter !important;
-    }
-
-    @keyframes proof-mockup-enter {
-      from {
-        opacity: 0;
-        transform: scale(0.94) translateY(20px);
-        max-height: 0;
-        overflow: hidden;
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-        max-height: 520px;
-        overflow: visible;
-      }
-    }
-
-    /* Mockup compacto empilhado — cabe com o título no palco pinado */
-    .proof-mobile-intro .mockup-container :global(.ba-mockup) {
-      flex-direction: column;
-      gap: 0.85rem;
-      align-items: stretch;
-    }
-
-    .proof-mobile-intro .mockup-container :global(.ba-card) {
-      width: 100%;
-    }
-
-    .proof-mobile-intro .mockup-container :global(.ba-arrow) {
-      transform: rotate(90deg);
-      align-self: center;
-    }
-
-    .proof-mobile-intro .mockup-container :global(.ba-arrow svg) {
-      width: 20px;
-      height: 20px;
-    }
-
-    .proof-mobile-intro .mockup-container :global(.win-body) {
-      min-height: 100px;
-      padding: 0.5rem 0.5rem 0.6rem;
-      gap: 0.4rem;
-    }
-
-    .proof-mobile-intro .mockup-container :global(.win-bar) {
-      padding: 0.3rem 0.45rem;
-    }
-
-    .proof-mobile-intro .mockup-container :global(.d) {
-      width: 5px;
-      height: 5px;
-    }
-
-    .proof-mobile-intro .mockup-container :global(.ba-tag) {
-      font-size: 0.58rem;
-      padding: 0.12rem 0.45rem;
-      top: -8px;
-      left: 6px;
-    }
-
-    .proof-mobile-intro .mockup-container :global(.dull-hero),
-    .proof-mobile-intro .mockup-container :global(.prem-hero) {
-      gap: 0.4rem;
-    }
-
-    .proof-mobile-intro .mockup-container :global(.h-7) {
-      height: 18px;
-    }
-
-    .proof-mobile-intro .mockup-container :global(.badge) {
-      width: 36px;
-      height: 7px;
-    }
-
-    /* Depoimentos mobile: centraliza o bloco quando o scrolly completa */
-    .proof-mobile-quotes .scrolly__stage {
-      justify-content: center;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    .proof-mobile-quotes .proof-mobile-quotes-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-      width: 100%;
-    }
-
-    /* Cards só ocupam espaço depois de revelados — centraliza cada passo */
-    .proof-mobile-quotes .proof-card.scrolly-step.from-left {
-      animation-name: proof-quote-left !important;
-    }
-
-    .proof-mobile-quotes .proof-card.scrolly-step.from-scale {
-      animation-name: proof-quote-scale !important;
-    }
-
-    .proof-mobile-quotes .proof-card.scrolly-step.from-right {
-      animation-name: proof-quote-right !important;
-    }
-
-    @keyframes proof-quote-left {
-      from {
-        opacity: 0;
-        transform: translateX(-44px);
-        max-height: 0;
-        overflow: hidden;
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-        max-height: 200px;
-        overflow: visible;
-      }
-    }
-
-    @keyframes proof-quote-scale {
-      from {
-        opacity: 0;
-        transform: scale(0.92);
-        max-height: 0;
-        overflow: hidden;
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-        max-height: 200px;
-        overflow: visible;
-      }
-    }
-
-    @keyframes proof-quote-right {
-      from {
-        opacity: 0;
-        transform: translateX(44px);
-        max-height: 0;
-        overflow: hidden;
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-        max-height: 200px;
-        overflow: visible;
-      }
-    }
-
-    .proof-mobile-quotes :global(.proof-card) {
-      padding: 1.15rem !important;
-    }
-
-    .proof-mobile-quotes .proof-author {
-      gap: 0.75rem;
-      margin-bottom: 0.65rem;
-    }
-
-    .proof-mobile-quotes .avatar-placeholder {
-      width: 44px;
-      height: 44px;
-      font-size: 0.95rem;
-    }
-
-    .proof-mobile-quotes .author-info h4 {
-      font-size: 1rem;
-    }
-
-    .proof-mobile-quotes .author-info span {
-      font-size: 0.8rem;
-    }
-
-    .proof-mobile-quotes .proof-text {
-      font-size: 0.85rem;
-      line-height: 1.45;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .proof-mobile-quotes .stars {
-      margin-top: 0.65rem;
-    }
-
-    .proof-mobile-quotes .stars :global(svg) {
-      width: 16px;
-      height: 16px;
-    }
-  }
-
-  .proof-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .section-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-    width: 100%;
-  }
-
-  @media (min-width: 768px) {
-    .section-header {
-      margin-bottom: 2rem;
-    }
-  }
-
-  .section-title {
-    font-size: 1.65rem;
-    font-weight: 800;
-    color: var(--color-text-primary);
-    margin: 0 0 1rem;
-    line-height: 1.2;
-  }
-
-  @media (min-width: 768px) {
-    .section-title {
-      font-size: 2.5rem;
-      margin-bottom: 1.25rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .section-title {
-      font-size: 2.75rem;
-    }
-  }
-
-  .section-subtitle-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-    color: var(--color-text-secondary);
-    align-items: center;
-  }
-
-  @media (min-width: 768px) {
-    .section-subtitle-list {
-      flex-direction: row;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1.25rem 2rem;
-      font-size: 1rem;
-      align-items: center;
-    }
-  }
-
-  @media (max-width: 767px) {
-    .section-subtitle-list {
-      align-items: flex-start;
-      text-align: left;
-      max-width: 320px;
-      margin: 0 auto;
-    }
-  }
-
-  .section-subtitle-list li {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .check-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    color: var(--color-primary-neon);
-    background: rgba(0, 255, 157, 0.1);
-    border: 1px solid rgba(0, 255, 157, 0.3);
-  }
-
-  .mockup-container {
-    width: 100%;
-    max-width: 760px;
-    margin: 0 auto 2.5rem;
-    padding: 0 0.25rem;
-  }
-
-  @media (min-width: 768px) {
-    .mockup-container {
-      max-width: 680px;
-      margin-bottom: 1.5rem;
-      padding: 0 0.5rem;
-    }
-  }
-
-  @media (max-width: 767px) {
-    .mockup-container {
-      padding: 0;
-    }
-  }
-
-  .proof-grid {
-    display: grid;
-    gap: 1.25rem;
-    width: 100%;
-  }
-
-  @media (min-width: 768px) {
-    .proof-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-    }
-  }
-
-  :global(.proof-card) {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  @media (min-width: 768px) {
-    :global(.section-social .proof-card) {
-      padding: 1.25rem !important;
-    }
-  }
-
-  .proof-author {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    .proof-author {
-      gap: 0.85rem;
-    }
-  }
-
-  .avatar-placeholder {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid var(--glass-border);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-text-primary, #ffffff);
-    text-transform: uppercase;
-    line-height: 1;
-    letter-spacing: 1px;
-    flex-shrink: 0;
-  }
-
-  @media (min-width: 768px) {
-    .avatar-placeholder {
-      width: 52px;
-      height: 52px;
-      font-size: 1.25rem;
-    }
-  }
-
-  .placeholder-0 {
-    background: linear-gradient(to top right, #00FF9D, #00663d);
-    border-color: #00E58B;
-  }
-
-  .placeholder-1 {
-    background: linear-gradient(to top right, #3b82f6, #7c3aed);
-    border-color: #00A666;
-  }
-
-  .placeholder-2 {
-    background: linear-gradient(to top right, #4ade80, #3b82f6);
-  }
-
-  .author-info h4 {
-    color: var(--color-text-primary);
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin: 0;
-    line-height: 1.2;
-  }
-
-  @media (min-width: 768px) {
-    .author-info h4 {
-      font-size: 1rem;
-    }
-  }
-
-  .author-info span {
-    color: var(--color-text-secondary);
-    font-size: 0.875rem;
-  }
-
-  @media (min-width: 768px) {
-    .author-info span {
-      font-size: 0.8rem;
-    }
-  }
-
-  .proof-text {
-    color: #e5e5e5;
-    font-style: italic;
-    line-height: 1.6;
-    font-size: 0.9rem;
-    margin: 0;
-    flex: 1;
-  }
-
-  @media (min-width: 768px) {
-    .proof-text {
-      font-size: 0.875rem;
-      line-height: 1.45;
-    }
-  }
-
-  .stars {
-    color: var(--color-primary-neon);
-    margin-top: 1rem;
-    display: flex;
-    gap: 3px;
-  }
-
-  @media (min-width: 768px) {
-    .stars {
-      margin-top: 0.75rem;
-    }
-  }
+  .section-social { position: relative; padding: 5.5rem 0; background: #010101; }
+  .proof-content { width: 100%; }
+  .section-header { max-width: 860px; margin: 0 auto 2.5rem; text-align: center; }
+  .section-title { margin: 0; color: var(--color-text-primary); font-size: 2.6rem; font-weight: 800; line-height: 1.12; }
+  .section-subtitle-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.65rem 1.6rem; padding: 0; margin: 1.35rem 0 0; color: var(--color-text-secondary); font-size: 0.98rem; list-style: none; }
+  .section-subtitle-list li { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .check-icon { display: grid; width: 22px; height: 22px; place-items: center; flex: 0 0 22px; border: 1px solid rgba(0, 255, 157, 0.3); border-radius: 50%; color: var(--color-primary-neon); background: rgba(0, 255, 157, 0.08); }
+  .proof-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  :global(.proof-card) { display: flex; min-width: 0; flex-direction: column; border-radius: 8px; }
+  .proof-author { display: flex; align-items: center; gap: 0.75rem; }
+  .avatar-placeholder { display: grid; width: 42px; height: 42px; place-items: center; flex: 0 0 42px; border-radius: 50%; color: #07120d; font-size: 0.83rem; font-weight: 900; }
+  .tone-neon { background: var(--color-primary-neon); }
+  .tone-blue { color: #fff; background: #2673e8; }
+  .tone-coral { color: #1b0a05; background: #ff875d; }
+  .author-info h3 { margin: 0; color: var(--color-text-primary); font-size: 1rem; line-height: 1.2; }
+  .author-info span { display: block; margin-top: 0.16rem; color: var(--color-text-secondary); font-size: 0.78rem; }
+  .proof-text { flex: 1; margin: 1.1rem 0 0; color: #e7e7e7; font-size: 0.92rem; font-style: italic; line-height: 1.55; }
+  .stars { display: flex; gap: 3px; margin-top: 1.1rem; color: var(--color-primary-neon); }
+  @media (max-width: 767px) { .section-social { padding: 4rem 0; } .section-header { margin-bottom: 1.75rem; text-align: left; } .section-title { font-size: 1.75rem; } .section-subtitle-list { display: grid; justify-content: start; gap: 0.55rem; margin-top: 1.1rem; font-size: 0.9rem; } .proof-grid { grid-template-columns: 1fr; gap: 0.85rem; } :global(.proof-card) { padding: 1.15rem !important; } .proof-text { margin-top: 0.9rem; font-size: 0.88rem; } }
 </style>

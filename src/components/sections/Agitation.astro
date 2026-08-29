@@ -6,7 +6,7 @@ import Icon from "../ui/Icon.astro";
 <section id="agitacao" class="section-agitation scrolly-section section-fade-bottom">
   <div
     class="scrolly scrolly--4"
-    style="--scrolly-track: 300vh; --scrolly-track-mobile: 220vh;"
+    style="--scrolly-track: 300vh; --scrolly-track-mobile: 180vh;"
   >
     <div class="scrolly__stage">
       <div class="container">
@@ -62,7 +62,7 @@ import Icon from "../ui/Icon.astro";
   @media (min-width: 768px) {
     .agitation-content {
       display: grid;
-      grid-template-columns: 1.05fr 1fr;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
       grid-template-rows: auto auto;
       align-items: center;
       gap: 1.5rem 3.5rem;
@@ -173,7 +173,7 @@ import Icon from "../ui/Icon.astro";
 
   @media (min-width: 768px) {
     .frustration-img-container {
-      max-width: 560px;
+      max-width: none;
     }
   }
 
@@ -219,7 +219,7 @@ import Icon from "../ui/Icon.astro";
       gap: 0.25rem 0.6rem;
     }
     .frustration-img-container {
-      max-width: min(100%, 280px);
+      max-width: none;
     }
     .agitation-highlight {
       font-size: 1rem;
