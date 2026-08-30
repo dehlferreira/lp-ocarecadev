@@ -1,17 +1,18 @@
 ---
 export interface Props {
+  as?: 'div' | 'details';
   class?: string;
   padding?: string;
   highlight?: boolean;
   [x: string]: any;
 }
 
-const { class: className, padding = '2rem', highlight, ...rest } = Astro.props;
+const { as: Tag = 'div', class: className, padding = '2rem', highlight, ...rest } = Astro.props;
 ---
 
-<div class:list={['glass-card', className, { 'highlight-card': highlight }]} style={`padding: ${padding};`} {...rest}>
+<Tag class:list={['glass-card', className, { 'highlight-card': highlight }]} style={`padding: ${padding};`} {...rest}>
   <slot />
-</div>
+</Tag>
 
 <style>
   .glass-card {

@@ -4,6 +4,48 @@ import { test } from 'node:test';
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
 
+test('FAQ defines a native collapsed disclosure for each answer', () => {
+  const faq = read('src/components/sections/FAQ.astro');
+
+  assert.equal((faq.match(/<GlassCard as="details" class="faq-item/g) ?? []).length, 4);
+  assert.equal((faq.match(/<summary(?: class="faq-summary")?>/g) ?? []).length, 4);
+  assert.doesNotMatch(faq, /<GlassCard as="details"[^>]*\sopen(?:\s|>)/);
+});
+
+test('FAQ replaces the browser disclosure marker with an aligned custom control', () => {
+  const faq = read('src/components/sections/FAQ.astro');
+
+  assert.equal((faq.match(/<summary class="faq-summary">/g) ?? []).length, 4);
+  assert.equal((faq.match(/class="faq-chevron"/g) ?? []).length, 4);
+  assert.match(faq, /:global\(\.faq-summary::marker\)/);
+  assert.match(faq, /:global\(\.faq-summary::-webkit-details-marker\)/);
+  assert.match(faq, /:global\(\.faq-item\.is-open \.faq-chevron\)[\s\S]*rotate\(180deg\)/);
+});
+
+test('FAQ answers animate smoothly when their disclosure state changes', () => {
+  const faq = read('src/components/sections/FAQ.astro');
+
+  assert.equal((faq.match(/class="faq-answer"/g) ?? []).length, 4);
+  assert.match(faq, /grid-template-rows:\s*minmax\(0, 0fr\)/);
+  assert.match(faq, /:global\(\.faq-item\.is-open \.faq-answer\)[\s\S]*grid-template-rows:\s*minmax\(0, 1fr\)/);
+  assert.match(faq, /classList\.remove\('is-open'\)/);
+  assert.match(faq, /item\.open = false/);
+});
+
+test('pricing cards present the approved payment options', () => {
+  const pricing = read('src/components/sections/Pricing.astro');
+
+  assert.match(pricing, /OCARECADEV EXPRESS[\s\S]*R\$ 597[\s\S]*6x de R\$ 113,75/);
+  assert.match(pricing, /LANDING QUE VENDE[\s\S]*R\$ 997[\s\S]*6x de R\$ 189,96/);
+  assert.match(pricing, /MÁQUINA DE CLIENTES[\s\S]*<span class="price-prefix">A partir de<\/span> R\$ 2\.497[\s\S]*proposta personalizada/);
+});
+
+test('side pricing cards share a fixed desktop height', () => {
+  const pricing = read('src/components/sections/Pricing.astro');
+
+  assert.match(pricing, /@media\s*\(min-width:\s*768px\)[\s\S]*:global\(\.pricing-card:not\(\.highlight-card\)\)\s*\{\s*height:\s*39rem/);
+});
+
 test('mobile reveal animations do not move content outside the viewport', () => {
   const css = read('src/styles/global.css');
 
@@ -28,6 +70,40 @@ test('mobile scrollytelling tracks are shorter to reduce empty scroll space', ()
   assert.match(solution, /@media\s*\(max-width:\s*767px\)[\s\S]*\.solution-mockup-col\s*\{\s*max-width:\s*none/);
   assert.match(solution, /@media\s*\(min-width:\s*768px\)[\s\S]*\.solution-mockup-col\s*\{[\s\S]*align-self:\s*stretch/);
   assert.match(read('src\/components\/ui\/HeroMockup.astro'), /\.conversion-mockup--compact\s*\{[\s\S]*height:\s*100%/);
+});
+
+test('specialist stat cards are not clipped after their reveal animation', () => {
+  const about = read('src/components/sections/About.astro');
+
+  assert.match(
+    about,
+    /\.section-about \.scrolly__stage\s*\{[^}]*overflow:\s*visible/,
+  );
+  assert.match(
+    about,
+    /@keyframes about-reveal\s*\{\s*from\s*\{[^}]*\}\s*to\s*\{[^}]*overflow:\s*visible/,
+  );
+  assert.match(
+    about,
+    /@keyframes about-reveal-scale\s*\{\s*from\s*\{[^}]*\}\s*to\s*\{[^}]*overflow:\s*visible/,
+  );
+});
+
+test('specialist social links have their own mobile reveal state', () => {
+  const about = read('src/components/sections/About.astro');
+
+  assert.equal(
+    (about.match(/class="about-social scrolly-step about-reveal s-5"/g) ?? []).length,
+    2,
+  );
+  assert.match(
+    about,
+    /\.about-social\s*\{[^}]*position:\s*relative;[^}]*z-index:\s*11/,
+  );
+  assert.match(
+    about,
+    /\.about-mobile-stack \.social-link\s*\{[^}]*background:\s*rgba\(255, 255, 255, 0\.1\)/,
+  );
 });
 
 test('proof section keeps testimonials in a normal responsive flow without artificial mockups', () => {
@@ -70,8 +146,8 @@ test('problem section closes with a concrete page audit mockup', () => {
 
   assert.match(problem, /import ProblemMockup/);
   assert.match(problem, /<ProblemMockup compact \/>/);
-  assert.match(problem, /class="problem-mockup-col"/);
-  assert.doesNotMatch(problem, /problem-mockup-col scrolly-step/);
+  assert.match(problem, /class="problem-mockup-col(?:\s|\")/);
+  assert.match(problem, /class="problem-mockup-col scrolly-step from-right s-7"/);
   assert.match(problemMockup, /Oferta confusa/);
   assert.match(problemMockup, /Botao sem destaque/);
   assert.match(problemMockup, /Sem proximo passo/);

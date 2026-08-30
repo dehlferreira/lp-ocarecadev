@@ -45,16 +45,16 @@ const paragraphs = [
                     <span>Foco em ROI</span>
                   </GlassCard>
                 </div>
-                <div class="about-social">
-                  <a href={instagramUrl} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Seguir no Instagram">
-                    <Icon name="instagram" size={20} stroke={2} />
-                    <span>Instagram</span>
-                  </a>
-                  <a href={tiktokUrl} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Seguir no TikTok">
-                    <Icon name="tiktok" size={20} stroke={2} />
-                    <span>TikTok</span>
-                  </a>
-                </div>
+              </div>
+              <div class="about-social scrolly-step about-reveal s-5">
+                <a href={instagramUrl} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Seguir no Instagram">
+                  <Icon name="instagram" size={20} stroke={2} />
+                  <span>Instagram</span>
+                </a>
+                <a href={tiktokUrl} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Seguir no TikTok">
+                  <Icon name="tiktok" size={20} stroke={2} />
+                  <span>TikTok</span>
+                </a>
               </div>
             </div>
           </div>
@@ -93,16 +93,16 @@ const paragraphs = [
                   <span>Foco em ROI</span>
                 </GlassCard>
               </div>
-              <div class="about-social">
-                <a href={instagramUrl} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Seguir no Instagram">
-                  <Icon name="instagram" size={20} stroke={2} />
-                  <span>Instagram</span>
-                </a>
-                <a href={tiktokUrl} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Seguir no TikTok">
-                  <Icon name="tiktok" size={20} stroke={2} />
-                  <span>TikTok</span>
-                </a>
-              </div>
+            </div>
+            <div class="about-social scrolly-step about-reveal s-5">
+              <a href={instagramUrl} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Seguir no Instagram">
+                <Icon name="instagram" size={20} stroke={2} />
+                <span>Instagram</span>
+              </a>
+              <a href={tiktokUrl} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Seguir no TikTok">
+                <Icon name="tiktok" size={20} stroke={2} />
+                <span>TikTok</span>
+              </a>
             </div>
           </div>
         </div>
@@ -138,6 +138,7 @@ const paragraphs = [
 
   .section-about .scrolly__stage {
     justify-content: flex-start;
+    overflow: visible;
   }
 
   @media (min-width: 768px) {
@@ -170,12 +171,14 @@ const paragraphs = [
       opacity: 0;
       transform: translateY(24px);
       max-height: 0;
+      overflow: hidden;
     }
 
     to {
       opacity: 1;
       transform: none;
       max-height: 420px;
+      overflow: visible;
     }
   }
 
@@ -184,12 +187,14 @@ const paragraphs = [
       opacity: 0;
       transform: scale(0.94);
       max-height: 0;
+      overflow: hidden;
     }
 
     to {
       opacity: 1;
       transform: none;
       max-height: 420px;
+      overflow: visible;
     }
   }
 
@@ -225,7 +230,10 @@ const paragraphs = [
 
     .about-desktop .about-footer {
       margin-top: 0.5rem;
-      gap: 1.25rem;
+    }
+
+    .about-desktop .about-footer + .about-social {
+      margin-top: 1.25rem;
     }
 
     .about-desktop .stats-grid {
@@ -352,6 +360,12 @@ const paragraphs = [
     display: flex;
     flex-wrap: wrap;
     gap: 0.65rem;
+    position: relative;
+    z-index: 11;
+  }
+
+  .about-footer + .about-social {
+    margin-top: 1rem;
   }
 
   .social-link {
@@ -431,6 +445,10 @@ const paragraphs = [
 
     .about-mobile-stack .about-social {
       justify-content: center;
+    }
+
+    .about-mobile-stack .social-link {
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .about-mobile-unified .about-image.scrolly-step {
