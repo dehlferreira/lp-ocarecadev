@@ -18,6 +18,18 @@ function read(path) {
   return readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
 }
 
+test('setup documentation names every tracking credential and validation tool', () => {
+  const env = read('.env.example');
+  const readme = read('README.md');
+  for (const name of ['PUBLIC_GA_ID', 'PUBLIC_GOOGLE_ADS_ID', 'PUBLIC_GOOGLE_ADS_CONVERSION_LABEL', 'PUBLIC_META_PIXEL_ID']) {
+    assert.match(env, new RegExp(name));
+    assert.match(readme, new RegExp(name));
+  }
+  assert.match(readme, /GA4 DebugView/);
+  assert.match(readme, /Meta Test Events/);
+  assert.match(readme, /Google Ads/);
+});
+
 function createStorage() {
   const values = new Map();
   return {
