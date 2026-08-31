@@ -69,16 +69,38 @@ export function buildLeadPayload(element) {
 const emittedEventKeys = new Set();
 let acceptedTrackingStarted = false;
 let hasActiveConsent = false;
+const bootedTrackingDocuments = new WeakSet();
 const funnelTrackingDocuments = new WeakSet();
+const pricingObservers = new WeakMap();
+const startedProviders = { google: false, meta: false };
+
+const GRANTED_GOOGLE_CONSENT = {
+  analytics_storage: 'granted',
+  ad_storage: 'granted',
+  ad_user_data: 'granted',
+  ad_personalization: 'granted',
+};
+
+const DENIED_GOOGLE_CONSENT = {
+  analytics_storage: 'denied',
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+};
 
 function getConfiguredId(value, prefix) {
   return isConfigured(value, prefix) ? value.trim() : null;
 }
 
 function getGoogleAdsConversionLabel(value) {
-  return typeof value === 'string' && value.trim() && !value.includes('XXXX')
-    ? value.trim()
-    : null;
+  if (typeof value !== 'string') return null;
+
+  const label = value.trim();
+  return label
+    && !/x{4}/i.test(label)
+    && label !== 'replace_with_conversion_label'
+      ? label
+      : null;
 }
 
 function getMetaPixelId(value) {
@@ -94,17 +116,54 @@ function safeCall(callback) {
   }
 }
 
-function appendPartytownScript(provider, src) {
-  return safeCall(() => {
-    if (document.querySelector(`script[data-tracking-provider="${provider}"]`)) return;
+function createPartytownScript(provider, { src, textContent } = {}) {
+  const script = document.createElement('script');
+  script.type = 'text/partytown';
+  script.dataset.trackingProvider = provider;
+  if (src) script.src = src;
+  if (textContent) script.textContent = textContent;
+  return script;
+}
 
-    const script = document.createElement('script');
-    script.async = true;
-    script.type = 'text/partytown';
-    script.src = src;
-    script.dataset.trackingProvider = provider;
-    document.head.append(script);
+function appendPartytownScripts(provider, scripts) {
+  return safeCall(() => {
+    if (document.querySelector(`script[data-tracking-provider="${provider}"]`)) return false;
+
+    document.head.append(...scripts);
+    window.dispatchEvent(new CustomEvent('ptupdate'));
+    return true;
   });
+}
+
+function scriptValue(value) {
+  return JSON.stringify(value).replaceAll('<', '\\u003c');
+}
+
+function googleBootstrap(config) {
+  const gaId = getConfiguredId(config.gaId, 'G-');
+  const googleAdsId = getConfiguredId(config.googleAdsId, 'AW-');
+  const commands = [
+    'window.dataLayer = window.dataLayer || [];',
+    'window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };',
+    `window.gtag('consent', 'update', ${scriptValue(GRANTED_GOOGLE_CONSENT)});`,
+    "window.gtag('js', new Date());",
+  ];
+
+  if (gaId) commands.push(`window.gtag('config', ${scriptValue(gaId)}, { send_page_view: false });`);
+  if (googleAdsId) commands.push(`window.gtag('config', ${scriptValue(googleAdsId)}, { send_page_view: false });`);
+  if (gaId) commands.push("window.gtag('event', 'page_view');");
+
+  return commands.join('\n');
+}
+
+function metaBootstrap(metaPixelId) {
+  return [
+    'window.fbq = window.fbq || function(){ (window.fbq.queue = window.fbq.queue || []).push(arguments); };',
+    'window.fbq.queue = window.fbq.queue || [];',
+    `window.fbq('init', ${scriptValue(metaPixelId)});`,
+    "window.fbq('consent', 'grant');",
+    "window.fbq('track', 'PageView');",
+  ].join('\n');
 }
 
 function callGtag(...args) {
@@ -124,28 +183,32 @@ function callFbq(...args) {
 }
 
 function loadGoogle(config) {
-  if (!hasCurrentConsent()) return;
+  if (!hasCurrentConsent()) return false;
 
   const gaId = getConfiguredId(config.gaId, 'G-');
   const googleAdsId = getConfiguredId(config.googleAdsId, 'AW-');
 
-  if (!gaId && !googleAdsId) return;
+  if (!gaId && !googleAdsId) return false;
 
-  appendPartytownScript('google', `https://www.googletagmanager.com/gtag/js?id=${gaId || googleAdsId}`);
-  callGtag('js', new Date());
-  if (gaId) callGtag('config', gaId);
-  if (googleAdsId) callGtag('config', googleAdsId);
+  return safeCall(() => appendPartytownScripts('google', [
+    createPartytownScript('google', { textContent: googleBootstrap(config) }),
+    createPartytownScript('google', {
+      src: `https://www.googletagmanager.com/gtag/js?id=${gaId || googleAdsId}`,
+    }),
+  ])) === true;
 }
 
 function loadMeta(config) {
-  if (!hasCurrentConsent()) return;
+  if (!hasCurrentConsent()) return false;
 
   const metaPixelId = getMetaPixelId(config.metaPixelId);
 
-  if (!metaPixelId) return;
+  if (!metaPixelId) return false;
 
-  appendPartytownScript('meta', 'https://connect.facebook.net/en_US/fbevents.js');
-  callFbq('init', metaPixelId);
+  return safeCall(() => appendPartytownScripts('meta', [
+    createPartytownScript('meta', { textContent: metaBootstrap(metaPixelId) }),
+    createPartytownScript('meta', { src: 'https://connect.facebook.net/en_US/fbevents.js' }),
+  ])) === true;
 }
 
 function eventKey(eventName, payload) {
@@ -177,10 +240,6 @@ export function trackEvent(config, eventName, payload = {}) {
     generate_lead: 'Lead',
   }[eventName];
   if (metaEvent && getMetaPixelId(config.metaPixelId)) callFbq('track', metaEvent, payload);
-}
-
-function trackPageView(config) {
-  trackEvent(config, 'page_view');
 }
 
 function trackLead(element, config) {
@@ -231,15 +290,31 @@ function delayWhatsAppNavigation(event, element) {
 
 function setupPricingViewTracking(config) {
   const pricing = document.getElementById('pricing');
-  if (!pricing || typeof IntersectionObserver !== 'function') return;
+  if (!pricing) return;
 
-  const observer = new IntersectionObserver((entries) => {
-    if (!entries.some((entry) => entry.isIntersecting) || !hasCurrentConsent()) return;
+  const trackVisiblePricing = (intersectionRatio) => {
+    if (intersectionRatio < 0.35 || !hasCurrentConsent()) return false;
 
     trackPlanView(config);
-    observer.disconnect();
+    pricingObservers.get(document)?.disconnect();
+    pricingObservers.delete(document);
+    return true;
+  };
+
+  const rect = safeCall(() => pricing.getBoundingClientRect?.());
+  if (rect?.height > 0) {
+    const visibleHeight = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+    if (trackVisiblePricing(visibleHeight / rect.height)) return;
+  }
+
+  if (pricingObservers.has(document) || typeof IntersectionObserver !== 'function') return;
+
+  const observer = new IntersectionObserver((entries) => {
+    const visibleEntry = entries.find((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.35);
+    if (visibleEntry) trackVisiblePricing(visibleEntry.intersectionRatio);
   }, { threshold: 0.35 });
 
+  pricingObservers.set(document, observer);
   observer.observe(pricing);
 }
 
@@ -268,26 +343,28 @@ function setupScrollDepthTracking(config) {
 
 function setupFunnelTracking(config) {
   if (typeof document.addEventListener !== 'function') return;
-  if (funnelTrackingDocuments.has(document)) return;
-  funnelTrackingDocuments.add(document);
+  if (!funnelTrackingDocuments.has(document)) {
+    funnelTrackingDocuments.add(document);
 
-  document.addEventListener('click', (event) => {
-    const element = event.target?.closest?.('[data-track-event]');
-    if (!element || !hasCurrentConsent()) return;
+    document.addEventListener('click', (event) => {
+      const element = event.target?.closest?.('[data-track-event]');
+      if (!element || !hasCurrentConsent()) return;
 
-    if (element.dataset.trackEvent === 'select_content') {
-      trackContent(element, config);
-      return;
-    }
+      if (element.dataset.trackEvent === 'select_content') {
+        trackContent(element, config);
+        return;
+      }
 
-    if (element.dataset.trackEvent !== 'lead') return;
+      if (element.dataset.trackEvent !== 'lead') return;
 
-    trackLead(element, config);
-    if (shouldDelayWhatsAppNavigation(event, element)) delayWhatsAppNavigation(event, element);
-  });
+      trackLead(element, config);
+      if (shouldDelayWhatsAppNavigation(event, element)) delayWhatsAppNavigation(event, element);
+    });
+
+    setupScrollDepthTracking(config);
+  }
 
   setupPricingViewTracking(config);
-  setupScrollDepthTracking(config);
 }
 
 function getLocalStorage() {
@@ -309,14 +386,20 @@ function startAcceptedTracking(config) {
   hasActiveConsent = true;
   if (!acceptedTrackingStarted) {
     acceptedTrackingStarted = true;
-    loadGoogle(config);
-    loadMeta(config);
-    trackPageView(config);
+    startedProviders.google = loadGoogle(config) === true;
+    startedProviders.meta = loadMeta(config) === true;
+  } else {
+    if (startedProviders.google) callGtag('consent', 'update', GRANTED_GOOGLE_CONSENT);
+    if (startedProviders.meta) callFbq('consent', 'grant');
   }
   setupFunnelTracking(config);
 }
 
-function disableTracking() {
+function disableTracking({ notifyProviders = false } = {}) {
+  if (notifyProviders && hasActiveConsent) {
+    if (startedProviders.google) callGtag('consent', 'update', DENIED_GOOGLE_CONSENT);
+    if (startedProviders.meta) callFbq('consent', 'revoke');
+  }
   hasActiveConsent = false;
 }
 
@@ -337,7 +420,7 @@ export function initTracking(config = {}) {
   if (consent === 'accepted') {
     startAcceptedTracking(config);
   } else {
-    disableTracking();
+    disableTracking({ notifyProviders: true });
   }
 
   listenOnce(document.querySelector('#cookie-consent-accept'), 'accept', () => {
@@ -347,16 +430,25 @@ export function initTracking(config = {}) {
   });
 
   listenOnce(document.querySelector('#cookie-consent-reject'), 'reject', () => {
+    disableTracking({ notifyProviders: true });
     writeConsent(storage, 'rejected');
-    disableTracking();
     setConsentDialogVisibility(dialog, false);
   });
 
   document.querySelectorAll('[data-open-cookie-preferences]').forEach((control) => {
     listenOnce(control, 'preferences', () => {
+      disableTracking({ notifyProviders: true });
       clearConsent(storage);
-      disableTracking();
       setConsentDialogVisibility(dialog, true);
     });
   });
+}
+
+export function bootTracking(config = {}) {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return false;
+  if (bootedTrackingDocuments.has(document)) return false;
+
+  bootedTrackingDocuments.add(document);
+  initTracking(config);
+  return true;
 }

@@ -54,7 +54,7 @@ const ogImage = new URL('/images/logo-vertical.png', siteUrl);
 		<CookieConsent />
 		<script src="../scripts/scrollAnimations.js"></script>
 		<script>
-			import { initTracking } from '../scripts/tracking.js';
+			import { bootTracking } from '../scripts/tracking.js';
 
 			const trackingConfig = {
 				gaId: import.meta.env.PUBLIC_GA_ID,
@@ -62,12 +62,8 @@ const ogImage = new URL('/images/logo-vertical.png', siteUrl);
 				googleAdsConversionLabel: import.meta.env.PUBLIC_GOOGLE_ADS_CONVERSION_LABEL,
 				metaPixelId: import.meta.env.PUBLIC_META_PIXEL_ID,
 			};
-			const trackingWindow = window as typeof window & { __ocarecadevTrackingStarted?: boolean };
-
-			if (!trackingWindow.__ocarecadevTrackingStarted) {
-				trackingWindow.__ocarecadevTrackingStarted = true;
-				document.addEventListener('astro:page-load', () => initTracking(trackingConfig), { once: true });
-			}
+			bootTracking(trackingConfig);
+			document.addEventListener('astro:page-load', () => bootTracking(trackingConfig), { once: true });
 		</script>
 	</body>
 </html>

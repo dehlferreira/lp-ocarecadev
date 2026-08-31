@@ -1,6 +1,7 @@
 # Especificação: Tracking, consentimento e preparação para mídia
 
-**Data:** 2026-08-30  
+**Data:** 2026-08-30
+
 **Status:** aprovada para planejamento
 
 ## Objetivo
