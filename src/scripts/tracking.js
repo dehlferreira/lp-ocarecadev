@@ -19,6 +19,28 @@ export function readConsent(storage) {
   }
 }
 
+// Event Contract: stores only the consent schema { version, choice }.
+export function writeConsent(storage, choice) {
+  if (!storage || !['accepted', 'rejected'].includes(choice)) return null;
+
+  try {
+    storage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ version: CONSENT_VERSION, choice }));
+    return choice;
+  } catch {
+    return null;
+  }
+}
+
+// Event Contract: removes a stored choice before reopening the consent controls.
+export function clearConsent(storage) {
+  try {
+    storage?.removeItem(CONSENT_STORAGE_KEY);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function createEventId() {
   const randomUUID = globalThis.crypto?.randomUUID;
 
@@ -45,6 +67,7 @@ export function buildLeadPayload(element) {
 }
 
 const emittedEventKeys = new Set();
+let acceptedTrackingStarted = false;
 
 function getConfiguredId(value, prefix) {
   return isConfigured(value, prefix) ? value.trim() : null;
@@ -175,13 +198,51 @@ function getLocalStorage() {
   return safeCall(() => window.localStorage) || null;
 }
 
+function setConsentDialogVisibility(dialog, visible) {
+  if (dialog) dialog.hidden = !visible;
+}
+
+function startAcceptedTracking(config) {
+  if (acceptedTrackingStarted) return;
+  acceptedTrackingStarted = true;
+  loadGoogle(config);
+  loadMeta(config);
+  trackPageView(config);
+}
+
+function listenOnce(element, eventName, listener) {
+  if (!element || element.dataset.trackingListener === eventName) return;
+  element.dataset.trackingListener = eventName;
+  element.addEventListener('click', listener);
+}
+
 export function initTracking(config = {}) {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
-  const consent = readConsent(getLocalStorage());
+  const storage = getLocalStorage();
+  const dialog = document.querySelector('#cookie-consent');
+  const consent = readConsent(storage);
+
+  setConsentDialogVisibility(dialog, !consent);
   if (consent === 'accepted') {
-    loadGoogle(config);
-    loadMeta(config);
-    trackPageView(config);
+    startAcceptedTracking(config);
   }
+
+  listenOnce(document.querySelector('#cookie-consent-accept'), 'accept', () => {
+    writeConsent(storage, 'accepted');
+    setConsentDialogVisibility(dialog, false);
+    startAcceptedTracking(config);
+  });
+
+  listenOnce(document.querySelector('#cookie-consent-reject'), 'reject', () => {
+    writeConsent(storage, 'rejected');
+    setConsentDialogVisibility(dialog, false);
+  });
+
+  document.querySelectorAll('[data-open-cookie-preferences]').forEach((control) => {
+    listenOnce(control, 'preferences', () => {
+      clearConsent(storage);
+      setConsentDialogVisibility(dialog, true);
+    });
+  });
 }

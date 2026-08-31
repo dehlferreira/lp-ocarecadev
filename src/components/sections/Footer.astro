@@ -16,6 +16,10 @@ import logoHorizontal from "../../assets/images/logo-ocareca-horizontal.webp";
       &copy; {new Date().getFullYear()} OCARECADEV. Todos os direitos reservados.
       Transformando cliques em clientes.
     </p>
+    <div class="privacy-controls">
+      <button type="button" data-open-cookie-preferences>Preferências de cookies</button>
+      <span>Política de privacidade em breve</span>
+    </div>
   </div>
 </footer>
 
@@ -41,5 +45,24 @@ import logoHorizontal from "../../assets/images/logo-ocareca-horizontal.webp";
   .copyright {
     color: var(--color-text-secondary);
     font-size: 0.875rem;
+  }
+
+  .privacy-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+  }
+
+  .privacy-controls button {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    text-decoration: underline;
   }
 </style>

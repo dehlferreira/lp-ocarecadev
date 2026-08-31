@@ -1,12 +1,58 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import {
+import * as tracking from '../src/scripts/tracking.js';
+
+const {
   CONSENT_STORAGE_KEY,
   buildLeadPayload,
+  initTracking,
   isConfigured,
   readConsent,
-} from '../src/scripts/tracking.js';
+  writeConsent,
+  clearConsent,
+} = tracking;
+
+function read(path) {
+  return readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+}
+
+function createStorage() {
+  const values = new Map();
+  return {
+    getItem: (key) => values.get(key) ?? null,
+    setItem: (key, value) => values.set(key, value),
+    removeItem: (key) => values.delete(key),
+  };
+}
+
+function createConsentDocument() {
+  const control = () => {
+    const listeners = new Map();
+    return {
+      dataset: {},
+      addEventListener: (name, listener) => listeners.set(name, listener),
+      click: () => listeners.get('click')(),
+    };
+  };
+  const accept = control();
+  const reject = control();
+  const preferences = control();
+  const dialog = { hidden: false };
+
+  return {
+    dialog,
+    accept,
+    reject,
+    preferences,
+    querySelector: (selector) => ({
+      '#cookie-consent': dialog,
+      '#cookie-consent-accept': accept,
+      '#cookie-consent-reject': reject,
+    })[selector] ?? null,
+    querySelectorAll: (selector) => selector === '[data-open-cookie-preferences]' ? [preferences] : [],
+  };
+}
 
 test('accepts only valid provider identifiers', () => {
   assert.equal(isConfigured('G-ABC123', 'G-'), true);
@@ -23,6 +69,55 @@ test('reads only a current valid consent choice', () => {
   assert.equal(readConsent(accepted), 'accepted');
   assert.equal(readConsent(stale), null);
   assert.equal(readConsent(malformed), null);
+});
+
+test('first visit has no consent choice', () => {
+  assert.equal(readConsent(createStorage()), null);
+});
+
+test('accepting persists the current consent schema', () => {
+  const storage = createStorage();
+
+  assert.equal(typeof writeConsent, 'function');
+  writeConsent(storage, 'accepted');
+
+  assert.equal(storage.getItem(CONSENT_STORAGE_KEY), '{"version":1,"choice":"accepted"}');
+  assert.equal(readConsent(storage), 'accepted');
+});
+
+test('rejecting persists the current consent schema', () => {
+  const storage = createStorage();
+
+  assert.equal(typeof writeConsent, 'function');
+  writeConsent(storage, 'rejected');
+
+  assert.equal(storage.getItem(CONSENT_STORAGE_KEY), '{"version":1,"choice":"rejected"}');
+  assert.equal(readConsent(storage), 'rejected');
+});
+
+test('reopening preferences removes the saved choice and displays the banner', () => {
+  const storage = createStorage();
+  const consentDocument = createConsentDocument();
+  const originalWindow = globalThis.window;
+  const originalDocument = globalThis.document;
+  globalThis.window = { localStorage: storage };
+  globalThis.document = consentDocument;
+
+  try {
+    initTracking({});
+    consentDocument.accept.click();
+    assert.equal(consentDocument.dialog.hidden, true);
+    assert.equal(readConsent(storage), 'accepted');
+
+    consentDocument.preferences.click();
+
+    assert.equal(typeof clearConsent, 'function');
+    assert.equal(readConsent(storage), null);
+    assert.equal(consentDocument.dialog.hidden, false);
+  } finally {
+    globalThis.window = originalWindow;
+    globalThis.document = originalDocument;
+  }
 });
 
 test('builds a non-personal payload for a plan lead', () => {
@@ -56,12 +151,37 @@ test('providers initialize only from the accepted-consent branch', () => {
   const acceptedBranch = source.match(/if \(consent === 'accepted'\) \{([\s\S]*?)\n  \}/);
 
   assert.ok(acceptedBranch, 'initTracking must have an accepted-consent branch');
-  assert.match(acceptedBranch[1], /loadGoogle\(config\);/);
-  assert.match(acceptedBranch[1], /loadMeta\(config\);/);
-  assert.doesNotMatch(source.replace(acceptedBranch[0], ''), /loadGoogle\(config\);|loadMeta\(config\);/);
+  assert.match(acceptedBranch[1], /startAcceptedTracking\(config\);/);
+  const starter = source.match(/function startAcceptedTracking\(config\) \{([\s\S]*?)\n\}/);
+  assert.ok(starter, 'accepted tracking must be started through a consent-gated helper');
+  assert.match(starter[1], /loadGoogle\(config\);/);
+  assert.match(starter[1], /loadMeta\(config\);/);
 });
 
 test('scroll depth deduplicates each threshold independently', () => {
   const source = readFileSync(new URL('../src/scripts/tracking.js', import.meta.url), 'utf8');
   assert.match(source, /scroll_depth:\$\{payload\.percent_scrolled\}/);
+});
+
+test('cookie controls offer equal accept and reject actions', () => {
+  const consent = read('src/components/ui/CookieConsent.astro');
+  assert.match(consent, /id="cookie-consent"/);
+  assert.match(consent, /id="cookie-consent-accept"/);
+  assert.match(consent, /id="cookie-consent-reject"/);
+  assert.match(consent, /aria-labelledby="cookie-consent-title"/);
+});
+
+test('layout supplies all public tracking configuration without hard-coded IDs', () => {
+  const layout = read('src/layouts/Layout.astro');
+  assert.match(layout, /PUBLIC_GOOGLE_ADS_ID/);
+  assert.match(layout, /PUBLIC_GOOGLE_ADS_CONVERSION_LABEL/);
+  assert.match(layout, /<CookieConsent \/>/);
+  assert.doesNotMatch(layout, /fbq\('init'/);
+});
+
+test('scroll animations do not emit vendor events before consent', () => {
+  const scrollAnimations = read('src/scripts/scrollAnimations.js');
+
+  assert.doesNotMatch(scrollAnimations, /\bfbq\s*\(/);
+  assert.doesNotMatch(scrollAnimations, /\bgtag\s*\(/);
 });
