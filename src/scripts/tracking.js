@@ -68,6 +68,7 @@ export function buildLeadPayload(element) {
 
 const emittedEventKeys = new Set();
 let acceptedTrackingStarted = false;
+let hasActiveConsent = false;
 
 function getConfiguredId(value, prefix) {
   return isConfigured(value, prefix) ? value.trim() : null;
@@ -122,6 +123,8 @@ function callFbq(...args) {
 }
 
 function loadGoogle(config) {
+  if (!hasCurrentConsent()) return;
+
   const gaId = getConfiguredId(config.gaId, 'G-');
   const googleAdsId = getConfiguredId(config.googleAdsId, 'AW-');
 
@@ -134,6 +137,8 @@ function loadGoogle(config) {
 }
 
 function loadMeta(config) {
+  if (!hasCurrentConsent()) return;
+
   const metaPixelId = getMetaPixelId(config.metaPixelId);
 
   if (!metaPixelId) return;
@@ -147,7 +152,10 @@ function eventKey(eventName, payload) {
   return payload.event_id ? `${eventName}:${payload.event_id}` : eventName;
 }
 
-function trackEvent(config, eventName, payload = {}) {
+// Event Contract: dispatches only while the current page has active consent.
+export function trackEvent(config, eventName, payload = {}) {
+  if (!hasCurrentConsent()) return;
+
   const key = eventKey(eventName, payload);
   if (emittedEventKeys.has(key)) return;
   emittedEventKeys.add(key);
@@ -198,16 +206,28 @@ function getLocalStorage() {
   return safeCall(() => window.localStorage) || null;
 }
 
+function hasCurrentConsent() {
+  if (!hasActiveConsent) return false;
+
+  const storage = getLocalStorage();
+  return !storage || readConsent(storage) === 'accepted';
+}
+
 function setConsentDialogVisibility(dialog, visible) {
   if (dialog) dialog.hidden = !visible;
 }
 
 function startAcceptedTracking(config) {
+  hasActiveConsent = true;
   if (acceptedTrackingStarted) return;
   acceptedTrackingStarted = true;
   loadGoogle(config);
   loadMeta(config);
   trackPageView(config);
+}
+
+function disableTracking() {
+  hasActiveConsent = false;
 }
 
 function listenOnce(element, eventName, listener) {
@@ -226,6 +246,8 @@ export function initTracking(config = {}) {
   setConsentDialogVisibility(dialog, !consent);
   if (consent === 'accepted') {
     startAcceptedTracking(config);
+  } else {
+    disableTracking();
   }
 
   listenOnce(document.querySelector('#cookie-consent-accept'), 'accept', () => {
@@ -236,12 +258,14 @@ export function initTracking(config = {}) {
 
   listenOnce(document.querySelector('#cookie-consent-reject'), 'reject', () => {
     writeConsent(storage, 'rejected');
+    disableTracking();
     setConsentDialogVisibility(dialog, false);
   });
 
   document.querySelectorAll('[data-open-cookie-preferences]').forEach((control) => {
     listenOnce(control, 'preferences', () => {
       clearConsent(storage);
+      disableTracking();
       setConsentDialogVisibility(dialog, true);
     });
   });

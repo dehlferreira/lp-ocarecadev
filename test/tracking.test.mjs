@@ -9,6 +9,7 @@ const {
   initTracking,
   isConfigured,
   readConsent,
+  trackEvent,
   writeConsent,
   clearConsent,
 } = tracking;
@@ -95,25 +96,81 @@ test('rejecting persists the current consent schema', () => {
   assert.equal(readConsent(storage), 'rejected');
 });
 
-test('reopening preferences removes the saved choice and displays the banner', () => {
+test('accepting then reopening and rejecting prevents subsequent vendor dispatch', () => {
   const storage = createStorage();
   const consentDocument = createConsentDocument();
+  const gtagCalls = [];
+  const fbqCalls = [];
+  const config = {
+    gaId: 'G-TEST123',
+    googleAdsId: 'AW-TEST123',
+    googleAdsConversionLabel: 'test-label',
+    metaPixelId: '987654321',
+  };
   const originalWindow = globalThis.window;
   const originalDocument = globalThis.document;
-  globalThis.window = { localStorage: storage };
+  globalThis.window = {
+    localStorage: storage,
+    gtag: (...args) => gtagCalls.push(args),
+    fbq: (...args) => fbqCalls.push(args),
+  };
   globalThis.document = consentDocument;
 
   try {
-    initTracking({});
+    initTracking(config);
     consentDocument.accept.click();
     assert.equal(consentDocument.dialog.hidden, true);
     assert.equal(readConsent(storage), 'accepted');
+    assert.ok(gtagCalls.length + fbqCalls.length > 0, 'acceptance starts configured providers');
 
     consentDocument.preferences.click();
 
     assert.equal(typeof clearConsent, 'function');
     assert.equal(readConsent(storage), null);
     assert.equal(consentDocument.dialog.hidden, false);
+
+    const callsBeforeReopenedInteraction = gtagCalls.length + fbqCalls.length;
+    trackEvent(config, 'generate_lead', { event_id: 'after-reopen' });
+    assert.equal(gtagCalls.length + fbqCalls.length, callsBeforeReopenedInteraction);
+
+    consentDocument.reject.click();
+    assert.equal(readConsent(storage), 'rejected');
+    assert.equal(consentDocument.dialog.hidden, true);
+
+    const callsBeforeRejectedInteraction = gtagCalls.length + fbqCalls.length;
+    assert.equal(typeof trackEvent, 'function');
+    trackEvent(config, 'generate_lead', { event_id: 'after-reopen-reject' });
+    assert.equal(gtagCalls.length + fbqCalls.length, callsBeforeRejectedInteraction);
+  } finally {
+    globalThis.window = originalWindow;
+    globalThis.document = originalDocument;
+  }
+});
+
+test('tracked interactions stop when persisted consent is no longer accepted', () => {
+  const storage = createStorage();
+  const consentDocument = createConsentDocument();
+  const gtagCalls = [];
+  const originalWindow = globalThis.window;
+  const originalDocument = globalThis.document;
+  globalThis.window = {
+    localStorage: storage,
+    gtag: (...args) => gtagCalls.push(args),
+  };
+  globalThis.document = consentDocument;
+
+  try {
+    writeConsent(storage, 'accepted');
+    initTracking({ gaId: 'G-TEST123' });
+    trackEvent({ gaId: 'G-TEST123' }, 'generate_lead', { event_id: 'before-revocation' });
+    assert.ok(gtagCalls.length > 0, 'accepted consent allows configured providers');
+    const callsBeforeRevocation = gtagCalls.length;
+
+    writeConsent(storage, 'rejected');
+    trackEvent({ gaId: 'G-TEST123' }, 'generate_lead', { event_id: 'after-revocation' });
+
+    assert.equal(gtagCalls.length, callsBeforeRevocation);
+    initTracking({ gaId: 'G-TEST123' });
   } finally {
     globalThis.window = originalWindow;
     globalThis.document = originalDocument;
