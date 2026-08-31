@@ -4,6 +4,38 @@ import { test } from 'node:test';
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
 
+test('technical SEO exposes crawl directives and an indexable canonical sitemap', () => {
+  const robots = read('src/pages/robots.txt.ts');
+  const sitemap = read('src/pages/sitemap.xml.ts');
+
+  assert.match(robots, /User-agent:\s*\*/);
+  assert.match(robots, /Allow:\s*\//);
+  assert.match(robots, /const siteUrl = 'https:\/\/www\.ocarecadev\.com\.br'/);
+  assert.match(robots, /Sitemap: \$\{siteUrl\}\/sitemap\.xml/);
+  assert.match(sitemap, /const siteUrl = 'https:\/\/www\.ocarecadev\.com\.br'/);
+  assert.match(sitemap, /<loc>\$\{siteUrl\}<\/loc>|<loc>\$\{siteUrl\}\/<\/loc>/);
+  assert.match(sitemap, /application\/xml/);
+});
+
+test('layout provides canonical social metadata and structured business data', () => {
+  const layout = read('src/layouts/Layout.astro');
+
+  assert.match(layout, /rel="canonical"/);
+  assert.match(layout, /name="robots" content="index, follow"/);
+  assert.match(layout, /application\/ld\+json/);
+  assert.match(layout, /ProfessionalService/);
+  assert.match(layout, /FAQPage/);
+  assert.match(layout, /sameAs/);
+});
+
+test('AI discovery document identifies the site and its primary service', () => {
+  const llms = read('public/llms.txt');
+
+  assert.match(llms, /# OCARECADEV/);
+  assert.match(llms, /https:\/\/www\.ocarecadev\.com\.br\//);
+  assert.match(llms, /landing pages/i);
+});
+
 test('FAQ defines a native collapsed disclosure for each answer', () => {
   const faq = read('src/components/sections/FAQ.astro');
 

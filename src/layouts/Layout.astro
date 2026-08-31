@@ -8,9 +8,47 @@ interface Props {
 
 const { title, description = "OCARECADEV - Máquinas de Geração de Clientes" } = Astro.props;
 
-// Absolute URL para a imagem de preview (WhatsApp exige formato PNG/JPG, WebP costuma falhar)
+// URLs absolutas evitam versões duplicadas da página em buscadores e previews sociais.
 const siteUrl = Astro.site || Astro.url;
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
 const ogImage = new URL('/images/logo-vertical.png', siteUrl);
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    '@id': `${siteUrl}#business`,
+    name: 'OCARECADEV',
+    url: siteUrl.toString(),
+    logo: ogImage.toString(),
+    image: ogImage.toString(),
+    description: 'Criação de landing pages e sites estratégicos para transformar visitantes em contatos e clientes.',
+    areaServed: 'Brasil',
+    sameAs: [
+      'https://www.instagram.com/ocarecadev',
+      'https://www.tiktok.com/@ocarecadev',
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}#website`,
+    name: 'OCARECADEV',
+    url: siteUrl.toString(),
+    inLanguage: 'pt-BR',
+    publisher: { '@id': `${siteUrl}#business` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'Preciso entender de tecnologia?', acceptedAnswer: { '@type': 'Answer', text: 'Não. Nós cuidamos de tudo.' } },
+      { '@type': 'Question', name: 'Em quanto tempo fica pronto?', acceptedAnswer: { '@type': 'Answer', text: 'A partir de 48h no plano Express.' } },
+      { '@type': 'Question', name: 'Vou conseguir editar depois?', acceptedAnswer: { '@type': 'Answer', text: 'Sim, você terá acesso.' } },
+      { '@type': 'Question', name: 'Isso realmente funciona?', acceptedAnswer: { '@type': 'Answer', text: 'Funciona quando é feito da forma certa — e é isso que fazemos.' } },
+    ],
+  },
+];
 
 const gaId = import.meta.env.PUBLIC_GA_ID;
 const pixelId = import.meta.env.PUBLIC_META_PIXEL_ID;
@@ -25,6 +63,8 @@ const isPixelEnabled = pixelId && pixelId !== '1234567890';
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href={canonicalUrl} />
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 
@@ -37,17 +77,21 @@ const isPixelEnabled = pixelId && pixelId !== '1234567890';
 
 		<!-- Open Graph / Preview Link Settings -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url} />
+		<meta property="og:locale" content="pt_BR" />
+		<meta property="og:site_name" content="OCARECADEV" />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImage} />
 
 		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={Astro.url} />
-		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={ogImage} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={canonicalUrl} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
 		<!-- Tracking com Partytown (SPEC-005) -->
 		{isGaEnabled && (
