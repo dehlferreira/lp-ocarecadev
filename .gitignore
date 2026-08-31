@@ -7,7 +7,6 @@ pnpm-debug.log*
 
 # build output
 .astro/
-.claude/
 dist/
 
 # environment variables
@@ -21,6 +20,15 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Local agent workspaces
+# Local agent workspaces (não versionar)
 .worktrees/
 .superpowers/
+
+# Configuração de agentes: versionada de propósito.
+# Fonte de verdade: .claude/agents/ e skills/.
+# .agents/, .codex/ e .cursor/ contêm symlinks para essas duas pastas.
+# Estado local do Claude Code não deve ser versionado:
+.claude/settings.local.json
+.claude/history/
+.claude/todos/
+.claude/shell-snapshots/
