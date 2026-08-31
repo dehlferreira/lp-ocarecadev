@@ -242,3 +242,34 @@ test('scroll animations do not emit vendor events before consent', () => {
   assert.doesNotMatch(scrollAnimations, /\bfbq\s*\(/);
   assert.doesNotMatch(scrollAnimations, /\bgtag\s*\(/);
 });
+
+test('only WhatsApp CTAs declare lead tracking', () => {
+  const hero = read('src/components/sections/Hero.astro');
+  const header = read('src/components/sections/Header.astro');
+  const pricing = read('src/components/sections/Pricing.astro');
+  const finalCta = read('src/components/sections/CtaFinal.astro');
+  assert.match(hero, /data-track-event="select_content"/);
+  assert.doesNotMatch(hero, /data-track-event="lead"/);
+  assert.equal((header.match(/data-track-event="lead"/g) ?? []).length, 2);
+  assert.equal((pricing.match(/data-track-event="lead"/g) ?? []).length, 3);
+  assert.equal((finalCta.match(/data-track-event="lead"/g) ?? []).length, 1);
+});
+
+test('each pricing CTA declares its plan and BRL reference value', () => {
+  const pricing = read('src/components/sections/Pricing.astro');
+  assert.match(pricing, /data-track-plan="express"[\s\S]*data-track-value="597"/);
+  assert.match(pricing, /data-track-plan="landing_que_vende"[\s\S]*data-track-value="997"/);
+  assert.match(pricing, /data-track-plan="maquina_de_clientes"[\s\S]*data-track-value="2497"/);
+});
+
+test('legacy animation script does not dispatch vendor conversion events', () => {
+  const scroll = read('src/scripts/scrollAnimations.js');
+  assert.doesNotMatch(scroll, /generate_lead|fbq\('track', 'Lead'\)|gtag\('event'/);
+});
+
+test('tracking runtime observes pricing and all approved scroll thresholds', () => {
+  const runtime = read('src/scripts/tracking.js');
+  assert.match(runtime, /document\.getElementById\('pricing'\)/);
+  assert.match(runtime, /\[25, 50, 75, 90\]/);
+  assert.match(runtime, /data-track-event/);
+});

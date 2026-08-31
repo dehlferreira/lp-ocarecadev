@@ -28,7 +28,15 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
           <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Botão direto para WhatsApp</li>
           <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Entrega em até 48h</li>
         </ul>
-        <Button type="ghost" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano EXPRESS`}>
+        <Button
+          type="ghost"
+          class="btn-full btn-pricing-cta"
+          href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano EXPRESS`}
+          data-track-event="lead"
+          data-track-location="pricing"
+          data-track-plan="express"
+          data-track-value="597"
+        >
           Quero começar já
         </Button>
       </GlassCard>
@@ -50,7 +58,15 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
           <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Tracking de cliques e leads</li>
           <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>1 revisão estratégica</li>
         </ul>
-        <Button type="primary" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano LANDING QUE VENDE`}>
+        <Button
+          type="primary"
+          class="btn-full btn-pricing-cta"
+          href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano LANDING QUE VENDE`}
+          data-track-event="lead"
+          data-track-location="pricing"
+          data-track-plan="landing_que_vende"
+          data-track-value="997"
+        >
           Quero gerar clientes
         </Button>
       </GlassCard>
@@ -70,7 +86,15 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
           <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Pronto para tráfego pago</li>
           <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Otimização de conversão</li>
         </ul>
-        <Button type="ghost" class="btn-full btn-pricing-cta" href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano MÁQUINA DE CLIENTES`}>
+        <Button
+          type="ghost"
+          class="btn-full btn-pricing-cta"
+          href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano MÁQUINA DE CLIENTES`}
+          data-track-event="lead"
+          data-track-location="pricing"
+          data-track-plan="maquina_de_clientes"
+          data-track-value="2497"
+        >
           Quero escalar
         </Button>
       </GlassCard>

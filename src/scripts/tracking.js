@@ -69,6 +69,7 @@ export function buildLeadPayload(element) {
 const emittedEventKeys = new Set();
 let acceptedTrackingStarted = false;
 let hasActiveConsent = false;
+const funnelTrackingDocuments = new WeakSet();
 
 function getConfiguredId(value, prefix) {
   return isConfigured(value, prefix) ? value.trim() : null;
@@ -202,6 +203,93 @@ function trackScrollDepth(config, threshold) {
   trackEvent(config, 'scroll_depth', { percent_scrolled: threshold });
 }
 
+function trackContent(element, config) {
+  trackEvent(config, 'select_content', {
+    cta_location: element.dataset.trackLocation,
+    event_id: createEventId(),
+  });
+}
+
+function shouldDelayWhatsAppNavigation(event, element) {
+  const href = element.getAttribute?.('href') || '';
+  const isModifiedClick = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+
+  return href.startsWith('https://wa.me/')
+    && !event.defaultPrevented
+    && !isModifiedClick
+    && event.button === 0
+    && (!element.target || element.target === '_self');
+}
+
+function delayWhatsAppNavigation(event, element) {
+  event.preventDefault();
+  const href = element.href;
+  window.setTimeout(() => {
+    window.location.href = href;
+  }, 250);
+}
+
+function setupPricingViewTracking(config) {
+  const pricing = document.getElementById('pricing');
+  if (!pricing || typeof IntersectionObserver !== 'function') return;
+
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting) || !hasCurrentConsent()) return;
+
+    trackPlanView(config);
+    observer.disconnect();
+  }, { threshold: 0.35 });
+
+  observer.observe(pricing);
+}
+
+function setupScrollDepthTracking(config) {
+  const thresholds = [25, 50, 75, 90];
+  let ticking = false;
+
+  const measureScrollDepth = () => {
+    ticking = false;
+    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollableHeight <= 0) return;
+
+    const percentScrolled = (window.scrollY / scrollableHeight) * 100;
+    thresholds.forEach((threshold) => {
+      if (percentScrolled >= threshold) trackScrollDepth(config, threshold);
+    });
+  };
+
+  document.addEventListener('scroll', () => {
+    if (ticking) return;
+
+    ticking = true;
+    window.requestAnimationFrame(measureScrollDepth);
+  }, { passive: true });
+}
+
+function setupFunnelTracking(config) {
+  if (typeof document.addEventListener !== 'function') return;
+  if (funnelTrackingDocuments.has(document)) return;
+  funnelTrackingDocuments.add(document);
+
+  document.addEventListener('click', (event) => {
+    const element = event.target?.closest?.('[data-track-event]');
+    if (!element || !hasCurrentConsent()) return;
+
+    if (element.dataset.trackEvent === 'select_content') {
+      trackContent(element, config);
+      return;
+    }
+
+    if (element.dataset.trackEvent !== 'lead') return;
+
+    trackLead(element, config);
+    if (shouldDelayWhatsAppNavigation(event, element)) delayWhatsAppNavigation(event, element);
+  });
+
+  setupPricingViewTracking(config);
+  setupScrollDepthTracking(config);
+}
+
 function getLocalStorage() {
   return safeCall(() => window.localStorage) || null;
 }
@@ -219,11 +307,13 @@ function setConsentDialogVisibility(dialog, visible) {
 
 function startAcceptedTracking(config) {
   hasActiveConsent = true;
-  if (acceptedTrackingStarted) return;
-  acceptedTrackingStarted = true;
-  loadGoogle(config);
-  loadMeta(config);
-  trackPageView(config);
+  if (!acceptedTrackingStarted) {
+    acceptedTrackingStarted = true;
+    loadGoogle(config);
+    loadMeta(config);
+    trackPageView(config);
+  }
+  setupFunnelTracking(config);
 }
 
 function disableTracking() {
