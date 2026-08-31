@@ -1,15 +1,3 @@
-const initAnalytics = () => {
-  const ctaButtons = document.querySelectorAll('.btn-pricing-cta, #btn-hero-primary, #btn-header-cta');
-  ctaButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (typeof fbq === 'function') fbq('track', 'Lead');
-      if (typeof gtag === 'function') {
-        gtag('event', 'generate_lead', { currency: 'BRL', value: 997.00 });
-      }
-    });
-  });
-};
-
 const initScrollAnimations = () => {
   // Intersection Observer atuando como Fallback para navegadores sem suporte a CSS Scroll-Driven Animations
   if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) {
@@ -106,7 +94,6 @@ const initMouseTracking = () => {
 };
 
 const init = () => {
-  initAnalytics();
   initScrollAnimations();
   initMouseTracking();
 };

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import CookieConsent from '../components/ui/CookieConsent.astro';
 
 interface Props {
 	title: string;
@@ -49,12 +50,6 @@ const structuredData = [
     ],
   },
 ];
-
-const gaId = import.meta.env.PUBLIC_GA_ID;
-const pixelId = import.meta.env.PUBLIC_META_PIXEL_ID;
-
-const isGaEnabled = gaId && gaId !== 'G-XXXXXXXXXX';
-const isPixelEnabled = pixelId && pixelId !== '1234567890';
 ---
 
 <!doctype html>
@@ -93,39 +88,25 @@ const isPixelEnabled = pixelId && pixelId !== '1234567890';
 
 		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-		<!-- Tracking com Partytown (SPEC-005) -->
-		{isGaEnabled && (
-			<!-- Google Analytics -->
-			<script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
-			<script type="text/partytown" define:vars={{ gaId }}>
-			  window.dataLayer = window.dataLayer || [];
-			  function gtag(){dataLayer.push(arguments);}
-			  gtag('js', new Date());
-			  gtag('config', gaId);
-			</script>
-		)}
-		
-		{isPixelEnabled && (
-			<!-- Meta Pixel -->
-			<script type="text/partytown" define:vars={{ pixelId }}>
-			  !function(f,b,e,v,n,t,s)
-			  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-			  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-			  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-			  n.queue=[];t=b.createElement(e);t.async=!0;
-			  t.src=v;s=b.getElementsByTagName(e)[0];
-			  s.parentNode.insertBefore(t,s)}(window, document,'script',
-			  'https://connect.facebook.net/en_US/fbevents.js');
-			  fbq('init', pixelId);
-			  fbq('track', 'PageView');
-			</script>
-		)}
 	</head>
 	<body>
 		<div class="glow-orb glow-orb-1"></div>
 		<div class="glow-orb glow-orb-2"></div>
 		<div class="glow-orb glow-orb-3"></div>
 		<slot />
+		<CookieConsent />
 		<script src="../scripts/scrollAnimations.js"></script>
+		<script>
+			import { bootTracking } from '../scripts/tracking.js';
+
+			const trackingConfig = {
+				gaId: import.meta.env.PUBLIC_GA_ID,
+				googleAdsId: import.meta.env.PUBLIC_GOOGLE_ADS_ID,
+				googleAdsConversionLabel: import.meta.env.PUBLIC_GOOGLE_ADS_CONVERSION_LABEL,
+				metaPixelId: import.meta.env.PUBLIC_META_PIXEL_ID,
+			};
+			bootTracking(trackingConfig);
+			document.addEventListener('astro:page-load', () => bootTracking(trackingConfig), { once: true });
+		</script>
 	</body>
 </html>

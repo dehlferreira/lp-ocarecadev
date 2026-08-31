@@ -71,8 +71,8 @@ import GlassCard from '../ui/GlassCard.astro';
     const closeAnswer = () => {
       item.classList.remove('is-open');
 
-      const finishClosing = (event) => {
-        if (event.propertyName !== 'grid-template-rows') return;
+      const finishClosing = (event: Event) => {
+        if ((event as TransitionEvent).propertyName !== 'grid-template-rows') return;
         answer.removeEventListener('transitionend', finishClosing);
         item.open = false;
       };
