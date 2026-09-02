@@ -13,19 +13,21 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
   <div class="container">
     <GlassCard class="header-card">
       <div class="logo">
-        <Image
-          src={logoHorizontal}
-          alt="OCARECADEV Logo"
-          loading="eager"
-          fetchpriority="high"
-        />
+        <a href="/" aria-label="OCARECADEV - Página Inicial">
+          <Image
+            src={logoHorizontal}
+            alt="OCARECADEV Logo"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </a>
       </div>
 
       <!-- Desktop Nav -->
       <nav class="nav">
-        <a href="#hero">Início</a>
-        <a href="#social-proof">Resultados</a>
-        <a href="#pricing">Planos</a>
+        <a href="/#hero">Início</a>
+        <a href="/#social-proof">Resultados</a>
+        <a href="/#pricing">Planos</a>
       </nav>
 
       <div class="cta-and-menu">
@@ -59,9 +61,9 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
   <!-- Mobile Menu Overlay -->
   <div class="mobile-menu-overlay" id="mobile-menu">
     <nav class="mobile-nav">
-      <a href="#hero" class="mobile-nav-link">Início</a>
-      <a href="#social-proof" class="mobile-nav-link">Resultados</a>
-      <a href="#pricing" class="mobile-nav-link">Planos</a>
+      <a href="/#hero" class="mobile-nav-link">Início</a>
+      <a href="/#social-proof" class="mobile-nav-link">Resultados</a>
+      <a href="/#pricing" class="mobile-nav-link">Planos</a>
     </nav>
   </div>
 </header>

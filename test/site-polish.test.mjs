@@ -213,3 +213,34 @@ test('solution and agitation mockups prioritize the available desktop width', ()
   assert.match(agitation, /@media\s*\(max-width:\s*767px\)[\s\S]*\.frustration-img-container\s*\{\s*max-width:\s*none/);
   assert.match(frustration, /\.frustration-mockup--compact\s*\{[\s\S]*max-width:\s*none/);
 });
+
+test('privacy policy page exposes the required 11 sections, LGPD mentions and footer link', () => {
+  const privacy = read('src/pages/politica-de-privacidade.astro');
+  const footer = read('src/components/sections/Footer.astro');
+  const sitemap = read('src/pages/sitemap.xml.ts');
+
+  // Header & Title
+  assert.match(privacy, /Política de Privacidade/);
+  assert.match(privacy, /O Careca Dev/);
+  assert.match(privacy, /02 de setembro de 2026/);
+  assert.match(privacy, /Lei nº 13\.709\/2018/);
+
+  // All 11 numbered sections
+  assert.match(privacy, /1\..*Dados que podemos coletar/);
+  assert.match(privacy, /2\..*Como utilizamos seus dados/);
+  assert.match(privacy, /3\..*Base para o tratamento dos dados/);
+  assert.match(privacy, /4\..*Compartilhamento de informações/);
+  assert.match(privacy, /5\..*Formulários e anúncios/);
+  assert.match(privacy, /6\..*Armazenamento e segurança/);
+  assert.match(privacy, /7\..*Direitos do titular/);
+  assert.match(privacy, /8\..*Cookies e tecnologias semelhantes/);
+  assert.match(privacy, /9\..*Links e serviços de terceiros/);
+  assert.match(privacy, /10\..*Alterações desta Política/);
+  assert.match(privacy, /11\..*Contato/);
+  assert.match(privacy, /ocarecadev\.com\.br/);
+
+  // Footer & Sitemap integration
+  assert.match(footer, /href="\/politica-de-privacidade"/);
+  assert.match(sitemap, /politica-de-privacidade/);
+});
+

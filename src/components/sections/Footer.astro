@@ -6,11 +6,16 @@ import logoHorizontal from "../../assets/images/logo-ocareca-horizontal.webp";
 <footer class="footer-section">
   <div class="container text-center">
     <div class="logo">
-      <Image
-        src={logoHorizontal}
-        alt="OCARECADEV Logo"
-        style="height: 30px; width: auto;"
-      />
+      <a href="/" aria-label="OCARECADEV - Página Inicial">
+        <Image
+          src={logoHorizontal}
+          alt="OCARECADEV Logo"
+          style="height: 30px; width: auto;"
+        />
+      </a>
+    </div>
+    <div class="footer-links">
+      <a href="/politica-de-privacidade" class="footer-link">Política de Privacidade</a>
     </div>
     <p class="copyright">
       &copy; {new Date().getFullYear()} OCARECADEV. Todos os direitos reservados.
@@ -31,11 +36,33 @@ import logoHorizontal from "../../assets/images/logo-ocareca-horizontal.webp";
   }
 
   .logo {
-    font-weight: 800;
-    font-size: 1.25rem;
-    letter-spacing: 0.1em;
-    color: var(--color-text-primary);
+    display: inline-block;
     margin-bottom: 1rem;
+  }
+
+  .logo a {
+    display: inline-block;
+    transition: opacity 0.2s ease;
+  }
+
+  .logo a:hover {
+    opacity: 0.85;
+  }
+
+  .footer-links {
+    margin-bottom: 1rem;
+  }
+
+  .footer-link {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--color-primary-neon);
+    text-decoration: underline;
   }
 
   .copyright {
