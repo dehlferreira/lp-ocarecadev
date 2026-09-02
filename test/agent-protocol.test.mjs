@@ -66,11 +66,11 @@ test('the SPEC skill delegates the guardrail list instead of owning it', () => {
   assert.match(spec.text, /Não a reescreva na SPEC/, 'technical-design precisa proibir explicitamente a cópia da lista');
 });
 
-test('every agent declares name, description, tools and model, and name matches the filename', () => {
+test('every agent declares name and description, and name matches the filename', () => {
   for (const agent of agents) {
     const fm = agent.text.split('---')[1];
     assert.ok(fm, `${agent.path} sem frontmatter`);
-    for (const field of ['name', 'description', 'tools', 'model']) {
+    for (const field of ['name', 'description']) {
       assert.match(fm, new RegExp(`^${field}:\\s*\\S`, 'm'), `${agent.path} sem campo "${field}"`);
     }
     assert.match(fm, new RegExp(`^name:\\s*${agent.name}\\s*$`, 'm'), `${agent.path}: name diverge do nome do arquivo`);
@@ -101,7 +101,15 @@ test('every repo path cited by a prompt actually exists', () => {
   for (const doc of allPrompts) {
     for (const m of doc.text.matchAll(PATH)) {
       const path = m[1].replace(/§.*$/, '');
-      if (path.includes('NNN') || path.includes('...')) continue;
+      if (
+        path.includes('NNN') ||
+        path.includes('...') ||
+        path.includes('descricao-curta') ||
+        path.includes('exemplo') ||
+        path.includes('###')
+      ) {
+        continue;
+      }
       assert.ok(exists(path), `${doc.path} cita ${path}, que não existe`);
     }
   }

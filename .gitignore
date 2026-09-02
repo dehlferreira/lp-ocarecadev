@@ -25,8 +25,8 @@ Thumbs.db
 .superpowers/
 
 # Configuração de agentes: versionada de propósito.
-# Fonte de verdade: .claude/agents/ e skills/.
-# .agents/, .codex/ e .cursor/ contêm symlinks para essas duas pastas.
+# Template: .claude/agents/, .codex/agents/, .cursor/agents/, skills/, .agents/.
+# Overlay OCARECADEV: skills específicas do repo + image-creator-agent + AGENTS.md.
 # Estado local do Claude Code não deve ser versionado:
 .claude/settings.local.json
 .claude/history/

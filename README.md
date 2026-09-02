@@ -6,12 +6,14 @@ Landing page de conversão da OCARECADEV, construída com **Astro 6** (SSG está
 
 A documentação técnica do projeto está em [`docs/`](docs/):
 
-| Pasta                        | Conteúdo                                                        |
-| ---------------------------- | --------------------------------------------------------------- |
-| [`docs/prds/`](docs/prds/)   | Requisitos de produto (negócio, design, animações, performance) |
-| [`docs/adrs/`](docs/adrs/)   | Decisões arquiteturais (Astro, CSS, scrollytelling, tracking)   |
-| [`docs/specs/`](docs/specs/) | Especificações de implementação com Definition of Done          |
-| [`guide.md`](guide.md)       | Referência de boas práticas para CSS Scroll-Driven Animations   |
+| Pasta                          | Conteúdo                                                        |
+| ------------------------------ | --------------------------------------------------------------- |
+| [`AGENTS.md`](AGENTS.md)       | Protocolo de agentes, guardrails G1–G8 e ponte com o template   |
+| [`docs/prd/`](docs/prd/)       | Requisitos de produto (negócio, design, animações, performance) |
+| [`docs/adr/`](docs/adr/)       | Decisões arquiteturais (Astro, CSS, scrollytelling, tracking)   |
+| [`docs/specs/`](docs/specs/)   | Especificações de implementação com Definition of Done          |
+| [`docs/referencias/`](docs/referencias/) | Copy oficial e material de marca                       |
+| [`guide.md`](guide.md)         | Referência de boas práticas para CSS Scroll-Driven Animations   |
 
 ## Estrutura
 
