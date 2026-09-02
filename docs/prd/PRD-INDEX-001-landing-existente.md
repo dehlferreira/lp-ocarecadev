@@ -16,9 +16,12 @@ Documentos migrados de `docs/prds/` para `docs/prd/` em 2026-09-01, com históri
 | `docs/prd/PRD-004-marketing-e-tracking.md` | marketing, consentimento, tracking |
 | `docs/prd/PRD-005-arquitetura-e-performance.md` | performance, SEO, restrições de stack |
 | `docs/prd/PRD-006-copy-final-e-secoes-faltantes.md` | copy e seções |
+| `docs/prd/PRD-007-modelos-fab-escassez.md` | carrossel de modelos, FAB WhatsApp, alerta de escassez (Express) |
 
 Copy oficial: `docs/referencias/copy-completa-landing.md`.
 
+Handoff desta feature: `docs/prd/PRD-INDEX-002-modelos-fab-escassez.md`.
+
 ## Próximo responsável
 
-Mudança de escopo → `product-owner-prd-agent`. Implementação já coberta → `docs/specs/SPEC-INDEX-001-landing-existente.md`.
+Feature PRD-007 (modelos / FAB / escassez) → `teachlead-architecture-agent`. Mudança de escopo em 001–006 → `product-owner-prd-agent`. Implementação já coberta → `docs/specs/SPEC-INDEX-001-landing-existente.md`.

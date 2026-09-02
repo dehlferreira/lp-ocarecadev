@@ -1,0 +1,309 @@
+---
+import Icon from '../ui/Icon.astro';
+
+const models = [
+  {
+    niche: 'Oficina premium',
+    name: 'Modelo Oficina',
+    focus: 'Luxo e performance automotiva',
+    placeholderName: 'Oficina',
+  },
+  {
+    niche: 'Clínica estética',
+    name: 'Modelo Clínica estética',
+    focus: 'Harmonização facial e corporal',
+    placeholderName: 'Clínica estética',
+  },
+  {
+    niche: 'Pet shop e veterinária',
+    name: 'Modelo Pet',
+    focus: 'Cuidado para o melhor amigo',
+    placeholderName: 'Pet',
+  },
+  {
+    niche: 'Salão de beleza',
+    name: 'Modelo Salão',
+    focus: 'Visagismo e estética minimalista',
+    placeholderName: 'Salão',
+  },
+  {
+    niche: 'Estúdio de tatuagem',
+    name: 'Modelo Tatuagem',
+    focus: 'Estilo e marcas permanentes',
+    placeholderName: 'Tatuagem',
+  },
+  {
+    niche: 'Advocacia',
+    name: 'Modelo Advocacia',
+    focus: 'Proteção patrimonial e estratégia',
+    placeholderName: 'Advocacia',
+  },
+  {
+    niche: 'Odontologia e lentes',
+    name: 'Modelo Odonto',
+    focus: 'Sorriso e lentes de contato',
+    placeholderName: 'Odonto',
+  },
+];
+---
+
+<section id="modelos" class="section-models" aria-labelledby="modelos-title">
+  <div class="container">
+    <header class="models-header">
+      <p class="models-eyebrow">Modelos por nicho</p>
+      <h2 id="modelos-title" class="models-title">Veja uma página feita para o seu tipo de negócio</h2>
+    </header>
+
+    <div class="models-controls">
+      <p class="models-hint">Use as setas para ver os outros modelos</p>
+      <div class="models-arrows">
+        <button type="button" class="models-arrow" id="modelos-prev" aria-label="Modelo anterior">
+          <span class="models-arrow-icon models-arrow-icon--prev">
+            <Icon name="arrow-right" size={20} />
+          </span>
+        </button>
+        <button type="button" class="models-arrow" id="modelos-next" aria-label="Próximo modelo">
+          <Icon name="arrow-right" size={20} />
+        </button>
+      </div>
+    </div>
+
+    <ul class="models-track" id="modelos-track">
+      {models.map((model) => (
+        <li class="models-slide">
+          <article class="model-card glass-panel" tabindex="0">
+            <div
+              class="model-thumb"
+              role="img"
+              aria-label={`Placeholder do modelo ${model.placeholderName} — imagem provisória`}
+            >
+              <Icon name="layout-template" size={36} />
+              <span class="model-thumb-brand" aria-hidden="true">OCARECADEV</span>
+            </div>
+            <p class="model-niche">{model.niche}</p>
+            <h3 class="model-name">{model.name}</h3>
+            <p class="model-focus">{model.focus}</p>
+            <p class="model-status">Em breve</p>
+          </article>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .section-models {
+    position: relative;
+    padding: 4rem 0;
+    background: #0a0a0a;
+  }
+
+  @media (min-width: 768px) {
+    .section-models {
+      padding: 5.5rem 0;
+    }
+  }
+
+  .models-header {
+    max-width: 860px;
+    margin: 0 auto 1.75rem;
+    text-align: center;
+  }
+
+  .models-eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--color-primary-neon);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .models-title {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  @media (min-width: 768px) {
+    .models-title {
+      font-size: 2.6rem;
+    }
+  }
+
+  .models-controls {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .models-controls {
+      display: flex;
+    }
+  }
+
+  .models-hint {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .models-arrows {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .models-arrow {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    min-width: 48px;
+    min-height: 48px;
+    place-items: center;
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    background: var(--glass-bg);
+    color: var(--color-text-primary);
+    cursor: pointer;
+  }
+
+  .models-arrow:hover {
+    border-color: var(--glass-border-highlight);
+  }
+
+  .models-arrow:focus-visible,
+  .model-card:focus-visible {
+    outline: 2px solid var(--color-primary-neon);
+    outline-offset: 3px;
+  }
+
+  .models-arrow-icon--prev {
+    display: grid;
+    place-items: center;
+    transform: rotate(180deg);
+  }
+
+  .models-track {
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0.25rem 0 0.75rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0.25rem;
+    list-style: none;
+    scrollbar-width: thin;
+  }
+
+  .models-slide {
+    flex: 0 0 min(85vw, 22rem);
+    width: min(85vw, 22rem);
+    scroll-snap-align: start;
+  }
+
+  .model-card {
+    display: grid;
+    height: 100%;
+    padding: 1rem;
+    gap: 0.55rem;
+  }
+
+  .model-thumb {
+    display: grid;
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    place-items: center;
+    align-content: center;
+    gap: 0.4rem;
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    border-radius: 12px;
+    background:
+      linear-gradient(160deg, rgba(0, 255, 157, 0.12) 0%, rgba(10, 10, 12, 0.9) 55%),
+      repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.04) 0 8px,
+        transparent 8px 16px
+      );
+    color: var(--color-primary-neon);
+  }
+
+  .model-thumb-brand {
+    color: var(--color-text-secondary);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+
+  .model-niche {
+    margin: 0.35rem 0 0;
+    color: var(--color-primary-neon);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .model-name {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .model-focus {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .model-status {
+    margin: 0.35rem 0 0;
+    justify-self: start;
+    padding: 0.25rem 0.7rem;
+    border: 1px solid rgba(0, 255, 157, 0.35);
+    border-radius: 100px;
+    background: rgba(0, 255, 157, 0.08);
+    color: var(--color-primary-neon);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  const setupModelsTrack = () => {
+    const track = document.getElementById('modelos-track');
+    const prev = document.getElementById('modelos-prev');
+    const next = document.getElementById('modelos-next');
+    if (!track || !prev || !next) return;
+    if (prev.dataset.bound === 'true') return;
+
+    prev.dataset.bound = 'true';
+    next.dataset.bound = 'true';
+
+    const step = () => {
+      const card = track.querySelector('.model-card');
+      if (!(card instanceof HTMLElement)) return 0;
+      const styles = getComputedStyle(track);
+      const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    };
+
+    const behavior: ScrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 'auto'
+      : 'smooth';
+
+    prev.addEventListener('click', () => {
+      track.scrollBy({ left: -step(), behavior });
+    });
+    next.addEventListener('click', () => {
+      track.scrollBy({ left: step(), behavior });
+    });
+  };
+
+  setupModelsTrack();
+  document.addEventListener('astro:page-load', setupModelsTrack);
+</script>

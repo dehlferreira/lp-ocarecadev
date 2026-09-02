@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import WhatsAppFab from '../components/ui/WhatsAppFab.astro';
+import ScarcityToast from '../components/ui/ScarcityToast.astro';
 import CookieConsent from '../components/ui/CookieConsent.astro';
 
 interface Props {
@@ -94,6 +96,8 @@ const structuredData = [
 		<div class="glow-orb glow-orb-2"></div>
 		<div class="glow-orb glow-orb-3"></div>
 		<slot />
+		<WhatsAppFab />
+		<ScarcityToast />
 		<CookieConsent />
 		<script src="../scripts/scrollAnimations.js"></script>
 		<script>

@@ -16,11 +16,18 @@
 | `docs/specs/SPEC-008-copy-final-e-novas-secoes.md` | checkboxes de Status sem `Implementada` marcada — conferir o arquivo, não assumir pendência de produto |
 | `docs/specs/SPEC-009-scrollytelling-e-fix-mobile.md` | Implementada |
 | `docs/specs/SPEC-010-auditoria-layout-scrollytelling.md` | Implementada |
+| `docs/specs/SPEC-011-modelos-fab-escassez.md` | Pendente |
 
 Quem marca DoD é o `quality-assurance-validation-agent`.
+
+Handoff da feature PRD-007: `docs/specs/SPEC-INDEX-002-modelos-fab-escassez.md`.
+
+## Próximo responsável
+
+SPEC-011 → `development-implementation-agent`. QA depois da implementação → `quality-assurance-validation-agent`.
 
 ## Ordem para mudança nova
 
 1. Achar a SPEC dona do comportamento.
-2. Se não houver dona, criar `SPEC-011` (ou o próximo livre) com o cabeçalho e a DoD de `skills/technical-design/SKILL.md`.
+2. Se não houver dona, criar `SPEC-012` (ou o próximo livre) com o cabeçalho e a DoD de `skills/technical-design/SKILL.md`.
 3. Dev: `development-implementation-agent`. QA: `quality-assurance-validation-agent`.

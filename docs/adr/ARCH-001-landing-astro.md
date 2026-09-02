@@ -22,6 +22,12 @@ Mapa da arquitetura **já decidida**. Não abre decisão nova. Detalhe normativo
 
 Landing em `src/pages/index.astro`. Shell em `src/layouts/Layout.astro`. Tema e movimento em `src/styles/global.css`. Tracking em `src/scripts/tracking.js`.
 
+## Features posteriores (sem ADR novo)
+
+| SPEC | Aplica |
+| --- | --- |
+| `docs/specs/SPEC-011-modelos-fab-escassez.md` | PRD-007; ADR-001, 002, 003, 005, 006. Sem ADR-012. |
+
 ## Próximo número
 
-Novo ADR: `ADR-012`. Nova SPEC: ver `docs/specs/SPEC-INDEX-001-landing-existente.md`.
+Novo ADR: `ADR-012`. Nova SPEC: `SPEC-012`. Ver `docs/specs/SPEC-INDEX-001-landing-existente.md`.
