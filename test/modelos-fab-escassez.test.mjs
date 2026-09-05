@@ -84,11 +84,12 @@ test('models section has no BrainArt destinations, clones or vacancy RNG, and co
   assert.doesNotMatch(section, /localStorage/);
   assert.doesNotMatch(section, /Restam/);
 
-  // Exactly 3 models have live external URLs on Vercel
-  assert.equal((section.match(/url:\s*'https:\/\/lp-modelo-/g) ?? []).length, 3);
+  // Exactly 4 models have live external URLs on Vercel
+  assert.equal((section.match(/url:\s*'https:\/\/lp-modelo-/g) ?? []).length, 4);
   assert.match(section, /https:\/\/lp-modelo-oficina-motorgarage\.vercel\.app\//);
   assert.match(section, /https:\/\/lp-modelo-clinica-estetica\.vercel\.app\//);
   assert.match(section, /https:\/\/lp-modelo-petshop\.vercel\.app\//);
+  assert.match(section, /https:\/\/lp-modelo-salao-studio\.vercel\.app\//);
 
   // External links require security and accessibility attributes
   assert.match(section, /target="_blank"/);
