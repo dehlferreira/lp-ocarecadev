@@ -2,9 +2,25 @@
 
 > OCARECADEV cria landing pages e sites estratégicos para transformar visitas em contatos e clientes.
 
-- Site oficial: https://www.ocarecadev.com.br/
-- Serviço principal: criação de landing pages orientadas à conversão, com design, copy e botão de contato pelo WhatsApp.
-- Público: empresas e profissionais que querem gerar mais leads pelo site.
-- Planos e escopo: https://www.ocarecadev.com.br/#planos
-- Dúvidas frequentes: https://www.ocarecadev.com.br/#faq
-- Contato: https://www.ocarecadev.com.br/#contato
+Landing pages de alta conversão, carregamento ultra-rápido (Core Web Vitals), acessibilidade e arquitetura estática moderna para pequenas e médias empresas e profissionais liberais.
+
+## Páginas e Seções Principais
+
+- [Página Inicial](https://www.ocarecadev.com.br/): Apresentação do serviço, posicionamento, proposta de valor e metodologia de conversão.
+- [Modelos Prontos por Nicho](https://www.ocarecadev.com.br/#modelos): Vitrine interativa de landing pages prontas e ativas para nichos especializados.
+- [Planos e Investimento](https://www.ocarecadev.com.br/#planos): Valores transparentes dos pacotes Express, Pro e Personalizado com escopo detalhado.
+- [Resultados e Depoimentos](https://www.ocarecadev.com.br/#social-proof): Depoimentos reais de clientes, avaliações e métricas de conversão.
+- [Perguntas Frequentes (FAQ)](https://www.ocarecadev.com.br/#faq): Respostas sobre prazos de entrega, domínio, hospedagem, edição e suporte.
+- [Contato via WhatsApp](https://www.ocarecadev.com.br/#contato): Canal direto para solicitação de orçamento e atendimento imediato.
+
+## Modelos de Portfólio no Ar
+
+- [Modelo Oficina MotorGarage](https://lp-modelo-oficina-motorgarage.vercel.app/): Demonstração funcional ao vivo para o nicho automotivo e oficinas premium.
+- [Modelo Clínica Estética](https://lp-modelo-clinica-estetica.vercel.app/): Demonstração funcional ao vivo para estética, visagismo e procedimentos corporais.
+- [Modelo Pet Shop HappyPet](https://lp-modelo-petshop.vercel.app/): Demonstração funcional ao vivo para cuidados animais, banho, tosa e veterinária.
+- [Modelo Salão Studio Lumina](https://lp-modelo-salao-studio.vercel.app/): Demonstração funcional ao vivo para salões de beleza, cortes e harmonização de imagem.
+
+## Opcional
+
+- [Instagram @ocarecadev](https://www.instagram.com/ocarecadev): Bastidores, dicas de conversão e novidades.
+- [TikTok @ocarecadev](https://www.tiktok.com/@ocarecadev): Conteúdos curtos sobre marketing digital e páginas para negócios locais.

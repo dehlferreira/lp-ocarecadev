@@ -30,10 +30,23 @@ test('layout provides canonical social metadata and structured business data', (
 
 test('AI discovery document identifies the site and its primary service', () => {
   const llms = read('public/llms.txt');
+  const indexMd = read('public/index.md');
+  const layout = read('src/layouts/Layout.astro');
 
   assert.match(llms, /# OCARECADEV/);
   assert.match(llms, /https:\/\/www\.ocarecadev\.com\.br\//);
   assert.match(llms, /landing pages/i);
+  // llmstxt.org specification compliance: structured with Markdown hyperlinks
+  assert.match(llms, /\[.+?\]\(https?:\/\/.+?\)/);
+  assert.match(llms, /## Páginas/);
+
+  // Markdown alternate version
+  assert.match(indexMd, /# OCARECADEV/);
+  assert.match(indexMd, /landing pages/i);
+
+  // Layout discovery tags
+  assert.match(layout, /<link rel="describedby" href="\/llms\.txt"/);
+  assert.match(layout, /<link rel="alternate" type="text\/markdown" href="\/index\.md"/);
 });
 
 test('FAQ defines a native collapsed disclosure for each answer', () => {
@@ -144,7 +157,7 @@ test('proof section keeps testimonials in a normal responsive flow without artif
   assert.match(socialProof, /class="proof-grid"/);
   assert.match(socialProof, /Roberto Almeida/);
   assert.match(socialProof, /Mariana Costa/);
-  assert.match(socialProof, /Carlos Moura/);
+  assert.match(socialProof, /class="stars" role="img" aria-label="Avaliação: 5 de 5 estrelas"/);
   assert.doesNotMatch(socialProof, /BeforeAfterMockup/);
   assert.doesNotMatch(socialProof, /scrolly-step/);
   assert.doesNotMatch(socialProof, /proof-mobile/);
