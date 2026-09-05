@@ -74,7 +74,7 @@ test('models section uses the canonical landmark, headings and seven cards', () 
   assert.doesNotMatch(odontoBlock[0], /estética corporal|estetica corporal/i);
 });
 
-test('models section has no BrainArt destinations, clones or vacancy RNG', () => {
+test('models section has no BrainArt destinations, clones or vacancy RNG, and configures external links safely', () => {
   const section = read('src/components/sections/ModelsShowcase.astro');
 
   assert.doesNotMatch(section, /brainartsolucoes/i);
@@ -83,7 +83,20 @@ test('models section has no BrainArt destinations, clones or vacancy RNG', () =>
   assert.doesNotMatch(section, /brainart_urgency/);
   assert.doesNotMatch(section, /localStorage/);
   assert.doesNotMatch(section, /Restam/);
-  assert.doesNotMatch(section, /<a\s/);
+
+  // Exactly 3 models have live external URLs on Vercel
+  assert.equal((section.match(/url:\s*'https:\/\/lp-modelo-/g) ?? []).length, 3);
+  assert.match(section, /https:\/\/lp-modelo-oficina-motorgarage\.vercel\.app\//);
+  assert.match(section, /https:\/\/lp-modelo-clinica-estetica\.vercel\.app\//);
+  assert.match(section, /https:\/\/lp-modelo-petshop\.vercel\.app\//);
+
+  // External links require security and accessibility attributes
+  assert.match(section, /target="_blank"/);
+  assert.match(section, /rel="noopener noreferrer"/);
+  assert.match(section, /aria-label=\{`Ver demonstração do \$\{model\.name\} \(abre em nova aba\)`\}/);
+
+  // Fallback remains for models in progress
+  assert.match(section, /<p class="model-status">Em breve<\/p>/);
 });
 
 test('header adds Modelos between Resultados and Planos on desktop and mobile', () => {

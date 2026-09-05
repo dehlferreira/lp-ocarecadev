@@ -7,18 +7,21 @@ const models = [
     name: 'Modelo Oficina',
     focus: 'Luxo e performance automotiva',
     placeholderName: 'Oficina',
+    url: 'https://lp-modelo-oficina-motorgarage.vercel.app/',
   },
   {
     niche: 'Clínica estética',
     name: 'Modelo Clínica estética',
     focus: 'Harmonização facial e corporal',
     placeholderName: 'Clínica estética',
+    url: 'https://lp-modelo-clinica-estetica.vercel.app/',
   },
   {
     niche: 'Pet shop e veterinária',
     name: 'Modelo Pet',
     focus: 'Cuidado para o melhor amigo',
     placeholderName: 'Pet',
+    url: 'https://lp-modelo-petshop.vercel.app/',
   },
   {
     niche: 'Salão de beleza',
@@ -83,7 +86,22 @@ const models = [
             <p class="model-niche">{model.niche}</p>
             <h3 class="model-name">{model.name}</h3>
             <p class="model-focus">{model.focus}</p>
-            <p class="model-status">Em breve</p>
+            {model.url ? (
+              <a
+                href={model.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="model-action-btn"
+                aria-label={`Ver demonstração do ${model.name} (abre em nova aba)`}
+                data-track-event="select_content"
+                data-track-location="models_showcase"
+              >
+                <span>Ver modelo</span>
+                <Icon name="external-link" size={14} />
+              </a>
+            ) : (
+              <p class="model-status">Em breve</p>
+            )}
           </article>
         </li>
       ))}
@@ -270,6 +288,41 @@ const models = [
     color: var(--color-primary-neon);
     font-size: 0.75rem;
     font-weight: 700;
+  }
+
+  .model-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0.35rem 0 0;
+    justify-self: start;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid rgba(0, 255, 157, 0.45);
+    border-radius: 100px;
+    background: rgba(0, 255, 157, 0.12);
+    color: var(--color-primary-neon);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .model-action-btn:hover {
+    background: rgba(0, 255, 157, 0.25);
+    border-color: var(--color-primary-neon);
+    transform: translateY(-1px);
+  }
+
+  .model-action-btn:focus-visible {
+    outline: 2px solid var(--color-primary-neon);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .model-action-btn {
+      transition: none;
+      transform: none;
+    }
   }
 </style>
 
