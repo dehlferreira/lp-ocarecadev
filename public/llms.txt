@@ -19,6 +19,9 @@ Landing pages de alta conversão, carregamento ultra-rápido (Core Web Vitals), 
 - [Modelo Clínica Estética](https://lp-modelo-clinica-estetica.vercel.app/): Demonstração funcional ao vivo para estética, visagismo e procedimentos corporais.
 - [Modelo Pet Shop HappyPet](https://lp-modelo-petshop.vercel.app/): Demonstração funcional ao vivo para cuidados animais, banho, tosa e veterinária.
 - [Modelo Salão Studio Lumina](https://lp-modelo-salao-studio.vercel.app/): Demonstração funcional ao vivo para salões de beleza, cortes e harmonização de imagem.
+- [Modelo Estúdio de Tatuagem](https://lp-modelo-studio-tatuagem.vercel.app/): Demonstração funcional ao vivo para estúdios de tatuagem, estilo e marcas permanentes.
+- [Modelo Advocacia](https://lp-modelo-advocacia.vercel.app/): Demonstração funcional ao vivo para escritórios de advocacia, proteção patrimonial e estratégia jurídica.
+- [Modelo Odontologia](https://lp-modelo-odonto.vercel.app/): Demonstração funcional ao vivo para clínicas odontológicas, estética do sorriso e lentes de contato.
 
 ## Opcional
 

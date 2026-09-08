@@ -131,19 +131,22 @@ Rótulo de “modelo” / “template” no card (eyebrow do card ou o próprio 
 - Texto visível `Em breve` (ou `Modelo em breve`) em cada card.
 - `Inferido:` não é necessário `alert()`, modal nem `aria-live` agressivo; o estado já está no card.
 
-#### 2.4.1. Aditivo de Evolução (2026-09-05) — Ativação dos Modelos Funcionais
+#### 2.4.1. Aditivo de Evolução (2026-09-07) — Ativação de Todos os Modelos Funcionais
 
 Conforme disponibilização dos modelos funcionais em produção na Vercel pelo usuário:
 - **Modelo Oficina (MotorGarage):** `https://lp-modelo-oficina-motorgarage.vercel.app/`
 - **Modelo Clínica estética:** `https://lp-modelo-clinica-estetica.vercel.app/`
 - **Modelo Pet (HappyPet):** `https://lp-modelo-petshop.vercel.app/`
 - **Modelo Salão (Lumina Visagismo & Hair Studio):** `https://lp-modelo-salao-studio.vercel.app/`
+- **Modelo Tatuagem (Studio Tatuagem):** `https://lp-modelo-studio-tatuagem.vercel.app/`
+- **Modelo Advocacia:** `https://lp-modelo-advocacia.vercel.app/`
+- **Modelo Odonto:** `https://lp-modelo-odonto.vercel.app/`
 
 Regras de negócio e técnicas aplicadas:
-1. Os modelos prontos recebem link de ação (`.model-action-btn`) e imagem WebP otimizada (`800x500`), abrindo a demonstração em nova aba (`target="_blank"` com `rel="noopener noreferrer"`).
+1. Todos os 7 modelos funcionais recebem link de ação (`.model-action-btn`) e imagem WebP otimizada (`800x500`), abrindo a demonstração em nova aba (`target="_blank"` com `rel="noopener noreferrer"`).
 2. Cada link possui `aria-label="Ver demonstração do [Nome do Modelo] (abre em nova aba)"` para acessibilidade (G1) e foco visível `:focus-visible`.
 3. Atributos de evento declarativo `data-track-event="select_content"` e `data-track-location="models_showcase"` sem coleta de dados pessoais (G6).
-4. Os 3 modelos restantes (Tatuagem, Advocacia e Odonto) permanecem com o badge `Em breve` até sua respectiva conclusão.
+4. O fallback `Em breve` permanece implementado no template para novos modelos futuros adicionados sem URL.
 5. Permanece expressamente proibido qualquer link para domínios BrainArt ou rotas inexistentes.
 
 ### 2.5. Navegação “Modelos” (D-004)

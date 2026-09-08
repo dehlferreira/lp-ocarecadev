@@ -19,6 +19,9 @@ OCARECADEV é uma consultoria e estúdio especializado no desenvolvimento de pá
 - [Modelo Clínica Estética](https://lp-modelo-clinica-estetica.vercel.app/): Página para procedimentos de estética e harmonização facial.
 - [Modelo Pet Shop HappyPet](https://lp-modelo-petshop.vercel.app/): Página para clínica veterinária, banho e tosa.
 - [Modelo Salão Studio Lumina](https://lp-modelo-salao-studio.vercel.app/): Página para salões de beleza, cortes e visagismo.
+- [Modelo Estúdio de Tatuagem](https://lp-modelo-studio-tatuagem.vercel.app/): Página para estúdios de tatuagem, estilo e flash days.
+- [Modelo Advocacia](https://lp-modelo-advocacia.vercel.app/): Página para escritórios de advocacia, proteção patrimonial e consultoria jurídica.
+- [Modelo Odontologia](https://lp-modelo-odonto.vercel.app/): Página para clínicas odontológicas, reabilitação oral e lentes de contato.
 
 ## Planos e Valores
 
