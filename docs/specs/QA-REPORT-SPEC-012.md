@@ -59,7 +59,7 @@ TAP version 13
 
 | Guardrail | Requisito Verificado | Evidência / Status |
 |---|---|---|
-| **G1 — Acessibilidade** | Player de voz com botões acessíveis (`aria-label`, foco visível, waveform com `role="progressbar"`), modal Lightbox `<dialog>` nativo acessível por teclado, transcrições textuais expansíveis. | **Aprovado** (`test/social-proof.test.mjs`) |
+| **G1 — Acessibilidade** | Player de voz com botões acessíveis (`aria-label`, foco visível, waveform com `role="progressbar"`), modal Lightbox `<dialog>` nativo acessível por teclado, transcrições textuais expansíveis. Ícone `.verified-icon` corrigido com `role="img"` eliminando violação `aria-allowed-attr` do Lighthouse / Navegação Agêntica. | **Aprovado** (`test/social-proof.test.mjs`) |
 | **G2 — Movimento** | `prefers-reduced-motion` desativa transformações, animações de pulso e transições sem ocultar nenhum conteúdo. | **Aprovado** |
 | **G3 — Estabilidade** | Sem layout shift (CLS = 0). Molduras 9:16 com proporção fixa (`aspect-ratio: 9 / 16`). Zero overflow horizontal em 390px, 768px e 1440px+. | **Aprovado** (Inspecionado via browser subagent) |
 | **G4 — Performance** | Áudios em MP3 otimizados em `public/audio/` (355KB e 640KB), `preload="none"`. Zero poluição de `<video controls>` na UI. | **Aprovado** |

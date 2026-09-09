@@ -69,7 +69,13 @@
   3. Presença dos players de áudio estilo WhatsApp com controles play/pause e waveform;
   4. Presença dos prints com moldura 9:16 e Lightbox `<dialog>`;
   5. Presença das transcrições dos áudios no HTML;
-  6. Zero tags `<video controls>` na UI.
+  6. Zero tags `<video controls>` na UI;
+  7. Conformidade estrita de ARIA no ícone de verificado (`role="img"` em conjunto com `aria-label`).
+
+### 2.5. Sustentação e Acessibilidade Agêntica (2026-09-09)
+- **Problema**: Auditoria do Google Lighthouse / PageSpeed Insights reprovada em "Navegação agêntica" / "Acessibilidade do agente" com o erro `Elements must only use permitted ARIA attributes` (regra `aria-allowed-attr` do axe-core) no elemento `<span class="verified-icon" aria-label="Cliente verificado">`.
+- **Causa**: Tags genéricas como `<span>` possuem role implícito `generic`, onde `aria-label` não é permitido sem uma role semântica explícita.
+- **Correção**: Atribuição de `role="img"` ao `<span class="verified-icon">`, tornando `aria-label="Cliente verificado"` um atributo válido e expondo a semântica correta na accessibility tree para agentes de IA e leitores de tela.
 
 ---
 
@@ -82,4 +88,5 @@
 - [x] As transcrições dos áudios estão presentes e acessíveis no DOM.
 - [x] Os estilos respeitam `prefers-reduced-motion: reduce` e não geram overflow horizontal em 390px, 768px e 1200px+.
 - [x] O arquivo de teste `test/social-proof.test.mjs` foi atualizado e passa com 100% de sucesso.
+- [x] O selo `.verified-icon` possui `role="img"` com `aria-label="Cliente verificado"`, atendendo à regra `aria-allowed-attr` do Lighthouse e auditoria de Navegação Agêntica.
 - [x] O comando rápido `npm run verify` conclui com zero falhas.

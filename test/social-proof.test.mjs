@@ -43,7 +43,8 @@ test('social proof section renders 4 authentic cases with proper channels and ba
   // Case 2: Vinicius Oliveira
   assert.match(component, /Vinicius Oliveira/);
   assert.match(component, /anúncios pro adwords/);
-  assert.match(component, /verified-icon/);
+  assert.match(component, /class="verified-icon"\s+role="img"[^>]*aria-label="Cliente verificado"/);
+  assert.doesNotMatch(component, /<span(?![^>]*role=)[^>]*aria-label=/, 'Generic <span> must not use aria-label without an explicit role (axe-core/Lighthouse aria-allowed-attr)');
 
   // Case 3 & 4: Audios
   assert.match(component, /social-proof-audio-1\.mp3/);
