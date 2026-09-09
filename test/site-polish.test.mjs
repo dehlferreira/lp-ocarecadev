@@ -155,8 +155,10 @@ test('proof section keeps testimonials in a normal responsive flow without artif
   const socialProof = read('src/components/sections/SocialProof.astro');
 
   assert.match(socialProof, /class="proof-grid"/);
-  assert.match(socialProof, /Roberto Almeida/);
-  assert.match(socialProof, /Mariana Costa/);
+  assert.match(socialProof, /Vinicius Oliveira/);
+  assert.match(socialProof, /Grupo Carrera Consórcio/);
+  assert.doesNotMatch(socialProof, /Roberto Almeida/);
+  assert.doesNotMatch(socialProof, /Mariana Costa/);
   assert.match(socialProof, /class="stars" role="img" aria-label="Avaliação: 5 de 5 estrelas"/);
   assert.doesNotMatch(socialProof, /BeforeAfterMockup/);
   assert.doesNotMatch(socialProof, /scrolly-step/);
