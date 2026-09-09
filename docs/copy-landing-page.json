@@ -1,0 +1,885 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "metadata": {
+    "site": "OCARECADEV",
+    "url": "https://ocareca.dev",
+    "title_tag": {
+      "texto": "OCARECADEV | Landing Pages que Geram Clientes",
+      "tag_html": "<title>",
+      "hierarquia": "html > head > title"
+    },
+    "meta_description": {
+      "texto": "Criamos landing pages estratégicas para transformar visitas em contatos e clientes pelo WhatsApp.",
+      "tag_html": "<meta name=\"description\">",
+      "hierarquia": "html > head > meta[name='description']"
+    },
+    "palavras_chave_destaque": ["clientes", "vender", "resultado", "leads"]
+  },
+  "sections": {
+    "header": {
+      "id": "header",
+      "tag_html": "<header>",
+      "hierarquia": "html > body > header#main-header",
+      "elementos": [
+        {
+          "tipo": "logo_acessibilidade",
+          "tag_html": "<a> / <img>",
+          "hierarquia": "header#main-header > div.container > div.header-card > div.logo > a",
+          "atributos": { "aria-label": "OCARECADEV - Página Inicial", "alt": "OCARECADEV Logo" }
+        },
+        {
+          "tipo": "menu_navegacao_desktop",
+          "tag_html": "<nav>",
+          "hierarquia": "header#main-header > div.container > div.header-card > nav.nav",
+          "links": [
+            { "texto": "Início", "tag_html": "<a>", "hierarquia": "nav.nav > a[href='#hero']" },
+            { "texto": "Resultados", "tag_html": "<a>", "hierarquia": "nav.nav > a[href='#social-proof']" },
+            { "texto": "Modelos", "tag_html": "<a>", "hierarquia": "nav.nav > a[href='#modelos']" },
+            { "texto": "Planos", "tag_html": "<a>", "hierarquia": "nav.nav > a[href='#pricing']" }
+          ]
+        },
+        {
+          "tipo": "cta_desktop",
+          "texto": "Falar com Consultor",
+          "tag_html": "<a>",
+          "hierarquia": "header#main-header > div.container > div.header-card > div.cta-and-menu > div.desktop-cta > a#btn-header-cta"
+        },
+        {
+          "tipo": "cta_mobile",
+          "texto": "Contato",
+          "tag_html": "<a>",
+          "hierarquia": "header#main-header > div.container > div.header-card > div.cta-and-menu > div.mobile-cta > a#btn-header-cta-mobile"
+        },
+        {
+          "tipo": "botao_menu_mobile",
+          "tag_html": "<button>",
+          "hierarquia": "header#main-header > div.container > div.header-card > div.cta-and-menu > button.mobile-menu-toggle",
+          "atributos": { "aria-label": "Abrir menu" }
+        },
+        {
+          "tipo": "menu_navegacao_mobile_overlay",
+          "tag_html": "<nav>",
+          "hierarquia": "header#main-header > div#mobile-menu.mobile-menu-overlay > nav.mobile-nav",
+          "links": [
+            { "texto": "Início", "tag_html": "<a>", "hierarquia": "nav.mobile-nav > a.mobile-nav-link[href='#hero']" },
+            { "texto": "Resultados", "tag_html": "<a>", "hierarquia": "nav.mobile-nav > a.mobile-nav-link[href='#social-proof']" },
+            { "texto": "Modelos", "tag_html": "<a>", "hierarquia": "nav.mobile-nav > a.mobile-nav-link[href='#modelos']" },
+            { "texto": "Planos", "tag_html": "<a>", "hierarquia": "nav.mobile-nav > a.mobile-nav-link[href='#pricing']" }
+          ]
+        }
+      ]
+    },
+    "hero": {
+      "id": "hero",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#hero.hero-section",
+      "elementos": [
+        {
+          "tipo": "headline_h1",
+          "texto": "Seu site não precisa ser bonito, precisa trazer clientes todos os dias",
+          "html_renderizado": "Seu site não precisa ser bonito, precisa trazer <span class=\"text-neon\">clientes</span> todos os dias",
+          "tag_html": "<h1>",
+          "hierarquia": "section#hero > div.container.hero-grid > div.hero-content > h1#hero-title.hero-title",
+          "nivel_semantico": "Heading 1 (Único da página — G1/G5)"
+        },
+        {
+          "tipo": "subheadline",
+          "texto": "Criamos páginas pensadas para transformar visitantes em clientes mesmo que hoje seu site não gere nenhum resultado",
+          "html_renderizado": "Criamos páginas pensadas para transformar visitantes em <span class=\"text-neon\">clientes</span> mesmo que hoje seu site não gere nenhum <span class=\"text-neon\">resultado</span>",
+          "tag_html": "<p>",
+          "hierarquia": "section#hero > div.container.hero-grid > div.hero-content > p#hero-subtitle.hero-subtitle"
+        },
+        {
+          "tipo": "cta_primario",
+          "texto": "Quero minha página que vende",
+          "tag_html": "<a> > <span>",
+          "hierarquia": "section#hero > div.container.hero-grid > div.hero-content > div#hero-ctas.hero-ctas > a#btn-hero-primary.btn-cta-primary > span",
+          "atributos": { "href": "#pricing", "data-track-event": "select_content", "data-track-location": "hero_primary" }
+        },
+        {
+          "tipo": "cta_secundario",
+          "texto": "Ver como funciona",
+          "tag_html": "<a> > <span>",
+          "hierarquia": "section#hero > div.container.hero-grid > div.hero-content > div#hero-ctas.hero-ctas > a.btn-cta-ghost > span",
+          "atributos": { "href": "#como-funciona", "data-track-event": "select_content", "data-track-location": "hero_secondary" }
+        },
+        {
+          "tipo": "imagem_destaque",
+          "tag_html": "<img>",
+          "hierarquia": "section#hero > div.container.hero-grid > div#hero-image.hero-visual > img.hero-img",
+          "atributos": { "alt": "André - Especialista em Landing Pages" }
+        }
+      ]
+    },
+    "problema": {
+      "id": "problema",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#problema.section-problem",
+      "elementos": [
+        {
+          "tipo": "titulo_secao_h2",
+          "texto": "Se você já tem um site e ele não te traz clientes, ele não serve pra nada",
+          "html_renderizado": "Se você já tem um site e ele não te traz <span class=\"text-neon\">clientes</span>, ele não serve pra nada",
+          "tag_html": "<h2>",
+          "hierarquia": "section#problema > div.scrolly > div.scrolly__stage > div.problem-container > div.problem-content > div.problem-left > h2.problem-title",
+          "nivel_semantico": "Heading 2"
+        },
+        {
+          "tipo": "lead_texto",
+          "texto": "A verdade é simples:",
+          "tag_html": "<p>",
+          "hierarquia": "section#problema > ... > div.problem-left > div.problem-copy > p.problem-desc"
+        },
+        {
+          "tipo": "lista_dores",
+          "tag_html": "<ul> > <li>",
+          "hierarquia": "section#problema > ... > div.problem-left > div.problem-copy > ul.problem-list > li",
+          "itens": [
+            {
+              "texto": "Seu site não gera leads",
+              "html_renderizado": "Seu site não gera <span class=\"text-neon\">leads</span>",
+              "tag_html": "<li> > <span>",
+              "hierarquia": "ul.problem-list > li:nth-child(1) > span:nth-child(2)"
+            },
+            {
+              "texto": "Ninguém clica no seu botão",
+              "html_renderizado": "Ninguém clica no seu botão",
+              "tag_html": "<li> > <span>",
+              "hierarquia": "ul.problem-list > li:nth-child(2) > span:nth-child(2)"
+            },
+            {
+              "texto": "Você depende de indicação",
+              "html_renderizado": "Você depende de indicação",
+              "tag_html": "<li> > <span>",
+              "hierarquia": "ul.problem-list > li:nth-child(3) > span:nth-child(2)"
+            },
+            {
+              "texto": "E quando não indicam… você não vende",
+              "html_renderizado": "E quando não indicam… você não vende",
+              "tag_html": "<li> > <span>",
+              "hierarquia": "ul.problem-list > li:nth-child(4) > span:nth-child(2)"
+            }
+          ]
+        },
+        {
+          "tipo": "mockup_auditoria_diagnosticos",
+          "tag_html": "<div> (UI Mockup)",
+          "hierarquia": "section#problema > ... > div.problem-mockup-col > div.problem-mockup > div.audit-window",
+          "textos_internos": [
+            { "texto": "seusite.com.br", "tag_html": "<div>", "hierarquia": "div.audit-window > div.audit-bar > div" },
+            { "texto": "Sua empresa", "tag_html": "<span>", "hierarquia": "div.audit-body > div.page-preview > span.preview-kicker" },
+            { "texto": "Uma frase que poderia servir para qualquer negocio", "tag_html": "<strong>", "hierarquia": "div.audit-body > div.page-preview > strong" },
+            { "texto": "Descricao sem prioridade e sem uma acao clara para o visitante.", "tag_html": "<p>", "hierarquia": "div.audit-body > div.page-preview > p" },
+            { "texto": "Conheca nossos servicos", "tag_html": "<span>", "hierarquia": "div.audit-body > div.page-preview > span.weak-cta" },
+            { "texto": "Oferta confusa", "tag_html": "<span>", "hierarquia": "div.audit-body > div.audit-findings > span:nth-child(1)" },
+            { "texto": "Botao sem destaque", "tag_html": "<span>", "hierarquia": "div.audit-body > div.audit-findings > span:nth-child(2)" },
+            { "texto": "Sem proximo passo", "tag_html": "<span>", "hierarquia": "div.audit-body > div.audit-findings > span:nth-child(3)" }
+          ]
+        }
+      ]
+    },
+    "agitacao": {
+      "id": "agitacao",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#agitacao.section-agitation",
+      "elementos": [
+        {
+          "tipo": "frase_principal",
+          "texto": "Você investiu tempo, dinheiro e no fim, tem só uma página parada na internet",
+          "tag_html": "<p>",
+          "hierarquia": "section#agitacao > div.scrolly > div.scrolly__stage > div.container > div.agitation-content > div.ag-text > p.agitation-big"
+        },
+        {
+          "tipo": "sintomas_lista",
+          "tag_html": "<ul> > <li>",
+          "hierarquia": "section#agitacao > ... > div.ag-text > ul.agitation-words > li",
+          "itens": [
+            { "texto": "Sem retorno", "tag_html": "<li>", "hierarquia": "ul.agitation-words > li:nth-child(1)" },
+            { "texto": "Sem previsibilidade", "tag_html": "<li>", "hierarquia": "ul.agitation-words > li:nth-child(2)" },
+            { "texto": "Sem controle", "tag_html": "<li>", "hierarquia": "ul.agitation-words > li:nth-child(3)" }
+          ]
+        },
+        {
+          "tipo": "punchline_fechamento",
+          "texto": "Isso não é um site. É um custo",
+          "html_renderizado": "Isso não é um site. É um <span class=\"text-neon\">custo</span>",
+          "tag_html": "<p> > <span>",
+          "hierarquia": "section#agitacao > ... > div.agitation-content > p.agitation-highlight > span:nth-child(2)"
+        },
+        {
+          "tipo": "mockup_grafico_frustracao",
+          "tag_html": "<div> (UI Mockup)",
+          "hierarquia": "section#agitacao > ... > div.frustration-img-container > div.frustration-mockup > div.screen",
+          "textos_internos": [
+            { "texto": "suamarca.com.br", "tag_html": "<span>", "hierarquia": "div.screen-bar > span.browser-address" },
+            { "texto": "Resumo da semana", "tag_html": "<p>", "hierarquia": "div.screen-body > div.dashboard-heading > div > p.eyebrow" },
+            { "texto": "Visitas sem conversao", "tag_html": "<h3>", "hierarquia": "div.screen-body > div.dashboard-heading > div > h3" },
+            { "texto": "Atenção", "tag_html": "<span>", "hierarquia": "div.screen-body > div.dashboard-heading > span.warning" },
+            { "texto": "Visitas: 1.284 este mes", "tag_html": "<div> > <span>/<strong>/<small>", "hierarquia": "div.metric-grid > div.metric-card:nth-child(1)" },
+            { "texto": "Contatos: 0 contatos nenhuma mensagem", "tag_html": "<div> > <span>/<strong>/<small>", "hierarquia": "div.metric-grid > div.metric-card--critical" },
+            { "texto": "Nenhum lead nesta semana. Seu site recebe acessos, mas nao direciona a proxima acao.", "tag_html": "<div> > <strong>/<span>", "hierarquia": "div.screen-body > div.lead-alert" },
+            { "texto": "Seu servico | Uma frase que nao explica o valor | CTA pouco visivel | Saiba mais", "tag_html": "<div> > <span>/<b>/<i>/<span.faded-cta>", "hierarquia": "div.screen-body > div.page-preview" }
+          ]
+        }
+      ]
+    },
+    "solucao": {
+      "id": "solucao",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#solucao.section-solution",
+      "elementos": [
+        {
+          "tipo": "titulo_secao_h2",
+          "texto": "Agora imagina ter uma página que trabalha por você todos os dias",
+          "html_renderizado": "<span class=\"solution-title-line\">Agora imagina ter uma página</span><span class=\"solution-title-line\">que trabalha por você todos os dias</span>",
+          "tag_html": "<h2>",
+          "hierarquia": "section#solucao > div.scrolly > div.scrolly__stage > div.container > div.solution-content > div.solution-text-col > h2.solution-title",
+          "nivel_semantico": "Heading 2"
+        },
+        {
+          "tipo": "contraste",
+          "texto": "Na OCARECADEV, nós não criamos \"sites bonitos\".",
+          "tag_html": "<p>",
+          "hierarquia": "section#solucao > ... > div.solution-text-col > p.solution-text"
+        },
+        {
+          "tipo": "posicionamento_destaque",
+          "texto": "Nós criamos páginas pensadas para gerar clientes.",
+          "html_renderizado": "Nós criamos páginas pensadas para gerar <span class=\"text-neon\">clientes</span>.",
+          "tag_html": "<p> > <span>",
+          "hierarquia": "section#solucao > ... > div.solution-text-col > p.solution-highlight > span:nth-child(2)"
+        },
+        {
+          "tipo": "fechamento",
+          "texto": "Cada detalhe é feito para fazer o visitante clicar e virar cliente.",
+          "html_renderizado": "Cada detalhe é feito para fazer o visitante clicar e virar <span class=\"text-neon\">cliente</span>.",
+          "tag_html": "<p>",
+          "hierarquia": "section#solucao > ... > div.solution-content > p.solution-closing"
+        },
+        {
+          "tipo": "mockup_funil_conversao",
+          "tag_html": "<div> (UI Mockup)",
+          "hierarquia": "section#solucao > ... > div.solution-mockup-col > div.conversion-mockup > div.dashboard",
+          "textos_internos": [
+            { "texto": "Funil de conversao", "tag_html": "<span>", "hierarquia": "div.dashboard-bar > span:nth-child(2)" },
+            { "texto": "ativo", "tag_html": "<span>", "hierarquia": "div.dashboard-bar > span.live-state" },
+            { "texto": "Resultados da semana", "tag_html": "<p>", "hierarquia": "div.dashboard-heading > div > p" },
+            { "texto": "Da visita ao cliente", "tag_html": "<h3>", "hierarquia": "div.dashboard-heading > div > h3" },
+            { "texto": "14% conversao", "tag_html": "<span>", "hierarquia": "div.dashboard-heading > span.conversion-rate" },
+            { "texto": "01 Visita na pagina: 1.284 pessoas interessadas", "tag_html": "<article>", "hierarquia": "div.funnel > article.funnel-step:nth-child(1)" },
+            { "texto": "02 Clique no WhatsApp: 93 conversas iniciadas", "tag_html": "<article>", "hierarquia": "div.funnel > article.funnel-step--active" },
+            { "texto": "03 Lead qualificado: 18 oportunidades reais", "tag_html": "<article>", "hierarquia": "div.funnel > article.funnel-step--result" },
+            { "texto": "Novo lead agora: Pedido de orcamento recebido", "tag_html": "<div>", "hierarquia": "div.dashboard-body > div.next-action" }
+          ]
+        }
+      ]
+    },
+    "como_funciona": {
+      "id": "como-funciona",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#como-funciona.section-how",
+      "elementos": [
+        {
+          "tipo": "titulo_secao_h2",
+          "texto": "Um processo simples, direto e focado em resultado",
+          "html_renderizado": "Um processo simples, direto e focado em <span class=\"text-neon\">resultado</span>",
+          "tag_html": "<h2>",
+          "hierarquia": "section#como-funciona > div.scrolly > div.scrolly__stage > div.container > div.section-header > h2.section-title",
+          "nivel_semantico": "Heading 2"
+        },
+        {
+          "tipo": "cards_de_passos",
+          "tag_html": "<div>.steps-grid > <div>.step-card",
+          "hierarquia": "section#como-funciona > ... > div.steps-grid > div.step-card",
+          "passos": [
+            {
+              "numero": "01",
+              "tag_numero": "<span class=\"step-num\">",
+              "titulo": "Estrutura validada",
+              "tag_titulo": "<h3 class=\"step-title\">",
+              "descricao": "Usamos modelos que já funcionam",
+              "tag_descricao": "<p class=\"step-desc\">",
+              "hierarquia": "div.steps-grid > div.step-card:nth-child(1)"
+            },
+            {
+              "numero": "02",
+              "tag_numero": "<span class=\"step-num\">",
+              "titulo": "Personalização",
+              "tag_titulo": "<h3 class=\"step-title\">",
+              "descricao": "Adaptamos para o seu negócio",
+              "tag_descricao": "<p class=\"step-desc\">",
+              "hierarquia": "div.steps-grid > div.step-card:nth-child(2)"
+            },
+            {
+              "numero": "03",
+              "tag_numero": "<span class=\"step-num\">",
+              "titulo": "Publicação rápida",
+              "tag_titulo": "<h3 class=\"step-title\">",
+              "descricao": "Seu site no ar em poucos dias",
+              "tag_descricao": "<p class=\"step-desc\">",
+              "hierarquia": "div.steps-grid > div.step-card:nth-child(3)"
+            },
+            {
+              "numero": "04",
+              "tag_numero": "<span class=\"step-num\">",
+              "titulo": "Geração de leads",
+              "tag_titulo": "<h3 class=\"step-title\">",
+              "descricao": "Visitantes viram contatos no WhatsApp",
+              "tag_descricao": "<p class=\"step-desc\">",
+              "hierarquia": "div.steps-grid > div.step-card:nth-child(4)"
+            }
+          ]
+        }
+      ]
+    },
+    "prova_social": {
+      "id": "social-proof",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#social-proof.section-social",
+      "elementos": [
+        {
+          "tipo": "titulo_secao_h2",
+          "texto": "Resultados falam mais que qualquer promessa",
+          "html_renderizado": "<span class=\"text-neon\">Resultados</span> falam mais que qualquer promessa",
+          "tag_html": "<h2>",
+          "hierarquia": "section#social-proof > div.container > div.proof-wrapper > header.section-header > h2.section-title",
+          "nivel_semantico": "Heading 2"
+        },
+        {
+          "tipo": "lista_beneficios",
+          "tag_html": "<ul> > <li>",
+          "hierarquia": "header.section-header > ul.section-subtitle-list > li",
+          "itens": [
+            { "texto": "Mais mensagens no WhatsApp", "tag_html": "<li> > <span>", "hierarquia": "ul.section-subtitle-list > li:nth-child(1) > span:nth-child(2)" },
+            { "texto": "Mais pedidos de orcamento", "tag_html": "<li> > <span>", "hierarquia": "ul.section-subtitle-list > li:nth-child(2) > span:nth-child(2)" },
+            { "texto": "Mais clientes entrando todos os dias", "html_renderizado": "Mais <span class=\"text-neon\">clientes</span> entrando todos os dias", "tag_html": "<li> > <span>", "hierarquia": "ul.section-subtitle-list > li:nth-child(3) > span:nth-child(2)" }
+          ]
+        },
+        {
+          "tipo": "grupo_audios",
+          "badge": { "texto": "Mensagens de Voz Autênticas", "tag_html": "<span>", "hierarquia": "div.proof-group:nth-of-type(1) > div.group-header > span.group-badge" },
+          "descricao": { "texto": "Ouça feedbacks reais enviados por clientes e parceiros no WhatsApp", "tag_html": "<p>", "hierarquia": "div.proof-group:nth-of-type(1) > div.group-header > p.group-desc" },
+          "cards": [
+            {
+              "autor": "Áudio de Cliente",
+              "tag_autor": "<h3>",
+              "hierarquia_autor": "div.proof-grid > div.audio-card:nth-child(1) > div.card-header > div.user-info > div.user-text > h3.user-name",
+              "subtitulo": "Áudio verificado • 0:30",
+              "tag_subtitulo": "<span>",
+              "tag_pill": "Recomendação",
+              "frase_quote": "Depois não esquece de agradecer o André lá pelo projeto... ficou muito top!",
+              "tag_quote": "<blockquote>",
+              "hierarquia_quote": "div.audio-card:nth-child(1) > blockquote.card-quote",
+              "transcricao_completa": "E aí irmão beleza? Ô deixa eu te falar: depois não esquece de agradecer o André lá hem pelo pelo projeto... o trabalho ficou fera demais!",
+              "tag_transcricao": "<details> > <summary> / <p>",
+              "hierarquia_transcricao": "div.audio-card:nth-child(1) > details.transcript-box > div.transcript-body > p",
+              "rotulo_inferior": "Áudio no WhatsApp",
+              "tag_rotulo": "<span class=\"bottom-label\">"
+            },
+            {
+              "autor": "Parceiro de Negócios",
+              "tag_autor": "<h3>",
+              "hierarquia_autor": "div.proof-grid > div.audio-card:nth-child(2) > div.card-header > div.user-info > div.user-text > h3.user-name",
+              "subtitulo": "Áudio verificado • 0:54",
+              "tag_subtitulo": "<span>",
+              "tag_pill": "Parceria",
+              "frase_quote": "Dar um feedback sobre o serviço executado pelo nosso parceiro seu André...",
+              "tag_quote": "<blockquote>",
+              "hierarquia_quote": "div.audio-card:nth-child(2) > blockquote.card-quote",
+              "transcricao_completa": "Dar um feedback aí pro serviço executado pelo nosso parceiro de negócios aí, seu André... nós ficamos muito satisfeitos com a qualidade e o comprometimento entregue.",
+              "tag_transcricao": "<details> > <summary> / <p>",
+              "hierarquia_transcricao": "div.audio-card:nth-child(2) > details.transcript-box > div.transcript-body > p",
+              "rotulo_inferior": "Parceria de Longo Prazo",
+              "tag_rotulo": "<span class=\"bottom-label\">"
+            }
+          ]
+        },
+        {
+          "tipo": "grupo_prints",
+          "badge": { "texto": "Conversas & Validações Públicas", "tag_html": "<span>", "hierarquia": "div.proof-group:nth-of-type(2) > div.group-header > span.group-badge" },
+          "descricao": { "texto": "Comprovações visuais de entregas rápidas e autoridade no mercado em tela cheia", "tag_html": "<p>", "hierarquia": "div.proof-group:nth-of-type(2) > div.group-header > p.group-desc" },
+          "cards": [
+            {
+              "autor": "Grupo Carrera Consórcio",
+              "tag_autor": "<h3>",
+              "hierarquia_autor": "div.print-card:nth-child(1) > div.card-header > div.user-info > div.user-text > h3.user-name",
+              "origem": "@grupocarreraconsorcio • Instagram Stories",
+              "tag_origem": "<span>",
+              "tag_pill": "Autoridade",
+              "frase_quote": "landing Page construída Pelo excelente profissional @ocarecadev. Parabéns pelo trabalho. Ficou extraordinário.",
+              "tag_quote": "<blockquote>",
+              "hierarquia_quote": "div.print-card:nth-child(1) > blockquote.card-quote",
+              "cta_zoom": "Toque para ver em alta resolução",
+              "tag_cta_zoom": "<button> > <span>",
+              "hierarquia_cta_zoom": "div.print-card:nth-child(1) > div.phone-mockup-wrapper > div.phone-frame-916 > button.phone-zoom-overlay-btn > span",
+              "rotulo_inferior": "Projeto no Ar",
+              "tag_rotulo": "<span class=\"bottom-label\">"
+            },
+            {
+              "autor": "Vinicius Oliveira",
+              "tag_autor": "<h3>",
+              "hierarquia_autor": "div.print-card:nth-child(2) > div.card-header > div.user-info > div.user-text > div.name-with-verified > h3.user-name",
+              "origem": "Cliente Verificado • WhatsApp",
+              "tag_origem": "<span>",
+              "tag_pill": "Agilidade",
+              "frase_quote": "O site voltou pro ar normal e as alterações ficaram ótimas, obrigado pela rapidez. Vou ja fazer os anúncios pro adwords!!",
+              "tag_quote": "<blockquote>",
+              "hierarquia_quote": "div.print-card:nth-child(2) > blockquote.card-quote",
+              "cta_zoom": "Toque para ver em alta resolução",
+              "tag_cta_zoom": "<button> > <span>",
+              "hierarquia_cta_zoom": "div.print-card:nth-child(2) > div.phone-mockup-wrapper > div.phone-frame-916 > button.phone-zoom-overlay-btn > span",
+              "rotulo_inferior": "Alterações em 5 min",
+              "tag_rotulo": "<span class=\"bottom-label\">"
+            }
+          ]
+        }
+      ]
+    },
+    "modelos_showcase": {
+      "id": "modelos",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#modelos.section-models",
+      "elementos": [
+        {
+          "tipo": "eyebrow",
+          "texto": "Modelos por nicho",
+          "tag_html": "<p>",
+          "hierarquia": "section#modelos > div.container > header.models-header > p.models-eyebrow"
+        },
+        {
+          "tipo": "titulo_secao_h2",
+          "texto": "Veja uma página feita para o seu tipo de negócio",
+          "tag_html": "<h2>",
+          "hierarquia": "section#modelos > div.container > header.models-header > h2#modelos-title.models-title",
+          "nivel_semantico": "Heading 2"
+        },
+        {
+          "tipo": "dica_navegacao",
+          "texto": "Use as setas para ver os outros modelos",
+          "tag_html": "<p>",
+          "hierarquia": "section#modelos > div.container > div.models-controls > p.models-hint"
+        },
+        {
+          "tipo": "lista_modelos",
+          "tag_html": "<ul id=\"modelos-track\"> > <li class=\"models-slide\"> > <article class=\"model-card\">",
+          "hierarquia": "section#modelos > div.container > ul#modelos-track > li.models-slide > article.model-card",
+          "cards": [
+            {
+              "nicho": "Oficina premium",
+              "tag_nicho": "<p class=\"model-niche\">",
+              "nome": "Modelo Oficina",
+              "tag_nome": "<h3 class=\"model-name\">",
+              "foco": "Luxo e performance automotiva",
+              "tag_foco": "<p class=\"model-focus\">",
+              "cta": "Ver modelo",
+              "tag_cta": "<a class=\"model-action-btn\"> > <span>",
+              "hierarquia": "ul#modelos-track > li:nth-child(1) > article.model-card"
+            },
+            {
+              "nicho": "Clínica estética",
+              "tag_nicho": "<p class=\"model-niche\">",
+              "nome": "Modelo Clínica estética",
+              "tag_nome": "<h3 class=\"model-name\">",
+              "foco": "Harmonização facial e corporal",
+              "tag_foco": "<p class=\"model-focus\">",
+              "cta": "Ver modelo",
+              "tag_cta": "<a class=\"model-action-btn\"> > <span>",
+              "hierarquia": "ul#modelos-track > li:nth-child(2) > article.model-card"
+            },
+            {
+              "nicho": "Pet shop e veterinária",
+              "tag_nicho": "<p class=\"model-niche\">",
+              "nome": "Modelo Pet",
+              "tag_nome": "<h3 class=\"model-name\">",
+              "foco": "Cuidado para o melhor amigo",
+              "tag_foco": "<p class=\"model-focus\">",
+              "cta": "Ver modelo",
+              "tag_cta": "<a class=\"model-action-btn\"> > <span>",
+              "hierarquia": "ul#modelos-track > li:nth-child(3) > article.model-card"
+            },
+            {
+              "nicho": "Salão de beleza",
+              "tag_nicho": "<p class=\"model-niche\">",
+              "nome": "Modelo Salão",
+              "tag_nome": "<h3 class=\"model-name\">",
+              "foco": "Visagismo e estética minimalista",
+              "tag_foco": "<p class=\"model-focus\">",
+              "cta": "Ver modelo",
+              "tag_cta": "<a class=\"model-action-btn\"> > <span>",
+              "hierarquia": "ul#modelos-track > li:nth-child(4) > article.model-card"
+            },
+            {
+              "nicho": "Estúdio de tatuagem",
+              "tag_nicho": "<p class=\"model-niche\">",
+              "nome": "Modelo Tatuagem",
+              "tag_nome": "<h3 class=\"model-name\">",
+              "foco": "Estilo e marcas permanentes",
+              "tag_foco": "<p class=\"model-focus\">",
+              "cta": "Ver modelo",
+              "tag_cta": "<a class=\"model-action-btn\"> > <span>",
+              "hierarquia": "ul#modelos-track > li:nth-child(5) > article.model-card"
+            },
+            {
+              "nicho": "Advocacia",
+              "tag_nicho": "<p class=\"model-niche\">",
+              "nome": "Modelo Advocacia",
+              "tag_nome": "<h3 class=\"model-name\">",
+              "foco": "Proteção patrimonial e estratégia",
+              "tag_foco": "<p class=\"model-focus\">",
+              "cta": "Ver modelo",
+              "tag_cta": "<a class=\"model-action-btn\"> > <span>",
+              "hierarquia": "ul#modelos-track > li:nth-child(6) > article.model-card"
+            },
+            {
+              "nicho": "Odontologia e lentes",
+              "tag_nicho": "<p class=\"model-niche\">",
+              "nome": "Modelo Odonto",
+              "tag_nome": "<h3 class=\"model-name\">",
+              "foco": "Sorriso e lentes de contato",
+              "tag_foco": "<p class=\"model-focus\">",
+              "cta": "Ver modelo",
+              "tag_cta": "<a class=\"model-action-btn\"> > <span>",
+              "hierarquia": "ul#modelos-track > li:nth-child(7) > article.model-card"
+            }
+          ]
+        }
+      ]
+    },
+    "sobre_o_especialista": {
+      "id": "about",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#about.section-about",
+      "elementos": [
+        {
+          "tipo": "titulo_secao_h2",
+          "texto": "Sobre o Especialista",
+          "tag_html": "<h2>",
+          "hierarquia": "section#about > ... > div.about-content > h2.section-title",
+          "nivel_semantico": "Heading 2"
+        },
+        {
+          "tipo": "paragrafo_bio_1",
+          "texto": "Olá, eu sou o André Luiz Ferreira, criador da OCARECADEV. Minha missão é transformar \"sites bonitinhos\" em verdadeiras máquinas de conversão.",
+          "html_renderizado": "Olá, eu sou o <strong>André Luiz Ferreira</strong>, criador da <span class=\"text-neon\">OCARECADEV</span>. Minha missão é transformar \"sites bonitinhos\" em verdadeiras máquinas de conversão.",
+          "tag_html": "<p>",
+          "hierarquia": "section#about > ... > div.about-content > p.about-desc:nth-of-type(1)"
+        },
+        {
+          "tipo": "paragrafo_bio_2",
+          "texto": "Com experiência profunda em desenvolvimento web e estratégias de alta performance, ajudo negócios a escalarem seus resultados com páginas projetadas milimetricamente para vender.",
+          "html_renderizado": "Com experiência profunda em desenvolvimento web e estratégias de alta performance, ajudo negócios a escalarem seus resultados com páginas projetadas milimetricamente para vender.",
+          "tag_html": "<p>",
+          "hierarquia": "section#about > ... > div.about-content > p.about-desc:nth-of-type(2)"
+        },
+        {
+          "tipo": "estatisticas",
+          "tag_html": "<div>.stats-grid > <div>.stat-card",
+          "hierarquia": "section#about > ... > div.about-footer > div.stats-grid > div.stat-card",
+          "itens": [
+            {
+              "valor": "+50",
+              "tag_valor": "<h3>",
+              "rotulo": "Projetos Lançados",
+              "tag_rotulo": "<span>",
+              "hierarquia": "div.stats-grid > div.stat-card:nth-child(1)"
+            },
+            {
+              "valor": "100%",
+              "tag_valor": "<h3>",
+              "rotulo": "Foco em ROI",
+              "tag_rotulo": "<span>",
+              "hierarquia": "div.stats-grid > div.stat-card:nth-child(2)"
+            }
+          ]
+        },
+        {
+          "tipo": "redes_sociais",
+          "tag_html": "<div>.about-social > <a>.social-link",
+          "hierarquia": "section#about > ... > div.about-social > a.social-link",
+          "links": [
+            { "rede": "Instagram", "tag_html": "<a> > <span>", "hierarquia": "div.about-social > a:nth-child(1) > span" },
+            { "rede": "TikTok", "tag_html": "<a> > <span>", "hierarquia": "div.about-social > a:nth-child(2) > span" }
+          ]
+        }
+      ]
+    },
+    "planos_e_precos": {
+      "id": "pricing",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#pricing.section-pricing",
+      "elementos": [
+        {
+          "tipo": "titulo_secao_h2",
+          "texto": "Escolha o plano ideal para o seu momento",
+          "tag_html": "<h2>",
+          "hierarquia": "section#pricing > div.container > div.section-header > h2.section-title",
+          "nivel_semantico": "Heading 2"
+        },
+        {
+          "tipo": "grid_planos",
+          "tag_html": "<div>.pricing-grid > <div>.pricing-card",
+          "hierarquia": "section#pricing > div.container > div.pricing-grid > div.pricing-card",
+          "planos": [
+            {
+              "id": "express",
+              "nome": "OCARECADEV EXPRESS",
+              "tag_nome": "<h3 class=\"plan-name\">",
+              "descricao": "Para quem precisa entrar no ar rápido.",
+              "tag_descricao": "<p class=\"plan-desc\">",
+              "preco_a_vista": "R$ 597 à vista",
+              "tag_preco": "<div class=\"plan-price\">",
+              "parcelamento": "ou 6x de R$ 113,75",
+              "tag_parcelamento": "<p class=\"plan-installments\">",
+              "entregaveis": [
+                { "texto": "Landing page simples", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(1)" },
+                { "texto": "Template validado", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(2)" },
+                { "texto": "Personalização básica", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(3)" },
+                { "texto": "Botão direto para WhatsApp", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(4)" },
+                { "texto": "Entrega em até 48h", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(5)" }
+              ],
+              "cta": {
+                "texto": "Quero começar já",
+                "tag_html": "<a class=\"btn btn-ghost btn-full btn-pricing-cta\">",
+                "hierarquia": "div.pricing-grid > div.pricing-card:nth-child(1) > a"
+              }
+            },
+            {
+              "id": "landing_que_vende",
+              "badge_destaque": {
+                "texto": "Recomendado",
+                "tag_html": "<div class=\"recommended-badge\">",
+                "hierarquia": "div.pricing-card:nth-child(2) > div.recommended-badge"
+              },
+              "nome": "LANDING QUE VENDE",
+              "tag_nome": "<h3 class=\"plan-name\">",
+              "descricao": "Para quem quer gerar clientes de verdade.",
+              "html_descricao": "Para quem quer gerar <span class=\"text-neon\">clientes</span> de verdade.",
+              "tag_descricao": "<p class=\"plan-desc\">",
+              "preco_a_vista": "R$ 997 à vista",
+              "tag_preco": "<div class=\"plan-price text-gradient\">",
+              "parcelamento": "ou 6x de R$ 189,96",
+              "tag_parcelamento": "<p class=\"plan-installments highlight-installments\">",
+              "entregaveis": [
+                { "texto": "Estrutura focada em conversão", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(1)" },
+                { "texto": "Design premium", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(2)" },
+                { "texto": "CTA estratégico", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(3)" },
+                { "texto": "Integração WhatsApp e Analytics", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(4)" },
+                { "texto": "Tracking de cliques e leads", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(5)" },
+                { "texto": "1 revisão estratégica", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(6)" }
+              ],
+              "cta": {
+                "texto": "Quero gerar clientes",
+                "tag_html": "<a class=\"btn btn-primary btn-full btn-pricing-cta\">",
+                "hierarquia": "div.pricing-grid > div.pricing-card:nth-child(2) > a"
+              }
+            },
+            {
+              "id": "maquina_de_clientes",
+              "nome": "MÁQUINA DE CLIENTES",
+              "tag_nome": "<h3 class=\"plan-name\">",
+              "descricao": "Para quem quer presença profissional e escala.",
+              "tag_descricao": "<p class=\"plan-desc\">",
+              "preco_a_vista": "A partir de R$ 2.497",
+              "tag_preco": "<div class=\"plan-price\">",
+              "parcelamento": "Projeto sob medida. Solicite uma proposta personalizada.",
+              "tag_parcelamento": "<p class=\"plan-installments\">",
+              "entregaveis": [
+                { "texto": "3 a 5 páginas completas", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(1)" },
+                { "texto": "Estrutura estratégica", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(2)" },
+                { "texto": "Integrações e tracking", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(3)" },
+                { "texto": "Pronto para tráfego pago", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(4)" },
+                { "texto": "Otimização de conversão", "tag_html": "<li>", "hierarquia": "ul.plan-features > li:nth-child(5)" }
+              ],
+              "cta": {
+                "texto": "Quero escalar",
+                "tag_html": "<a class=\"btn btn-ghost btn-full btn-pricing-cta\">",
+                "hierarquia": "div.pricing-grid > div.pricing-card:nth-child(3) > a"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "faq": {
+      "id": "faq",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#faq.section-faq",
+      "elementos": [
+        {
+          "tipo": "titulo_secao_h2",
+          "texto": "Ainda com dúvidas?",
+          "tag_html": "<h2>",
+          "hierarquia": "section#faq > div.container > div.section-header > h2.section-title",
+          "nivel_semantico": "Heading 2"
+        },
+        {
+          "tipo": "perguntas_frequentes",
+          "tag_html": "<div>.faq-grid > <details class=\"faq-item\">",
+          "hierarquia": "section#faq > div.container > div.faq-grid > details.faq-item",
+          "itens": [
+            {
+              "pergunta": "Preciso entender de tecnologia?",
+              "tag_pergunta": "<summary class=\"faq-summary\"> > <h3>",
+              "hierarquia_pergunta": "details.faq-item:nth-child(1) > summary.faq-summary > h3",
+              "resposta": "Não. Nós cuidamos de tudo.",
+              "tag_resposta": "<div class=\"faq-answer\"> > <p class=\"faq-answer__text\">",
+              "hierarquia_resposta": "details.faq-item:nth-child(1) > div.faq-answer > p.faq-answer__text"
+            },
+            {
+              "pergunta": "Em quanto tempo fica pronto?",
+              "tag_pergunta": "<summary class=\"faq-summary\"> > <h3>",
+              "hierarquia_pergunta": "details.faq-item:nth-child(2) > summary.faq-summary > h3",
+              "resposta": "A partir de 48h no plano Express.",
+              "tag_resposta": "<div class=\"faq-answer\"> > <p class=\"faq-answer__text\">",
+              "hierarquia_resposta": "details.faq-item:nth-child(2) > div.faq-answer > p.faq-answer__text"
+            },
+            {
+              "pergunta": "Vou conseguir editar depois?",
+              "tag_pergunta": "<summary class=\"faq-summary\"> > <h3>",
+              "hierarquia_pergunta": "details.faq-item:nth-child(3) > summary.faq-summary > h3",
+              "resposta": "Sim, você terá acesso.",
+              "tag_resposta": "<div class=\"faq-answer\"> > <p class=\"faq-answer__text\">",
+              "hierarquia_resposta": "details.faq-item:nth-child(3) > div.faq-answer > p.faq-answer__text"
+            },
+            {
+              "pergunta": "Isso realmente funciona?",
+              "tag_pergunta": "<summary class=\"faq-summary\"> > <h3>",
+              "hierarquia_pergunta": "details.faq-item:nth-child(4) > summary.faq-summary > h3",
+              "resposta": "Funciona quando é feito da forma certa — e é isso que fazemos.",
+              "tag_resposta": "<div class=\"faq-answer\"> > <p class=\"faq-answer__text\">",
+              "hierarquia_resposta": "details.faq-item:nth-child(4) > div.faq-answer > p.faq-answer__text"
+            }
+          ]
+        }
+      ]
+    },
+    "cta_final": {
+      "id": "cta-final",
+      "tag_html": "<section>",
+      "hierarquia": "html > body > main > section#cta-final.section-cta",
+      "elementos": [
+        {
+          "tipo": "titulo_secao_h2",
+          "texto": "Agora a decisão é sua",
+          "tag_html": "<h2>",
+          "hierarquia": "section#cta-final > div.container > div.cta-content > h2.cta-title",
+          "nivel_semantico": "Heading 2"
+        },
+        {
+          "tipo": "corpo",
+          "texto": "Continuar com um site que não traz resultado ou ter uma página que gera clientes todos os dias.",
+          "html_renderizado": "Continuar com um site que não traz <span class=\"text-neon\">resultado</span><br/>ou ter uma página que gera <span class=\"text-neon\">clientes</span> todos os dias.",
+          "tag_html": "<p>",
+          "hierarquia": "section#cta-final > div.container > div.cta-content > p.cta-desc"
+        },
+        {
+          "tipo": "cta_botao",
+          "texto": "Falar no WhatsApp agora",
+          "tag_html": "<a class=\"btn btn-primary btn-large pulse-animation\">",
+          "hierarquia": "section#cta-final > div.container > div.cta-content > a.btn-large"
+        }
+      ]
+    },
+    "rodape": {
+      "id": "footer",
+      "tag_html": "<footer>",
+      "hierarquia": "html > body > footer.footer-section",
+      "elementos": [
+        {
+          "tipo": "link_politica",
+          "texto": "Política de Privacidade",
+          "tag_html": "<a>",
+          "hierarquia": "footer.footer-section > div.container > div.footer-links > a.footer-link[href='/politica-de-privacidade']"
+        },
+        {
+          "tipo": "copyright",
+          "texto": "© 2026 OCARECADEV. Todos os direitos reservados. Transformando cliques em clientes.",
+          "tag_html": "<p>",
+          "hierarquia": "footer.footer-section > div.container > p.copyright"
+        },
+        {
+          "tipo": "controle_cookies",
+          "texto": "Preferências de cookies",
+          "tag_html": "<button>",
+          "hierarquia": "footer.footer-section > div.container > div.privacy-controls > button[data-open-cookie-preferences]"
+        }
+      ]
+    },
+    "elementos_flutuantes_e_interacoes": {
+      "id": "ui-floating",
+      "elementos": [
+        {
+          "tipo": "scarcity_toast",
+          "tag_html": "<aside>",
+          "hierarquia": "html > body > aside#scarcity-toast.scarcity-toast",
+          "atributos": { "aria-label": "Alerta do plano Express" },
+          "textos": [
+            {
+              "tipo": "titulo",
+              "texto": "Express em até 48h",
+              "tag_html": "<p class=\"scarcity-toast__title\">",
+              "hierarquia": "aside#scarcity-toast > div.scarcity-toast__copy > p.scarcity-toast__title"
+            },
+            {
+              "tipo": "descricao",
+              "texto": "O plano Express entrega em até 48h, com capacidade limitada. Confirme a próxima janela pelo WhatsApp ou veja os planos.",
+              "tag_html": "<p class=\"scarcity-toast__body\">",
+              "hierarquia": "aside#scarcity-toast > div.scarcity-toast__copy > p.scarcity-toast__body"
+            },
+            {
+              "tipo": "cta",
+              "texto": "Ver o plano Express",
+              "tag_html": "<a class=\"scarcity-toast__cta\">",
+              "hierarquia": "aside#scarcity-toast > div.scarcity-toast__copy > a.scarcity-toast__cta"
+            }
+          ]
+        },
+        {
+          "tipo": "whatsapp_fab",
+          "tag_html": "<a>",
+          "hierarquia": "html > body > a.whatsapp-fab",
+          "atributos": {
+            "aria-label": "Fale conosco pelo WhatsApp",
+            "mensagem_padrao": "Olá, tenho interesse."
+          }
+        },
+        {
+          "tipo": "banner_consentimento_cookies",
+          "tag_html": "<section role=\"dialog\">",
+          "hierarquia": "html > body > section#cookie-consent.cookie-consent",
+          "atributos": {
+            "role": "dialog",
+            "aria-labelledby": "cookie-consent-title",
+            "aria-describedby": "cookie-consent-description"
+          },
+          "textos": [
+            {
+              "tipo": "titulo",
+              "texto": "Sua privacidade",
+              "tag_html": "<h2 id=\"cookie-consent-title\">",
+              "hierarquia": "section#cookie-consent > div.cookie-consent__content > h2#cookie-consent-title"
+            },
+            {
+              "tipo": "descricao",
+              "texto": "Com sua autorização, usamos Google Analytics, Google Ads e Meta para análise de audiência, medição de conversões e marketing/remarketing. Você pode aceitar ou recusar agora e alterar esta escolha depois.",
+              "tag_html": "<p id=\"cookie-consent-description\">",
+              "hierarquia": "section#cookie-consent > div.cookie-consent__content > p#cookie-consent-description"
+            },
+            {
+              "tipo": "botao_recusar",
+              "texto": "Recusar",
+              "tag_html": "<button id=\"cookie-consent-reject\">",
+              "hierarquia": "section#cookie-consent > div.cookie-consent__actions > button#cookie-consent-reject"
+            },
+            {
+              "tipo": "botao_aceitar",
+              "texto": "Aceitar",
+              "tag_html": "<button id=\"cookie-consent-accept\">",
+              "hierarquia": "section#cookie-consent > div.cookie-consent__actions > button#cookie-consent-accept"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
