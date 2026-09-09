@@ -52,6 +52,12 @@ corrigir SVGs/mockups com dimensões erradas no mobile.
   estourarem a largura / ocuparem altura demais na seção pinada.
 - `Solution.astro`: cap responsivo do `.solution-mockup-container` no mobile.
 
+### 2.5. Aditivo de Paridade Cross-browser e Contraste de CTA (2026-09-07)
+- **Scrollytelling Universal:** pinning via `position: sticky` e trilhos de altura declarados universalmente em `global.css`.
+- **Fallback para Safari/Firefox:** quando `!CSS.supports('(animation-timeline: view()) and (animation-range: contain)')`, `scrollAnimations.js` calcula a interpolação suave via `requestAnimationFrame`, entregando a mesma experiência imersiva do Chrome sem novas dependências externas.
+- **Espaçamento Garantido (G2/G3):** com `prefers-reduced-motion: reduce`, `.scrolly-section` preserva padding vertical explícito (`4rem 0` / `5.5rem 0`), impedindo seções coladas sem espaçamento.
+- **Botões CTA Primários (G1):** `.btn-primary` padronizado com verde neon sólido/vibrante (`var(--color-primary-neon)`) e texto escuro de altíssimo contraste (`#04120c`, WCAG AAA), eliminando o aspecto esbranquiçado/leitoso.
+
 ## 3. Definition of Done (DoD)
 - [x] Padrão `.scrolly*` implementado em `global.css` dentro do guard `@supports` + reduced-motion.
 - [x] Pin aplicado nas 4 seções (Como Funciona, Agitação, Solução, Problema) com reveal escalonado.

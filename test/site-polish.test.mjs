@@ -226,3 +226,34 @@ test('solution and agitation mockups prioritize the available desktop width', ()
   assert.match(agitation, /@media\s*\(max-width:\s*767px\)[\s\S]*\.frustration-img-container\s*\{\s*max-width:\s*none/);
   assert.match(frustration, /\.frustration-mockup--compact\s*\{[\s\S]*max-width:\s*none/);
 });
+
+test('scrollytelling stage and tracks are configured universally with accessible fallback padding', () => {
+  const css = read('src/styles/global.css');
+  const scrollScript = read('src/scripts/scrollAnimations.js');
+
+  // Universal layout properties outside of @supports for cross-browser parity (Safari/Firefox/Chrome)
+  assert.match(css, /\.scrolly\s*\{\s*height:\s*var\(--scrolly-track,\s*300vh\);/);
+  assert.match(css, /\.scrolly__stage\s*\{[\s\S]*position:\s*sticky;[\s\S]*top:\s*var\(--header-offset\);/);
+
+  // Fallback CSS rules for browsers without native scroll-driven animations
+  assert.match(css, /\.scrolly-fallback\s+\.scrolly-step\s*\{[\s\S]*opacity:\s*0;/);
+
+  // Reduced motion provides explicit vertical padding so sections never lack spacing
+  assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*\.scrolly-section\s*\{\s*padding:\s*4rem\s+0;/);
+
+  // JS provides runtime interpolation when native timeline is absent
+  assert.match(scrollScript, /scrollyFallbackActive/);
+  assert.match(scrollScript, /updateScrollytelling/);
+});
+
+test('primary CTA buttons use solid neon background with high-contrast text', () => {
+  const button = read('src/components/ui/Button.astro');
+
+  // Button background has solid neon presence (not washed-out / transparent)
+  assert.match(button, /\.btn-primary\s*\{[\s\S]*background:\s*linear-gradient\(135deg,\s*var\(--color-primary-neon\)/);
+
+  // Text color is dark with high contrast (> 7:1) over neon green (G1 accessibility)
+  assert.match(button, /\.btn-primary\s*\{[\s\S]*color:\s*#04120c;/);
+  assert.match(button, /\.btn-primary\s*\{[\s\S]*font-weight:\s*700;/);
+});
+
