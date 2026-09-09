@@ -25,9 +25,10 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
 
       <!-- Desktop Nav -->
       <nav class="nav">
-        <a href="/#hero">Início</a>
-        <a href="/#social-proof">Resultados</a>
-        <a href="/#pricing">Planos</a>
+        <a href="#hero">Início</a>
+        <a href="#social-proof">Resultados</a>
+        <a href="#modelos">Modelos</a>
+        <a href="#pricing">Planos</a>
       </nav>
 
       <div class="cta-and-menu">
@@ -38,6 +39,8 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
             id="btn-header-cta"
             class="btn-small"
             text="Falar com Consultor"
+            data-track-event="lead"
+            data-track-location="header"
           />
         </div>
         <div class="cta mobile-cta">
@@ -47,6 +50,8 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
             id="btn-header-cta-mobile"
             class="btn-small"
             text="Contato"
+            data-track-event="lead"
+            data-track-location="header_mobile"
           />
         </div>
         <button class="mobile-menu-toggle" aria-label="Abrir menu">
@@ -61,9 +66,10 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
   <!-- Mobile Menu Overlay -->
   <div class="mobile-menu-overlay" id="mobile-menu">
     <nav class="mobile-nav">
-      <a href="/#hero" class="mobile-nav-link">Início</a>
-      <a href="/#social-proof" class="mobile-nav-link">Resultados</a>
-      <a href="/#pricing" class="mobile-nav-link">Planos</a>
+      <a href="#hero" class="mobile-nav-link">Início</a>
+      <a href="#social-proof" class="mobile-nav-link">Resultados</a>
+      <a href="#modelos" class="mobile-nav-link">Modelos</a>
+      <a href="#pricing" class="mobile-nav-link">Planos</a>
     </nav>
   </div>
 </header>
@@ -150,6 +156,22 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
 
   .nav a:hover {
     color: var(--color-text-primary, #ffffff);
+  }
+
+  .nav a:focus-visible,
+  .mobile-nav-link:focus-visible {
+    outline: 2px solid var(--color-primary-neon, #00ff9d);
+    outline-offset: 4px;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .nav {
+      gap: 0.75rem;
+    }
+
+    .nav a {
+      font-size: 0.8125rem;
+    }
   }
 
   .cta-and-menu {

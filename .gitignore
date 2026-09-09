@@ -7,7 +7,6 @@ pnpm-debug.log*
 
 # build output
 .astro/
-.claude/
 dist/
 
 # environment variables
@@ -21,6 +20,15 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Local agent workspaces
+# Local agent workspaces (não versionar)
 .worktrees/
 .superpowers/
+
+# Configuração de agentes: versionada de propósito.
+# Template: .claude/agents/, .codex/agents/, .cursor/agents/, skills/, .agents/.
+# Overlay OCARECADEV: skills específicas do repo + image-creator-agent + AGENTS.md.
+# Estado local do Claude Code não deve ser versionado:
+.claude/settings.local.json
+.claude/history/
+.claude/todos/
+.claude/shell-snapshots/

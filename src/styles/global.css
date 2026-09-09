@@ -343,22 +343,67 @@ section[id] {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .scrolly {
+    height: var(--scrolly-track, 300vh);
+  }
+
+  @media (max-width: 767px) {
+    .scrolly {
+      height: var(--scrolly-track-mobile, var(--scrolly-track, 240vh));
+    }
+  }
+
+  .scrolly__stage {
+    position: sticky;
+    top: var(--header-offset);
+    height: calc(100svh - var(--header-offset));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Fallback de Scrollytelling via JS para navegadores sem CSS scroll-driven animations (Safari/Firefox) */
+  .scrolly-fallback .scrolly-step {
+    opacity: 0;
+    transform: translateY(38px);
+    will-change: opacity, transform;
+  }
+
+  .scrolly-fallback .scrolly-step.from-left {
+    transform: translateX(-44px);
+  }
+
+  .scrolly-fallback .scrolly-step.from-right {
+    transform: translateX(44px);
+  }
+
+  .scrolly-fallback .scrolly-step.from-scale {
+    transform: scale(0.92);
+  }
+
+  @media (max-width: 767px) {
+    .scrolly-fallback .scrolly-step.from-left,
+    .scrolly-fallback .scrolly-step.from-right {
+      transform: translateY(38px);
+    }
+  }
+
+  .scrolly-fallback .scrolly-progress {
+    transform-origin: top center;
+    transform: scaleY(0);
+  }
+
+  .scrolly-fallback .scrolly-progress.is-horizontal {
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+
   @supports ((animation-timeline: view()) and (animation-range: contain)) {
     .scrolly {
-      height: var(--scrolly-track, 300vh);
       view-timeline-name: var(--scrolly-timeline, --scrolly);
       view-timeline-axis: block;
-    }
-
-    .scrolly__stage {
-      position: sticky;
-      top: var(--header-offset);
-      height: calc(100svh - var(--header-offset));
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
     }
 
     /* Reveal escalonado: cada step ocupa uma fatia da fase `contain`
@@ -566,6 +611,31 @@ section[id] {
         height: var(--scrolly-track-mobile, var(--scrolly-track, 240vh));
       }
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrolly-section {
+    padding: 4rem 0;
+  }
+  @media (min-width: 768px) {
+    .scrolly-section {
+      padding: 5.5rem 0;
+    }
+  }
+  .scrolly {
+    height: auto !important;
+  }
+  .scrolly__stage {
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+  .scrolly-step {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
 }
 

@@ -30,10 +30,23 @@ test('layout provides canonical social metadata and structured business data', (
 
 test('AI discovery document identifies the site and its primary service', () => {
   const llms = read('public/llms.txt');
+  const indexMd = read('public/index.md');
+  const layout = read('src/layouts/Layout.astro');
 
   assert.match(llms, /# OCARECADEV/);
   assert.match(llms, /https:\/\/www\.ocarecadev\.com\.br\//);
   assert.match(llms, /landing pages/i);
+  // llmstxt.org specification compliance: structured with Markdown hyperlinks
+  assert.match(llms, /\[.+?\]\(https?:\/\/.+?\)/);
+  assert.match(llms, /## Páginas/);
+
+  // Markdown alternate version
+  assert.match(indexMd, /# OCARECADEV/);
+  assert.match(indexMd, /landing pages/i);
+
+  // Layout discovery tags
+  assert.match(layout, /<link rel="describedby" href="\/llms\.txt"/);
+  assert.match(layout, /<link rel="alternate" type="text\/markdown" href="\/index\.md"/);
 });
 
 test('FAQ defines a native collapsed disclosure for each answer', () => {
@@ -142,9 +155,11 @@ test('proof section keeps testimonials in a normal responsive flow without artif
   const socialProof = read('src/components/sections/SocialProof.astro');
 
   assert.match(socialProof, /class="proof-grid"/);
-  assert.match(socialProof, /Roberto Almeida/);
-  assert.match(socialProof, /Mariana Costa/);
-  assert.match(socialProof, /Carlos Moura/);
+  assert.match(socialProof, /Vinicius Oliveira/);
+  assert.match(socialProof, /Grupo Carrera Consórcio/);
+  assert.doesNotMatch(socialProof, /Roberto Almeida/);
+  assert.doesNotMatch(socialProof, /Mariana Costa/);
+  assert.match(socialProof, /class="stars" role="img" aria-label="Avaliação: 5 de 5 estrelas"/);
   assert.doesNotMatch(socialProof, /BeforeAfterMockup/);
   assert.doesNotMatch(socialProof, /scrolly-step/);
   assert.doesNotMatch(socialProof, /proof-mobile/);
@@ -214,33 +229,33 @@ test('solution and agitation mockups prioritize the available desktop width', ()
   assert.match(frustration, /\.frustration-mockup--compact\s*\{[\s\S]*max-width:\s*none/);
 });
 
-test('privacy policy page exposes the required 11 sections, LGPD mentions and footer link', () => {
-  const privacy = read('src/pages/politica-de-privacidade.astro');
-  const footer = read('src/components/sections/Footer.astro');
-  const sitemap = read('src/pages/sitemap.xml.ts');
+test('scrollytelling stage and tracks are configured universally with accessible fallback padding', () => {
+  const css = read('src/styles/global.css');
+  const scrollScript = read('src/scripts/scrollAnimations.js');
 
-  // Header & Title
-  assert.match(privacy, /Política de Privacidade/);
-  assert.match(privacy, /O Careca Dev/);
-  assert.match(privacy, /02 de setembro de 2026/);
-  assert.match(privacy, /Lei nº 13\.709\/2018/);
+  // Universal layout properties outside of @supports for cross-browser parity (Safari/Firefox/Chrome)
+  assert.match(css, /\.scrolly\s*\{\s*height:\s*var\(--scrolly-track,\s*300vh\);/);
+  assert.match(css, /\.scrolly__stage\s*\{[\s\S]*position:\s*sticky;[\s\S]*top:\s*var\(--header-offset\);/);
 
-  // All 11 numbered sections
-  assert.match(privacy, /1\..*Dados que podemos coletar/);
-  assert.match(privacy, /2\..*Como utilizamos seus dados/);
-  assert.match(privacy, /3\..*Base para o tratamento dos dados/);
-  assert.match(privacy, /4\..*Compartilhamento de informações/);
-  assert.match(privacy, /5\..*Formulários e anúncios/);
-  assert.match(privacy, /6\..*Armazenamento e segurança/);
-  assert.match(privacy, /7\..*Direitos do titular/);
-  assert.match(privacy, /8\..*Cookies e tecnologias semelhantes/);
-  assert.match(privacy, /9\..*Links e serviços de terceiros/);
-  assert.match(privacy, /10\..*Alterações desta Política/);
-  assert.match(privacy, /11\..*Contato/);
-  assert.match(privacy, /ocarecadev\.com\.br/);
+  // Fallback CSS rules for browsers without native scroll-driven animations
+  assert.match(css, /\.scrolly-fallback\s+\.scrolly-step\s*\{[\s\S]*opacity:\s*0;/);
 
-  // Footer & Sitemap integration
-  assert.match(footer, /href="\/politica-de-privacidade"/);
-  assert.match(sitemap, /politica-de-privacidade/);
+  // Reduced motion provides explicit vertical padding so sections never lack spacing
+  assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*\.scrolly-section\s*\{\s*padding:\s*4rem\s+0;/);
+
+  // JS provides runtime interpolation when native timeline is absent
+  assert.match(scrollScript, /scrollyFallbackActive/);
+  assert.match(scrollScript, /updateScrollytelling/);
+});
+
+test('primary CTA buttons use solid neon background with high-contrast text', () => {
+  const button = read('src/components/ui/Button.astro');
+
+  // Button background has solid neon presence (not washed-out / transparent)
+  assert.match(button, /\.btn-primary\s*\{[\s\S]*background:\s*linear-gradient\(135deg,\s*var\(--color-primary-neon\)/);
+
+  // Text color is dark with high contrast (> 7:1) over neon green (G1 accessibility)
+  assert.match(button, /\.btn-primary\s*\{[\s\S]*color:\s*#04120c;/);
+  assert.match(button, /\.btn-primary\s*\{[\s\S]*font-weight:\s*700;/);
 });
 

@@ -1,0 +1,157 @@
+---
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+---
+
+<aside class="scarcity-toast" id="scarcity-toast" aria-label="Alerta do plano Express">
+  <span class="scarcity-toast__ping" aria-hidden="true"></span>
+  <div class="scarcity-toast__copy">
+    <p class="scarcity-toast__title">Express em até 48h</p>
+    <p class="scarcity-toast__body">
+      O plano Express entrega em até 48h, com capacidade limitada. Confirme a próxima janela pelo WhatsApp ou veja os planos.
+    </p>
+    <Button
+      type="primary"
+      href="#pricing"
+      class="scarcity-toast__cta"
+      text="Ver o plano Express"
+      data-track-event="select_content"
+      data-track-location="scarcity_toast"
+    />
+  </div>
+  <button
+    type="button"
+    class="scarcity-toast__dismiss"
+    id="scarcity-toast-dismiss"
+    aria-label="Fechar alerta"
+  >
+    <Icon name="x" size={18} stroke={2.5} />
+  </button>
+</aside>
+
+<style>
+  .scarcity-toast {
+    position: fixed;
+    z-index: 45;
+    left: 1rem;
+    bottom: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    max-width: min(22rem, calc(100vw - 5.5rem));
+    padding: 1rem 0.75rem 1rem 1rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 1rem;
+    background: rgba(15, 18, 33, 0.94);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: var(--glass-shadow);
+  }
+
+  .scarcity-toast[hidden] {
+    display: none;
+  }
+
+  .scarcity-toast__ping {
+    flex: 0 0 auto;
+    width: 0.55rem;
+    height: 0.55rem;
+    margin-top: 0.35rem;
+    border-radius: 50%;
+    background: var(--color-primary-neon);
+    box-shadow: 0 0 0.5rem rgba(0, 255, 157, 0.6);
+  }
+
+  .scarcity-toast__copy {
+    display: grid;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .scarcity-toast__title {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .scarcity-toast__body {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .scarcity-toast :global(.scarcity-toast__cta) {
+    justify-self: start;
+    min-height: 48px;
+    margin-top: 0.15rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+  }
+
+  .scarcity-toast :global(.scarcity-toast__cta:focus-visible) {
+    outline: 2px solid var(--color-primary-neon);
+    outline-offset: 2px;
+  }
+
+  .scarcity-toast__dismiss {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    min-width: 48px;
+    min-height: 48px;
+    flex: 0 0 auto;
+    place-items: center;
+    margin: -0.35rem -0.2rem 0 0;
+    border: 0;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--color-text-primary);
+    cursor: pointer;
+  }
+
+  .scarcity-toast__dismiss:focus-visible {
+    outline: 2px solid var(--color-primary-neon);
+    outline-offset: 2px;
+  }
+
+  :global(body:has(#cookie-consent:not([hidden]))) .scarcity-toast {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .scarcity-toast__ping {
+      animation: scarcity-ping 2s ease-out infinite;
+    }
+  }
+
+  @keyframes scarcity-ping {
+    0% {
+      box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.55);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 8px rgba(0, 255, 157, 0);
+    }
+  }
+</style>
+
+<script>
+  const setupScarcityToast = () => {
+    const toast = document.getElementById('scarcity-toast');
+    const dismiss = document.getElementById('scarcity-toast-dismiss');
+    if (!toast || !dismiss || dismiss.dataset.bound === 'true') return;
+
+    dismiss.dataset.bound = 'true';
+    dismiss.addEventListener('click', () => {
+      toast.hidden = true;
+    });
+  };
+
+  setupScarcityToast();
+  document.addEventListener('astro:page-load', setupScarcityToast);
+</script>

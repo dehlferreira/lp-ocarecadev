@@ -1,15 +1,3 @@
-const initAnalytics = () => {
-  const ctaButtons = document.querySelectorAll('.btn-pricing-cta, #btn-hero-primary, #btn-header-cta');
-  ctaButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (typeof fbq === 'function') fbq('track', 'Lead');
-      if (typeof gtag === 'function') {
-        gtag('event', 'generate_lead', { currency: 'BRL', value: 997.00 });
-      }
-    });
-  });
-};
-
 const initScrollAnimations = () => {
   // Intersection Observer atuando como Fallback para navegadores sem suporte a CSS Scroll-Driven Animations
   if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) {
@@ -47,6 +35,141 @@ const initScrollAnimations = () => {
     });
   }
 
+  const scrollySupported =
+    typeof CSS !== 'undefined' &&
+    typeof CSS.supports === 'function' &&
+    CSS.supports('(animation-timeline: view()) and (animation-range: contain)');
+
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const scrollyFallbackActive = !scrollySupported && !prefersReducedMotion;
+
+  if (scrollyFallbackActive && typeof document !== 'undefined') {
+    document.documentElement.classList.add('scrolly-fallback');
+  }
+
+  const STEP_RANGES = {
+    2: [
+      [0.04, 0.42],
+      [0.46, 0.88],
+    ],
+    3: [
+      [0.04, 0.28],
+      [0.32, 0.56],
+      [0.6, 0.88],
+    ],
+    4: [
+      [0.04, 0.22],
+      [0.26, 0.44],
+      [0.48, 0.66],
+      [0.7, 0.88],
+    ],
+    5: [
+      [0.04, 0.18],
+      [0.21, 0.35],
+      [0.38, 0.52],
+      [0.55, 0.69],
+      [0.72, 0.88],
+    ],
+    7: [
+      [0.03, 0.13],
+      [0.15, 0.25],
+      [0.27, 0.37],
+      [0.39, 0.49],
+      [0.51, 0.61],
+      [0.63, 0.73],
+      [0.75, 0.88],
+    ],
+  };
+
+  const scrollyContainers = scrollyFallbackActive
+    ? Array.from(document.querySelectorAll('.scrolly'))
+    : [];
+
+  const updateScrollytelling = () => {
+    const isMobile = window.innerWidth < 768;
+    const headerOffset = isMobile ? 72 : 104;
+
+    for (const container of scrollyContainers) {
+      const pinDistance = container.offsetHeight - window.innerHeight;
+      if (pinDistance <= 0) continue;
+
+      const rect = container.getBoundingClientRect();
+      const current = headerOffset - rect.top;
+      const progress = Math.min(Math.max(current / pinDistance, 0), 1);
+
+      let totalSteps = 5;
+      for (const count of [2, 3, 4, 5, 7]) {
+        if (container.classList.contains(`scrolly--${count}`)) {
+          totalSteps = count;
+          break;
+        }
+      }
+
+      const ranges = STEP_RANGES[totalSteps] || STEP_RANGES[5];
+      const steps = container.querySelectorAll('.scrolly-step');
+      const section = container.closest('section');
+      const isTarget = Boolean(
+        section && section.id && window.location.hash === `#${section.id}`
+      );
+
+      for (const step of steps) {
+        let stepIdx = 1;
+        for (let i = 1; i <= 7; i++) {
+          if (step.classList.contains(`s-${i}`)) {
+            stepIdx = i;
+            break;
+          }
+        }
+
+        if (isTarget && stepIdx === 1) {
+          step.style.opacity = '1';
+          step.style.transform = 'none';
+          continue;
+        }
+
+        const range = ranges[stepIdx - 1];
+        if (!range) continue;
+
+        const [start, end] = range;
+        const stepProgress = Math.min(Math.max((progress - start) / (end - start), 0), 1);
+
+        step.style.opacity = stepProgress.toString();
+
+        if (stepProgress >= 1) {
+          step.style.transform = 'none';
+        } else {
+          if (step.classList.contains('from-left')) {
+            step.style.transform = isMobile
+              ? `translateY(${(1 - stepProgress) * 38}px)`
+              : `translateX(${(1 - stepProgress) * -44}px)`;
+          } else if (step.classList.contains('from-right')) {
+            step.style.transform = isMobile
+              ? `translateY(${(1 - stepProgress) * 38}px)`
+              : `translateX(${(1 - stepProgress) * 44}px)`;
+          } else if (step.classList.contains('from-scale')) {
+            step.style.transform = `scale(${0.92 + stepProgress * 0.08})`;
+          } else {
+            step.style.transform = `translateY(${(1 - stepProgress) * 38}px)`;
+          }
+        }
+      }
+
+      const progressBars = container.querySelectorAll('.scrolly-progress');
+      for (const bar of progressBars) {
+        const fill = Math.min(Math.max((progress - 0.02) / (0.88 - 0.02), 0), 1);
+        if (bar.classList.contains('is-horizontal')) {
+          bar.style.transform = `scaleX(${fill})`;
+        } else {
+          bar.style.transform = `scaleY(${fill})`;
+        }
+      }
+    }
+  };
+
   const header = document.getElementById('main-header');
 
   let ticking = false;
@@ -58,6 +181,10 @@ const initScrollAnimations = () => {
       // Anima só o padding vertical (encolhe ao rolar); o horizontal fica no CSS
       // para o header manter o mesmo gutter das seções (1rem).
       header.style.paddingBlock = scrolled > 50 ? '0.5rem' : '1rem';
+    }
+
+    if (scrollyFallbackActive) {
+      updateScrollytelling();
     }
 
     // Hero dissolve — opacity + transform only (compositor-friendly, PRD-003)
@@ -106,7 +233,6 @@ const initMouseTracking = () => {
 };
 
 const init = () => {
-  initAnalytics();
   initScrollAnimations();
   initMouseTracking();
 };

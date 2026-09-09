@@ -1,0 +1,63 @@
+---
+import Icon from './Icon.astro';
+
+const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
+const whatsappMessage = import.meta.env.WHATSAPP_MESSAGE_DEFAULT || 'Olá, tenho interesse.';
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+---
+
+<a
+  class="whatsapp-fab"
+  href={whatsappUrl}
+  rel="noopener noreferrer"
+  aria-label="Fale conosco pelo WhatsApp"
+  data-track-event="lead"
+  data-track-location="fab"
+>
+  <Icon name="whatsapp" size={28} />
+</a>
+
+<style>
+  .whatsapp-fab {
+    position: fixed;
+    z-index: 40;
+    right: 1rem;
+    bottom: 1rem;
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    min-width: 48px;
+    min-height: 48px;
+    place-items: center;
+    border-radius: 50%;
+    background: #25d366;
+    color: #ffffff;
+    box-shadow: 0 0.5rem 1.5rem rgba(37, 211, 102, 0.35);
+  }
+
+  .whatsapp-fab:focus-visible {
+    outline: 2px solid var(--color-primary-neon);
+    outline-offset: 3px;
+  }
+
+  :global(body:has(#cookie-consent:not([hidden]))) .whatsapp-fab {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .whatsapp-fab {
+      animation: fab-pulse 2.4s ease-in-out infinite;
+    }
+  }
+
+  @keyframes fab-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0.5rem 1.5rem rgba(37, 211, 102, 0.35), 0 0 0 0 rgba(37, 211, 102, 0.45);
+    }
+    70% {
+      box-shadow: 0 0.5rem 1.5rem rgba(37, 211, 102, 0.35), 0 0 0 12px rgba(37, 211, 102, 0);
+    }
+  }
+</style>
