@@ -26,13 +26,14 @@ test('social proof section completely removes synthetic/fake testimonials', () =
 test('social proof assets exist in canonical directories', () => {
   assert.ok(exists('src/assets/images/proof-whatsapp-vinicius.webp'), 'Vinicius WhatsApp image must exist');
   assert.ok(exists('src/assets/images/proof-instagram-carrera.webp'), 'Carrera Instagram image must exist');
+  assert.ok(exists('src/assets/images/proof-whatsapp-renato.webp'), 'Renato WhatsApp image must exist');
   assert.ok(exists('public/audio/social-proof-audio-1.mp3'), 'Audio 1 mp3 file must exist in public/audio/');
   assert.ok(exists('public/audio/social-proof-audio-2.mp3'), 'Audio 2 mp3 file must exist in public/audio/');
   assert.ok(exists('public/videos/social-proof-audio-1.mp4'), 'Audio 1 video file must exist in public/videos/');
   assert.ok(exists('public/videos/social-proof-audio-2.mp4'), 'Audio 2 video file must exist in public/videos/');
 });
 
-test('social proof section renders 4 authentic cases with proper channels and badges', () => {
+test('social proof section renders 5 authentic cases with proper channels and badges', () => {
   const component = read('src/components/sections/SocialProof.astro');
 
   // Case 1: Carrera Consórcio
@@ -46,7 +47,12 @@ test('social proof section renders 4 authentic cases with proper channels and ba
   assert.match(component, /class="verified-icon"\s+role="img"[^>]*aria-label="Cliente verificado"/);
   assert.doesNotMatch(component, /<span(?![^>]*role=)[^>]*aria-label=/, 'Generic <span> must not use aria-label without an explicit role (axe-core/Lighthouse aria-allowed-attr)');
 
-  // Case 3 & 4: Audios
+  // Case 3: Renato Farias
+  assert.match(component, /Renato Farias/);
+  assert.match(component, /rodando liso no celular/);
+  assert.match(component, /proof-whatsapp-renato\.webp/);
+
+  // Case 4 & 5: Audios
   assert.match(component, /social-proof-audio-1\.mp3/);
   assert.match(component, /social-proof-audio-2\.mp3/);
 });

@@ -2,11 +2,10 @@
 import Icon from '../ui/Icon.astro';
 import ProblemMockup from '../ui/ProblemMockup.astro';
 
-const pains = [
-  'Seu site não gera <span class="text-neon">leads</span>',
-  'Ninguém clica no seu botão',
-  'Você depende de indicação',
-  'E quando não indicam… você não vende',
+const points = [
+  '<strong>1. O que você faz:</strong> sem jargão e sem enrolação.',
+  '<strong>2. Por que escolher você:</strong> diferencial perceptível.',
+  '<strong>3. Qual é o próximo passo:</strong> botão e direcionamento óbvio.',
 ];
 ---
 
@@ -17,21 +16,29 @@ const pains = [
         <div class="problem-content">
           <div class="problem-left">
             <h2 class="problem-title scrolly-step s-1">
-              Se você já tem um site e ele não te traz <span class="text-neon">clientes</span>,
-              ele não serve pra nada
+              Seu site recebe pessoas, mas deixa claro o que elas devem fazer <span class="text-neon">depois</span>?
             </h2>
 
             <div class="problem-copy">
-              <p class="problem-desc scrolly-step s-2">A verdade é simples:</p>
+              <p class="problem-desc scrolly-step s-2">Um visitante precisa entender rapidamente três coisas:</p>
 
               <ul class="problem-list">
-                {pains.map((pain, i) => (
+                {points.map((point, i) => (
                   <li class={`scrolly-step from-left s-${i + 3}`}>
-                    <span class="pain-icon"><Icon name="x" size={16} stroke={2.5} /></span>
-                    <span set:html={pain} />
+                    <span class="pain-icon"><Icon name="check" size={16} stroke={2.5} /></span>
+                    <span set:html={point} />
                   </li>
                 ))}
               </ul>
+
+              <div class="problem-punchline scrolly-step s-6">
+                <p class="punchline-text">
+                  Quando isso não fica claro, a pessoa entra, olha e vai embora.
+                </p>
+                <p class="punchline-highlight">
+                  Se sua página não ajuda o visitante a avançar, ela vira só mais um <span class="text-neon">custo</span>.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -98,7 +105,7 @@ const pains = [
     gap: 0.85rem;
   }
 
-  /* Badge circular para o "x" — vermelho dessaturado, sóbrio (não emoji) */
+  /* Badge circular para os 3 pontos */
   .pain-icon {
     display: inline-flex;
     align-items: center;
@@ -107,9 +114,29 @@ const pains = [
     height: 26px;
     flex-shrink: 0;
     border-radius: 50%;
-    color: #ff6b6b;
-    background: rgba(255, 107, 107, 0.1);
-    border: 1px solid rgba(255, 107, 107, 0.25);
+    color: var(--color-primary-neon);
+    background: rgba(0, 255, 157, 0.1);
+    border: 1px solid rgba(0, 255, 157, 0.25);
+  }
+
+  .problem-punchline {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: left;
+  }
+
+  .punchline-text {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 0.5rem;
+  }
+
+  .punchline-highlight {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
   }
 
   .problem-mockup-col {
@@ -155,29 +182,65 @@ const pains = [
     }
   }
 
-  /* Mobile: compacta para caber no palco pinado (100svh) */
+  /* Mobile: ocupa a tela com harmonia e proporção visual equilibrada */
   @media (max-width: 767px) {
+    .problem-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .problem-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+    .problem-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0;
+      width: 100%;
+    }
     .problem-title {
-      font-size: 1.45rem;
-      margin-bottom: 0.75rem;
-      line-height: 1.15;
+      font-size: 1.35rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
     }
     .problem-desc {
-      font-size: 1rem;
-      margin-bottom: 0.65rem;
+      font-size: 0.92rem;
+      margin-bottom: 0.4rem;
     }
     .problem-list {
-      gap: 0.55rem;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
+      gap: 0.45rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.88rem;
     }
     .problem-list li {
-      gap: 0.6rem;
+      gap: 0.55rem;
     }
     .pain-icon {
       width: 22px;
       height: 22px;
     }
-    .problem-mockup-col { max-width: none; }
+    .problem-punchline {
+      margin-top: 0.55rem;
+      padding-top: 0.55rem;
+    }
+    .punchline-text {
+      font-size: 0.85rem;
+      margin: 0 0 0.25rem;
+    }
+    .punchline-highlight {
+      font-size: 1.02rem;
+    }
+    .problem-mockup-col {
+      max-width: none;
+      width: 100%;
+      flex-shrink: 0;
+    }
   }
 </style>

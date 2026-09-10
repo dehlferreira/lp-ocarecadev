@@ -364,6 +364,15 @@ section[id] {
     overflow: hidden;
   }
 
+  @media (max-width: 767px) {
+    .scrolly__stage {
+      top: 0;
+      height: 100svh;
+      justify-content: center;
+      padding: max(env(safe-area-inset-top, 1.25rem), 1.25rem) 1rem max(env(safe-area-inset-bottom, 3rem), 3rem);
+    }
+  }
+
   /* Fallback de Scrollytelling via JS para navegadores sem CSS scroll-driven animations (Safari/Firefox) */
   .scrolly-fallback .scrolly-step {
     opacity: 0;

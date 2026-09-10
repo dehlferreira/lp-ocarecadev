@@ -72,8 +72,15 @@ const models = [
 <section id="modelos" class="section-models" aria-labelledby="modelos-title">
   <div class="container">
     <header class="models-header">
-      <p class="models-eyebrow">Modelos por nicho</p>
-      <h2 id="modelos-title" class="models-title">Veja uma página feita para o seu tipo de negócio</h2>
+      <p class="models-eyebrow">Alguns modelos disponíveis no OCARECADEV Express</p>
+      <h2 id="modelos-title" class="models-title">Veja possibilidades para o seu negócio</h2>
+      <p class="models-subtitle">
+        Exemplos visuais para você enxergar como diferentes segmentos ganham uma presença digital mais profissional.
+      </p>
+      <div class="models-scope-note">
+        <span class="scope-pill scope-pill--express"><strong>EXPRESS:</strong> Implementação ágil sobre modelo estruturado</span>
+        <span class="scope-pill scope-pill--custom"><strong>LANDING QUE VENDE:</strong> Projeto 100% estratégico, personalizado e sob medida</span>
+      </div>
     </header>
 
     <div class="models-controls">
@@ -110,7 +117,7 @@ const models = [
               <div
                 class="model-thumb"
                 role="img"
-                aria-label={`Placeholder do modelo ${model.placeholderName} — imagem provisória`}
+                aria-label={`Placeholder do modelo ${model.placeholderName}, imagem provisória`}
               >
                 <Icon name="layout-template" size={36} />
                 <span class="model-thumb-brand" aria-hidden="true">OCARECADEV</span>
@@ -170,11 +177,45 @@ const models = [
   }
 
   .models-title {
-    margin: 0;
+    margin: 0 0 0.85rem;
     color: var(--color-text-primary);
     font-size: 1.75rem;
     font-weight: 800;
     line-height: 1.15;
+  }
+
+  .models-subtitle {
+    margin: 0 auto 1.25rem;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    max-width: 680px;
+  }
+
+  .models-scope-note {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .scope-pill strong {
+    color: #ffffff;
+  }
+
+  .scope-pill--custom strong {
+    color: var(--color-primary-neon);
+  }
+
+  .scope-divider {
+    color: rgba(255, 255, 255, 0.2);
   }
 
   @media (min-width: 768px) {

@@ -9,7 +9,7 @@ interface Props {
 	description?: string;
 }
 
-const { title, description = "OCARECADEV - Máquinas de Geração de Clientes" } = Astro.props;
+const { title, description = "OCARECADEV | Landing Pages e Sites Estratégicos que Convertem" } = Astro.props;
 
 // URLs absolutas evitam versões duplicadas da página em buscadores e previews sociais.
 const siteUrl = Astro.site || Astro.url;
@@ -45,10 +45,15 @@ const structuredData = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'Preciso entender de tecnologia?', acceptedAnswer: { '@type': 'Answer', text: 'Não. Nós cuidamos de tudo.' } },
-      { '@type': 'Question', name: 'Em quanto tempo fica pronto?', acceptedAnswer: { '@type': 'Answer', text: 'A partir de 48h no plano Express.' } },
-      { '@type': 'Question', name: 'Vou conseguir editar depois?', acceptedAnswer: { '@type': 'Answer', text: 'Sim, você terá acesso.' } },
-      { '@type': 'Question', name: 'Isso realmente funciona?', acceptedAnswer: { '@type': 'Answer', text: 'Funciona quando é feito da forma certa — e é isso que fazemos.' } },
+      { '@type': 'Question', name: 'Já tenho Instagram. Ainda preciso de uma landing page?', acceptedAnswer: { '@type': 'Answer', text: 'O Instagram é ótimo para atrair atenção, mas é limitado para explicar uma oferta completa e fechar. Na landing page, o visitante não se distrai com notificações ou concorrentes: ele encontra sua proposta de valor clara e um botão direto para conversar com você no WhatsApp.' } },
+      { '@type': 'Question', name: 'Preciso anunciar para a página funcionar?', acceptedAnswer: { '@type': 'Answer', text: 'Não obrigatoriamente. Uma landing page bem estruturada potencializa qualquer tráfego que você já receba, seja do link da bio do Instagram, indicação de clientes, Google Meu Negócio ou abordagens diretas. Quando você decidir investir em anúncios (Google ou Meta), a página já estará pronta para converter esse tráfego em contatos.' } },
+      { '@type': 'Question', name: 'Vocês também fazem os textos da página?', acceptedAnswer: { '@type': 'Answer', text: 'Sim. Nós estruturamos toda a copy (redação persuasiva) com base no seu público, nos seus diferenciais e no objetivo da página. Você só precisa nos passar as informações essenciais sobre o seu negócio e validar o conteúdo antes da publicação.' } },
+      { '@type': 'Question', name: 'Domínio e hospedagem estão incluídos?', acceptedAnswer: { '@type': 'Answer', text: 'O domínio (ex.: suaempresa.com.br) é registrado em seu nome para garantir que a propriedade seja sempre sua (custa em média R$ 40/ano no Registro.br). Nós cuidamos de toda a configuração técnica e a hospedagem é feita em infraestrutura moderna, ultrarrápida e com SSL gratuito.' } },
+      { '@type': 'Question', name: 'Por que não fazer sozinho no Wix, Canva ou WordPress?', acceptedAnswer: { '@type': 'Answer', text: 'Ferramentas visuais genéricas costumam gerar páginas lentas, pesadas e que quebram no celular. Além disso, a ferramenta não resolve a estratégia: nossa entrega combina código limpo de altíssima velocidade com redação e UX orientadas a fazer o visitante entender e agir.' } },
+      { '@type': 'Question', name: 'Qual a diferença entre o Express e a Landing que Vende?', acceptedAnswer: { '@type': 'Answer', text: 'O Express é voltado para quem precisa entrar no ar rápido, utilizando uma estrutura validada com personalização ágil de marca e conteúdo. A Landing que Vende é um projeto 100% estratégico e aprofundado, construído sob medida com copy específica para sua oferta e tracking detalhado de comportamento.' } },
+      { '@type': 'Question', name: 'Depois que a página estiver pronta, ela é minha?', acceptedAnswer: { '@type': 'Answer', text: 'Sim, 100% sua. Não cobramos mensalidades obrigatórias de manutenção nem retemos seu projeto. O código e o domínio pertencem exclusivamente ao seu negócio.' } },
+      { '@type': 'Question', name: 'O que vocês precisam de mim para começar?', acceptedAnswer: { '@type': 'Answer', text: 'Apenas de um alinhamento inicial: o que você vende, para quem, quais são seus principais diferenciais e seu número de WhatsApp de atendimento. A partir daí, cuidamos da estrutura, redação, design e publicação técnica.' } },
+      { '@type': 'Question', name: 'Em quanto tempo minha página fica pronta?', acceptedAnswer: { '@type': 'Answer', text: 'No plano OCARECADEV Express, entregamos em até 48 horas úteis após o envio das informações básicas. Na Landing que Vende e no Site Profissional, o prazo médio é de 5 a 10 dias úteis, dependendo do escopo e do tempo de alinhamento.' } },
     ],
   },
 ];

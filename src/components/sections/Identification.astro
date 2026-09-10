@@ -1,0 +1,179 @@
+---
+import Icon from '../ui/Icon.astro';
+
+const categories = [
+  { name: 'Prestadores de Serviço', icon: 'wrench' },
+  { name: 'Clínicas & Saúde', icon: 'heart-pulse' },
+  { name: 'Escritórios & Consultorias', icon: 'briefcase' },
+  { name: 'Negócios Locais', icon: 'map-pin' },
+  { name: 'Profissionais Liberais', icon: 'user-check' },
+];
+---
+
+<section id="identificacao" class="section-identification section-fade-top section-fade-bottom">
+  <div class="container">
+    <div class="identification-card">
+      <div class="identification-header">
+        <span class="identification-badge">
+          <span class="badge-dot"></span>
+          Para quem é a OCARECADEV
+        </span>
+        <h2 class="identification-title">
+          Feita para negócios que precisam transformar atenção em <span class="text-neon">oportunidades</span>
+        </h2>
+        <p class="identification-desc">
+          Para prestadores de serviço, clínicas, escritórios, negócios locais e profissionais que usam Instagram, Google, anúncios ou indicação para atrair novos clientes.
+        </p>
+      </div>
+
+      <div class="identification-chips" role="list" aria-label="Segmentos atendidos">
+        {categories.map((cat) => (
+          <div class="chip-item" role="listitem">
+            <span class="chip-icon">
+              <Icon name={cat.icon} size={15} stroke={2.2} />
+            </span>
+            <span class="chip-text">{cat.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-identification {
+    padding: 3.5rem 0 2.5rem;
+    background-color: #050709;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .identification-card {
+    background: rgba(18, 22, 28, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2.25rem 2rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    text-align: center;
+    position: relative;
+  }
+
+  .identification-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 157, 0.45), transparent);
+  }
+
+  .identification-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(0, 255, 157, 0.08);
+    border: 1px solid rgba(0, 255, 157, 0.25);
+    color: var(--color-primary-neon);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.1rem;
+  }
+
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-primary-neon);
+    box-shadow: 0 0 8px var(--color-primary-neon);
+  }
+
+  .identification-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    line-height: 1.3;
+    max-width: 720px;
+    margin: 0 auto 0.85rem;
+  }
+
+  @media (min-width: 768px) {
+    .identification-title {
+      font-size: 2rem;
+    }
+  }
+
+  .identification-desc {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 0 auto 1.75rem;
+  }
+
+  .identification-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.65rem;
+  }
+
+  .chip-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.95rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 999px;
+    color: #e0e0e0;
+    font-size: 0.84rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .chip-item:hover {
+    border-color: rgba(0, 255, 157, 0.35);
+    background: rgba(0, 255, 157, 0.06);
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  .chip-icon {
+    color: var(--color-primary-neon);
+    display: grid;
+    place-items: center;
+  }
+
+  @media (max-width: 640px) {
+    .identification-card {
+      padding: 1.75rem 1.15rem;
+    }
+
+    .identification-title {
+      font-size: 1.3rem;
+    }
+
+    .identification-desc {
+      font-size: 0.92rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .chip-item {
+      font-size: 0.78rem;
+      padding: 0.4rem 0.75rem;
+    }
+  }
+</style>

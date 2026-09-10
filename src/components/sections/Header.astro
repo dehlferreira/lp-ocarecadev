@@ -13,7 +13,7 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
   <div class="container">
     <GlassCard class="header-card">
       <div class="logo">
-        <a href="/" aria-label="OCARECADEV - Página Inicial">
+        <a href="/" aria-label="OCARECADEV Página Inicial">
           <Image
             src={logoHorizontal}
             alt="OCARECADEV Logo"
@@ -114,7 +114,26 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     width: 100%;
     z-index: 50;
     padding: 1rem 0;
-    transition: all 0.3s ease;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Oculta no mobile ao rolar para baixo para liberar espaço no storytelling */
+  @media (max-width: 767px) {
+    .main-header.header--hidden {
+      transform: translateY(-120%);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .main-header {
+      transform: none !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .main-header {
+      transition: none !important;
+    }
   }
 
   .logo {
@@ -327,9 +346,59 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     }
   };
 
+  // Smart Header Logic (Oculta no mobile ao rolar para baixo para liberar tela para o storytelling)
+  const setupSmartHeader = () => {
+    const header = document.getElementById("main-header");
+    const mobileMenuOverlay = document.getElementById("mobile-menu");
+    if (!header) return;
+
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    const threshold = 12;
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.innerWidth < 768) {
+            const currentScrollY = window.scrollY;
+            const isMenuOpen = mobileMenuOverlay?.classList.contains("active");
+
+            // Mantém visível se o menu estiver aberto ou bem no topo
+            if (isMenuOpen || currentScrollY <= 30) {
+              header.classList.remove("header--hidden");
+            } else if (currentScrollY > lastScrollY + threshold) {
+              // Rolando para baixo: oculta para dar espaço ao storytelling
+              header.classList.add("header--hidden");
+            } else if (currentScrollY < lastScrollY - threshold) {
+              // Rolando para cima: revela a barra de navegação
+              header.classList.remove("header--hidden");
+            }
+
+            lastScrollY = currentScrollY;
+          } else {
+            header.classList.remove("header--hidden");
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Garante visibilidade se o usuário focar em algum elemento do header por teclado
+    header.addEventListener("focusin", () => {
+      header.classList.remove("header--hidden");
+    });
+  };
+
   // Run on first load
   setupMobileMenu();
+  setupSmartHeader();
 
   // Run on Astro view transitions
-  document.addEventListener("astro:page-load", setupMobileMenu);
+  document.addEventListener("astro:page-load", () => {
+    setupMobileMenu();
+    setupSmartHeader();
+  });
 </script>

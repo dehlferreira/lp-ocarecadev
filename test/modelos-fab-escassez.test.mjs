@@ -10,25 +10,25 @@ const zIndexValue = (source) => {
   return Number(match[1]);
 };
 
-test('index places models after SocialProof and before About and Pricing', () => {
+test('index places models in the canonical V2 sequence before SocialProof, About and Pricing', () => {
   const index = read('src/pages/index.astro');
-  const social = index.indexOf('SocialProof');
-  const models = index.indexOf('ModelsShowcase');
+  const models = index.indexOf('<ModelsShowcase');
+  const social = index.indexOf('<SocialProof');
   const about = index.indexOf('<About');
   const pricing = index.indexOf('<Pricing');
 
-  assert.ok(social >= 0 && models >= 0 && about >= 0 && pricing >= 0);
-  assert.ok(social < models, 'SocialProof must appear before ModelsShowcase');
-  assert.ok(models < about, 'ModelsShowcase must appear before About');
-  assert.ok(models < pricing, 'ModelsShowcase must appear before Pricing');
+  assert.ok(models >= 0 && social >= 0 && about >= 0 && pricing >= 0);
+  assert.ok(models < social, 'ModelsShowcase must appear before SocialProof in V2 architecture');
+  assert.ok(social < about, 'SocialProof must appear before About');
+  assert.ok(about < pricing, 'About must appear before Pricing');
 });
 
 test('models section uses the canonical landmark, headings and seven cards', () => {
   const section = read('src/components/sections/ModelsShowcase.astro');
 
   assert.match(section, /id="modelos"/);
-  assert.match(section, /<p class="models-eyebrow">Modelos por nicho<\/p>/);
-  assert.match(section, /<h2[^>]*>Veja uma página feita para o seu tipo de negócio<\/h2>/);
+  assert.match(section, /<p class="models-eyebrow">Alguns modelos disponíveis no OCARECADEV Express<\/p>/);
+  assert.match(section, /<h2[^>]*>Veja possibilidades para o seu negócio<\/h2>/);
   assert.doesNotMatch(section, /<h1[\s>]/);
 
   const names = [

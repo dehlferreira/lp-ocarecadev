@@ -5,27 +5,27 @@ import Icon from '../ui/Icon.astro';
 const steps = [
   {
     num: '01',
-    icon: 'layout-template',
-    title: 'Estrutura validada',
-    desc: 'Usamos modelos que já funcionam',
+    icon: 'spark',
+    title: 'Entendemos sua oferta',
+    desc: 'O que você vende, para quem e qual ação queremos gerar.',
   },
   {
     num: '02',
-    icon: 'sliders-horizontal',
-    title: 'Personalização',
-    desc: 'Adaptamos para o seu negócio',
+    icon: 'layout-template',
+    title: 'Construímos a página',
+    desc: 'Copy, estrutura, design e experiência trabalhando juntos.',
   },
   {
     num: '03',
-    icon: 'rocket',
-    title: 'Publicação rápida',
-    desc: 'Seu site no ar em poucos dias',
+    icon: 'sliders-horizontal',
+    title: 'Ajustamos para o seu negócio',
+    desc: 'Identidade, imagens, argumentos e integrações.',
   },
   {
     num: '04',
-    icon: 'trending-up',
-    title: 'Geração de leads',
-    desc: 'Visitantes viram contatos no WhatsApp',
+    icon: 'rocket',
+    title: 'Publicamos e medimos',
+    desc: 'Página no ar com WhatsApp, Analytics e tracking conforme o plano contratado.',
   },
 ];
 
@@ -203,38 +203,58 @@ const steps = [
     font-size: 1rem;
   }
 
-  /* Mobile: layout 2x2 compacto para caber na seção pinada (100svh) */
+  /* Mobile: layout 2x2 com proporção confortável ocupando a tela cheia */
   @media (max-width: 767px) {
+    .section-how .container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 0.25rem;
+      padding-bottom: 0.5rem;
+    }
     .section-header {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
     .section-title {
-      font-size: 1.35rem;
+      font-size: 1.4rem;
+      line-height: 1.22;
     }
     .how-progress {
-      margin-top: 0.85rem;
+      margin-top: 0.65rem;
+      height: 3px;
+    }
+    .steps-grid {
+      gap: 0.75rem;
+      flex: 1;
+      align-content: center;
     }
     :global(.section-how .step-card) {
-      padding: 1.25rem !important;
+      padding: 1.15rem 0.95rem !important;
     }
     .step-top {
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.65rem;
     }
     .step-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 11px;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+    }
+    .step-icon :global(.icon) {
+      width: 20px;
+      height: 20px;
     }
     .step-num {
-      font-size: 2rem;
+      font-size: 1.85rem;
     }
     .step-title {
-      font-size: 1.05rem;
-      margin-bottom: 0.35rem;
+      font-size: 0.98rem;
+      margin-bottom: 0.25rem;
+      line-height: 1.25;
     }
     .step-desc {
-      font-size: 0.85rem;
-      line-height: 1.4;
+      font-size: 0.8rem;
+      line-height: 1.38;
     }
   }
 </style>

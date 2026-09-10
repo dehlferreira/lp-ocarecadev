@@ -1,30 +1,52 @@
 ---
 import HeroMockup from '../ui/HeroMockup.astro';
 import Icon from '../ui/Icon.astro';
+
+const mechanismSteps = [
+  { num: '01', title: 'CLAREZA', desc: 'O visitante entende rapidamente o que você oferece.' },
+  { num: '02', title: 'INTERESSE', desc: 'A página mostra por que sua solução importa para ele.' },
+  { num: '03', title: 'CONFIANÇA', desc: 'Argumentos, conteúdo e provas reduzem a insegurança antes do contato.' },
+  { num: '04', title: 'AÇÃO', desc: 'O próximo passo fica claro e fácil de executar.' },
+];
 ---
 
-<section id="solucao" class="section-solution scrolly-section section-fade-top section-fade-bottom">
+<section id="mecanismo" class="section-solution scrolly-section section-fade-top section-fade-bottom">
   <div class="scrolly scrolly--5" style="--scrolly-track: 340vh; --scrolly-track-mobile: 190vh;">
     <div class="scrolly__stage">
       <div class="neon-glow"></div>
 
       <div class="container">
-        <!-- Ordem scroll (SPEC-009): título → texto → highlight → mockup → fechamento -->
+        <!-- Ordem scroll: título → sequência de passos → mockup → fechamento -->
         <div class="solution-content">
           <div class="solution-text-col">
             <h2 class="solution-title scrolly-step s-1">
-              <span class="solution-title-line">Agora imagina ter uma página</span>
-              <span class="solution-title-line">que trabalha por você todos os dias</span>
+              <span class="solution-title-line">Não é só design</span>
+              <span class="solution-title-line text-neon">É uma sequência</span>
             </h2>
 
-            <p class="solution-text scrolly-step s-2">
-              Na OCARECADEV, nós não criamos "sites bonitos".
-            </p>
+            <!-- Diagrama visual do fluxo -->
+            <div class="mechanism-flow scrolly-step s-2" aria-label="Sequência de persuasão">
+              <span class="flow-tag">CLAREZA</span>
+              <span class="flow-arrow"><Icon name="arrow-right" size={14} stroke={2.5} /></span>
+              <span class="flow-tag">INTERESSE</span>
+              <span class="flow-arrow"><Icon name="arrow-right" size={14} stroke={2.5} /></span>
+              <span class="flow-tag">CONFIANÇA</span>
+              <span class="flow-arrow"><Icon name="arrow-right" size={14} stroke={2.5} /></span>
+              <span class="flow-tag flow-tag--action">AÇÃO</span>
+            </div>
 
-            <p class="solution-highlight scrolly-step from-scale s-3">
-              <span class="highlight-icon"><Icon name="arrow-right" size={18} stroke={2.5} /></span>
-              <span>Nós criamos páginas pensadas para gerar <span class="text-neon">clientes</span>.</span>
-            </p>
+            <!-- 4 Passos Conceituais -->
+            <div class="mechanism-steps scrolly-step s-3">
+              {mechanismSteps.map((step) => (
+                <div class="mechanism-item">
+                  <span class="step-num-badge">{step.num}</span>
+                  <div class="step-info">
+                    <strong>{step.title}</strong>
+                    <p>{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div class="solution-mockup-col scrolly-step from-scale s-4">
@@ -32,7 +54,7 @@ import Icon from '../ui/Icon.astro';
           </div>
 
           <p class="solution-closing scrolly-step s-5">
-            Cada detalhe é feito para fazer o visitante clicar e virar <span class="text-neon">cliente</span>.
+            Cada seção tem uma função: fazer o visitante <span class="text-neon">continuar, entender, confiar e agir</span>.
           </p>
         </div>
       </div>
@@ -159,34 +181,106 @@ import Icon from '../ui/Icon.astro';
     }
   }
 
-  .solution-highlight {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    background: rgba(0, 255, 157, 0.05);
-    padding: 0.65rem 0.85rem;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 255, 157, 0.2);
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    margin: 0;
-    text-align: left;
-    max-width: 100%;
+  /* Diagrama de fluxo do mecanismo */
+  .mechanism-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.25rem 0 0.5rem;
   }
 
-  .solution-highlight .highlight-icon {
-    display: inline-flex;
+  .flow-tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .flow-tag--action {
+    background: rgba(0, 255, 157, 0.15);
+    border-color: rgba(0, 255, 157, 0.4);
     color: var(--color-primary-neon);
+  }
+
+  .flow-arrow {
+    color: rgba(255, 255, 255, 0.35);
+    display: grid;
+    place-items: center;
+  }
+
+  /* 4 Passos Conceituais */
+  .mechanism-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+    text-align: left;
+  }
+
+  .mechanism-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 8px;
+    transition: border-color 0.2s ease;
+  }
+
+  .mechanism-item:hover {
+    border-color: rgba(0, 255, 157, 0.3);
+  }
+
+  .step-num-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--color-primary-neon);
+    background: rgba(0, 255, 157, 0.1);
+    padding: 0.2rem 0.45rem;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 157, 0.25);
     flex-shrink: 0;
     margin-top: 0.1rem;
   }
 
+  .step-info strong {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.15rem;
+  }
+
+  .step-info p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    line-height: 1.35;
+  }
+
   @media (min-width: 768px) {
-    .solution-highlight {
-      font-size: 1.35rem;
-      padding: 1.25rem 1.5rem;
-      gap: 0.6rem;
+    .mechanism-steps {
+      gap: 0.85rem;
+    }
+    .mechanism-item {
+      padding: 0.85rem 1rem;
+    }
+    .step-info strong {
+      font-size: 0.95rem;
+    }
+    .step-info p {
+      font-size: 0.9rem;
+    }
+    .flow-tag {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
     }
   }
 
@@ -205,7 +299,7 @@ import Icon from '../ui/Icon.astro';
     }
   }
 
-  /* Mobile: comprime tudo para caber no palco pinado (100svh) */
+  /* Mobile: ocupa todo o espaço vertical liberado com espaçamento confortável */
   @media (max-width: 767px) {
     .neon-glow {
       width: 280px;
@@ -213,30 +307,64 @@ import Icon from '../ui/Icon.astro';
     }
 
     .solution-content {
-      gap: 0.9rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.65rem;
     }
 
     .solution-text-col {
-      gap: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
     .solution-title {
-      font-size: 1.1rem;
+      font-size: 1.35rem;
+      line-height: 1.2;
     }
 
-    .solution-text {
-      font-size: 0.875rem;
+    .mechanism-flow {
+      margin: 0.2rem 0 0.4rem;
+      gap: 0.35rem;
     }
 
-    .solution-highlight {
-      font-size: 0.875rem;
-      padding: 0.55rem 0.75rem;
-      justify-content: center;
-      text-align: center;
+    .flow-tag {
+      font-size: 0.72rem;
+      padding: 0.22rem 0.6rem;
     }
 
-    .solution-highlight .highlight-icon {
-      display: none;
+    .flow-arrow {
+      transform: scale(0.9);
+    }
+
+    /* Grid 2x2 para os 4 passos no mobile */
+    .mechanism-steps {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.55rem;
+    }
+
+    .mechanism-item {
+      padding: 0.6rem 0.75rem;
+      gap: 0.55rem;
+      border-radius: 8px;
+    }
+
+    .step-num-badge {
+      font-size: 0.72rem;
+      padding: 0.15rem 0.4rem;
+    }
+
+    .step-info strong {
+      font-size: 0.85rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .step-info p {
+      font-size: 0.74rem;
+      line-height: 1.3;
     }
 
     .solution-mockup-col {
@@ -244,8 +372,9 @@ import Icon from '../ui/Icon.astro';
     }
 
     .solution-closing {
-      font-size: 0.85rem;
-      padding: 0 0.25rem;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      padding: 0.25rem 0;
     }
   }
 </style>

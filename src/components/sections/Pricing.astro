@@ -16,28 +16,29 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
       <!-- Plano 1 -->
       <GlassCard class="scroll-animate anim-left delay-200 pricing-card">
         <h3 class="plan-name">OCARECADEV EXPRESS</h3>
-        <p class="plan-desc">Para quem precisa entrar no ar rápido.</p>
+        <p class="plan-moment">Preciso colocar minha empresa online rápido.</p>
+        <p class="plan-desc">Para quem precisa de uma landing page profissional sem começar um projeto do zero.</p>
         <div class="plan-price">
           R$ 597 <span>à vista</span>
         </div>
         <p class="plan-installments">ou 6x de R$ 113,75</p>
         <ul class="plan-features">
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Landing page simples</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Template validado</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Personalização básica</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Botão direto para WhatsApp</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Entrega em até 48h</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Estrutura sobre modelo validado</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Personalização de marca e conteúdo</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Botão direto para o WhatsApp</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Publicação e configuração básica</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Entrega ágil em até 48h</li>
         </ul>
         <Button
           type="ghost"
           class="btn-full btn-pricing-cta"
-          href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano EXPRESS`}
+          href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Tenho interesse no OCARECADEV Express e queria saber como funciona.')}`}
           data-track-event="lead"
           data-track-location="pricing"
           data-track-plan="express"
           data-track-value="597"
         >
-          Quero começar já
+          Quero o Express
         </Button>
       </GlassCard>
 
@@ -45,59 +46,79 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
       <GlassCard class="scroll-animate anim-scale delay-300 pricing-card" highlight={true}>
         <div class="recommended-badge">Recomendado</div>
         <h3 class="plan-name">LANDING QUE VENDE</h3>
-        <p class="plan-desc">Para quem quer gerar <span class="text-neon">clientes</span> de verdade.</p>
+        <p class="plan-moment">Quero transformar tráfego em oportunidades.</p>
+        <p class="plan-desc">Para quem precisa de uma landing page construída com mais estratégia, conteúdo, estrutura de conversão e acompanhamento.</p>
         <div class="plan-price text-gradient">
           R$ 997 <span>à vista</span>
         </div>
         <p class="plan-installments highlight-installments">ou 6x de R$ 189,96</p>
         <ul class="plan-features text-bright">
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Estrutura focada em conversão</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Design premium</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>CTA estratégico</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Integração WhatsApp e Analytics</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Tracking de cliques e leads</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>1 revisão estratégica</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Projeto 100% estratégico e sob medida</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Copy persuasiva focada em conversão</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Design e UX voltados para ação</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Integração WhatsApp, Analytics e Pixel</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Tracking completo de cliques e eventos</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>1 revisão estratégica inclusa</li>
         </ul>
         <Button
           type="primary"
           class="btn-full btn-pricing-cta"
-          href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano LANDING QUE VENDE`}
+          href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Tenho interesse na Landing que Vende e quero conversar sobre meu projeto.')}`}
           data-track-event="lead"
           data-track-location="pricing"
           data-track-plan="landing_que_vende"
           data-track-value="997"
         >
-          Quero gerar clientes
+          Quero uma Landing que Vende
         </Button>
       </GlassCard>
 
       <!-- Plano 3 -->
       <GlassCard class="scroll-animate anim-right delay-400 pricing-card">
-        <h3 class="plan-name">MÁQUINA DE CLIENTES</h3>
-        <p class="plan-desc">Para quem quer presença profissional e escala.</p>
+        <h3 class="plan-name">SITE PROFISSIONAL</h3>
+        <p class="plan-moment">Preciso de uma presença digital completa.</p>
+        <p class="plan-desc">Para negócios que precisam ir além de uma única landing page e apresentar empresa, serviços e diferenciais.</p>
         <div class="plan-price">
           <span class="price-prefix">A partir de</span> R$ 2.497
         </div>
         <p class="plan-installments">Projeto sob medida. Solicite uma proposta personalizada.</p>
         <ul class="plan-features">
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>3 a 5 páginas completas</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Estrutura estratégica</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Integrações e tracking</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Pronto para tráfego pago</li>
-          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Otimização de conversão</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>3 a 5 páginas completas sob medida</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Estrutura institucional e de serviços</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Integrações avançadas e tracking</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Preparado para campanhas de tráfego pago</li>
+          <li><span class="feat-check"><Icon name="check" size={14} stroke={3} /></span>Otimização técnica e SEO estruturado</li>
         </ul>
         <Button
           type="ghost"
           class="btn-full btn-pricing-cta"
-          href={`https://wa.me/${whatsappNumber}?text=Olá, tenho interesse no plano MÁQUINA DE CLIENTES`}
+          href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Preciso de um site mais completo e quero solicitar uma proposta.')}`}
           data-track-event="lead"
           data-track-location="pricing"
           data-track-plan="maquina_de_clientes"
           data-track-value="2497"
         >
-          Quero escalar
+          Solicitar proposta
         </Button>
       </GlassCard>
+    </div>
+
+    <!-- Comparação Simples e Ágil Entre Planos -->
+    <div class="pricing-summary">
+      <div class="summary-item">
+        <strong>EXPRESS</strong>
+        <span>Rápido e direto</span>
+      </div>
+      <span class="summary-sep">•</span>
+      <div class="summary-item">
+        <strong>LANDING QUE VENDE</strong>
+        <span>Mais estratégia e conversão</span>
+      </div>
+      <span class="summary-sep">•</span>
+      <div class="summary-item">
+        <strong>SITE PROFISSIONAL</strong>
+        <span>Presença digital completa</span>
+      </div>
     </div>
   </div>
 </section>
@@ -238,12 +259,22 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-text-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .plan-moment {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-primary-neon);
+    margin: 0 0 0.4rem;
+    line-height: 1.3;
   }
 
   .plan-desc {
     color: var(--color-text-secondary);
-    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
   }
 
   .plan-price {
@@ -326,6 +357,42 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
     width: 100%;
     justify-content: center;
     margin-top: auto;
+  }
+
+  /* Comparativo Ágil Entre Planos */
+  .pricing-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 2.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+  }
+
+  .summary-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+  }
+
+  .summary-item strong {
+    color: var(--color-primary-neon);
+    font-weight: 800;
+    font-size: 0.82rem;
+  }
+
+  .summary-item span {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .summary-sep {
+    color: rgba(255, 255, 255, 0.2);
   }
 
   @media (max-width: 767px) {

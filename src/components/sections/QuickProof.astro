@@ -1,0 +1,217 @@
+---
+import Icon from '../ui/Icon.astro';
+---
+
+<section id="prova-rapida" class="section-quick-proof section-fade-top section-fade-bottom">
+  <div class="container">
+    <div class="quick-proof-wrapper">
+      <div class="quick-proof-header">
+        <span class="proof-badge">
+          <span class="badge-dot"></span>
+          Validação Real
+        </span>
+        <h2 class="quick-proof-title">Não precisa acreditar só no que o Careca está dizendo</h2>
+        <p class="quick-proof-sub">Quem já contratou conta como foi a experiência:</p>
+      </div>
+
+      <div class="quick-proof-grid">
+        <!-- Depoimento 1: Grupo Carrera Consórcio -->
+        <div class="teaser-card">
+          <div class="teaser-meta">
+            <span class="teaser-author">Grupo Carrera Consórcio</span>
+            <span class="teaser-channel">
+              <Icon name="instagram" size={14} stroke={2} />
+              Instagram
+            </span>
+          </div>
+          <blockquote class="teaser-quote">
+            &ldquo;Ficou <strong>extraordinário</strong>! Parabéns pelo capricho e pela entrega rápida.&rdquo;
+          </blockquote>
+        </div>
+
+        <!-- Depoimento 2: Vinicius Oliveira -->
+        <div class="teaser-card">
+          <div class="teaser-meta">
+            <span class="teaser-author">Vinicius Oliveira</span>
+            <span class="teaser-channel">
+              <Icon name="whatsapp" size={14} stroke={2} />
+              WhatsApp
+            </span>
+          </div>
+          <blockquote class="teaser-quote">
+            &ldquo;Ficou top, valeu pela agilidade. Já vou colocar as campanhas no ar hoje mesmo.&rdquo;
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="quick-proof-cta">
+        <a href="#social-proof" class="btn-teaser-link" data-track-event="select_content" data-track-location="quick_proof_teaser">
+          <span>Ver todos os áudios e feedbacks reais</span>
+          <Icon name="arrow-right" size={15} stroke={2.5} />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-quick-proof {
+    padding: 3rem 0;
+    background-color: #06080b;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .quick-proof-wrapper {
+    background: rgba(14, 18, 23, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2.25rem 2rem;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+
+  .proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(0, 255, 157, 0.08);
+    border: 1px solid rgba(0, 255, 157, 0.25);
+    color: var(--color-primary-neon);
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.85rem;
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary-neon);
+  }
+
+  .quick-proof-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    line-height: 1.25;
+    margin: 0 0 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .quick-proof-title {
+      font-size: 1.85rem;
+    }
+  }
+
+  .quick-proof-sub {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin: 0 auto 1.75rem;
+    max-width: 600px;
+  }
+
+  .quick-proof-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: left;
+    margin-bottom: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .quick-proof-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+  }
+
+  .teaser-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.2s ease;
+  }
+
+  .teaser-card:hover {
+    border-color: rgba(0, 255, 157, 0.25);
+  }
+
+  .teaser-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .teaser-author {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .teaser-channel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .teaser-quote {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    font-style: italic;
+  }
+
+  .teaser-quote strong {
+    color: var(--color-primary-neon);
+    font-style: normal;
+  }
+
+  .quick-proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn-teaser-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-primary-neon);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(0, 255, 157, 0.06);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .btn-teaser-link:hover {
+    background: rgba(0, 255, 157, 0.12);
+    border-color: rgba(0, 255, 157, 0.4);
+    transform: translateY(-1px);
+  }
+</style>

@@ -52,16 +52,17 @@ test('AI discovery document identifies the site and its primary service', () => 
 test('FAQ defines a native collapsed disclosure for each answer', () => {
   const faq = read('src/components/sections/FAQ.astro');
 
-  assert.equal((faq.match(/<GlassCard as="details" class="faq-item/g) ?? []).length, 4);
-  assert.equal((faq.match(/<summary(?: class="faq-summary")?>/g) ?? []).length, 4);
+  assert.match(faq, /<GlassCard as="details" class=/);
+  assert.match(faq, /<summary(?: class="faq-summary")?>/);
+  assert.equal((faq.match(/q:\s*'/g) ?? []).length, 9, 'FAQ deve conter exatamente 9 perguntas obrigatórias');
   assert.doesNotMatch(faq, /<GlassCard as="details"[^>]*\sopen(?:\s|>)/);
 });
 
 test('FAQ replaces the browser disclosure marker with an aligned custom control', () => {
   const faq = read('src/components/sections/FAQ.astro');
 
-  assert.equal((faq.match(/<summary class="faq-summary">/g) ?? []).length, 4);
-  assert.equal((faq.match(/class="faq-chevron"/g) ?? []).length, 4);
+  assert.match(faq, /<summary class="faq-summary">/);
+  assert.match(faq, /class="faq-chevron"/);
   assert.match(faq, /:global\(\.faq-summary::marker\)/);
   assert.match(faq, /:global\(\.faq-summary::-webkit-details-marker\)/);
   assert.match(faq, /:global\(\.faq-item\.is-open \.faq-chevron\)[\s\S]*rotate\(180deg\)/);
@@ -70,7 +71,7 @@ test('FAQ replaces the browser disclosure marker with an aligned custom control'
 test('FAQ answers animate smoothly when their disclosure state changes', () => {
   const faq = read('src/components/sections/FAQ.astro');
 
-  assert.equal((faq.match(/class="faq-answer"/g) ?? []).length, 4);
+  assert.match(faq, /class="faq-answer"/);
   assert.match(faq, /grid-template-rows:\s*minmax\(0, 0fr\)/);
   assert.match(faq, /:global\(\.faq-item\.is-open \.faq-answer\)[\s\S]*grid-template-rows:\s*minmax\(0, 1fr\)/);
   assert.match(faq, /classList\.remove\('is-open'\)/);
@@ -82,7 +83,7 @@ test('pricing cards present the approved payment options', () => {
 
   assert.match(pricing, /OCARECADEV EXPRESS[\s\S]*R\$ 597[\s\S]*6x de R\$ 113,75/);
   assert.match(pricing, /LANDING QUE VENDE[\s\S]*R\$ 997[\s\S]*6x de R\$ 189,96/);
-  assert.match(pricing, /MÁQUINA DE CLIENTES[\s\S]*<span class="price-prefix">A partir de<\/span> R\$ 2\.497[\s\S]*proposta personalizada/);
+  assert.match(pricing, /SITE PROFISSIONAL[\s\S]*<span class="price-prefix">A partir de<\/span> R\$ 2\.497[\s\S]*proposta personalizada/);
 });
 
 test('side pricing cards share a fixed desktop height', () => {
@@ -195,9 +196,11 @@ test('problem section closes with a concrete page audit mockup', () => {
   assert.match(problem, /<ProblemMockup compact \/>/);
   assert.match(problem, /class="problem-mockup-col(?:\s|\")/);
   assert.match(problem, /class="problem-mockup-col scrolly-step from-right s-7"/);
-  assert.match(problemMockup, /Oferta confusa/);
-  assert.match(problemMockup, /Botao sem destaque/);
-  assert.match(problemMockup, /Sem proximo passo/);
+  assert.match(problemMockup, /problem-website-mockup\.webp/);
+  assert.match(problemMockup, /<Image/);
+  assert.match(problemMockup, /o que você faz sem jargão/);
+  assert.match(problemMockup, /diferenciais perceptíveis/);
+  assert.match(problemMockup, /botão de ação óbvio/);
 });
 
 test('problem audit aligns beside the pain list on desktop and fills the mobile container', () => {
@@ -211,7 +214,6 @@ test('problem audit aligns beside the pain list on desktop and fills the mobile 
   assert.match(problem, /\.problem-left\s*\{[\s\S]*grid-column:\s*1/);
   assert.match(problem, /\.problem-mockup-col\s*\{[\s\S]*grid-column:\s*2/);
   assert.match(problemMockup, /\.problem-mockup--compact\s*\{[\s\S]*height:\s*100%/);
-  assert.match(problemMockup, /\.audit-findings span\s*\{[\s\S]*font-size:\s*0\.6rem/);
   assert.match(problem, /@media\s*\(max-width:\s*767px\)[\s\S]*\.problem-mockup-col\s*\{\s*max-width:\s*none/);
   assert.match(problemMockup, /\.problem-mockup--compact\s*\{[\s\S]*max-width:\s*none/);
 });
@@ -248,14 +250,37 @@ test('scrollytelling stage and tracks are configured universally with accessible
   assert.match(scrollScript, /updateScrollytelling/);
 });
 
-test('primary CTA buttons use solid neon background with high-contrast text', () => {
+test('primary CTA buttons use emerald glassmorphism styling with high contrast and fallback', () => {
   const button = read('src/components/ui/Button.astro');
 
-  // Button background has solid neon presence (not washed-out / transparent)
-  assert.match(button, /\.btn-primary\s*\{[\s\S]*background:\s*linear-gradient\(135deg,\s*var\(--color-primary-neon\)/);
+  // Button background has emerald glassmorphism with blur
+  assert.match(button, /\.btn-primary\s*\{[\s\S]*backdrop-filter:\s*blur\(12px\)/);
+  assert.match(button, /\.btn-primary\s*\{[\s\S]*-webkit-backdrop-filter:\s*blur\(12px\)/);
 
-  // Text color is dark with high contrast (> 7:1) over neon green (G1 accessibility)
-  assert.match(button, /\.btn-primary\s*\{[\s\S]*color:\s*#04120c;/);
+  // Text color is high contrast with text-shadow (G1 accessibility)
+  assert.match(button, /\.btn-primary\s*\{[\s\S]*color:\s*#ffffff;/);
   assert.match(button, /\.btn-primary\s*\{[\s\S]*font-weight:\s*700;/);
+
+  // Cross-browser fallback is present for browsers without backdrop-filter
+  assert.match(button, /@supports not \(backdrop-filter:\s*blur\(1px\)\)/);
 });
+
+test('header implements mobile-only smart hide-on-scroll to free viewport for storytelling (G1, G2, G3)', () => {
+  const header = read('src/components/sections/Header.astro');
+
+  // Mobile-only hidden state via transform
+  assert.match(header, /@media\s*\(max-width:\s*767px\)\s*\{[\s\S]*\.header--hidden\s*\{[\s\S]*transform:\s*translateY\(-120%\)/);
+
+  // Desktop keeps fixed header visible
+  assert.match(header, /@media\s*\(min-width:\s*768px\)\s*\{[\s\S]*\.main-header\s*\{[\s\S]*transform:\s*none\s*!important/);
+
+  // Motion reduction support (G2)
+  assert.match(header, /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*\.main-header\s*\{[\s\S]*transition:\s*none\s*!important/);
+
+  // Script registers passive scroll listener and rAF
+  assert.match(header, /setupSmartHeader/);
+  assert.match(header, /header--hidden/);
+  assert.match(header, /passive:\s*true/);
+});
+
 

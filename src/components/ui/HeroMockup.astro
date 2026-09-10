@@ -12,17 +12,17 @@ const { compact = false } = Astro.props;
   <div class="dashboard">
     <div class="dashboard-bar">
       <span class="brand-mark">O</span>
-      <span>Funil de conversao</span>
-      <span class="live-state"><i></i> ativo</span>
+      <span>Mecanismo de Conversão</span>
+      <span class="live-state"><i></i> Exemplo ilustrativo</span>
     </div>
 
     <div class="dashboard-body">
       <div class="dashboard-heading">
         <div>
-          <p>Resultados da semana</p>
-          <h3>Da visita ao cliente</h3>
+          <p>Sequência Estruturada</p>
+          <h3>Da Atenção à Ação</h3>
         </div>
-        <span class="conversion-rate">14% conversao</span>
+        <span class="conversion-rate">Fluxo Estratégico</span>
       </div>
 
       <div class="funnel">
@@ -30,34 +30,34 @@ const { compact = false } = Astro.props;
           <span class="step-index">01</span>
           <span class="step-icon"><Icon name="layout-template" size={16} stroke={2.2} /></span>
           <strong>Visita na pagina</strong>
-          <b>1.284</b>
-          <small>pessoas interessadas</small>
+          <b>Entender</b>
+          <small>clareza na oferta</small>
         </article>
 
         <span class="funnel-arrow"><Icon name="arrow-right" size={16} stroke={2.5} /></span>
 
         <article class="funnel-step funnel-step--active">
           <span class="step-index">02</span>
-          <span class="step-icon"><Icon name="trending-up" size={16} stroke={2.2} /></span>
+          <span class="step-icon"><Icon name="shield" size={16} stroke={2.2} /></span>
           <strong>Clique no WhatsApp</strong>
-          <b>93</b>
-          <small>conversas iniciadas</small>
+          <b>Confiar</b>
+          <small>interesse despertado</small>
         </article>
 
         <span class="funnel-arrow"><Icon name="arrow-right" size={16} stroke={2.5} /></span>
 
         <article class="funnel-step funnel-step--result">
           <span class="step-index">03</span>
-          <span class="step-icon"><Icon name="check" size={16} stroke={2.7} /></span>
+          <span class="step-icon"><Icon name="message-circle" size={16} stroke={2.7} /></span>
           <strong>Lead qualificado</strong>
-          <b>18</b>
-          <small>oportunidades reais</small>
+          <b>Agir</b>
+          <small>contato sem atrito</small>
         </article>
       </div>
 
       <div class="next-action">
-        <span><i></i> Novo lead agora</span>
-        <strong>Pedido de orcamento recebido</strong>
+        <span><i></i> Próximo passo claro</span>
+        <strong>Conversa iniciada sem atrito</strong>
       </div>
     </div>
   </div>
@@ -100,5 +100,22 @@ const { compact = false } = Astro.props;
   .conversion-mockup--compact .step-icon { width: 21px; height: 21px; margin: 0.3rem 0 0.4rem; }
   .conversion-mockup--compact .funnel-step b { margin-top: 0.4rem; font-size: 1.02rem; }
   .conversion-mockup--compact .next-action { margin-top: 0.65rem; }
-  @media (max-width: 767px) { .dashboard { border-radius: 10px; } .dashboard-bar { padding: 0.5rem 0.6rem; } .dashboard-heading h3 { font-size: 1.05rem; } .funnel { gap: 0.18rem; } .funnel-arrow { display: none; } .funnel { grid-template-columns: repeat(3, minmax(0, 1fr)); } .funnel-step { padding: 0.45rem; } .funnel-step strong { font-size: 0.56rem; } .funnel-step small { font-size: 0.5rem; } .step-index { font-size: 0.5rem; } .step-icon { width: 19px; height: 19px; margin: 0.26rem 0 0.35rem; } .funnel-step b { margin-top: 0.35rem; font-size: 0.95rem; } .next-action strong { display: none; } }
+  @media (max-width: 767px) {
+    .dashboard { border-radius: 10px; }
+    .dashboard-bar { padding: 0.45rem 0.65rem; }
+    .dashboard-body { padding: 0.65rem; }
+    .dashboard-heading h3 { font-size: 1.05rem; margin-top: 0.15rem; }
+    .dashboard-heading p { font-size: 0.62rem; }
+    .conversion-rate { font-size: 0.62rem; padding: 0.25rem 0.45rem; }
+    .funnel { gap: 0.22rem; margin-top: 0.6rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .funnel-arrow { display: none; }
+    .funnel-step { padding: 0.45rem 0.5rem; }
+    .funnel-step strong { font-size: 0.58rem; min-height: auto; }
+    .funnel-step small { font-size: 0.52rem; margin-top: 0.15rem; }
+    .step-index { font-size: 0.52rem; }
+    .step-icon { width: 19px; height: 19px; margin: 0.2rem 0 0.3rem; }
+    .funnel-step b { margin-top: 0.3rem; font-size: 0.95rem; }
+    .next-action { margin-top: 0.6rem; padding: 0.45rem 0.6rem; }
+    .next-action strong { display: none; }
+  }
 </style>
