@@ -16,7 +16,7 @@ const { title, description = "OCARECADEV | Landing Pages e Sites Estratégicos q
 // URLs absolutas evitam versões duplicadas da página em buscadores e previews sociais.
 const siteUrl = Astro.site || Astro.url;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
-const ogImage = new URL('/images/logo-vertical.png', siteUrl);
+const ogImage = new URL('/images/og-image.jpg', siteUrl);
 
 const structuredData = [
   {
@@ -83,7 +83,7 @@ const structuredData = [
 		<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" /></noscript>
 		<title>{title}</title>
 
-		<!-- Open Graph / Preview Link Settings -->
+		<!-- Open Graph / Preview Link Settings (WhatsApp, Meta, LinkedIn, Telegram) -->
 		<meta property="og:type" content="website" />
 		<meta property="og:locale" content="pt_BR" />
 		<meta property="og:site_name" content="OCARECADEV" />
@@ -91,8 +91,13 @@ const structuredData = [
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:secure_url" content={ogImage} />
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="André da OCARECADEV - Landing Pages Estratégicas" />
 
-		<!-- Twitter -->
+		<!-- Twitter / X Cards -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:url" content={canonicalUrl} />
 		<meta name="twitter:title" content={title} />
