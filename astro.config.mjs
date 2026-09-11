@@ -25,6 +25,9 @@ export default defineConfig({
       resolveUrl: resolvePartytownUrl,
     },
   })],
+  build: {
+    inlineStylesheets: 'always',
+  },
   server: {
     host: true
   }

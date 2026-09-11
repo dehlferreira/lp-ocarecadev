@@ -76,8 +76,11 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
         src={heroPerfil}
         alt="André, especialista em Landing Pages"
         class="hero-img"
+        widths={[380, 560, 760, 1120]}
+        sizes="(max-width: 767px) 380px, (max-width: 1024px) 500px, 560px"
         loading="eager"
         fetchpriority="high"
+        decoding="async"
       />
     </div>
   </div>

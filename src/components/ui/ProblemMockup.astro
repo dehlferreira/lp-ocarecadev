@@ -15,9 +15,11 @@ const { compact = false } = Astro.props;
       src={websiteMockup}
       alt="Mockup de landing page representando o que você faz sem jargão, diferenciais perceptíveis e botão de ação óbvio"
       class="mockup-img"
-      loading="eager"
+      widths={[380, 600, 912]}
+      sizes="(max-width: 767px) 92vw, (max-width: 1024px) 600px, 912px"
+      loading="lazy"
       decoding="async"
-      quality={98}
+      quality={82}
     />
   </div>
 </div>
