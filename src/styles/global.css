@@ -369,7 +369,7 @@ section[id] {
       top: 0;
       height: 100svh;
       justify-content: center;
-      padding: max(env(safe-area-inset-top, 1.25rem), 1.25rem) 1rem max(env(safe-area-inset-bottom, 3rem), 3rem);
+      padding: max(calc(env(safe-area-inset-top, 0px) + 3.75rem), 4.5rem) 1rem max(calc(env(safe-area-inset-bottom, 0px) + 2rem), 2.5rem);
     }
   }
 

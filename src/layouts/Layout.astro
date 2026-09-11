@@ -2,6 +2,8 @@
 import '../styles/global.css';
 import WhatsAppFab from '../components/ui/WhatsAppFab.astro';
 import ScarcityToast from '../components/ui/ScarcityToast.astro';
+import ScrollToTop from '../components/ui/ScrollToTop.astro';
+import ScrollIndicator from '../components/ui/ScrollIndicator.astro';
 import CookieConsent from '../components/ui/CookieConsent.astro';
 
 interface Props {
@@ -107,6 +109,8 @@ const structuredData = [
 		<slot />
 		<WhatsAppFab />
 		<ScarcityToast />
+		<ScrollToTop />
+		<ScrollIndicator />
 		<CookieConsent />
 		<script src="../scripts/scrollAnimations.js"></script>
 		<script>

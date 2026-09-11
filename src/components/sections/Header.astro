@@ -346,15 +346,13 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     }
   };
 
-  // Smart Header Logic (Oculta no mobile ao rolar para baixo para liberar tela para o storytelling)
+  // Smart Header Logic (No mobile: visível apenas na Hero; fora da Hero fica oculto para liberar o storytelling e só volta ao retornar ao topo)
   const setupSmartHeader = () => {
     const header = document.getElementById("main-header");
     const mobileMenuOverlay = document.getElementById("mobile-menu");
     if (!header) return;
 
-    let lastScrollY = window.scrollY;
     let ticking = false;
-    const threshold = 12;
 
     const onScroll = () => {
       if (!ticking) {
@@ -363,18 +361,16 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
             const currentScrollY = window.scrollY;
             const isMenuOpen = mobileMenuOverlay?.classList.contains("active");
 
-            // Mantém visível se o menu estiver aberto ou bem no topo
-            if (isMenuOpen || currentScrollY <= 30) {
-              header.classList.remove("header--hidden");
-            } else if (currentScrollY > lastScrollY + threshold) {
-              // Rolando para baixo: oculta para dar espaço ao storytelling
-              header.classList.add("header--hidden");
-            } else if (currentScrollY < lastScrollY - threshold) {
-              // Rolando para cima: revela a barra de navegação
-              header.classList.remove("header--hidden");
-            }
+            // Hero threshold: visível apenas enquanto o visitante está na Hero
+            const heroEl = document.getElementById("hero");
+            const heroThreshold = heroEl ? Math.max(heroEl.offsetHeight * 0.45, 180) : 200;
 
-            lastScrollY = currentScrollY;
+            if (isMenuOpen || currentScrollY <= heroThreshold) {
+              header.classList.remove("header--hidden");
+            } else {
+              // Passou da Hero (scrollytelling em diante): oculta e não reaparece ao rolar para cima
+              header.classList.add("header--hidden");
+            }
           } else {
             header.classList.remove("header--hidden");
           }

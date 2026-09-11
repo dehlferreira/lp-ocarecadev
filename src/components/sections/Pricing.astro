@@ -183,6 +183,7 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
     :global(.pricing-card:not(.highlight-card)) {
       height: 39rem;
       align-self: center;
+      padding: 1.75rem 1.6rem !important;
     }
   }
 
@@ -210,9 +211,9 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
 
   @media (min-width: 768px) {
     :global(.pricing-card.highlight-card) {
-      transform: scale(1.07);
-      padding: 3.25rem 2.35rem !important;
-      min-height: 41rem;
+      transform: scale(1.04);
+      padding: 2.25rem 2rem !important;
+      min-height: 40rem;
       align-self: center;
       border-color: rgba(0, 255, 157, 0.45) !important;
       background: rgba(0, 255, 157, 0.07) !important;
@@ -223,7 +224,7 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
     }
 
     :global(.pricing-card.highlight-card:hover) {
-      transform: scale(1.07) translateY(-5px);
+      transform: scale(1.04) translateY(-5px);
       border-color: rgba(0, 255, 157, 0.65) !important;
       background: rgba(0, 255, 157, 0.1) !important;
       box-shadow:
@@ -273,29 +274,32 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
   .plan-desc {
     color: var(--color-text-secondary);
     font-size: 0.88rem;
-    margin-bottom: 1.25rem;
-    line-height: 1.4;
+    margin-bottom: 0.85rem;
+    line-height: 1.35;
   }
 
   .plan-price {
     font-size: 2rem;
     font-weight: 800;
     color: var(--color-text-primary);
-    margin: 1.5rem 0;
+    margin: 0.85rem 0 0.25rem;
     line-height: 1.2;
   }
 
   @media (min-width: 768px) {
     .plan-price {
-      font-size: 2.5rem;
+      font-size: 2.35rem;
     }
   }
 
   .plan-installments {
     font-size: 0.95rem;
     color: var(--color-text-secondary);
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.25rem;
     font-weight: 500;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
   }
 
   .highlight-installments {
@@ -319,13 +323,13 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
   .plan-features {
     list-style: none;
     padding: 0;
-    margin: 0 0 2rem 0;
+    margin: 0 0 1.25rem 0;
     flex-grow: 1;
     color: #d1d5db;
   }
 
   .plan-features li {
-    margin-bottom: 1rem;
+    margin-bottom: 0.65rem;
     display: flex;
     align-items: center;
     gap: 0.65rem;
@@ -379,6 +383,7 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
     align-items: center;
     gap: 0.45rem;
     font-size: 0.85rem;
+    white-space: nowrap;
   }
 
   .summary-item strong {
@@ -422,6 +427,38 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
     .plan-features li {
       margin-bottom: 0.75rem;
       font-size: 0.9rem;
+    }
+    .pricing-summary {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+      margin-top: 2rem;
+      padding: 1.15rem 1.25rem;
+    }
+    .summary-sep {
+      display: none;
+    }
+    .summary-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      text-align: center;
+      width: 100%;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .summary-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .summary-item strong {
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+    .summary-item span {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.75);
     }
   }
 </style>

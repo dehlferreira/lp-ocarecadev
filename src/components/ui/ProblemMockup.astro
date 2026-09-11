@@ -15,8 +15,9 @@ const { compact = false } = Astro.props;
       src={websiteMockup}
       alt="Mockup de landing page representando o que você faz sem jargão, diferenciais perceptíveis e botão de ação óbvio"
       class="mockup-img"
-      loading="lazy"
+      loading="eager"
       decoding="async"
+      quality={98}
     />
   </div>
 </div>
@@ -24,7 +25,7 @@ const { compact = false } = Astro.props;
 <style>
   .problem-mockup {
     width: 100%;
-    max-width: 540px;
+    max-width: 100%;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -50,8 +51,11 @@ const { compact = false } = Astro.props;
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 1272 / 692;
+    aspect-ratio: 912 / 617;
     object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   @media (max-width: 767px) {
@@ -74,6 +78,7 @@ const { compact = false } = Astro.props;
       width: 100%;
       height: auto;
       max-height: none;
+      aspect-ratio: 912 / 617;
     }
   }
 </style>
