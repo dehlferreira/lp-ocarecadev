@@ -50,18 +50,30 @@ const { compact = false } = Astro.props;
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 912 / 617;
+    aspect-ratio: 1272 / 692;
     object-fit: contain;
   }
 
   @media (max-width: 767px) {
+    .problem-mockup {
+      width: 100%;
+      max-width: 100%;
+    }
+
     .problem-mockup--compact {
       height: auto;
       max-width: none;
+      width: 100%;
+    }
+
+    .mockup-frame {
+      width: 100%;
     }
 
     .mockup-img {
-      max-height: 200px;
+      width: 100%;
+      height: auto;
+      max-height: none;
     }
   }
 </style>
