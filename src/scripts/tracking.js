@@ -66,6 +66,21 @@ export function buildLeadPayload(element) {
   return payload;
 }
 
+export function buildContentPayload(element) {
+  const { trackLocation, trackItem, trackName, trackType } = element.dataset;
+  const payload = {
+    cta_location: trackLocation,
+    event_id: createEventId(),
+  };
+
+  const item = trackItem || trackName;
+  if (item) payload.item_name = item;
+  if (trackType) payload.content_type = trackType;
+
+  return payload;
+}
+
+
 const emittedEventKeys = new Set();
 let acceptedTrackingStarted = false;
 let hasActiveConsent = false;
@@ -263,10 +278,7 @@ function trackScrollDepth(config, threshold) {
 }
 
 function trackContent(element, config) {
-  trackEvent(config, 'select_content', {
-    cta_location: element.dataset.trackLocation,
-    event_id: createEventId(),
-  });
+  trackEvent(config, 'select_content', buildContentPayload(element));
 }
 
 function shouldDelayWhatsAppNavigation(event, element) {
@@ -319,7 +331,7 @@ function setupPricingViewTracking(config) {
 }
 
 function setupScrollDepthTracking(config) {
-  const thresholds = [25, 50, 75, 90];
+  const thresholds = [25, 50, 75, 90, 100];
   let ticking = false;
 
   const measureScrollDepth = () => {
@@ -329,7 +341,8 @@ function setupScrollDepthTracking(config) {
 
     const percentScrolled = (window.scrollY / scrollableHeight) * 100;
     thresholds.forEach((threshold) => {
-      if (percentScrolled >= threshold) trackScrollDepth(config, threshold);
+      const targetPercent = threshold === 100 ? 99 : threshold;
+      if (percentScrolled >= targetPercent) trackScrollDepth(config, threshold);
     });
   };
 

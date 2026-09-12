@@ -7,6 +7,7 @@ import * as tracking from '../src/scripts/tracking.js';
 const {
   CONSENT_STORAGE_KEY,
   buildLeadPayload,
+  buildContentPayload,
   initTracking,
   isConfigured,
   readConsent,
@@ -451,7 +452,7 @@ test('legacy animation script does not dispatch vendor conversion events', () =>
 test('tracking runtime observes pricing and all approved scroll thresholds', () => {
   const runtime = read('src/scripts/tracking.js');
   assert.match(runtime, /document\.getElementById\('pricing'\)/);
-  assert.match(runtime, /\[25, 50, 75, 90\]/);
+  assert.match(runtime, /\[25, 50, 75, 90, 100\]/);
   assert.match(runtime, /data-track-event/);
 });
 
@@ -695,3 +696,34 @@ test('consent copy and runbook disclose marketing providers and one primary Ads 
   assert.match(readme, /connect\.facebook\.net/);
   assert.match(readme, /política de privacidade[^\n]*pré-requisito/i);
 });
+
+test('builds enriched payload for content interactions', () => {
+  const payload = buildContentPayload({ dataset: {
+    trackLocation: 'hero_primary', trackItem: 'cta_quero_landing_page', trackType: 'cta',
+  }});
+  assert.equal(payload.cta_location, 'hero_primary');
+  assert.equal(payload.item_name, 'cta_quero_landing_page');
+  assert.equal(payload.content_type, 'cta');
+  assert.match(payload.event_id, /^[a-z0-9-]+$/);
+});
+
+test('micro-interactions and navigation links declare track-item and location attributes', () => {
+  const hero = read('src/components/sections/Hero.astro');
+  const header = read('src/components/sections/Header.astro');
+  const socialProof = read('src/components/sections/SocialProof.astro');
+  const faq = read('src/components/sections/FAQ.astro');
+  const models = read('src/components/sections/ModelsShowcase.astro');
+
+  assert.match(hero, /data-track-location="hero_primary"[\s\S]*data-track-item="cta_quero_landing_page"/);
+  assert.match(hero, /data-track-location="hero_secondary"[\s\S]*data-track-item="cta_ver_como_funciona"/);
+
+  assert.match(header, /data-track-location="header_nav"/);
+  assert.match(header, /data-track-location="header_mobile_nav"/);
+
+  assert.match(socialProof, /data-track-location="social_audio_play"/);
+  assert.match(socialProof, /data-track-location="social_print_view"/);
+
+  assert.match(faq, /data-track-location="faq_toggle"/);
+  assert.match(models, /data-track-location="models_showcase"/);
+});
+

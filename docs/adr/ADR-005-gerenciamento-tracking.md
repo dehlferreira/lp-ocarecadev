@@ -1,5 +1,11 @@
 # ADR-005: Arquitetura de Gerenciamento e Tracking de Eventos
 
+## Status
+Aceito
+
+## Data
+2026-09-02
+
 ## Contexto
 O objetivo número um das Landing Pages da OCARECADEV é gerar clientes mensuráveis (Marketing e Ads Tracking via PRD-004). Assim, precisamos injetar pixels do Meta Ads, tags do Google Analytics (GA4) e Google Ads Tag em nossa página para aferir conversões e otimizar campanhas de tráfego pago. A forma como esses scripts de terceiros são adicionados na página pode ditar o sucesso ou o fracasso do cumprimento da métrica fundamental (Lighthouse Score Alto e Velocidade < 3s).
 
@@ -26,3 +32,9 @@ O objetivo número um das Landing Pages da OCARECADEV é gerar clientes mensurá
 
 ### 3. Segment
 - **Motivo da Reprovação:** Uma plataforma corporativa incrível (CDP) que abstrai toda injeção num único script e roteia os dados no lado do servidor para Google/Meta. Contudo, é uma solução muito cara (overkill absoluto) focada em operações complexas de dados de usuários e unificação de ecossistemas, totalmente desalinhada da proposta de simplificação e margem de lucro agressiva da venda avulsa de landing pages da OCARECADEV.
+
+## Relacionados
+- PRD-004
+- SPEC-005
+- ARCH-001
+

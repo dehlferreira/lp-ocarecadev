@@ -49,7 +49,7 @@ const faqs = [
 
     <div class="faq-grid">
       {faqs.map((faq, i) => (
-        <GlassCard as="details" class={`faq-item scroll-animate ${i % 2 === 0 ? 'anim-left' : 'anim-right'}`} padding="0">
+        <GlassCard as="details" class={`faq-item scroll-animate ${i % 2 === 0 ? 'anim-left' : 'anim-right'}`} padding="0" data-track-event="select_content" data-track-location="faq_toggle" data-track-item={`faq_${i + 1}`}>
           <summary class="faq-summary">
             <h3>{faq.q}</h3>
             <span class="faq-chevron" aria-hidden="true">
