@@ -122,10 +122,16 @@ section[id] {
   max-width: 900px;
 }
 
-/* Seções pinadas: padding vertical fica no fade, não no palco sticky */
+/* Seções fluidas: padding vertical padrão e fluxo contínuo (SPEC-014 / ADR-014) */
 .scrolly-section {
-  padding: 0;
+  padding: 4rem 0;
   position: relative;
+}
+
+@media (min-width: 768px) {
+  .scrolly-section {
+    padding: 5.5rem 0;
+  }
 }
 
 /* Dentro do pin, scroll-animate cede lugar ao scrolly-step (sem matar a animação do step) */
@@ -340,89 +346,81 @@ section[id] {
    ────────────────────────────────────────────────────────────────────────── */
 .scrolly {
   position: relative;
+  height: auto;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .scrolly {
-    height: var(--scrolly-track, 300vh);
+    height: auto;
   }
 
   @media (max-width: 767px) {
     .scrolly {
-      height: var(--scrolly-track-mobile, var(--scrolly-track, 240vh));
+      height: auto;
     }
   }
 
   .scrolly__stage {
-    position: sticky;
-    top: var(--header-offset);
-    height: calc(100svh - var(--header-offset));
+    position: relative;
+    top: 0;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    justify-content: flex-start;
+    overflow: visible;
   }
 
   @media (max-width: 767px) {
     .scrolly__stage {
       top: 0;
-      height: 100svh;
-      justify-content: center;
-      padding: max(calc(env(safe-area-inset-top, 0px) + 3.75rem), 4.5rem) 1rem max(calc(env(safe-area-inset-bottom, 0px) + 2rem), 2.5rem);
+      height: auto;
+      justify-content: flex-start;
+      padding: 0;
     }
   }
 
-  /* Fallback de Scrollytelling via JS para navegadores sem CSS scroll-driven animations (Safari/Firefox) */
+  /* Conteúdo fluido e legível imediatamente (SPEC-014 / ADR-014) */
+  .scrolly-step {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  .scrolly-step.from-left,
+  .scrolly-step.from-right,
+  .scrolly-step.from-scale {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Fallback sem opacidade oculta */
   .scrolly-fallback .scrolly-step {
-    opacity: 0;
-    transform: translateY(38px);
-    will-change: opacity, transform;
+    opacity: 1;
+    transform: none;
   }
 
-  .scrolly-fallback .scrolly-step.from-left {
-    transform: translateX(-44px);
-  }
-
-  .scrolly-fallback .scrolly-step.from-right {
-    transform: translateX(44px);
-  }
-
+  .scrolly-fallback .scrolly-step.from-left,
+  .scrolly-fallback .scrolly-step.from-right,
   .scrolly-fallback .scrolly-step.from-scale {
-    transform: scale(0.92);
+    opacity: 1;
+    transform: none;
   }
 
-  @media (max-width: 767px) {
-    .scrolly-fallback .scrolly-step.from-left,
-    .scrolly-fallback .scrolly-step.from-right {
-      transform: translateY(38px);
-    }
-  }
-
-  .scrolly-fallback .scrolly-progress {
-    transform-origin: top center;
-    transform: scaleY(0);
-  }
-
-  .scrolly-fallback .scrolly-progress.is-horizontal {
-    transform-origin: left center;
-    transform: scaleX(0);
+  .scrolly-fallback .scrolly-progress,
+  .scrolly-progress {
+    display: none;
   }
 
   @supports ((animation-timeline: view()) and (animation-range: contain)) {
     .scrolly {
-      view-timeline-name: var(--scrolly-timeline, --scrolly);
-      view-timeline-axis: block;
+      height: auto;
     }
 
-    /* Reveal escalonado: cada step ocupa uma fatia da fase `contain`
-       (= janela em que a seção está efetivamente pinada). As faixas se
-       adaptam à quantidade de passos via o modificador .scrolly--N, para
-       que o reveal preencha quase todo o pin (sem scroll "morto" no fim). */
     .scrolly-step {
-      animation: scrolly-rise linear both;
-      animation-timeline: var(--scrolly-timeline, --scrolly);
-      will-change: opacity, transform;
+      opacity: 1;
+      transform: none;
+      will-change: auto;
     }
 
     section:target .scrolly-step.s-1 {
@@ -431,125 +429,10 @@ section[id] {
       transform: none !important;
     }
 
-    /* 2 passos */
-    .scrolly--2 .s-1 {
-      animation-range: contain 4% contain 42%;
-    }
-
-    .scrolly--2 .s-2 {
-      animation-range: contain 46% contain 88%;
-    }
-
-    /* 3 passos */
-    .scrolly--3 .s-1 {
-      animation-range: contain 4% contain 28%;
-    }
-
-    .scrolly--3 .s-2 {
-      animation-range: contain 32% contain 56%;
-    }
-
-    .scrolly--3 .s-3 {
-      animation-range: contain 60% contain 88%;
-    }
-
-    /* 4 passos */
-    .scrolly--4 .s-1 {
-      animation-range: contain 4% contain 22%;
-    }
-
-    .scrolly--4 .s-2 {
-      animation-range: contain 26% contain 44%;
-    }
-
-    .scrolly--4 .s-3 {
-      animation-range: contain 48% contain 66%;
-    }
-
-    .scrolly--4 .s-4 {
-      animation-range: contain 70% contain 88%;
-    }
-
-    /* 5 passos */
-    .scrolly--5 .s-1 {
-      animation-range: contain 4% contain 18%;
-    }
-
-    .scrolly--5 .s-2 {
-      animation-range: contain 21% contain 35%;
-    }
-
-    .scrolly--5 .s-3 {
-      animation-range: contain 38% contain 52%;
-    }
-
-    .scrolly--5 .s-4 {
-      animation-range: contain 55% contain 69%;
-    }
-
-    .scrolly--5 .s-5 {
-      animation-range: contain 72% contain 88%;
-    }
-
-    /* 7 passos */
-    .scrolly--7 .s-1 {
-      animation-range: contain 3% contain 13%;
-    }
-
-    .scrolly--7 .s-2 {
-      animation-range: contain 15% contain 25%;
-    }
-
-    .scrolly--7 .s-3 {
-      animation-range: contain 27% contain 37%;
-    }
-
-    .scrolly--7 .s-4 {
-      animation-range: contain 39% contain 49%;
-    }
-
-    .scrolly--7 .s-5 {
-      animation-range: contain 51% contain 61%;
-    }
-
-    .scrolly--7 .s-6 {
-      animation-range: contain 63% contain 73%;
-    }
-
-    .scrolly--7 .s-7 {
-      animation-range: contain 75% contain 88%;
-    }
-
-    /* Variantes de direção (mesmas faixas, basta combinar com .s-N) */
-    .scrolly-step.from-left {
-      animation-name: scrolly-left;
-    }
-
-    .scrolly-step.from-right {
-      animation-name: scrolly-right;
-    }
-
-    .scrolly-step.from-scale {
-      animation-name: scrolly-scale;
-    }
-
-    /* Barra de progresso que preenche durante o pin */
-    .scrolly-progress {
-      transform-origin: top center;
-      animation: scrolly-fill-y linear both;
-      animation-timeline: var(--scrolly-timeline, --scrolly);
-      animation-range: contain 2% contain 88%;
-    }
-
-    .scrolly-progress.is-horizontal {
-      transform-origin: left center;
-      animation-name: scrolly-fill-x;
-    }
-
     @keyframes scrolly-rise {
       from {
-        opacity: 0;
-        transform: translateY(38px);
+        opacity: 0.8;
+        transform: translateY(12px);
       }
 
       to {
@@ -560,8 +443,8 @@ section[id] {
 
     @keyframes scrolly-left {
       from {
-        opacity: 0;
-        transform: translateX(-44px);
+        opacity: 0.8;
+        transform: translateX(-16px);
       }
 
       to {
@@ -572,8 +455,8 @@ section[id] {
 
     @keyframes scrolly-right {
       from {
-        opacity: 0;
-        transform: translateX(44px);
+        opacity: 0.8;
+        transform: translateX(16px);
       }
 
       to {
@@ -584,8 +467,8 @@ section[id] {
 
     @keyframes scrolly-scale {
       from {
-        opacity: 0;
-        transform: scale(0.92);
+        opacity: 0.8;
+        transform: scale(0.96);
       }
 
       to {
@@ -614,10 +497,9 @@ section[id] {
       }
     }
 
-    /* Mobile: trilhos mais curtos para a página não ficar cansativa */
     @media (max-width: 767px) {
       .scrolly {
-        height: var(--scrolly-track-mobile, var(--scrolly-track, 240vh));
+        height: auto;
       }
     }
   }

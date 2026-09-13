@@ -1,7 +1,7 @@
 # ADR-011: Scrollytelling (Pinned Scroll) via CSS Scroll-Driven Animations
 
 ## Status
-Aceito
+Superseded por ADR-014
 
 ## Data
 2026-06-13
@@ -88,4 +88,6 @@ para o reveal simples (`.scroll-animate`); ele **não** dirige o pinning.
 
 ## Relacionados
 - ADR-003 (Biblioteca de Animações — Vanilla JS): refinado por este ADR para o caso de pin.
-- SPEC-009 (implementação).
+- SPEC-009 (implementação original).
+- ADR-014 (Descontinuação de Pinned Scroll — supersede este ADR).
+- SPEC-014 (desmonte do pinning e revisão da fluidez).

@@ -101,21 +101,22 @@ test('mobile reveal animations do not move content outside the viewport', () => 
   assert.match(css, /@media\s*\(max-width:\s*767px\)[\s\S]*\.scrolly-step\.from-right[\s\S]*animation-name:\s*scrolly-rise/);
 });
 
-test('mobile scrollytelling tracks are shorter to reduce empty scroll space', () => {
+test('sections operate with natural height and no scroll-jacking (SPEC-014)', () => {
   const problem = read('src/components/sections/Problem.astro');
   const agitation = read('src/components/sections/Agitation.astro');
   const solution = read('src/components/sections/Solution.astro');
   const how = read('src/components/sections/HowItWorks.astro');
   const about = read('src/components/sections/About.astro');
 
-  assert.match(problem, /--scrolly-track-mobile:\s*180vh/);
-  assert.match(agitation, /--scrolly-track-mobile:\s*180vh/);
-  assert.match(solution, /--scrolly-track-mobile:\s*190vh/);
-  assert.match(how, /--scrolly-track-mobile:\s*210vh/);
-  assert.match(about, /--scrolly-track-mobile:\s*260vh/);
+  // SPEC-014: Sem trilhos artificiais bloqueando o scroll
+  assert.doesNotMatch(problem, /--scrolly-track-mobile/);
+  assert.doesNotMatch(agitation, /--scrolly-track-mobile/);
+  assert.doesNotMatch(solution, /--scrolly-track-mobile/);
+  assert.doesNotMatch(how, /--scrolly-track-mobile/);
+  assert.doesNotMatch(about, /--scrolly-track-mobile/);
   assert.match(solution, /@media\s*\(max-width:\s*767px\)[\s\S]*\.solution-mockup-col\s*\{\s*max-width:\s*none/);
   assert.match(solution, /@media\s*\(min-width:\s*768px\)[\s\S]*\.solution-mockup-col\s*\{[\s\S]*align-self:\s*stretch/);
-  assert.match(read('src\/components\/ui\/HeroMockup.astro'), /\.conversion-mockup--compact\s*\{[\s\S]*height:\s*100%/);
+  assert.match(read('src/components/ui/HeroMockup.astro'), /\.conversion-mockup--compact\s*\{[\s\S]*height:\s*100%/);
 });
 
 test('specialist stat cards are not clipped after their reveal animation', () => {
@@ -231,21 +232,23 @@ test('solution and agitation mockups prioritize the available desktop width', ()
   assert.match(frustration, /\.frustration-mockup--compact\s*\{[\s\S]*max-width:\s*none/);
 });
 
-test('scrollytelling stage and tracks are configured universally with accessible fallback padding', () => {
+test('scrollytelling stage and tracks are configured with fluid natural height and accessible padding (SPEC-014)', () => {
   const css = read('src/styles/global.css');
   const scrollScript = read('src/scripts/scrollAnimations.js');
 
-  // Universal layout properties outside of @supports for cross-browser parity (Safari/Firefox/Chrome)
-  assert.match(css, /\.scrolly\s*\{\s*height:\s*var\(--scrolly-track,\s*300vh\);/);
-  assert.match(css, /\.scrolly__stage\s*\{[\s\S]*position:\s*sticky;[\s\S]*top:\s*var\(--header-offset\);/);
+  // SPEC-014: Altura natural sem pinning nem scroll-jacking
+  assert.match(css, /\.scrolly\s*\{[\s\S]*height:\s*auto;/);
+  assert.match(css, /\.scrolly__stage\s*\{[\s\S]*position:\s*relative;[\s\S]*height:\s*auto;/);
 
-  // Fallback CSS rules for browsers without native scroll-driven animations
-  assert.match(css, /\.scrolly-fallback\s+\.scrolly-step\s*\{[\s\S]*opacity:\s*0;/);
+  // Elementos permanecem visíveis sem ficar presos em opacity: 0
+  assert.match(css, /\.scrolly-step\s*\{[\s\S]*opacity:\s*1;/);
+  assert.doesNotMatch(css, /\.scrolly-fallback\s+\.scrolly-step\s*\{[\s\S]*opacity:\s*0;/);
 
-  // Reduced motion provides explicit vertical padding so sections never lack spacing
+  // Padding explícito nas seções fluidas
+  assert.match(css, /\.scrolly-section\s*\{[\s\S]*padding:\s*4rem\s+0;/);
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*\.scrolly-section\s*\{\s*padding:\s*4rem\s+0;/);
 
-  // JS provides runtime interpolation when native timeline is absent
+  // Script mantém identificadores sem travar a thread principal
   assert.match(scrollScript, /scrollyFallbackActive/);
   assert.match(scrollScript, /updateScrollytelling/);
 });

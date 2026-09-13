@@ -17,6 +17,9 @@
 | `docs/specs/SPEC-009-scrollytelling-e-fix-mobile.md` | Implementada |
 | `docs/specs/SPEC-010-auditoria-layout-scrollytelling.md` | Implementada |
 | `docs/specs/SPEC-011-modelos-fab-escassez.md` | Pendente |
+| `docs/specs/SPEC-012-provas-sociais-reais.md` | Implementada |
+| `docs/specs/SPEC-013-v2-copy-e-arquitetura.md` | Implementada |
+| `docs/specs/SPEC-014-revisao-fluidez-scroll-e-desmonte-scrollytelling.md` | Pendente |
 
 Quem marca DoD é o `quality-assurance-validation-agent`.
 
