@@ -92,13 +92,12 @@ test('side pricing cards share a fixed desktop height', () => {
   assert.match(pricing, /@media\s*\(min-width:\s*768px\)[\s\S]*:global\(\.pricing-card:not\(\.highlight-card\)\)\s*\{\s*height:\s*39rem/);
 });
 
-test('mobile reveal animations do not move content outside the viewport', () => {
+test('mobile reveal animations use safe vertical-only transforms (is-revealed system)', () => {
   const css = read('src/styles/global.css');
 
-  assert.match(css, /@media\s*\(max-width:\s*767px\)[\s\S]*\.scroll-animate\.anim-left[\s\S]*translateY\(24px\)/);
-  assert.match(css, /@media\s*\(max-width:\s*767px\)[\s\S]*\.scroll-animate\.anim-right[\s\S]*translateY\(24px\)/);
-  assert.match(css, /@media\s*\(max-width:\s*767px\)[\s\S]*\.scrolly-step\.from-left[\s\S]*animation-name:\s*scrolly-rise/);
-  assert.match(css, /@media\s*\(max-width:\s*767px\)[\s\S]*\.scrolly-step\.from-right[\s\S]*animation-name:\s*scrolly-rise/);
+  // O sistema is-revealed usa translateY para entrada segura (sem overflow horizontal)
+  assert.match(css, /html\.js-loaded:not\(\.reduced-motion\)\s+\.scrolly-step:not\(\.is-revealed\)/);
+  assert.match(css, /html\.js-loaded:not\(\.reduced-motion\)\s+\.scroll-animate:not\(\.is-revealed\)/);
 });
 
 test('sections operate with natural height and no scroll-jacking (SPEC-014)', () => {
@@ -285,5 +284,32 @@ test('header implements mobile-only smart hide-on-scroll to free viewport for st
   assert.match(header, /header--hidden/);
   assert.match(header, /passive:\s*true/);
 });
+
+test('premium micro-interactions and organic motion are configured across UI components (SPEC-015)', () => {
+  const button = read('src/components/ui/Button.astro');
+  const card = read('src/components/ui/GlassCard.astro');
+  const css = read('src/styles/global.css');
+
+  // Button: respiração orgânica de neon e brilho diagonal (shine)
+  assert.match(button, /emerald-glow-pulse/);
+  assert.match(button, /@keyframes\s+emerald-glow-pulse/);
+  assert.match(button, /\.btn::before\s*\{[\s\S]*background:\s*linear-gradient/);
+  assert.match(button, /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*\.btn-primary[\s\S]*animation:\s*none\s*!important/);
+
+  // GlassCard: elevação suave e borda esmeralda em hover no desktop
+  assert.match(card, /@media\s*\(hover:\s*hover\)\s*\{[\s\S]*\.glass-card:hover\s*\{[\s\S]*border-color:\s*rgba\(0,\s*255,\s*157/);
+  assert.match(card, /\.glass-card:hover\s*\{[\s\S]*transform:\s*translateY\(-4px\)/);
+  assert.match(card, /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*\.glass-card\s*\{[\s\S]*transition:\s*none\s*!important/);
+
+  // Scroll Entry Reveals: IntersectionObserver + CSS transitions (sistema is-revealed)
+  const scrollScript = read('src/scripts/scrollAnimations.js');
+  assert.match(scrollScript, /js-loaded/);
+  assert.match(scrollScript, /is-revealed/);
+  assert.match(scrollScript, /IntersectionObserver/);
+  assert.match(css, /\.scrolly-step\.is-revealed[\s\S]*opacity:\s*1\s*!important/);
+  assert.match(css, /html\.js-loaded:not\(\.reduced-motion\)\s+\.scrolly-step:not\(\.is-revealed\)/);
+  assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*\.scrolly-step\s*\{[\s\S]*animation:\s*none\s*!important/);
+});
+
 
 

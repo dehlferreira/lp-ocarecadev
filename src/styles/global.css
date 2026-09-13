@@ -134,14 +134,7 @@ section[id] {
   }
 }
 
-/* Dentro do pin, scroll-animate cede lugar ao scrolly-step (sem matar a animação do step) */
-@media (min-width: 768px) {
-  .scrolly .scroll-animate:not(.scrolly-step) {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
+/* Seções fluidas: permitindo animações de entrada nativas em todas as seções */
 
 /* Mobile: desabilita animações infinitas dentro do palco pinado (GPU) */
 @media (max-width: 767px) {
@@ -194,138 +187,9 @@ section[id] {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  @supports ((animation-timeline: view()) and (animation-range: entry)) {
-    .scroll-animate {
-      animation: reveal-rise cubic-bezier(0.16, 1, 0.3, 1) both;
-      animation-timeline: view(block);
-      animation-range: entry 5% cover 28%;
-    }
-
-    /* Cada variante mapeia para seu próprio keyframe */
-    .scroll-animate.anim-left {
-      animation-name: reveal-left;
-    }
-
-    .scroll-animate.anim-right {
-      animation-name: reveal-right;
-    }
-
-    .scroll-animate.anim-scale {
-      animation-name: reveal-scale;
-    }
-
-    .scroll-animate.anim-rise-sm {
-      animation-name: reveal-rise-sm;
-    }
-
-    @media (max-width: 767px) {
-      .scroll-animate.anim-left,
-      .scroll-animate.anim-right {
-        animation-name: reveal-mobile-rise;
-      }
-
-      .scrolly-step.from-left,
-      .scrolly-step.from-right {
-        animation-name: scrolly-rise !important;
-      }
-    }
-
-    /* Stagger real para scroll-scrubbed: deslocamos a janela de entrada por item,
-       criando uma cascata conforme a seção entra na viewport (não um delay temporal). */
-    .scroll-animate.delay-100 {
-      animation-range: entry 9% cover 31%;
-    }
-
-    .scroll-animate.delay-150 {
-      animation-range: entry 11% cover 32%;
-    }
-
-    .scroll-animate.delay-200 {
-      animation-range: entry 13% cover 34%;
-    }
-
-    .scroll-animate.delay-300 {
-      animation-range: entry 17% cover 37%;
-    }
-
-    .scroll-animate.delay-400 {
-      animation-range: entry 21% cover 40%;
-    }
-
-    @keyframes reveal-rise {
-      from {
-        opacity: 0;
-        transform: translateY(32px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes reveal-rise-sm {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes reveal-left {
-      from {
-        opacity: 0;
-        transform: translateX(-48px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes reveal-right {
-      from {
-        opacity: 0;
-        transform: translateX(48px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes reveal-scale {
-      from {
-        opacity: 0;
-        transform: scale(0.94);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes reveal-mobile-rise {
-      from {
-        opacity: 0;
-        transform: translateY(24px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  }
-}
+/* Revelação de .scroll-animate controlada via IntersectionObserver + CSS transitions
+   (ver scrollAnimations.js). O @supports scroll-driven foi removido pois competia
+   com o sistema is-revealed, tornando as animações imperceptíveis no Chrome. */
 
 /* ──────────────────────────────────────────────────────────────────────────
    Scrollytelling — Pinned Scroll + Scrubbing  (ADR-011 / SPEC-009)
@@ -394,6 +258,58 @@ section[id] {
     transform: none;
   }
 
+  /* Revelação dinâmica, viva e elegante ativada pelo scroll */
+  html.js-loaded:not(.reduced-motion) .scrolly-step:not(.is-revealed),
+  html.js-loaded:not(.reduced-motion) .scroll-animate:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(48px);
+    will-change: opacity, transform;
+  }
+
+  html.js-loaded:not(.reduced-motion) .scrolly-step.from-left:not(.is-revealed),
+  html.js-loaded:not(.reduced-motion) .scroll-animate.anim-left:not(.is-revealed) {
+    transform: translateX(-60px);
+  }
+
+  html.js-loaded:not(.reduced-motion) .scrolly-step.from-right:not(.is-revealed),
+  html.js-loaded:not(.reduced-motion) .scroll-animate.anim-right:not(.is-revealed) {
+    transform: translateX(60px);
+  }
+
+  html.js-loaded:not(.reduced-motion) .scrolly-step.from-scale:not(.is-revealed),
+  html.js-loaded:not(.reduced-motion) .scroll-animate.anim-scale:not(.is-revealed) {
+    transform: scale(0.88);
+  }
+
+  @media (max-width: 767px) {
+    html.js-loaded:not(.reduced-motion) .scrolly-step.from-left:not(.is-revealed),
+    html.js-loaded:not(.reduced-motion) .scrolly-step.from-right:not(.is-revealed),
+    html.js-loaded:not(.reduced-motion) .scroll-animate.anim-left:not(.is-revealed),
+    html.js-loaded:not(.reduced-motion) .scroll-animate.anim-right:not(.is-revealed) {
+      transform: translateY(24px);
+    }
+  }
+
+  .scrolly-step,
+  .scroll-animate {
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scrolly-step.is-revealed,
+  .scroll-animate.is-revealed {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Stagger em cascata perceptível */
+  .scrolly-step.s-1, .scroll-animate.delay-100 { transition-delay: 50ms; }
+  .scrolly-step.s-2, .scroll-animate.delay-150 { transition-delay: 110ms; }
+  .scrolly-step.s-3, .scroll-animate.delay-200 { transition-delay: 170ms; }
+  .scrolly-step.s-4, .scroll-animate.delay-300 { transition-delay: 240ms; }
+  .scrolly-step.s-5, .scroll-animate.delay-400 { transition-delay: 310ms; }
+  .scrolly-step.s-6 { transition-delay: 380ms; }
+  .scrolly-step.s-7 { transition-delay: 450ms; }
+
   /* Fallback sem opacidade oculta */
   .scrolly-fallback .scrolly-step {
     opacity: 1;
@@ -411,98 +327,9 @@ section[id] {
   .scrolly-progress {
     display: none;
   }
-
-  @supports ((animation-timeline: view()) and (animation-range: contain)) {
-    .scrolly {
-      height: auto;
-    }
-
-    .scrolly-step {
-      opacity: 1;
-      transform: none;
-      will-change: auto;
-    }
-
-    section:target .scrolly-step.s-1 {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-
-    @keyframes scrolly-rise {
-      from {
-        opacity: 0.8;
-        transform: translateY(12px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    @keyframes scrolly-left {
-      from {
-        opacity: 0.8;
-        transform: translateX(-16px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    @keyframes scrolly-right {
-      from {
-        opacity: 0.8;
-        transform: translateX(16px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    @keyframes scrolly-scale {
-      from {
-        opacity: 0.8;
-        transform: scale(0.96);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    @keyframes scrolly-fill-y {
-      from {
-        transform: scaleY(0);
-      }
-
-      to {
-        transform: scaleY(1);
-      }
-    }
-
-    @keyframes scrolly-fill-x {
-      from {
-        transform: scaleX(0);
-      }
-
-      to {
-        transform: scaleX(1);
-      }
-    }
-
-    @media (max-width: 767px) {
-      .scrolly {
-        height: auto;
-      }
-    }
-  }
+  /* Animações de revelação controladas via IntersectionObserver + CSS transitions
+     (ver scrollAnimations.js). O @supports scroll-driven foi removido pois competia
+     com o sistema is-revealed, tornando as animações imperceptíveis no Chrome. */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -678,4 +505,18 @@ section[id] {
   );
   z-index: 5;
   pointer-events: none;
+}
+
+/* Brilho ambiente vivo nas seções (SaaS Dark Mode Depth) */
+.scrolly-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 900px);
+  height: 380px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 255, 157, 0.055) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
 }

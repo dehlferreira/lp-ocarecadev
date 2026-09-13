@@ -37,8 +37,8 @@ import Icon from './Icon.astro';
         <p>Pagina com promessa direta, prova social e CTA visivel desde o primeiro scroll.</p>
         <div class="strong-button">Quero gerar clientes</div>
         <div class="metric-row">
-          <span><strong>+42%</strong> conversao</span>
-          <span><strong>18</strong> leads/semana</span>
+          <span><strong class="counter-number" data-target="42" data-prefix="+" data-suffix="%">+42%</strong> conversao</span>
+          <span><strong class="counter-number" data-target="18">18</strong> leads/semana</span>
         </div>
       </div>
     </div>
@@ -100,9 +100,28 @@ import Icon from './Icon.astro';
 
   .window-after {
     background: #0c0f11;
+    border: 1px solid rgba(0, 255, 157, 0.35);
     box-shadow:
       0 22px 64px rgba(0, 0, 0, 0.6),
-      0 0 52px rgba(0, 255, 157, 0.18);
+      0 0 52px rgba(0, 255, 157, 0.25);
+    animation: neon-breathe 3.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes neon-breathe {
+    0% {
+      box-shadow: 0 22px 64px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 255, 157, 0.18);
+      border-color: rgba(0, 255, 157, 0.28);
+    }
+    100% {
+      box-shadow: 0 26px 72px rgba(0, 0, 0, 0.7), 0 0 65px rgba(0, 255, 157, 0.38);
+      border-color: rgba(0, 255, 157, 0.55);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .window-after {
+      animation: none !important;
+    }
   }
 
   .window-bar {

@@ -77,6 +77,7 @@ const Tag = href ? 'a' : 'button';
     box-shadow: 0 4px 25px rgba(0, 255, 157, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.35), inset 0 -1px 2px rgba(0, 0, 0, 0.25);
     text-shadow: 0 0 10px rgba(0, 255, 157, 0.7), 0 1px 2px rgba(0, 0, 0, 0.8);
     position: relative;
+    animation: emerald-glow-pulse 3s ease-in-out infinite alternate;
   }
 
   .btn-primary::after {
@@ -96,6 +97,15 @@ const Tag = href ? 'a' : 'button';
     }
     100% {
       opacity: 0.75;
+    }
+  }
+
+  @keyframes emerald-glow-pulse {
+    0% {
+      box-shadow: 0 4px 20px rgba(0, 255, 157, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+    }
+    100% {
+      box-shadow: 0 6px 32px rgba(0, 255, 157, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.5);
     }
   }
 
@@ -135,8 +145,8 @@ const Tag = href ? 'a' : 'button';
     -webkit-transform: translateY(-3px) scale(1.02) translateZ(0);
   }
 
-  /* Brilho diagonal passando pelo botão (Shine effect) */
-  .btn::after {
+  /* Brilho diagonal passando pelo botão (Shine effect) via ::before */
+  .btn::before {
     content: '';
     position: absolute;
     top: 0;
@@ -146,9 +156,19 @@ const Tag = href ? 'a' : 'button';
     background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
     transform: skewX(-20deg);
     transition: all 0.7s ease;
+    pointer-events: none;
   }
 
-  .btn:hover::after {
+  .btn:hover::before {
     left: 150%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary,
+    .btn-primary::after,
+    .btn::before {
+      animation: none !important;
+      transition: none !important;
+    }
   }
 </style>

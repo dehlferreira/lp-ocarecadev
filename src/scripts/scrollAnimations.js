@@ -1,37 +1,87 @@
 const initScrollAnimations = () => {
-  // Intersection Observer atuando como Fallback para navegadores sem suporte a CSS Scroll-Driven Animations
-  if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) {
-    // easeOutExpo — mesma sensação de "settle" suave do cubic-bezier usado no CSS scroll-driven
-    const ease = (t) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
+  if (typeof document !== 'undefined') {
+    document.documentElement.classList.add('js-loaded');
+  }
 
-    // Mapeia a variante do elemento para o transform interpolado (e = progresso já suavizado)
-    const variantTransform = (el, e) => {
-      const cl = el.classList;
-      if (cl.contains('anim-left')) return `translateX(${(1 - e) * -48}px)`;
-      if (cl.contains('anim-right')) return `translateX(${(1 - e) * 48}px)`;
-      if (cl.contains('anim-scale')) return `scale(${0.94 + e * 0.06})`;
-      if (cl.contains('anim-rise-sm')) return `translateY(${(1 - e) * 18}px)`;
-      return `translateY(${(1 - e) * 32}px)`;
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion && typeof document !== 'undefined') {
+    document.documentElement.classList.add('reduced-motion');
+  }
+
+  // Animação de contadores numéricos ao entrar na tela (ex: +42%, 18 leads, 1.284 visitas)
+  const animateCounter = (el) => {
+    if (el.dataset.animated) return;
+    el.dataset.animated = 'true';
+
+    const rawTarget = el.dataset.target || el.textContent.replace(/[^0-9]/g, '');
+    const target = parseFloat(rawTarget);
+    if (isNaN(target)) return;
+
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const isLocale = el.dataset.format === 'locale';
+    const duration = 1200;
+    const startTime = performance.now();
+
+    const update = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutExpo suave
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = Math.floor(ease * target);
+
+      el.textContent = `${prefix}${isLocale ? current.toLocaleString('pt-BR') : current}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = `${prefix}${isLocale ? target.toLocaleString('pt-BR') : target}${suffix}`;
+      }
     };
 
-    const observer = new IntersectionObserver(
+    requestAnimationFrame(update);
+  };
+
+  // IntersectionObserver Universal: aciona revelação viva e contadores conforme o scroll desce
+  if (typeof IntersectionObserver !== 'undefined') {
+    const revealObserver = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          // Progresso para a animação terminar em ~28% de visibilidade
-          const progress = Math.min(entry.intersectionRatio / 0.28, 1);
-          const e = ease(progress);
+          if (entry.isIntersecting) {
+            const targetEl = entry.target;
+            targetEl.classList.add('is-revealed');
 
-          entry.target.style.opacity = e.toString();
-          entry.target.style.transform = variantTransform(entry.target, e);
+            // Dispara contadores dentro do elemento
+            const counters = targetEl.querySelectorAll('.counter-number');
+            counters.forEach((c) => animateCounter(c));
+            if (targetEl.classList.contains('counter-number')) {
+              animateCounter(targetEl);
+            }
+
+            revealObserver.unobserve(targetEl);
+          }
         }
       },
       {
-        threshold: Array.from({ length: 101 }, (_, i) => i / 100),
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.08,
       }
     );
 
-    document.querySelectorAll('.scroll-animate').forEach((el) => {
-      observer.observe(el);
+    const elementsToReveal = document.querySelectorAll(
+      '.scrolly-step, .scroll-animate, .ba-card, .metric-card, .conversion-mockup, .problem-mockup, .counter-number'
+    );
+
+    elementsToReveal.forEach((el) => {
+      if (prefersReducedMotion) {
+        el.classList.add('is-revealed');
+      } else {
+        revealObserver.observe(el);
+      }
     });
   }
 
@@ -39,11 +89,6 @@ const initScrollAnimations = () => {
     typeof CSS !== 'undefined' &&
     typeof CSS.supports === 'function' &&
     CSS.supports('(animation-timeline: view()) and (animation-range: contain)');
-
-  const prefersReducedMotion =
-    typeof window !== 'undefined' &&
-    typeof window.matchMedia === 'function' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const scrollyFallbackActive = !scrollySupported && !prefersReducedMotion;
 

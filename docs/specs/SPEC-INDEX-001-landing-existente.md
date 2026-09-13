@@ -19,7 +19,8 @@
 | `docs/specs/SPEC-011-modelos-fab-escassez.md` | Pendente |
 | `docs/specs/SPEC-012-provas-sociais-reais.md` | Implementada |
 | `docs/specs/SPEC-013-v2-copy-e-arquitetura.md` | Implementada |
-| `docs/specs/SPEC-014-revisao-fluidez-scroll-e-desmonte-scrollytelling.md` | Pendente |
+| `docs/specs/SPEC-014-revisao-fluidez-scroll-e-desmonte-scrollytelling.md` | Implementada |
+| `docs/specs/SPEC-015-animacoes-premium-e-micro-interacoes.md` | Implementada |
 
 Quem marca DoD é o `quality-assurance-validation-agent`.
 

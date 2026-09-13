@@ -11,37 +11,50 @@ O objetivo desta revisão é **priorizar a velocidade de leitura, a fluidez cont
 
 ### Princípios de Experiência
 1. **Rolagem Natural e Sem Travamento (Zero Scroll-Jacking):** Nenhuma seção deve congelar a rolagem da página ou obrigar o usuário a realizar múltiplos scrolls consecutivos no mesmo ponto apenas para revelar o parágrafo ou elemento seguinte.
-2. **Consumo Imediato de Conteúdo:** Textos, argumentos do funil PAS, provas e mockups devem estar imediatamente visíveis ou surgir com transições sutis e rápidas conforme entram na viewport, sem exigir esforço mecânico extra.
-3. **Descontinuação do Scrollytelling Pinned:** Seções que utilizavam trilhos estendidos com `position: sticky` e scrubbing de opacidade sequencial (Problema, Agitação, Solução, Como Funciona, Sobre) devem ser simplificadas para fluxos naturais de leitura com alturas proporcionais ao seu conteúdo real.
-4. **Respeito à Acessibilidade e Movimento (G1 e G2):** Sob `prefers-reduced-motion: reduce`, todas as transições permanecem desligadas e o conteúdo 100% visível desde o primeiro render.
+2. **Consumo Imediato e Fluido de Conteúdo:** Textos, argumentos do funil PAS, provas e mockups devem estar acessíveis sem fricção, enriquecidos com uma camada de movimento estético refinado.
+3. **Efeitos e Sensação de Site Premium:** A página não deve parecer um documento estático sem vida. Os elementos ganham entrada suave (fade-in + leve elevação) conforme entram no campo de visão, além de micro-interações elegantes em cards e botões.
+4. **Descontinuação Definitiva do Pinning:** Pinned scroll e telas travadas permanecem descontinuados em todas as seções.
+5. **Respeito à Acessibilidade e Movimento (G1 e G2):** Sob `prefers-reduced-motion: reduce`, todas as transições permanecem desligadas e o conteúdo 100% visível desde o primeiro render.
+
+---
+
+## ✨ Camada de Efeitos Premium (High-Tech Aesthetics)
+Para elevar a percepção de valor do serviço sem comprometer velocidade nem usabilidade:
+1. **Scroll Entry Reveals no Compositor:** Conforme o usuário rola, novos blocos e cards revelam-se suavemente ao ingressar na viewport (`entry 10% cover 25%`), utilizando exclusivamente aceleração de GPU (`opacity` e `transform`).
+2. **Micro-interações de Profundidade:**
+   - Efeito de brilho de borda (*subtle border glow / hover shimmer*) nos componentes `GlassCard` (passos de como funciona, planos, depoimentos e diferencial).
+   - Efeito de elevação sutil em hover nos cards interativos (desktop).
+3. **CTA Primário Vibrante:** Botão de WhatsApp principal com sutil respiração de brilho neon esmeralda (*organic pulse*), aumentando o destaque visual e a taxa de cliques sem criar poluição visual.
+4. **Badges e Destaques:** Efeito sutil de brilho nos selos de autoridade e escassez.
 
 ---
 
 ## ⚡ Diretrizes Técnicas de Produto
 Para manter a landing page ultra-rápida, leve e responsiva (especialmente em dispositivos móveis):
-- **Sem dependências adicionais:** Nenhuma biblioteca externa de animação (G7).
-- **CSS Nativo e Propriedades Econômicas:** Animações restritas exclusivamente a `opacity` e `transform` (GPU compositing), sem disparar reflows ou layout shifts (G3 e G4).
-- **Redução Drástica da Altura da Página:** A altura total do documento (especialmente no mobile) deve diminuir sensivelmente com a remoção dos trilhos de scroll estendidos, acelerando o tempo até o CTA final.
+- **Sem dependências adicionais (G7):** Nenhuma biblioteca externa de animação (zero KB de bundle adicional).
+- **CSS Nativo e Propriedades Econômicas (G4):** Animações restritas exclusivamente a `opacity` e `transform` (GPU compositing), sem disparar reflows ou layout shifts (G3).
+- **Isenção de Bloqueio:** O movimento é acionado de forma passiva; se o usuário rolar rapidamente, o conteúdo já estará legível em sua posição final sem atrasar a leitura.
 
 ---
 
 ## 📍 Comportamento Esperado por Seção
-- **Hero Section:** Apresentação imediata da proposta de valor com micro-interações elegantes que não bloqueiam a rolagem.
-- **Problema, Agitação e Solução:** Fim do pinning sequencial; apresentação clara e fluida dos tópicos de dor, mockups de auditoria e mecanismo da oferta.
-- **Como Funciona:** Passos do processo visíveis em fluxo contínuo e ordenado (cards e conexões sem exigência de scroll travado).
-- **Sobre e Provas Sociais:** Leitura direta da autoridade e casos reais sem telas presas.
-- **Cards de Planos e CTA:** Destaque visual claro, prontamente acessível para ação de clique para WhatsApp.
+- **Hero Section:** Headline e CTA com micro-interações de alta tecnologia, mockup com leve flutuação sutil.
+- **Problema, Agitação e Solução:** Entrada suave em cascata natural conforme as seções entram na tela, mantendo os mockups em destaque visual límpido.
+- **Como Funciona:** Cards de passos com reveal sequencial orgânico de entrada e brilho em foco.
+- **Provas Sociais e Depoimentos:** Entrada suave e cards com destaque de leitura autêntica.
+- **Cards de Planos e CTA:** Destaque vibrante com bordas energizadas e botão com respiração convidativa.
 
 ---
 
 ## ✅ Critérios de Aceite
 
-1. **Eliminação de Travamento:** Nenhuma seção da landing page mantém a tela fixada (*sticky/pinned*) exigindo múltiplos gestos de rolagem para completar a exibição de conteúdos da mesma seção.
-2. **Redução da Altura Vertical da Página:** A altura total da página no viewport mobile (393×852) é reduzida substancialmente (mínimo de 35% de redução em relação aos ~11.200px da versão com scrollytelling pinned), aproximando o visitante da oferta.
-3. **Visibilidade Sem Fricção:** Todo o conteúdo de texto, títulos, listas e mockups torna-se visível naturalmente com a rolagem normal, sem requerer parada forçada do usuário.
-4. **Contratos de Acessibilidade (G1 e G2):** Todo o conteúdo permanece totalmente legível por leitores de tela e navegável por teclado; sob `prefers-reduced-motion: reduce`, nenhum elemento permanece oculto (`opacity: 0`).
-5. **Estabilidade de Layout (G3):** Nenhuma alteração gera layout shift (CLS = 0) nem transbordamento horizontal em viewports de 390px, 768px e 1200px+.
-6. **Preservação do Tracking (G6):** Os disparos de profundidade de rolagem (scroll depth 25%, 50%, 75%, 90%) e rastreamento de cliques nos CTAs continuam operando de forma íntegra e idêntica às especificações de tracking aceitas.
+1. **Sensação Estética Premium:** A landing page exibe transições e micro-interações elegantes em cards, botões e seções, superando a sensação de site estático ou "parado".
+2. **Zero Scroll-Jacking:** Nenhuma seção congela ou desacelera a rolagem do usuário. A barra de rolagem flui com total liberdade.
+3. **Aceleração por Hardware (GPU Only):** Todas as animações atuam estritamente em `opacity` e `transform`; nenhum reflow/relayout é disparado por propriedades pesadas.
+4. **Desempenho Mobile Intacto (G3 e G4):** No viewport móvel (390px/393px), a rolagem mantém 60fps constantes sem engasgos; LCP ≤ 2.5s preservado no build de produção.
+5. **Contratos de Acessibilidade (G1 e G2):** Foco visível preservado (`:focus-visible`); sob `prefers-reduced-motion: reduce`, nenhum elemento permanece oculto (`opacity: 0`) e todas as animações infinitas são neutralizadas.
+6. **Estabilidade de Layout (G3):** CLS = 0; sem transbordamento horizontal em 390px, 768px e 1200px+.
+7. **Preservação do Tracking (G6):** Disparos de scroll depth e cliques de lead no WhatsApp continuam íntegros e funcionais.
 
 ---
 
