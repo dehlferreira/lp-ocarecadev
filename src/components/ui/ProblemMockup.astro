@@ -21,6 +21,11 @@ const { compact = false } = Astro.props;
       decoding="async"
       quality={82}
     />
+    <!-- Feixe sutil de scanner de auditoria -->
+    <div class="mockup-scanner-beam" aria-hidden="true">
+      <span class="scanner-line"></span>
+      <span class="scanner-glow"></span>
+    </div>
   </div>
 </div>
 
@@ -60,6 +65,82 @@ const { compact = false } = Astro.props;
     backface-visibility: hidden;
   }
 
+  /* Scanner de auditoria em tempo real */
+  .mockup-scanner-beam {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: 10px;
+    z-index: 10;
+    transform: translateZ(2px);
+  }
+
+  .scanner-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 157, 0.3) 12%,
+      #00ff9d 50%,
+      rgba(0, 255, 157, 0.3) 88%,
+      transparent 100%
+    );
+    box-shadow: 0 0 14px #00ff9d, 0 0 28px rgba(0, 255, 157, 0.85), 0 0 45px rgba(0, 255, 157, 0.45);
+    z-index: 12;
+    will-change: top;
+    animation: scanner-sweep 3.6s ease-in-out infinite alternate;
+  }
+
+  .scanner-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 75px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 255, 157, 0.04) 40%,
+      rgba(0, 255, 157, 0.22) 100%
+    );
+    z-index: 11;
+    will-change: top;
+    animation: scanner-sweep-glow 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes scanner-sweep {
+    0% {
+      top: 0%;
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      top: calc(100% - 3px);
+      opacity: 0.9;
+    }
+  }
+
+  @keyframes scanner-sweep-glow {
+    0% {
+      top: -75px;
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      top: calc(100% - 75px);
+      opacity: 0.8;
+    }
+  }
+
   @media (max-width: 767px) {
     .problem-mockup {
       width: 100%;
@@ -81,6 +162,12 @@ const { compact = false } = Astro.props;
       height: auto;
       max-height: none;
       aspect-ratio: 912 / 617;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mockup-scanner-beam {
+      display: none !important;
     }
   }
 </style>

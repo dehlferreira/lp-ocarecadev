@@ -10,9 +10,13 @@ const categories = [
 ];
 ---
 
-<section id="identificacao" class="section-identification section-fade-top section-fade-bottom">
+<section id="identificacao" class="section-identification section-fade-bottom">
+  <!-- Conector Luminoso de Transição Fluida vindo da Hero -->
+  <div class="transition-beam" aria-hidden="true"></div>
+  <div class="transition-ambient-glow" aria-hidden="true"></div>
+
   <div class="container">
-    <div class="identification-card">
+    <div class="identification-card" id="identification-card">
       <div class="identification-header">
         <span class="identification-badge">
           <span class="badge-dot"></span>
@@ -42,10 +46,53 @@ const categories = [
 
 <style>
   .section-identification {
-    padding: 3.5rem 0 2.5rem;
+    padding: 3rem 0 2.75rem;
     background-color: #050709;
     position: relative;
     overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .section-identification {
+      padding: 4rem 0 3.5rem;
+    }
+  }
+
+  /* Conector de Transição Fluida vindo da Hero (Linha de Feixe + Glow) */
+  .transition-beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 157, 0.04) 15%,
+      rgba(0, 255, 157, 0.45) 50%,
+      rgba(0, 255, 157, 0.04) 85%,
+      transparent 100%
+    );
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .transition-ambient-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    height: 90px;
+    background: radial-gradient(
+      ellipse 60% 70px at 50% 0%,
+      rgba(0, 255, 157, 0.14) 0%,
+      rgba(0, 255, 157, 0.03) 55%,
+      transparent 100%
+    );
+    z-index: 2;
+    pointer-events: none;
   }
 
   .container {
@@ -60,9 +107,11 @@ const categories = [
     border-radius: 16px;
     padding: 2.25rem 2rem;
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
     text-align: center;
     position: relative;
+    z-index: 4;
   }
 
   .identification-card::before {
@@ -176,4 +225,166 @@ const categories = [
       padding: 0.4rem 0.75rem;
     }
   }
+
+  /* Animação com efeito de mola disparada quando 40% da seção aparece */
+  .identification-card.card-spring-ready {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-130px);
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, visibility 0.45s ease;
+    will-change: transform, opacity;
+  }
+
+  .identification-card.card-spring-ready.is-spring-in {
+    opacity: 1;
+    visibility: visible;
+    animation: spring-bounce-in 0.95s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+  }
+
+  @keyframes spring-bounce-in {
+    0% {
+      opacity: 0;
+      visibility: visible;
+      transform: translateX(-140px) scale(0.96);
+    }
+    25% {
+      opacity: 1;
+    }
+    45% {
+      /* Batida na mola com compressão à direita (ultrapassa o centro) */
+      transform: translateX(38px) scale(1.02);
+    }
+    63% {
+      /* Recuo elástico da mola para a esquerda */
+      transform: translateX(-16px) scale(0.99);
+    }
+    77% {
+      /* Segundo rebote elástico */
+      transform: translateX(8px) scale(1.004);
+    }
+    89% {
+      /* Amortecimento */
+      transform: translateX(-3px) scale(0.998);
+    }
+    96% {
+      transform: translateX(1px);
+    }
+    100% {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .identification-card.card-spring-ready {
+      transform: translateX(-80px);
+    }
+
+    .identification-card.card-spring-ready.is-spring-in {
+      animation: spring-bounce-in-mobile 0.9s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+    }
+
+    @keyframes spring-bounce-in-mobile {
+      0% {
+        opacity: 0;
+        visibility: visible;
+        transform: translateX(-90px);
+      }
+      25% {
+        opacity: 1;
+      }
+      45% {
+        transform: translateX(24px);
+      }
+      63% {
+        transform: translateX(-11px);
+      }
+      77% {
+        transform: translateX(5px);
+      }
+      89% {
+        transform: translateX(-2px);
+      }
+      100% {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .identification-card.card-spring-ready,
+    .identification-card.card-spring-ready.is-spring-in {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
+  }
 </style>
+
+<script>
+  const setupIdentificationSpring = () => {
+    // Respeita preferência por redução de movimento (G2)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    const section = document.getElementById('identificacao');
+    const card = document.getElementById('identification-card');
+    if (!section || !card) return;
+
+    // Prepara o card para animação (inicia oculto até atingir 40% de visibilidade)
+    card.classList.add('card-spring-ready');
+
+    let isTriggered = false;
+
+    const checkAndTrigger = () => {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionHeight = section.offsetHeight;
+
+      // Quantos pixels do topo da seção já entraram na janela
+      const visibleFromTop = windowHeight - rect.top;
+      const triggerThreshold = sectionHeight * 0.4;
+      const resetThreshold = sectionHeight * 0.32;
+
+      // Se desceu o scroll e 40% da seção apareceu: aciona animação de mola
+      if (visibleFromTop >= triggerThreshold && rect.bottom > 0) {
+        if (!isTriggered) {
+          isTriggered = true;
+          card.classList.add('is-spring-in');
+        }
+      } else if (visibleFromTop < resetThreshold || rect.top > windowHeight + 60) {
+        // Se subiu/voltou o scroll: desfaz a animação suavemente
+        if (isTriggered) {
+          isTriggered = false;
+          card.classList.remove('is-spring-in');
+        }
+      }
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkAndTrigger();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    // Checagem imediata caso a página já tenha sido carregada no ponto
+    checkAndTrigger();
+  };
+
+  setupIdentificationSpring();
+  document.addEventListener('astro:page-load', setupIdentificationSpring);
+</script>

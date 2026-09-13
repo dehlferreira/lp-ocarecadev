@@ -9,11 +9,20 @@ const points = [
 ];
 ---
 
-<section id="problema" class="section-problem scrolly-section section-fade-top section-fade-bottom">
+<section
+  id="problema"
+  class="section-problem scrolly-section section-fade-top section-fade-bottom"
+  style="--fade-from: #050709; --fade-to: #0A0A0A;"
+>
+  <!-- Conector Luminoso de Transição Fluida vindo de Identification -->
+  <div class="problem-transition-beam" aria-hidden="true"></div>
+  <div class="problem-ambient-glow" aria-hidden="true"></div>
+
   <div class="scrolly scrolly--7">
     <div class="scrolly__stage">
       <div class="container problem-container">
-        <div class="problem-content">
+        <div class="problem-content" id="problem-content">
+          <!-- Coluna 1 no Desktop / Bloco Superior no Mobile: Título, Descrição e 3 Pontos -->
           <div class="problem-left">
             <h2 class="problem-title scrolly-step s-1">
               Seu site recebe pessoas, mas deixa claro o que elas devem fazer <span class="text-neon">depois</span>?
@@ -22,28 +31,32 @@ const points = [
             <div class="problem-copy">
               <p class="problem-desc scrolly-step s-2">Um visitante precisa entender rapidamente três coisas:</p>
 
-              <ul class="problem-list">
+              <ul class="problem-list" role="list">
                 {points.map((point, i) => (
-                  <li class={`scrolly-step from-left s-${i + 3}`}>
-                    <span class="pain-icon"><Icon name="check" size={16} stroke={2.5} /></span>
-                    <span set:html={point} />
+                  <li class={`problem-point-card scrolly-step from-left s-${i + 3}`} role="listitem">
+                    <span class="pain-icon">
+                      <Icon name="check" size={16} stroke={2.5} />
+                    </span>
+                    <span class="point-text" set:html={point} />
                   </li>
                 ))}
               </ul>
-
-              <div class="problem-punchline scrolly-step s-6">
-                <p class="punchline-text">
-                  Quando isso não fica claro, a pessoa entra, olha e vai embora.
-                </p>
-                <p class="punchline-highlight">
-                  Se sua página não ajuda o visitante a avançar, ela vira só mais um <span class="text-neon">custo</span>.
-                </p>
-              </div>
             </div>
           </div>
 
+          <!-- Coluna 2 no Desktop / Bloco Central no Mobile: Mockup com Scanner de Auditoria -->
           <div class="problem-mockup-col scrolly-step from-right s-7">
             <ProblemMockup compact />
+          </div>
+
+          <!-- Linha 2 da Coluna 1 no Desktop / Bloco de Desfecho no Mobile: Punchline -->
+          <div class="problem-punchline scrolly-step s-6">
+            <p class="punchline-text">
+              Quando isso não fica claro, a pessoa entra, olha e vai embora.
+            </p>
+            <p class="punchline-highlight">
+              Se sua página não ajuda o visitante a avançar, ela vira só mais um <span class="text-neon punchline-cost">custo</span>.
+            </p>
           </div>
         </div>
       </div>
@@ -54,6 +67,45 @@ const points = [
 <style>
   .section-problem {
     background-color: #030303;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Conector de Transição Fluida vindo de Identification */
+  .problem-transition-beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 157, 0.04) 15%,
+      rgba(0, 255, 157, 0.4) 50%,
+      rgba(0, 255, 157, 0.04) 85%,
+      transparent 100%
+    );
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .problem-ambient-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    height: 90px;
+    background: radial-gradient(
+      ellipse 60% 70px at 50% 0%,
+      rgba(0, 255, 157, 0.1) 0%,
+      rgba(0, 255, 157, 0.02) 55%,
+      transparent 100%
+    );
+    z-index: 2;
+    pointer-events: none;
   }
 
   .container {
@@ -63,7 +115,7 @@ const points = [
   .problem-content {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 1rem;
+    gap: 1.25rem;
     width: 100%;
   }
 
@@ -72,37 +124,56 @@ const points = [
     font-weight: 800;
     color: var(--color-text-primary);
     line-height: 1.2;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   @media (min-width: 768px) {
     .problem-title {
-      font-size: 3rem;
+      font-size: 2.75rem;
+      line-height: 1.15;
     }
   }
 
   .problem-desc {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     color: var(--color-text-secondary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .problem-list {
     list-style: none;
     padding: 0;
-    margin: 0 auto 2.5rem;
-    display: inline-flex;
+    margin: 0 0 1.75rem;
+    display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.85rem;
     text-align: left;
-    font-size: 1.125rem;
+    font-size: 1.05rem;
     color: #e5e5e5;
   }
 
-  .problem-list li {
+  /* Cards compactos de dor com iluminação sutil */
+  .problem-point-card {
     display: flex;
     align-items: center;
     gap: 0.85rem;
+    padding: 0.75rem 1rem;
+    background: rgba(18, 22, 28, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  }
+
+  .problem-point-card:hover {
+    border-color: rgba(0, 255, 157, 0.3);
+    background: rgba(0, 255, 157, 0.04);
+    transform: translateX(4px);
+  }
+
+  .point-text {
+    line-height: 1.45;
   }
 
   /* Badge circular para os 3 pontos */
@@ -110,20 +181,21 @@ const points = [
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     flex-shrink: 0;
     border-radius: 50%;
     color: var(--color-primary-neon);
-    background: rgba(0, 255, 157, 0.1);
-    border: 1px solid rgba(0, 255, 157, 0.25);
+    background: rgba(0, 255, 157, 0.12);
+    border: 1px solid rgba(0, 255, 157, 0.35);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.25);
   }
 
   .problem-punchline {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
     text-align: left;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.25rem;
+    margin-top: 0.5rem;
   }
 
   .punchline-text {
@@ -139,12 +211,19 @@ const points = [
     margin: 0;
   }
 
+  .punchline-cost {
+    display: inline-block;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(0, 255, 157, 0.4);
+  }
+
   .problem-mockup-col {
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
   }
 
+  /* Desktop: 2 colunas perfeitamente alinhadas */
   @media (min-width: 768px) {
     .problem-container {
       max-width: 1200px;
@@ -152,20 +231,22 @@ const points = [
 
     .problem-content {
       grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      column-gap: 2rem;
-      align-items: stretch;
+      column-gap: 2.5rem;
+      row-gap: 1.25rem;
+      align-items: center;
       text-align: left;
     }
 
     .problem-left {
       grid-column: 1;
+      grid-row: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
     .problem-title {
-      margin: 0 0 1.5rem;
+      margin: 0 0 1.25rem;
       text-align: left;
     }
 
@@ -175,7 +256,7 @@ const points = [
 
     .problem-mockup-col {
       grid-column: 2;
-      grid-row: 1;
+      grid-row: 1 / span 2;
       max-width: none;
       width: 100%;
       margin: 0;
@@ -184,69 +265,355 @@ const points = [
       align-items: center;
       justify-content: center;
     }
+
+    .problem-punchline {
+      grid-column: 1;
+      grid-row: 2;
+      margin-top: 0;
+    }
   }
 
-  /* Mobile: ocupa a tela com harmonia e proporção visual equilibrada */
+  /* Mobile: Reestruturação otimizada (Título -> 3 Pontos em Cards -> Mockup -> Punchline como desfecho) */
   @media (max-width: 767px) {
     .problem-container {
       width: 100%;
-      padding: 0 0.25rem;
+      padding: 0 0.85rem;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
     }
+
     .problem-content {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 0.85rem;
+      align-items: stretch;
+      gap: 1.15rem;
       width: 100%;
     }
+
     .problem-left {
       display: flex;
       flex-direction: column;
-      gap: 0.45rem;
-      margin-bottom: 0;
+      gap: 0.4rem;
       width: 100%;
-      padding: 0 0.5rem;
+      padding: 0;
     }
+
     .problem-title {
       font-size: 1.35rem;
       margin-bottom: 0.4rem;
-      line-height: 1.2;
+      line-height: 1.25;
+      text-align: center;
     }
+
     .problem-desc {
       font-size: 0.92rem;
-      margin-bottom: 0.4rem;
-    }
-    .problem-list {
-      gap: 0.45rem;
       margin-bottom: 0.6rem;
-      font-size: 0.88rem;
+      text-align: center;
     }
-    .problem-list li {
-      gap: 0.55rem;
+
+    .problem-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.85rem;
+      width: 100%;
     }
+
+    .problem-point-card {
+      padding: 0.6rem 0.85rem;
+      gap: 0.65rem;
+      border-radius: 10px;
+    }
+
     .pain-icon {
       width: 22px;
       height: 22px;
     }
-    .problem-punchline {
-      margin-top: 0.55rem;
-      padding-top: 0.55rem;
-    }
-    .punchline-text {
-      font-size: 0.85rem;
-      margin: 0 0 0.25rem;
-    }
-    .punchline-highlight {
-      font-size: 1.02rem;
-    }
+
     .problem-mockup-col {
       max-width: none;
       width: 100%;
+      margin: 0.2rem 0;
       flex-shrink: 0;
+    }
+
+    .problem-punchline {
+      margin-top: 0.1rem;
+      padding: 1rem 1.1rem;
+      background: rgba(18, 22, 28, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .punchline-text {
+      font-size: 0.88rem;
+      margin: 0 0 0.35rem;
+    }
+
+    .punchline-highlight {
+      font-size: 1.05rem;
+    }
+  }
+
+  /* ==========================================================================
+     Animação em Cascata Cinematográfica (Efeito Dominó Bidirecional)
+     ========================================================================== */
+
+  /* Estado preparado / quando desfaz a animação ao voltar o scroll */
+  #problem-content.problem-anim-ready:not(.is-problem-in) .problem-title,
+  #problem-content.problem-anim-ready:not(.is-problem-in) .problem-desc,
+  .problem-content.problem-anim-ready:not(.is-problem-in) .problem-title,
+  .problem-content.problem-anim-ready:not(.is-problem-in) .problem-desc {
+    opacity: 0 !important;
+    transform: translateY(26px) !important;
+    transition: opacity 0.4s ease, transform 0.45s ease !important;
+    will-change: transform, opacity;
+  }
+
+  #problem-content.problem-anim-ready:not(.is-problem-in) .problem-point-card,
+  .problem-content.problem-anim-ready:not(.is-problem-in) .problem-point-card {
+    opacity: 0 !important;
+    transform: translateX(-40px) !important;
+    transition: opacity 0.35s ease, transform 0.45s ease !important;
+    will-change: transform, opacity;
+  }
+
+  #problem-content.problem-anim-ready:not(.is-problem-in) .problem-mockup-col,
+  .problem-content.problem-anim-ready:not(.is-problem-in) .problem-mockup-col {
+    opacity: 0 !important;
+    transform: translateX(50px) !important;
+    transition: opacity 0.45s ease, transform 0.5s ease !important;
+    will-change: transform, opacity;
+  }
+
+  #problem-content.problem-anim-ready:not(.is-problem-in) .problem-punchline,
+  .problem-content.problem-anim-ready:not(.is-problem-in) .problem-punchline {
+    opacity: 0 !important;
+    transform: translateY(26px) !important;
+    transition: opacity 0.4s ease, transform 0.45s ease !important;
+    will-change: transform, opacity;
+  }
+
+  /* Estado ativo no scroll descendente: Cascata em Dominó */
+  #problem-content.is-problem-in .problem-title,
+  #problem-content.is-problem-in .problem-desc,
+  .problem-content.is-problem-in .problem-title,
+  .problem-content.is-problem-in .problem-desc {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  #problem-content.is-problem-in .problem-title,
+  .problem-content.is-problem-in .problem-title {
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  #problem-content.is-problem-in .problem-desc,
+  .problem-content.is-problem-in .problem-desc {
+    transition: opacity 0.55s ease 0.08s, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.08s !important;
+  }
+
+  /* 3 Cards de dor em cascata sequencial */
+  #problem-content.is-problem-in .problem-point-card,
+  .problem-content.is-problem-in .problem-point-card {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+
+  #problem-content.is-problem-in .problem-point-card:nth-child(1),
+  .problem-content.is-problem-in .problem-point-card:nth-child(1) {
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease !important;
+    transition-delay: 0.12s !important;
+  }
+
+  #problem-content.is-problem-in .problem-point-card:nth-child(2),
+  .problem-content.is-problem-in .problem-point-card:nth-child(2) {
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease !important;
+    transition-delay: 0.24s !important;
+  }
+
+  #problem-content.is-problem-in .problem-point-card:nth-child(3),
+  .problem-content.is-problem-in .problem-point-card:nth-child(3) {
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease !important;
+    transition-delay: 0.36s !important;
+  }
+
+  /* Ignição e pulso luminoso neon no ícone de cada card */
+  #problem-content.is-problem-in .problem-point-card:nth-child(1) .pain-icon,
+  .problem-content.is-problem-in .problem-point-card:nth-child(1) .pain-icon {
+    animation: pain-icon-ignite 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  }
+
+  #problem-content.is-problem-in .problem-point-card:nth-child(2) .pain-icon,
+  .problem-content.is-problem-in .problem-point-card:nth-child(2) .pain-icon {
+    animation: pain-icon-ignite 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.32s forwards;
+  }
+
+  #problem-content.is-problem-in .problem-point-card:nth-child(3) .pain-icon,
+  .problem-content.is-problem-in .problem-point-card:nth-child(3) .pain-icon {
+    animation: pain-icon-ignite 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.44s forwards;
+  }
+
+  @keyframes pain-icon-ignite {
+    0% {
+      transform: scale(0.85);
+      box-shadow: 0 0 0 rgba(0, 255, 157, 0);
+    }
+    50% {
+      transform: scale(1.18);
+      box-shadow: 0 0 16px rgba(0, 255, 157, 0.8), 0 0 28px rgba(0, 255, 157, 0.35);
+      background: rgba(0, 255, 157, 0.22);
+      border-color: rgba(0, 255, 157, 0.85);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 10px rgba(0, 255, 157, 0.25);
+      background: rgba(0, 255, 157, 0.12);
+      border-color: rgba(0, 255, 157, 0.35);
+    }
+  }
+
+  /* Mockup deslizando suavemente da direita com amortecimento */
+  #problem-content.is-problem-in .problem-mockup-col,
+  .problem-content.is-problem-in .problem-mockup-col {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    transition: opacity 0.65s ease, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition-delay: 0.22s !important;
+  }
+
+  /* Punchline surgindo com elevação e destaque no desfecho */
+  #problem-content.is-problem-in .problem-punchline,
+  .problem-content.is-problem-in .problem-punchline {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition-delay: 0.46s !important;
+  }
+
+  #problem-content.is-problem-in .punchline-cost,
+  .problem-content.is-problem-in .punchline-cost {
+    animation: punchline-cost-glow 1.1s ease-out 0.68s forwards;
+  }
+
+  @keyframes punchline-cost-glow {
+    0% {
+      text-shadow: none;
+    }
+    50% {
+      text-shadow: 0 0 20px rgba(0, 255, 157, 0.9), 0 0 35px rgba(0, 255, 157, 0.5);
+    }
+    100% {
+      text-shadow: 0 0 12px rgba(0, 255, 157, 0.4);
+    }
+  }
+
+  /* Ajuste das direções para mobile */
+  @media (max-width: 767px) {
+    #problem-content.problem-anim-ready:not(.is-problem-in) .problem-point-card,
+    .problem-content.problem-anim-ready:not(.is-problem-in) .problem-point-card {
+      transform: translateX(-24px) !important;
+    }
+
+    #problem-content.problem-anim-ready:not(.is-problem-in) .problem-mockup-col,
+    .problem-content.problem-anim-ready:not(.is-problem-in) .problem-mockup-col {
+      transform: translateY(28px) !important;
+    }
+
+    #problem-content.is-problem-in .problem-mockup-col,
+    .problem-content.is-problem-in .problem-mockup-col {
+      transform: translateY(0) !important;
+    }
+  }
+
+  /* Respeito à acessibilidade de movimento (G2) */
+  @media (prefers-reduced-motion: reduce) {
+    #problem-content.problem-anim-ready .problem-title,
+    #problem-content.problem-anim-ready .problem-desc,
+    #problem-content.problem-anim-ready .problem-point-card,
+    #problem-content.problem-anim-ready .problem-mockup-col,
+    #problem-content.problem-anim-ready .problem-punchline,
+    .problem-content.problem-anim-ready .problem-title,
+    .problem-content.problem-anim-ready .problem-desc,
+    .problem-content.problem-anim-ready .problem-point-card,
+    .problem-content.problem-anim-ready .problem-mockup-col,
+    .problem-content.problem-anim-ready .problem-punchline {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .pain-icon,
+    .punchline-cost {
+      animation: none !important;
     }
   }
 </style>
+
+<script>
+  const setupProblemCascade = () => {
+    // Respeita preferência de redução de movimento (G2)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    const section = document.getElementById('problema');
+    const content = document.getElementById('problem-content');
+    if (!section || !content) return;
+
+    content.classList.add('problem-anim-ready');
+    // Remove qualquer is-revealed global pré-existente
+    content.querySelectorAll('.is-revealed').forEach((el) => el.classList.remove('is-revealed'));
+
+    let isTriggered = false;
+
+    const checkAndTrigger = () => {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionHeight = section.offsetHeight;
+
+      // Cálculo calibrado de visibilidade a partir do topo da viewport
+      // Dispara mais tarde: somente quando descer um pouco mais (~48% da seção)
+      const visibleFromTop = windowHeight - rect.top;
+      const triggerThreshold = Math.min(sectionHeight * 0.48, 380);
+      const resetThreshold = Math.max(triggerThreshold - 120, 80);
+
+      // Ao descer o scroll e atingir ~48% ou 380px da seção: dispara cascata completa
+      if (visibleFromTop >= triggerThreshold && rect.bottom > 80) {
+        if (!isTriggered) {
+          isTriggered = true;
+          content.classList.add('is-problem-in');
+        }
+      } else if (visibleFromTop < resetThreshold || rect.top > windowHeight - 50) {
+        // Ao voltar o scroll para cima: desfaz a animação inteira suavemente
+        if (isTriggered) {
+          isTriggered = false;
+          content.classList.remove('is-problem-in');
+          content.querySelectorAll('.is-revealed').forEach((el) => el.classList.remove('is-revealed'));
+        }
+      }
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkAndTrigger();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    checkAndTrigger();
+  };
+
+  setupProblemCascade();
+  document.addEventListener('astro:page-load', setupProblemCascade);
+</script>

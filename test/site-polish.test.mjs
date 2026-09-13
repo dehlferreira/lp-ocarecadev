@@ -267,22 +267,27 @@ test('primary CTA buttons use emerald glassmorphism styling with high contrast a
   assert.match(button, /@supports not \(backdrop-filter:\s*blur\(1px\)\)/);
 });
 
-test('header implements mobile-only smart hide-on-scroll to free viewport for storytelling (G1, G2, G3)', () => {
+test('header remains permanently fixed across mobile and desktop (G1, G2, G3)', () => {
   const header = read('src/components/sections/Header.astro');
 
-  // Mobile-only hidden state via transform
-  assert.match(header, /@media\s*\(max-width:\s*767px\)\s*\{[\s\S]*\.header--hidden\s*\{[\s\S]*transform:\s*translateY\(-120%\)/);
+  // Header fixo no topo com alta prioridade z-index
+  assert.match(header, /\.main-header\s*\{[\s\S]*position:\s*fixed;/);
+  assert.match(header, /\.main-header\s*\{[\s\S]*top:\s*0;/);
+  assert.match(header, /\.main-header\s*\{[\s\S]*z-index:\s*50;/);
 
-  // Desktop keeps fixed header visible
-  assert.match(header, /@media\s*\(min-width:\s*768px\)\s*\{[\s\S]*\.main-header\s*\{[\s\S]*transform:\s*none\s*!important/);
+  // Não possui mais estado oculto (header--hidden)
+  assert.doesNotMatch(header, /\.header--hidden/);
 
   // Motion reduction support (G2)
   assert.match(header, /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*\.main-header\s*\{[\s\S]*transition:\s*none\s*!important/);
 
-  // Script registers passive scroll listener and rAF
-  assert.match(header, /setupSmartHeader/);
-  assert.match(header, /header--hidden/);
-  assert.match(header, /passive:\s*true/);
+  // Menu mobile acessível preservado com botão fechar e CTA interno
+  assert.match(header, /setupMobileMenu/);
+  assert.match(header, /id="mobile-menu-close"/);
+  assert.match(header, /aria-label="Fechar menu"/);
+  assert.match(header, /class="mobile-menu-cta"/);
+  assert.match(header, /id="btn-header-cta-mobile"/);
+  assert.doesNotMatch(header, /class="cta mobile-cta"/);
 });
 
 test('premium micro-interactions and organic motion are configured across UI components (SPEC-015)', () => {
@@ -311,5 +316,112 @@ test('premium micro-interactions and organic motion are configured across UI com
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*\.scrolly-step\s*\{[\s\S]*animation:\s*none\s*!important/);
 });
 
+test('hero section implements complete premium effects (tech grid, status badge, floating cards, reduced-motion) (G1, G2, G3)', () => {
+  const hero = read('src/components/sections/Hero.astro');
 
+  // Tech Grid de fundo com máscara radial
+  assert.match(hero, /class="hero-tech-grid"/);
+  assert.match(hero, /\.hero-tech-grid[\s\S]*background-image:[\s\S]*radial-gradient/);
 
+  // Pill Badge de status com pulse ring
+  assert.match(hero, /class="hero-badge"/);
+  assert.match(hero, /class="badge-pulse"/);
+  assert.match(hero, /Disponível para novos projetos/);
+  assert.match(hero, /Alta Conversão/);
+  assert.match(hero, /@keyframes\s+badge-ring-ping/);
+
+  // Floating Micro-Cards de autoridade com glassmorphism
+  assert.match(hero, /class="hero-float-badge badge-speed"/);
+  assert.match(hero, /100\/100/);
+  assert.match(hero, /PageSpeed Mobile/);
+  assert.match(hero, /class="hero-float-badge badge-conversion"/);
+  assert.match(hero, /\+42%/);
+  assert.match(hero, /Mais Cliques no Whats/);
+  assert.match(hero, /@keyframes\s+float-card-speed/);
+  assert.match(hero, /@keyframes\s+float-card-conv/);
+
+  // Destaque na palavra "agir"
+  assert.match(hero, /@keyframes\s+text-neon-pulse/);
+
+  // Respeito estrito a reduced-motion (G2)
+  assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.badge-speed[\s\S]*animation:\s*none\s*!important/);
+  assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.pulse-ring[\s\S]*display:\s*none/);
+});
+
+test('identification section card slides in with spring physics triggered at 40% section visibility (G1, G2, G3)', () => {
+  const ident = read('src/components/sections/Identification.astro');
+
+  // Identificador e estrutura de controle de animação
+  assert.match(ident, /id="identification-card"/);
+  assert.match(ident, /card-spring-ready/);
+  assert.match(ident, /is-spring-in/);
+
+  // Keyframes de física de mola com overshoot e rebote acentuado
+  assert.match(ident, /@keyframes\s+spring-bounce-in\s*\{/);
+  assert.match(ident, /transform:\s*translateX\(-140px\)/);
+  assert.match(ident, /transform:\s*translateX\(38px\)/); // Compressão da mola ultrapassando o centro
+  assert.match(ident, /transform:\s*translateX\(-16px\)/); // Recuo elástico
+
+  // Keyframes específicos calibrados para mobile
+  assert.match(ident, /@keyframes\s+spring-bounce-in-mobile\s*\{/);
+
+  // Gatilho calibrado para 40% da visibilidade da seção e reset para desfazimento ao voltar scroll
+  assert.match(ident, /sectionHeight\s*\*\s*0\.4/);
+  assert.match(ident, /resetThreshold/);
+  assert.match(ident, /transition:\s*transform/);
+
+  // Respeito a prefers-reduced-motion (G2)
+  assert.match(ident, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*animation:\s*none\s*!important/);
+  assert.match(ident, /window\.matchMedia\('\(prefers-reduced-motion:\s*reduce\)'\)\.matches/);
+});
+
+test('problem section features smooth transition from identification, compact pain cards, and mockup audit scanner (G1, G2, G3)', () => {
+  const problem = read('src/components/sections/Problem.astro');
+  const mockup = read('src/components/ui/ProblemMockup.astro');
+
+  // Transição cromática e conector luminoso
+  assert.match(problem, /--fade-from:\s*#050709/);
+  assert.match(problem, /class="problem-transition-beam"/);
+  assert.match(problem, /class="problem-ambient-glow"/);
+
+  // Cards compactos de dor com semântica acessível (G1)
+  assert.match(problem, /problem-point-card/);
+  assert.match(problem, /role="list"/);
+  assert.match(problem, /role="listitem"/);
+
+  // Mockup com scanner de auditoria em tempo real
+  assert.match(mockup, /class="mockup-scanner-beam"/);
+  assert.match(mockup, /class="scanner-line"/);
+  assert.match(mockup, /class="scanner-glow"/);
+  assert.match(mockup, /@keyframes\s+scanner-sweep/);
+
+  // Respeito a prefers-reduced-motion (G2)
+  assert.match(mockup, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.mockup-scanner-beam\s*\{[^}]*display:\s*none\s*!important/);
+});
+
+test('problem section executes cinematic domino cascade with neon ignition and bidirectional scroll (G1, G2, G3)', () => {
+  const problem = read('src/components/sections/Problem.astro');
+
+  // Identificador do container e classes de controle de estado
+  assert.match(problem, /id="problem-content"/);
+  assert.match(problem, /\.problem-content\.problem-anim-ready/);
+  assert.match(problem, /\.problem-content\.is-problem-in/);
+
+  // Cascata sequencial nos 3 cards
+  assert.match(problem, /\.is-problem-in \.problem-point-card:nth-child\(1\)\s*\{[^}]*transition-delay:\s*0\.12s/);
+  assert.match(problem, /\.is-problem-in \.problem-point-card:nth-child\(2\)\s*\{[^}]*transition-delay:\s*0\.24s/);
+  assert.match(problem, /\.is-problem-in \.problem-point-card:nth-child\(3\)\s*\{[^}]*transition-delay:\s*0\.36s/);
+
+  // Pulso e ignição neon nos ícones de dor
+  assert.match(problem, /@keyframes\s+pain-icon-ignite/);
+  assert.match(problem, /@keyframes\s+punchline-cost-glow/);
+
+  // Script de scroll bidirecional
+  assert.match(problem, /setupProblemCascade/);
+  assert.match(problem, /triggerThreshold/);
+  assert.match(problem, /resetThreshold/);
+  assert.match(problem, /is-problem-in/);
+
+  // Conformidade com prefers-reduced-motion (G2)
+  assert.match(problem, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*opacity:\s*1\s*!important[\s\S]*animation:\s*none\s*!important/);
+});

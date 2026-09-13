@@ -45,18 +45,7 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
             data-track-location="header"
           />
         </div>
-        <div class="cta mobile-cta">
-          <Button
-            type="primary"
-            href={whatsappUrl}
-            id="btn-header-cta-mobile"
-            class="btn-small"
-            text="Contato"
-            data-track-event="lead"
-            data-track-location="header_mobile"
-          />
-        </div>
-        <button class="mobile-menu-toggle" aria-label="Abrir menu">
+        <button class="mobile-menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
@@ -66,19 +55,50 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
   </div>
 
   <!-- Mobile Menu Overlay -->
-  <div class="mobile-menu-overlay" id="mobile-menu">
+  <div class="mobile-menu-overlay" id="mobile-menu" aria-label="Menu de navegação mobile">
+    <div class="mobile-menu-header">
+      <div class="mobile-menu-logo">
+        <Image
+          src={logoHorizontal}
+          alt="OCARECADEV Logo"
+          width={130}
+          height={40}
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+      <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Fechar menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
     <nav class="mobile-nav">
       <a data-track-event="select_content" data-track-location="header_mobile_nav" data-track-item="inicio" href="#hero" class="mobile-nav-link">Início</a>
       <a data-track-event="select_content" data-track-location="header_mobile_nav" data-track-item="resultados" href="#social-proof" class="mobile-nav-link">Resultados</a>
       <a data-track-event="select_content" data-track-location="header_mobile_nav" data-track-item="modelos" href="#modelos" class="mobile-nav-link">Modelos</a>
       <a data-track-event="select_content" data-track-location="header_mobile_nav" data-track-item="planos" href="#pricing" class="mobile-nav-link">Planos</a>
     </nav>
+
+    <div class="mobile-menu-cta">
+      <Button
+        type="primary"
+        href={whatsappUrl}
+        id="btn-header-cta-mobile"
+        class="btn-large mobile-menu-cta-btn"
+        text="Falar com Consultor"
+        data-track-event="lead"
+        data-track-location="header_mobile"
+      />
+    </div>
   </div>
 </header>
 
 <style is:global>
   .header-card {
-    padding: 0.8rem 1rem !important;
+    padding: 0.75rem 1.25rem !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -116,20 +136,21 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     width: 100%;
     z-index: 50;
     padding: 1rem 0;
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: padding 0.3s ease;
   }
 
-  /* Oculta no mobile ao rolar para baixo para liberar espaço no storytelling */
-  @media (max-width: 767px) {
-    .main-header.header--hidden {
-      transform: translateY(-120%);
-    }
+  .main-header.menu-open {
+    z-index: 95;
   }
 
-  @media (min-width: 768px) {
-    .main-header {
-      transform: none !important;
-    }
+  .main-header.menu-open :global(.header-card) {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  :global(.header-card) {
+    transition: opacity 0.2s ease;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -147,19 +168,21 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     height: 36px !important; /* Maior no mobile */
     width: auto !important;
     object-fit: contain;
+    margin-left: -6px; /* Compensa o espaço transparente intrínseco do arquivo da logo para alinhamento ótico perfeito */
   }
 
   @media (min-width: 768px) {
     .logo img {
-      height: 48px !important;
-      width: auto !important;
+      height: 40px !important;
+      margin-left: -7px;
     }
   }
 
+  /* Desktop Nav */
   .nav {
     display: none;
-    gap: 2rem;
     align-items: center;
+    gap: 1.5rem;
   }
 
   @media (min-width: 768px) {
@@ -205,16 +228,9 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     display: none;
   }
 
-  .mobile-cta {
-    display: block;
-  }
-
   @media (min-width: 768px) {
     .desktop-cta {
       display: block;
-    }
-    .mobile-cta {
-      display: none;
     }
     .cta-and-menu {
       gap: 1rem;
@@ -233,6 +249,14 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     cursor: pointer;
     padding: 0;
     z-index: 52;
+    position: relative;
+  }
+
+  /* Área de toque acessível de 44x44px sem alterar o alinhamento visual (G1) */
+  .mobile-menu-toggle::before {
+    content: "";
+    position: absolute;
+    inset: -13px -10px;
   }
 
   .hamburger-line {
@@ -263,24 +287,22 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     transform: rotate(-45deg);
   }
 
-  /* Mobile Menu Overlay */
+  /* Mobile Menu Overlay Drawer */
   .mobile-menu-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100svh;
-    background: rgba(10, 10, 12, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 49; /* Below header card but above rest of page */
+    background: #080a0f;
+    z-index: 100;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.25rem 2rem;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.4s ease;
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
     transform: translateY(-100%);
   }
 
@@ -290,11 +312,52 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     transform: translateY(0);
   }
 
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .mobile-menu-logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile-menu-logo img {
+    height: 32px !important;
+    width: auto !important;
+    object-fit: contain;
+  }
+
+  .mobile-menu-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    color: var(--color-text-primary, #ffffff);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .mobile-menu-close:active {
+    background: rgba(0, 255, 157, 0.15);
+    border-color: rgba(0, 255, 157, 0.4);
+    transform: scale(0.95);
+  }
+
   .mobile-nav {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.75rem;
     text-align: center;
+    margin: auto 0;
   }
 
   .mobile-nav-link {
@@ -309,94 +372,97 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
 
   .mobile-nav-link:hover,
   .mobile-nav-link:active {
-    color: var(--color-primary, #10b981);
+    color: var(--color-primary-neon, #00ff9d);
     transform: scale(1.05);
+  }
+
+  .mobile-menu-cta {
+    width: 100%;
+    padding-top: 1rem;
+  }
+
+  .mobile-menu-cta :global(.btn) {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem !important;
+    padding: 14px 20px !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu-overlay {
+      transition: none !important;
+    }
   }
 </style>
 
 <script>
   // Mobile Menu Logic
   const setupMobileMenu = () => {
+    const header = document.getElementById("main-header");
     const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
     const mobileMenuOverlay = document.getElementById("mobile-menu");
+    const mobileMenuClose = document.getElementById("mobile-menu-close");
     const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+    const mobileCta = document.getElementById("btn-header-cta-mobile");
 
     if (mobileMenuToggle && mobileMenuOverlay && mobileMenuToggle.parentNode) {
       // Remove evt listeners prev to avoid multiple bindings
       const newToggle = mobileMenuToggle.cloneNode(true) as HTMLElement;
       mobileMenuToggle.parentNode.replaceChild(newToggle, mobileMenuToggle);
 
+      const closeMenu = () => {
+        newToggle.classList.remove("active");
+        newToggle.setAttribute("aria-expanded", "false");
+        mobileMenuOverlay.classList.remove("active");
+        header?.classList.remove("menu-open");
+        document.body.style.overflow = "";
+      };
+
+      const openMenu = () => {
+        newToggle.classList.add("active");
+        newToggle.setAttribute("aria-expanded", "true");
+        mobileMenuOverlay.classList.add("active");
+        header?.classList.add("menu-open");
+        document.body.style.overflow = "hidden";
+      };
+
       const toggleMenu = () => {
-        newToggle.classList.toggle("active");
-        mobileMenuOverlay.classList.toggle("active");
-        document.body.style.overflow = mobileMenuOverlay.classList.contains(
-          "active",
-        )
-          ? "hidden"
-          : "";
+        const isOpen = mobileMenuOverlay.classList.contains("active");
+        if (isOpen) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
       };
 
       newToggle.addEventListener("click", toggleMenu);
 
+      if (mobileMenuClose) {
+        mobileMenuClose.addEventListener("click", closeMenu);
+      }
+
       mobileNavLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-          newToggle.classList.remove("active");
-          mobileMenuOverlay.classList.remove("active");
-          document.body.style.overflow = "";
-        });
+        link.addEventListener("click", closeMenu);
+      });
+
+      if (mobileCta) {
+        mobileCta.addEventListener("click", closeMenu);
+      }
+
+      // Fechar com tecla Escape (Acessibilidade G1)
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && mobileMenuOverlay.classList.contains("active")) {
+          closeMenu();
+        }
       });
     }
   };
 
-  // Smart Header Logic (No mobile: visível apenas na Hero; fora da Hero fica oculto para liberar o storytelling e só volta ao retornar ao topo)
-  const setupSmartHeader = () => {
-    const header = document.getElementById("main-header");
-    const mobileMenuOverlay = document.getElementById("mobile-menu");
-    if (!header) return;
-
-    let ticking = false;
-
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (window.innerWidth < 768) {
-            const currentScrollY = window.scrollY;
-            const isMenuOpen = mobileMenuOverlay?.classList.contains("active");
-
-            // Hero threshold: visível apenas enquanto o visitante está na Hero
-            const heroEl = document.getElementById("hero");
-            const heroThreshold = heroEl ? Math.max(heroEl.offsetHeight * 0.45, 180) : 200;
-
-            if (isMenuOpen || currentScrollY <= heroThreshold) {
-              header.classList.remove("header--hidden");
-            } else {
-              // Passou da Hero (scrollytelling em diante): oculta e não reaparece ao rolar para cima
-              header.classList.add("header--hidden");
-            }
-          } else {
-            header.classList.remove("header--hidden");
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    // Garante visibilidade se o usuário focar em algum elemento do header por teclado
-    header.addEventListener("focusin", () => {
-      header.classList.remove("header--hidden");
-    });
-  };
-
   // Run on first load
   setupMobileMenu();
-  setupSmartHeader();
 
   // Run on Astro view transitions
   document.addEventListener("astro:page-load", () => {
     setupMobileMenu();
-    setupSmartHeader();
   });
 </script>
