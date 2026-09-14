@@ -425,3 +425,46 @@ test('problem section executes cinematic domino cascade with neon ignition and b
   // Conformidade com prefers-reduced-motion (G2)
   assert.match(problem, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*opacity:\s*1\s*!important[\s\S]*animation:\s*none\s*!important/);
 });
+
+test('solution section implements top transition bridge, mobile connected timeline, circuit pulse mockup, and bidirectional scroll (G1, G2, G3)', () => {
+  const solution = read('src/components/sections/Solution.astro');
+
+  // Ponte de transição superior e feixe de continuidade com a seção Problem
+  assert.match(solution, /class="solution-transition-beam"/);
+  assert.match(solution, /class="solution-ambient-glow"/);
+
+  // Layout com timeline vertical conectada
+  assert.match(solution, /class="mechanism-timeline-line"/);
+  assert.match(solution, /class="step-num-badge"/);
+
+  // Nós de circuito e sinalizador beacon no mockup
+  assert.match(solution, /class="mechanism-circuit-overlay"/);
+  assert.match(solution, /circuit-pulse-node node-1/);
+  assert.match(solution, /circuit-pulse-node node-2/);
+  assert.match(solution, /circuit-pulse-node node-3/);
+  assert.match(solution, /class="whatsapp-beacon"/);
+
+  // Animações de circuito e pulso
+  assert.match(solution, /@keyframes\s+circuit-node-glow/);
+  assert.match(solution, /@keyframes\s+whatsapp-beacon-pulse/);
+  assert.match(solution, /@keyframes\s+hologram-sheen-sweep/);
+
+  // Cascata nos 4 passos com delays progressivos
+  assert.match(solution, /\.is-solution-in \.mechanism-item:nth-child\(2\)\s*\{[^}]*transition-delay:\s*0\.12s/);
+  assert.match(solution, /\.is-solution-in \.mechanism-item:nth-child\(3\)\s*\{[^}]*transition-delay:\s*0\.22s/);
+  assert.match(solution, /\.is-solution-in \.mechanism-item:nth-child\(4\)\s*\{[^}]*transition-delay:\s*0\.32s/);
+  assert.match(solution, /\.is-solution-in \.mechanism-item:nth-child\(5\)\s*\{[^}]*transition-delay:\s*0\.42s/);
+
+  // Script de scroll bidirecional
+  assert.match(solution, /setupSolutionCascade/);
+  assert.match(solution, /triggerThreshold/);
+  assert.match(solution, /resetThreshold/);
+  assert.match(solution, /is-solution-in/);
+
+  // Respeito rigoroso a prefers-reduced-motion (G2)
+  assert.match(solution, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.circuit-pulse-node[\s\S]*display:\s*none\s*!important/);
+  assert.match(solution, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.whatsapp-beacon[\s\S]*display:\s*none\s*!important/);
+  assert.match(solution, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*opacity:\s*1\s*!important[\s\S]*animation:\s*none\s*!important/);
+});
+
+

@@ -12,13 +12,17 @@ const mechanismSteps = [
 ---
 
 <section id="mecanismo" class="section-solution scrolly-section section-fade-top section-fade-bottom">
+  <!-- Conector Luminoso de Transição Fluida vindo de Problem -->
+  <div class="solution-transition-beam" aria-hidden="true"></div>
+  <div class="solution-ambient-glow" aria-hidden="true"></div>
+
   <div class="scrolly scrolly--5">
     <div class="scrolly__stage">
       <div class="neon-glow"></div>
 
       <div class="container">
         <!-- Ordem scroll: título → sequência de passos → mockup → fechamento -->
-        <div class="solution-content">
+        <div class="solution-content" id="solution-content">
           <div class="solution-text-col">
             <h2 class="solution-title scrolly-step s-1">
               <span class="solution-title-line">Não é só design</span>
@@ -27,19 +31,20 @@ const mechanismSteps = [
 
             <!-- Diagrama visual do fluxo -->
             <div class="mechanism-flow scrolly-step s-2" aria-label="Sequência de persuasão">
-              <span class="flow-tag">CLAREZA</span>
+              <span class="flow-tag flow-tag--1">CLAREZA</span>
               <span class="flow-arrow"><Icon name="arrow-right" size={14} stroke={2.5} /></span>
-              <span class="flow-tag">INTERESSE</span>
+              <span class="flow-tag flow-tag--2">INTERESSE</span>
               <span class="flow-arrow"><Icon name="arrow-right" size={14} stroke={2.5} /></span>
-              <span class="flow-tag">CONFIANÇA</span>
+              <span class="flow-tag flow-tag--3">CONFIANÇA</span>
               <span class="flow-arrow"><Icon name="arrow-right" size={14} stroke={2.5} /></span>
-              <span class="flow-tag flow-tag--action">AÇÃO</span>
+              <span class="flow-tag flow-tag--action flow-tag--4">AÇÃO</span>
             </div>
 
-            <!-- 4 Passos Conceituais -->
-            <div class="mechanism-steps scrolly-step s-3">
-              {mechanismSteps.map((step) => (
-                <div class="mechanism-item">
+            <!-- 4 Passos Conceituais em Timeline -->
+            <div class="mechanism-steps" role="list">
+              <div class="mechanism-timeline-line" aria-hidden="true"></div>
+              {mechanismSteps.map((step, i) => (
+                <div class={`mechanism-item scrolly-step s-${i + 2}`} role="listitem">
                   <span class="step-num-badge">{step.num}</span>
                   <div class="step-info">
                     <strong>{step.title}</strong>
@@ -62,12 +67,22 @@ const mechanismSteps = [
                 decoding="async"
                 quality={82}
               />
+              <!-- Camada de Circuito Tecnológico e Pulso de Energia nos Nós -->
+              <div class="mechanism-circuit-overlay" aria-hidden="true">
+                <span class="circuit-pulse-node node-1"></span>
+                <span class="circuit-pulse-node node-2"></span>
+                <span class="circuit-pulse-node node-3"></span>
+                <span class="whatsapp-beacon"></span>
+                <div class="mockup-hologram-sheen"></div>
+              </div>
             </div>
           </div>
 
-          <p class="solution-closing scrolly-step s-5">
-            Cada seção tem uma função: fazer o visitante <span class="text-neon">continuar, entender, confiar e agir</span>.
-          </p>
+          <div class="solution-closing scrolly-step s-5">
+            <p class="closing-text">
+              Cada seção tem uma função: fazer o visitante <span class="text-neon">continuar, entender, confiar e agir</span>.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -78,6 +93,44 @@ const mechanismSteps = [
   .section-solution {
     background-color: #030303;
     overflow: clip;
+    position: relative;
+  }
+
+  /* Conector de Transição Fluida vindo de Problem */
+  .solution-transition-beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 157, 0.04) 15%,
+      rgba(0, 255, 157, 0.45) 50%,
+      rgba(0, 255, 157, 0.04) 85%,
+      transparent 100%
+    );
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .solution-ambient-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    height: 90px;
+    background: radial-gradient(
+      ellipse 60% 70px at 50% 0%,
+      rgba(0, 255, 157, 0.12) 0%,
+      rgba(0, 255, 157, 0.02) 55%,
+      transparent 100%
+    );
+    z-index: 2;
+    pointer-events: none;
   }
 
   .neon-glow {
@@ -101,7 +154,7 @@ const mechanismSteps = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.85rem;
+    gap: 1.15rem;
     text-align: center;
     width: 100%;
   }
@@ -171,6 +224,8 @@ const mechanismSteps = [
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 12px;
+    overflow: hidden;
     filter: drop-shadow(0 24px 60px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 40px rgba(0, 255, 157, 0.14));
     transition: transform 0.3s ease;
   }
@@ -184,6 +239,120 @@ const mechanismSteps = [
     image-rendering: -webkit-optimize-contrast;
     transform: translateZ(0);
     backface-visibility: hidden;
+  }
+
+  /* Camada de Circuito no Mockup */
+  .mechanism-circuit-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .circuit-pulse-node {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-primary-neon);
+    box-shadow: 0 0 14px #00ff9d, 0 0 24px rgba(0, 255, 157, 0.8);
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0.6;
+    animation: circuit-node-glow 3.6s ease-in-out infinite;
+  }
+
+  .circuit-pulse-node.node-1 {
+    left: 18.5%;
+    top: 34%;
+    animation-delay: 0s;
+  }
+
+  .circuit-pulse-node.node-2 {
+    left: 51.5%;
+    top: 48%;
+    animation-delay: 1.1s;
+  }
+
+  .circuit-pulse-node.node-3 {
+    left: 84.5%;
+    top: 54%;
+    animation-delay: 2.2s;
+  }
+
+  .whatsapp-beacon {
+    position: absolute;
+    left: 84.5%;
+    top: 89%;
+    width: 32%;
+    max-width: 130px;
+    height: 12%;
+    max-height: 38px;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    border: 1px solid rgba(0, 255, 157, 0.6);
+    background: rgba(0, 255, 157, 0.12);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+    animation: whatsapp-beacon-pulse 3.6s ease-in-out infinite;
+    animation-delay: 2.3s;
+  }
+
+  @keyframes circuit-node-glow {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(0.85);
+      opacity: 0.4;
+      box-shadow: 0 0 8px #00ff9d;
+    }
+    25% {
+      transform: translate(-50%, -50%) scale(1.35);
+      opacity: 1;
+      box-shadow: 0 0 20px #00ff9d, 0 0 35px rgba(0, 255, 157, 0.9);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(0.95);
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes whatsapp-beacon-pulse {
+    0%, 100% {
+      opacity: 0.2;
+      transform: translate(-50%, -50%) scale(0.98);
+      box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+    }
+    30% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.04);
+      box-shadow: 0 0 25px rgba(0, 255, 157, 0.9), 0 0 40px rgba(0, 255, 157, 0.4);
+      border-color: #00ff9d;
+    }
+    60% {
+      opacity: 0.3;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  .mockup-hologram-sheen {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      115deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(0, 255, 157, 0.08) 50%,
+      transparent 60%,
+      transparent 100%
+    );
+    background-size: 250% 100%;
+    animation: hologram-sheen-sweep 5s ease-in-out infinite;
+  }
+
+  @keyframes hologram-sheen-sweep {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
 
   .solution-title {
@@ -201,19 +370,6 @@ const mechanismSteps = [
   @media (min-width: 768px) {
     .solution-title {
       font-size: 2.25rem;
-    }
-  }
-
-  .solution-text {
-    font-size: 0.95rem;
-    color: var(--color-text-secondary);
-    margin: 0;
-    line-height: 1.45;
-  }
-
-  @media (min-width: 768px) {
-    .solution-text {
-      font-size: 1.125rem;
     }
   }
 
@@ -235,6 +391,7 @@ const mechanismSteps = [
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.85);
+    transition: all 0.3s ease;
   }
 
   .flow-tag--action {
@@ -249,56 +406,80 @@ const mechanismSteps = [
     place-items: center;
   }
 
-  /* 4 Passos Conceituais */
+  /* 4 Passos Conceituais em Timeline */
   .mechanism-steps {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.75rem;
     width: 100%;
     text-align: left;
+    position: relative;
+  }
+
+  .mechanism-timeline-line {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    bottom: 20px;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 255, 157, 0.4),
+      rgba(0, 255, 157, 0.15)
+    );
+    z-index: 1;
+    pointer-events: none;
   }
 
   .mechanism-item {
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0.65rem 0.85rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 8px;
-    transition: border-color 0.2s ease;
+    gap: 0.85rem;
+    padding: 0.75rem 1rem;
+    background: rgba(18, 22, 28, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    position: relative;
+    z-index: 2;
   }
 
   .mechanism-item:hover {
-    border-color: rgba(0, 255, 157, 0.3);
+    border-color: rgba(0, 255, 157, 0.35);
+    background: rgba(0, 255, 157, 0.04);
+    transform: translateX(3px);
   }
 
   .step-num-badge {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 800;
     color: var(--color-primary-neon);
-    background: rgba(0, 255, 157, 0.1);
-    padding: 0.2rem 0.45rem;
-    border-radius: 4px;
-    border: 1px solid rgba(0, 255, 157, 0.25);
+    background: rgba(0, 255, 157, 0.12);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
     flex-shrink: 0;
     margin-top: 0.1rem;
+    transition: all 0.3s ease;
   }
 
   .step-info strong {
     display: block;
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     font-weight: 800;
     color: #ffffff;
     letter-spacing: 0.03em;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.2rem;
   }
 
   .step-info p {
     margin: 0;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--color-text-secondary);
-    line-height: 1.35;
+    line-height: 1.4;
   }
 
   @media (min-width: 768px) {
@@ -306,7 +487,7 @@ const mechanismSteps = [
       gap: 0.85rem;
     }
     .mechanism-item {
-      padding: 0.85rem 1rem;
+      padding: 0.85rem 1.1rem;
     }
     .step-info strong {
       font-size: 0.95rem;
@@ -321,27 +502,33 @@ const mechanismSteps = [
   }
 
   .solution-closing {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     color: var(--color-text-secondary);
     margin: 0;
     line-height: 1.45;
     max-width: 100%;
+    padding-top: 0.5rem;
+  }
+
+  .closing-text {
+    margin: 0;
   }
 
   @media (min-width: 768px) {
     .solution-closing {
       font-size: 1.125rem;
       max-width: none;
+      padding-top: 0;
     }
   }
 
-  /* Mobile: proporção equilibrada e segura para dispositivo físico (iPhone 15) */
+  /* Mobile: Timeline Vertical Conectada e Mockup Amplo com Altíssima Legibilidade */
   @media (max-width: 767px) {
     .section-solution .scrolly__stage {
-      padding-top: max(calc(env(safe-area-inset-top, 0px) + 2.75rem), 3.5rem);
-      padding-bottom: max(calc(env(safe-area-inset-bottom, 0px) + 3.25rem), 4rem);
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-top: max(calc(env(safe-area-inset-top, 0px) + 2.5rem), 3rem);
+      padding-bottom: max(calc(env(safe-area-inset-bottom, 0px) + 3rem), 3.5rem);
+      padding-left: 0.85rem;
+      padding-right: 0.85rem;
       justify-content: center;
     }
 
@@ -353,75 +540,74 @@ const mechanismSteps = [
     .solution-content {
       width: 100%;
       height: auto;
-      margin: auto 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: clamp(0.35rem, 1.2vh, 0.65rem);
+      gap: 1.15rem;
     }
 
     .solution-text-col {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: clamp(0.3rem, 1vh, 0.55rem);
+      gap: 0.75rem;
       width: 100%;
     }
 
     .solution-title {
-      font-size: clamp(1.15rem, 3.5vw, 1.35rem);
-      line-height: 1.18;
+      font-size: 1.35rem;
+      line-height: 1.25;
       text-align: center;
       margin: 0;
     }
 
     .mechanism-flow {
-      margin: 0.1rem 0 0.2rem;
-      gap: 0.25rem;
+      margin: 0.15rem 0 0.4rem;
+      gap: 0.3rem;
       justify-content: center;
     }
 
     .flow-tag {
-      font-size: 0.65rem;
-      padding: 0.18rem 0.45rem;
+      font-size: 0.68rem;
+      padding: 0.2rem 0.5rem;
       letter-spacing: 0.04em;
     }
 
     .flow-arrow {
-      transform: scale(0.8);
+      transform: scale(0.85);
       opacity: 0.6;
     }
 
-    /* Grid 2x2 para os 4 passos no mobile */
+    /* Timeline vertical conectada no mobile: alta legibilidade e conforto */
     .mechanism-steps {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.45rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
       width: 100%;
-      margin: 0;
+      margin: 0.25rem 0;
     }
 
     .mechanism-item {
-      padding: 0.45rem 0.6rem;
-      gap: 0.45rem;
-      border-radius: 7px;
+      padding: 0.65rem 0.85rem;
+      gap: 0.65rem;
+      border-radius: 9px;
       align-items: flex-start;
     }
 
     .step-num-badge {
-      font-size: 0.65rem;
-      padding: 0.12rem 0.35rem;
+      font-size: 0.72rem;
+      padding: 0.18rem 0.42rem;
     }
 
     .step-info strong {
-      font-size: 0.78rem;
-      margin-bottom: 0.08rem;
+      font-size: 0.84rem;
+      margin-bottom: 0.15rem;
     }
 
     .step-info p {
-      font-size: 0.68rem;
-      line-height: 1.24;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      color: #b8c0c8;
     }
 
     .solution-mockup-col {
@@ -429,12 +615,12 @@ const mechanismSteps = [
       width: 100%;
       display: flex;
       justify-content: center;
-      margin: 0.15rem 0;
+      margin: 0.35rem 0;
     }
 
     .solution-mockup-frame {
       width: 100%;
-      max-width: min(100%, 315px);
+      max-width: 100%;
     }
 
     .solution-mockup-img {
@@ -444,12 +630,261 @@ const mechanismSteps = [
     }
 
     .solution-closing {
-      font-size: 0.78rem;
-      line-height: 1.32;
+      font-size: 0.88rem;
+      line-height: 1.4;
       text-align: center;
-      padding: 0;
-      margin: 0.15rem 0 0;
-      max-width: 95%;
+      padding: 0.85rem 1rem;
+      background: rgba(18, 22, 28, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      width: 100%;
+    }
+  }
+
+  /* ==========================================================================
+     Animação em Cascata de Energia e Scroll Bidirecional na Solution
+     ========================================================================== */
+
+  /* Estado preparado / quando desfaz a animação ao voltar o scroll */
+  #solution-content.solution-anim-ready:not(.is-solution-in) .solution-title,
+  .solution-content.solution-anim-ready:not(.is-solution-in) .solution-title {
+    opacity: 0 !important;
+    transform: translateY(26px) !important;
+    transition: opacity 0.4s ease, transform 0.45s ease !important;
+    will-change: transform, opacity;
+  }
+
+  #solution-content.solution-anim-ready:not(.is-solution-in) .mechanism-flow,
+  .solution-content.solution-anim-ready:not(.is-solution-in) .mechanism-flow {
+    opacity: 0 !important;
+    transform: translateY(18px) !important;
+    transition: opacity 0.35s ease, transform 0.45s ease !important;
+    will-change: transform, opacity;
+  }
+
+  #solution-content.solution-anim-ready:not(.is-solution-in) .mechanism-item,
+  .solution-content.solution-anim-ready:not(.is-solution-in) .mechanism-item {
+    opacity: 0 !important;
+    transform: translateX(-35px) !important;
+    transition: opacity 0.35s ease, transform 0.45s ease !important;
+    will-change: transform, opacity;
+  }
+
+  #solution-content.solution-anim-ready:not(.is-solution-in) .solution-mockup-col,
+  .solution-content.solution-anim-ready:not(.is-solution-in) .solution-mockup-col {
+    opacity: 0 !important;
+    transform: translateX(45px) !important;
+    transition: opacity 0.45s ease, transform 0.5s ease !important;
+    will-change: transform, opacity;
+  }
+
+  #solution-content.solution-anim-ready:not(.is-solution-in) .solution-closing,
+  .solution-content.solution-anim-ready:not(.is-solution-in) .solution-closing {
+    opacity: 0 !important;
+    transform: translateY(24px) !important;
+    transition: opacity 0.4s ease, transform 0.45s ease !important;
+    will-change: transform, opacity;
+  }
+
+  /* Estado ativo: Cascata de Energia */
+  #solution-content.is-solution-in .solution-title,
+  .solution-content.is-solution-in .solution-title {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  #solution-content.is-solution-in .mechanism-flow,
+  .solution-content.is-solution-in .mechanism-flow {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: opacity 0.5s ease 0.08s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s !important;
+  }
+
+  /* Acendimento progressivo das tags de fluxo */
+  #solution-content.is-solution-in .flow-tag--1 {
+    animation: flow-tag-ignite 0.5s ease-out 0.12s forwards;
+  }
+  #solution-content.is-solution-in .flow-tag--2 {
+    animation: flow-tag-ignite 0.5s ease-out 0.22s forwards;
+  }
+  #solution-content.is-solution-in .flow-tag--3 {
+    animation: flow-tag-ignite 0.5s ease-out 0.32s forwards;
+  }
+  #solution-content.is-solution-in .flow-tag--4 {
+    animation: flow-tag-ignite 0.5s ease-out 0.42s forwards;
+  }
+
+  @keyframes flow-tag-ignite {
+    0% {
+      box-shadow: none;
+    }
+    50% {
+      box-shadow: 0 0 14px rgba(0, 255, 157, 0.7);
+      border-color: #00ff9d;
+    }
+    100% {
+      box-shadow: 0 0 8px rgba(0, 255, 157, 0.25);
+    }
+  }
+
+  /* 4 Passos em cascata sequencial */
+  #solution-content.is-solution-in .mechanism-item,
+  .solution-content.is-solution-in .mechanism-item {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+
+  #solution-content.is-solution-in .mechanism-item:nth-child(2),
+  .solution-content.is-solution-in .mechanism-item:nth-child(2) {
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease !important;
+    transition-delay: 0.12s !important;
+  }
+
+  #solution-content.is-solution-in .mechanism-item:nth-child(3),
+  .solution-content.is-solution-in .mechanism-item:nth-child(3) {
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease !important;
+    transition-delay: 0.22s !important;
+  }
+
+  #solution-content.is-solution-in .mechanism-item:nth-child(4),
+  .solution-content.is-solution-in .mechanism-item:nth-child(4) {
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease !important;
+    transition-delay: 0.32s !important;
+  }
+
+  #solution-content.is-solution-in .mechanism-item:nth-child(5),
+  .solution-content.is-solution-in .mechanism-item:nth-child(5) {
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease !important;
+    transition-delay: 0.42s !important;
+  }
+
+  /* Mockup deslizando da direita */
+  #solution-content.is-solution-in .solution-mockup-col,
+  .solution-content.is-solution-in .solution-mockup-col {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    transition: opacity 0.65s ease, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition-delay: 0.22s !important;
+  }
+
+  /* Fechamento com elevação suave */
+  #solution-content.is-solution-in .solution-closing,
+  .solution-content.is-solution-in .solution-closing {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition-delay: 0.48s !important;
+  }
+
+  /* Ajuste das direções para mobile */
+  @media (max-width: 767px) {
+    #solution-content.solution-anim-ready:not(.is-solution-in) .mechanism-item,
+    .solution-content.solution-anim-ready:not(.is-solution-in) .mechanism-item {
+      transform: translateX(-20px) !important;
+    }
+
+    #solution-content.solution-anim-ready:not(.is-solution-in) .solution-mockup-col,
+    .solution-content.solution-anim-ready:not(.is-solution-in) .solution-mockup-col {
+      transform: translateY(26px) !important;
+    }
+
+    #solution-content.is-solution-in .solution-mockup-col,
+    .solution-content.is-solution-in .solution-mockup-col {
+      transform: translateY(0) !important;
+    }
+  }
+
+  /* Respeito à acessibilidade de movimento (G2) */
+  @media (prefers-reduced-motion: reduce) {
+    #solution-content.solution-anim-ready .solution-title,
+    #solution-content.solution-anim-ready .mechanism-flow,
+    #solution-content.solution-anim-ready .mechanism-item,
+    #solution-content.solution-anim-ready .solution-mockup-col,
+    #solution-content.solution-anim-ready .solution-closing,
+    .solution-content.solution-anim-ready .solution-title,
+    .solution-content.solution-anim-ready .mechanism-flow,
+    .solution-content.solution-anim-ready .mechanism-item,
+    .solution-content.solution-anim-ready .solution-mockup-col,
+    .solution-content.solution-anim-ready .solution-closing {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .circuit-pulse-node,
+    .whatsapp-beacon,
+    .mockup-hologram-sheen {
+      display: none !important;
+    }
+
+    .flow-tag {
+      animation: none !important;
     }
   }
 </style>
+
+
+<script>
+  const setupSolutionCascade = () => {
+    // Respeita preferência de redução de movimento (G2)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    const section = document.getElementById('mecanismo');
+    const content = document.getElementById('solution-content');
+    if (!section || !content) return;
+
+    content.classList.add('solution-anim-ready');
+    // Remove qualquer is-revealed global pré-existente
+    content.querySelectorAll('.is-revealed').forEach((el) => el.classList.remove('is-revealed'));
+
+    let isTriggered = false;
+
+    const checkAndTrigger = () => {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionHeight = section.offsetHeight;
+
+      // Dispara quando descer cerca de ~42% ou 340px da seção
+      const visibleFromTop = windowHeight - rect.top;
+      const triggerThreshold = Math.min(sectionHeight * 0.42, 340);
+      const resetThreshold = Math.max(triggerThreshold - 120, 80);
+
+      // Ao descer o scroll e atingir o triggerThreshold: dispara sequência de energia
+      if (visibleFromTop >= triggerThreshold && rect.bottom > 80) {
+        if (!isTriggered) {
+          isTriggered = true;
+          content.classList.add('is-solution-in');
+        }
+      } else if (visibleFromTop < resetThreshold || rect.top > windowHeight - 40) {
+        // Ao voltar o scroll para cima: desfaz a animação inteira suavemente
+        if (isTriggered) {
+          isTriggered = false;
+          content.classList.remove('is-solution-in');
+          content.querySelectorAll('.is-revealed').forEach((el) => el.classList.remove('is-revealed'));
+        }
+      }
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkAndTrigger();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    checkAndTrigger();
+  };
+
+  setupSolutionCascade();
+  document.addEventListener('astro:page-load', setupSolutionCascade);
+</script>
