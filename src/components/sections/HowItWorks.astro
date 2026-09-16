@@ -31,18 +31,22 @@ const steps = [
 
 ---
 
-<section id="como-funciona" class="section-how scrolly-section section-fade-top section-fade-bottom">
+<section id="como-funciona" class="section-how section-fade-bottom">
+  <!-- Conector Luminoso de Transição Fluida -->
+  <div class="transition-beam" aria-hidden="true"></div>
+  <div class="transition-ambient-glow" aria-hidden="true"></div>
+
   <div class="scrolly scrolly--5">
     <div class="scrolly__stage">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title scrolly-step s-1">Um processo simples, direto e focado em <span class="text-neon">resultado</span></h2>
-          <span class="how-progress scrolly-progress is-horizontal" aria-hidden="true"></span>
+          <h2 class="section-title scroll-animate anim-rise-sm">Um processo simples, direto e focado em <span class="text-neon">resultado</span></h2>
+          <span class="how-progress scroll-animate" aria-hidden="true"></span>
         </div>
 
         <div class="steps-grid">
           {steps.map((step, i) => (
-            <GlassCard class={`step-card scrolly-step from-scale s-${i + 2}`}>
+            <GlassCard class={`step-card scroll-animate anim-rise-sm delay-${(i + 1) * 100}`}>
               <div class="step-top">
                 <span class="step-icon">
                   <Icon name={step.icon} size={24} />
@@ -59,9 +63,76 @@ const steps = [
   </div>
 </section>
 
+<script>
+  const setupHowItWorksRepeat = () => {
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+        } else {
+          // Se o elemento saiu pela parte de baixo da tela (usuário rolou para cima)
+          if (entry.boundingClientRect.top > 0) {
+            entry.target.classList.remove('is-revealed');
+          }
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -10% 0px', // Aciona quando 10% da parte inferior ainda não apareceu
+      threshold: 0
+    });
+
+    const elements = document.querySelectorAll('#como-funciona .scroll-animate');
+    elements.forEach(el => observer.observe(el));
+  };
+
+  setupHowItWorksRepeat();
+  document.addEventListener('astro:page-load', setupHowItWorksRepeat);
+</script>
+
 <style>
   .section-how {
     background-color: #0A0A0A;
+    position: relative;
+    overflow: visible;
+  }
+
+  /* Conector de Transição Fluida */
+  .transition-beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 157, 0.04) 15%,
+      rgba(0, 255, 157, 0.45) 50%,
+      rgba(0, 255, 157, 0.04) 85%,
+      transparent 100%
+    );
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .transition-ambient-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    height: 90px;
+    background: radial-gradient(
+      ellipse 60% 70px at 50% 0%,
+      rgba(0, 255, 157, 0.14) 0%,
+      rgba(0, 255, 157, 0.03) 55%,
+      transparent 100%
+    );
+    z-index: 2;
+    pointer-events: none;
   }
 
   .section-header {
@@ -87,7 +158,7 @@ const steps = [
     }
   }
 
-  /* Barra de progresso que preenche conforme os passos são revelados (scrollytelling) */
+  /* Barra de progresso animada */
   .how-progress {
     display: block;
     width: min(220px, 70%);
@@ -96,8 +167,24 @@ const steps = [
     border-radius: 999px;
     background: linear-gradient(90deg, var(--color-primary-neon), #00A666);
     box-shadow: 0 0 16px rgba(0, 255, 157, 0.45);
-    /* fallback (sem scroll-driven): barra cheia */
-    transform: scaleX(1);
+  }
+
+  .how-progress.scroll-animate {
+    opacity: 1 !important;
+    transform: scaleX(0) !important;
+    transform-origin: left;
+    transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.3s !important;
+  }
+  
+  .how-progress.scroll-animate.is-revealed {
+    transform: scaleX(1) !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .how-progress.scroll-animate {
+      transform: scaleX(1) !important;
+      transition: none !important;
+    }
   }
 
   .steps-grid {
@@ -126,6 +213,23 @@ const steps = [
     padding: 2rem !important;
     position: relative;
     overflow: visible;
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.35s ease, 
+                box-shadow 0.35s ease !important;
+  }
+
+  /* Cascata com delays um pouco mais curtos */
+  :global(.step-card.delay-100) { transition-delay: 300ms, 300ms, 0s, 0s !important; }
+  :global(.step-card.delay-200) { transition-delay: 500ms, 500ms, 0s, 0s !important; }
+  :global(.step-card.delay-300) { transition-delay: 700ms, 700ms, 0s, 0s !important; }
+  :global(.step-card.delay-400) { transition-delay: 900ms, 900ms, 0s, 0s !important; }
+
+  :global(.step-card:hover) {
+    transform: translateY(-4px) !important;
+    border-color: rgba(0, 255, 157, 0.4) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.12), 0 0 24px rgba(0, 255, 157, 0.1) !important;
+    transition-delay: 0s, 0s, 0s, 0s !important; 
   }
 
   .step-top {
@@ -149,6 +253,13 @@ const steps = [
     border: 1px solid rgba(0, 255, 157, 0.25);
     box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08),
       0 4px 16px rgba(0, 255, 157, 0.12);
+    transition: all 0.3s ease;
+  }
+
+  :global(.step-card:hover) .step-icon {
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 20px rgba(0, 255, 157, 0.35);
+    color: #ffffff;
+    background: rgba(0, 255, 157, 0.15);
   }
 
   /* Número preenchido com gradiente neon (substitui o text-stroke quebrado) */
