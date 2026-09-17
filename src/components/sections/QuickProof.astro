@@ -60,10 +60,17 @@ import Icon from '../ui/Icon.astro';
 
 <style>
   .section-quick-proof {
-    padding: 3rem 0;
-    background-color: #06080b;
+    background-color: #0A0A0A;
+    padding: 4rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     position: relative;
     overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .section-quick-proof {
+      padding: 6rem 0;
+    }
   }
 
   /* Conector de Transição Fluida */
@@ -99,7 +106,7 @@ import Icon from '../ui/Icon.astro';
       rgba(0, 255, 157, 0.03) 55%,
       transparent 100%
     );
-    z-index: 2;
+    z-index: 10;
     pointer-events: none;
   }
 

@@ -306,7 +306,7 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     width: 100%;
     height: auto;
     position: relative;
-    z-index: 2;
+    z-index: 10;
     filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.65));
     -webkit-mask-image: linear-gradient(to bottom, #000000 80%, rgba(0, 0, 0, 0.45) 92%, transparent 100%);
     mask-image: linear-gradient(to bottom, #000000 80%, rgba(0, 0, 0, 0.45) 92%, transparent 100%);
@@ -322,7 +322,7 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     background: radial-gradient(circle, rgba(0, 255, 157, 0.25) 0%, rgba(0, 166, 102, 0.08) 55%, transparent 75%);
     filter: blur(52px);
     border-radius: 50%;
-    z-index: 1;
+    z-index: 6;
     pointer-events: none;
     animation: aura-glow 6s ease-in-out infinite alternate;
   }
@@ -596,7 +596,7 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     mask-image: radial-gradient(ellipse 65% 55% at 50% 35%, black 20%, transparent 85%);
     -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 35%, black 20%, transparent 85%);
     pointer-events: none;
-    z-index: 1;
+    z-index: 6;
   }
 
   @media (min-width: 768px) {
@@ -615,7 +615,7 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     mix-blend-mode: screen;
     filter: blur(128px);
     opacity: 0.2;
-    z-index: 1;
+    z-index: 6;
     transition: translate 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 

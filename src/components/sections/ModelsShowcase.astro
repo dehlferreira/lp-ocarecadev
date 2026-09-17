@@ -70,20 +70,24 @@ const models = [
 ---
 
 <section id="modelos" class="section-models" aria-labelledby="modelos-title">
+  <!-- Conector Luminoso de Transição Fluida -->
+  <div class="transition-beam" aria-hidden="true"></div>
+  <div class="transition-ambient-glow" aria-hidden="true"></div>
+
   <div class="container">
     <header class="models-header">
-      <p class="models-eyebrow">Alguns modelos disponíveis no OCARECADEV Express</p>
-      <h2 id="modelos-title" class="models-title">Veja possibilidades para o seu negócio</h2>
-      <p class="models-subtitle">
+      <p class="models-eyebrow scroll-animate anim-rise-sm">Alguns modelos disponíveis no OCARECADEV Express</p>
+      <h2 id="modelos-title" class="models-title scroll-animate anim-rise-sm">Veja possibilidades para o seu negócio</h2>
+      <p class="models-subtitle scroll-animate anim-rise-sm">
         Exemplos visuais para você enxergar como diferentes segmentos ganham uma presença digital mais profissional.
       </p>
-      <div class="models-scope-note">
+      <div class="models-scope-note scroll-animate anim-rise-sm">
         <span class="scope-pill scope-pill--express"><strong>EXPRESS:</strong> Implementação ágil sobre modelo estruturado</span>
         <span class="scope-pill scope-pill--custom"><strong>LANDING QUE VENDE:</strong> Projeto 100% estratégico, personalizado e sob medida</span>
       </div>
     </header>
 
-    <div class="models-controls">
+    <div class="models-controls scroll-animate anim-rise-sm">
       <p class="models-hint">Use as setas para ver os outros modelos</p>
       <div class="models-arrows">
         <button type="button" class="models-arrow" id="modelos-prev" aria-label="Modelo anterior">
@@ -98,9 +102,9 @@ const models = [
     </div>
 
     <ul class="models-track" id="modelos-track">
-      {models.map((model) => (
+      {models.map((model, i) => (
         <li class="models-slide">
-          <article class="model-card glass-panel" tabindex="0">
+          <article class="model-card glass-panel scroll-animate anim-rise-sm delay-${(i + 1) * 100}" tabindex="0">
             {model.image ? (
               <div class="model-thumb model-thumb--image">
                 <Image
@@ -157,9 +161,45 @@ const models = [
     background: #0a0a0a;
   }
 
+  /* Conector de Transição Fluida */
+  .transition-beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 157, 0.04) 15%,
+      rgba(0, 255, 157, 0.45) 50%,
+      rgba(0, 255, 157, 0.04) 85%,
+      transparent 100%
+    );
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .transition-ambient-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    height: 250px;
+    background: radial-gradient(
+      ellipse at top center,
+      rgba(0, 255, 157, 0.07) 0%,
+      transparent 70%
+    );
+    z-index: 6;
+    pointer-events: none;
+  }
+
   @media (min-width: 768px) {
     .section-models {
-      padding: 5.5rem 0;
+      padding: 6rem 0;
     }
   }
 
@@ -262,10 +302,14 @@ const models = [
     background: var(--glass-bg);
     color: var(--color-text-primary);
     cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   }
 
   .models-arrow:hover {
-    border-color: var(--glass-border-highlight);
+    border-color: rgba(0, 255, 157, 0.45);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.15);
+    transform: scale(1.05);
   }
 
   .models-arrow:focus-visible,
@@ -284,13 +328,19 @@ const models = [
     display: flex;
     gap: 1rem;
     margin: 0;
-    padding: 0.25rem 0 0.75rem;
+    /* Padding generoso em cima e embaixo para caber o translateY e os neon shadows sem gerar scroll vertical */
+    padding: 1.5rem 0.5rem 4.5rem;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: 0.25rem;
+    scroll-padding-inline: 0.5rem;
     list-style: none;
-    scrollbar-width: thin;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE e Edge */
+  }
+
+  .models-track::-webkit-scrollbar {
+    display: none; /* Chrome, Safari e Opera */
   }
 
   .models-slide {
@@ -304,6 +354,31 @@ const models = [
     height: 100%;
     padding: 1rem;
     gap: 0.55rem;
+  }
+
+  :global(.model-card) {
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.35s ease, 
+                box-shadow 0.35s ease,
+                background 0.35s ease !important;
+  }
+
+  /* Cascata com delays para a animação de entrada */
+  :global(.model-card.delay-100) { transition-delay: 150ms, 150ms, 0s, 0s, 0s !important; }
+  :global(.model-card.delay-200) { transition-delay: 300ms, 300ms, 0s, 0s, 0s !important; }
+  :global(.model-card.delay-300) { transition-delay: 450ms, 450ms, 0s, 0s, 0s !important; }
+  :global(.model-card.delay-400) { transition-delay: 600ms, 600ms, 0s, 0s, 0s !important; }
+  :global(.model-card.delay-500) { transition-delay: 750ms, 750ms, 0s, 0s, 0s !important; }
+  :global(.model-card.delay-600) { transition-delay: 900ms, 900ms, 0s, 0s, 0s !important; }
+  :global(.model-card.delay-700) { transition-delay: 1050ms, 1050ms, 0s, 0s, 0s !important; }
+
+  :global(.model-card:hover) {
+    transform: translateY(-4px) !important;
+    border-color: rgba(0, 255, 157, 0.4) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.12), 0 0 24px rgba(0, 255, 157, 0.15) !important;
+    transition-delay: 0s, 0s, 0s, 0s, 0s !important; 
   }
 
   .model-thumb {
@@ -406,6 +481,7 @@ const models = [
   .model-action-btn:hover {
     background: rgba(0, 255, 157, 0.25);
     border-color: var(--color-primary-neon);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
     transform: translateY(-1px);
   }
 
@@ -427,13 +503,42 @@ const models = [
 </style>
 
 <script>
+  const setupModelsShowcaseRepeat = () => {
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+        } else {
+          // Só remove a classe (desfaz animação) se o elemento sair por baixo da tela
+          // Se rolar pra baixo (continuar lendo o site), mantém tudo pronto
+          if (entry.boundingClientRect.top > 0) {
+            entry.target.classList.remove('is-revealed');
+          }
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -10% 0px',
+      threshold: 0
+    });
+
+    const elements = document.querySelectorAll('#modelos .scroll-animate');
+    elements.forEach(el => observer.observe(el));
+  };
+
   const setupModelsTrack = () => {
     const track = document.getElementById('modelos-track');
     const prev = document.getElementById('modelos-prev');
     const next = document.getElementById('modelos-next');
     if (!track || !prev || !next) return;
-    if (prev.dataset.bound === 'true') return;
+    
+    // Cleanup de eventos anteriores se o componente for remontado no Astro
+    if (track.dataset.autoplayInterval) {
+      clearInterval(Number(track.dataset.autoplayInterval));
+    }
 
+    if (prev.dataset.bound === 'true') return;
     prev.dataset.bound = 'true';
     next.dataset.bound = 'true';
 
@@ -445,18 +550,66 @@ const models = [
       return card.getBoundingClientRect().width + gap;
     };
 
-    const behavior: ScrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ? 'auto'
-      : 'smooth';
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const behavior = isReducedMotion ? 'auto' : 'smooth';
+
+    const scrollPrev = () => {
+      track.scrollBy({ left: -step(), behavior });
+    };
+
+    const scrollNext = () => {
+      // Se chegou no final (com uma margem de erro de 10px), volta pro começo
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+        track.scrollTo({ left: 0, behavior });
+      } else {
+        track.scrollBy({ left: step(), behavior });
+      }
+    };
 
     prev.addEventListener('click', () => {
-      track.scrollBy({ left: -step(), behavior });
+      scrollPrev();
+      resetAutoplay();
     });
+    
     next.addEventListener('click', () => {
-      track.scrollBy({ left: step(), behavior });
+      scrollNext();
+      resetAutoplay();
     });
+
+    // Autoplay logic
+    let autoplayTimer = 0;
+    
+    const startAutoplay = () => {
+      if (isReducedMotion) return; // Regra G2
+      stopAutoplay();
+      autoplayTimer = setInterval(scrollNext, 3000); // 3 segundos
+      track.dataset.autoplayInterval = String(autoplayTimer);
+    };
+
+    const stopAutoplay = () => {
+      clearInterval(autoplayTimer);
+    };
+
+    const resetAutoplay = () => {
+      stopAutoplay();
+      startAutoplay();
+    };
+
+    // Pausa quando o usuário passa o mouse ou interage com os botões/cards
+    track.addEventListener('mouseenter', stopAutoplay);
+    track.addEventListener('mouseleave', startAutoplay);
+    track.addEventListener('touchstart', stopAutoplay, { passive: true });
+    track.addEventListener('touchend', startAutoplay, { passive: true });
+    track.addEventListener('focusin', stopAutoplay);
+    track.addEventListener('focusout', startAutoplay);
+
+    startAutoplay();
   };
 
+  setupModelsShowcaseRepeat();
   setupModelsTrack();
-  document.addEventListener('astro:page-load', setupModelsTrack);
+  document.addEventListener('astro:page-load', () => {
+    setupModelsShowcaseRepeat();
+    setupModelsTrack();
+  });
 </script>

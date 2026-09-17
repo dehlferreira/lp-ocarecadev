@@ -66,14 +66,17 @@ const faqs = [
 </section>
 
 <script>
-  document.querySelectorAll('.faq-item').forEach((item) => {
+  const faqItems = document.querySelectorAll('.faq-item');
+  
+  faqItems.forEach((item) => {
     if (!(item instanceof HTMLDetailsElement)) return;
 
     const summary = item.querySelector('.faq-summary');
     const answer = item.querySelector('.faq-answer');
     if (!summary || !answer) return;
 
-    const closeAnswer = () => {
+    // Define the close function on the DOM element so it can be called by other items
+    (item as any).closeAnswer = () => {
       item.classList.remove('is-open');
 
       const finishClosing = (event: Event) => {
@@ -92,9 +95,16 @@ const faqs = [
       event.preventDefault();
 
       if (item.open) {
-        closeAnswer();
+        (item as any).closeAnswer();
         return;
       }
+
+      // Close all other open FAQs
+      faqItems.forEach((otherItem) => {
+        if (otherItem !== item && otherItem.classList.contains('is-open') && typeof (otherItem as any).closeAnswer === 'function') {
+          (otherItem as any).closeAnswer();
+        }
+      });
 
       item.open = true;
       requestAnimationFrame(() => item.classList.add('is-open'));
@@ -140,6 +150,21 @@ const faqs = [
 
   :global(.faq-item) {
     overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease !important;
+  }
+
+  @media (hover: hover) {
+    :global(.faq-item:not(.is-open):hover) {
+      transform: translateY(-2px);
+      border-color: rgba(0, 255, 157, 0.2) !important;
+    }
+  }
+
+  /* Estado ativo (Aberto) - Brilho Neon */
+  :global(.faq-item.is-open) {
+    border-color: rgba(0, 255, 157, 0.45) !important;
+    background: rgba(0, 255, 157, 0.05) !important;
+    box-shadow: 0 4px 20px rgba(0, 255, 157, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;
   }
 
   :global(.faq-summary) {
@@ -174,6 +199,7 @@ const faqs = [
 
   :global(.faq-item.is-open .faq-chevron) {
     transform: rotate(180deg);
+    filter: drop-shadow(0 0 5px rgba(0, 255, 157, 0.6));
   }
 
   :global(.faq-item) h3 {

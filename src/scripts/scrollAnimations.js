@@ -61,14 +61,17 @@ const initScrollAnimations = () => {
             if (targetEl.classList.contains('counter-number')) {
               animateCounter(targetEl);
             }
-
-            revealObserver.unobserve(targetEl);
+          } else {
+            // Remove a classe para a animação refazer quando o elemento voltar do topo (scroll para cima)
+            if (entry.boundingClientRect.top > 0) {
+              entry.target.classList.remove('is-revealed');
+            }
           }
         }
       },
       {
-        rootMargin: '0px 0px -40px 0px',
-        threshold: 0.08,
+        rootMargin: '0px 0px -10% 0px',
+        threshold: 0,
       }
     );
 

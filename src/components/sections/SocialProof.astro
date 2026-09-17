@@ -24,11 +24,14 @@ const waveformPixels2 = [
 ---
 
 <section id="social-proof" class="section-social section-fade-top section-fade-bottom" style="--fade-from: #010101;">
+  <!-- Conector Luminoso de Transição Fluida -->
+  <div class="transition-beam" aria-hidden="true"></div>
+  <div class="transition-ambient-glow" aria-hidden="true"></div>
   <div class="container">
     <div class="proof-wrapper">
       <header class="section-header">
-        <h2 class="section-title">Não acredita no Careca? <span class="text-neon">Pergunta pra quem já contratou</span></h2>
-        <ul class="section-subtitle-list">
+        <h2 class="section-title scroll-animate anim-rise-sm">Não acredita no Careca? <span class="text-neon">Pergunta pra quem já contratou</span></h2>
+        <ul class="section-subtitle-list scroll-animate anim-rise-sm delay-100">
           {benefits.map((benefit) => (
             <li>
               <span class="check-icon"><Icon name="check" size={15} stroke={3} /></span>
@@ -40,7 +43,7 @@ const waveformPixels2 = [
 
       <!-- GRUPO 1: ÁUDIOS REAIS DO WHATSAPP COM PLAYER NATIVO ESTILO WHATSAPP -->
       <div class="proof-group">
-        <div class="group-header">
+        <div class="group-header scroll-animate anim-rise-sm">
           <span class="group-badge">
             <span class="pulse-dot"></span>
             Mensagens de Voz Autênticas
@@ -50,7 +53,7 @@ const waveformPixels2 = [
 
         <div class="proof-grid">
           <!-- CARD ÁUDIO 1: CLIENTE (30s) -->
-          <div class="proof-card audio-card">
+          <div class="proof-card audio-card scroll-animate anim-rise-sm delay-100">
             <div class="card-header">
               <div class="user-info">
                 <div class="avatar-circle avatar-whatsapp" aria-hidden="true">
@@ -163,7 +166,7 @@ const waveformPixels2 = [
           </div>
 
           <!-- CARD ÁUDIO 2: PARCEIRO (54s) -->
-          <div class="proof-card audio-card">
+          <div class="proof-card audio-card scroll-animate anim-rise-sm delay-200">
             <div class="card-header">
               <div class="user-info">
                 <div class="avatar-circle avatar-whatsapp" aria-hidden="true">
@@ -279,7 +282,7 @@ const waveformPixels2 = [
 
       <!-- GRUPO 2: PRINTS E VALIDAÇÕES EM MOLDURA DE SMARTPHONE VERTICAL 9:16 -->
       <div class="proof-group">
-        <div class="group-header">
+        <div class="group-header scroll-animate anim-rise-sm">
           <span class="group-badge">
             <span class="pulse-dot dot-blue"></span>
             Conversas & Validações Públicas
@@ -289,7 +292,7 @@ const waveformPixels2 = [
 
         <div class="proof-grid proof-grid--prints">
           <!-- CARD PRINT 1: INSTAGRAM STORIES 9:16 -->
-          <div class="proof-card print-card">
+          <div class="proof-card print-card scroll-animate anim-rise-sm delay-100">
             <div class="card-header">
               <div class="user-info">
                 <div class="avatar-circle avatar-instagram" aria-hidden="true">
@@ -359,7 +362,7 @@ const waveformPixels2 = [
           </div>
 
           <!-- CARD PRINT 2: WHATSAPP CONVERSA 9:16 -->
-          <div class="proof-card print-card">
+          <div class="proof-card print-card scroll-animate anim-rise-sm delay-200">
             <div class="card-header">
               <div class="user-info">
                 <div class="avatar-circle avatar-whatsapp" aria-hidden="true">
@@ -434,7 +437,7 @@ const waveformPixels2 = [
           </div>
 
           <!-- CARD PRINT 3: WHATSAPP CONVERSA 9:16 (RENATO FARIAS) -->
-          <div class="proof-card print-card">
+          <div class="proof-card print-card scroll-animate anim-rise-sm delay-300">
             <div class="card-header">
               <div class="user-info">
                 <div class="avatar-circle avatar-whatsapp" aria-hidden="true">
@@ -526,6 +529,32 @@ const waveformPixels2 = [
 
 <script is:inline>
   (() => {
+    // -------------------------------------------------------------
+    // ANIMATION REPEAT OBSERVER
+    // -------------------------------------------------------------
+    const setupSocialProofRepeat = () => {
+      if (typeof IntersectionObserver === 'undefined') return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+          } else {
+            if (entry.boundingClientRect.top > 0) {
+              entry.target.classList.remove('is-revealed');
+            }
+          }
+        });
+      }, {
+        rootMargin: '0px 0px -10% 0px',
+        threshold: 0
+      });
+
+      const elements = document.querySelectorAll('#social-proof .scroll-animate');
+      elements.forEach(el => observer.observe(el));
+    };
+    setupSocialProofRepeat();
+
     // -------------------------------------------------------------
     // CONTROLE DOS PLAYERS DE ÁUDIO DO WHATSAPP
     // -------------------------------------------------------------
@@ -704,9 +733,45 @@ const waveformPixels2 = [
 </script>
 
 <style>
+  /* Conector de Transição Fluida */
+  .transition-beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 157, 0.04) 15%,
+      rgba(0, 255, 157, 0.45) 50%,
+      rgba(0, 255, 157, 0.04) 85%,
+      transparent 100%
+    );
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .transition-ambient-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    height: 250px;
+    background: radial-gradient(
+      ellipse at top center,
+      rgba(0, 255, 157, 0.07) 0%,
+      transparent 70%
+    );
+    z-index: 6;
+    pointer-events: none;
+  }
+
   .section-social {
     position: relative;
-    padding: 6rem 0;
+    padding: 4rem 0;
     background: #010101;
     overflow-x: clip;
   }
@@ -831,6 +896,23 @@ const waveformPixels2 = [
   }
 
   /* CARD GLASSMORPHISM */
+  
+  :global(.proof-card) {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.35s ease, 
+                box-shadow 0.35s ease,
+                background 0.35s ease,
+                opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  :global(.proof-card.is-revealed:hover) {
+    transform: translateY(-4px) !important;
+    border-color: rgba(0, 255, 157, 0.4) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.12), 0 0 24px rgba(0, 255, 157, 0.15) !important;
+    transition-delay: 0s, 0s, 0s, 0s, 0s !important; 
+  }
+
   .proof-card {
     display: flex;
     flex-direction: column;
@@ -1007,6 +1089,16 @@ const waveformPixels2 = [
   }
 
   /* Botão Play/Pause */
+  
+  .wa-play-btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+  .wa-play-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+    background-color: var(--color-primary-neon);
+  }
+
   .wa-play-btn {
     width: 42px;
     height: 42px;
@@ -1426,7 +1518,24 @@ const waveformPixels2 = [
       margin-top: 1.1rem;
       font-size: 0.9rem;
     }
-    .proof-card {
+    
+  :global(.proof-card) {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.35s ease, 
+                box-shadow 0.35s ease,
+                background 0.35s ease,
+                opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  :global(.proof-card.is-revealed:hover) {
+    transform: translateY(-4px) !important;
+    border-color: rgba(0, 255, 157, 0.4) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.12), 0 0 24px rgba(0, 255, 157, 0.15) !important;
+    transition-delay: 0s, 0s, 0s, 0s, 0s !important; 
+  }
+
+  .proof-card {
       padding: 1.35rem;
     }
     .phone-frame-916 {
@@ -1435,7 +1544,17 @@ const waveformPixels2 = [
     .wa-balloon-inner {
       gap: 0.55rem;
     }
-    .wa-play-btn {
+    
+  .wa-play-btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+  .wa-play-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+    background-color: var(--color-primary-neon);
+  }
+
+  .wa-play-btn {
       width: 38px;
       height: 38px;
     }

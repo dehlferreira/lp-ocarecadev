@@ -94,6 +94,13 @@ const mechanismSteps = [
     background-color: #030303;
     overflow: clip;
     position: relative;
+    padding: 4rem 0;
+  }
+
+  @media (min-width: 768px) {
+    .section-solution {
+      padding: 6rem 0;
+    }
   }
 
   /* Conector de Transição Fluida vindo de Problem */
@@ -129,7 +136,7 @@ const mechanismSteps = [
       rgba(0, 255, 157, 0.02) 55%,
       transparent 100%
     );
-    z-index: 2;
+    z-index: 10;
     pointer-events: none;
   }
 
@@ -141,7 +148,7 @@ const mechanismSteps = [
     width: 600px;
     height: 600px;
     background: radial-gradient(circle, rgba(0, 255, 157, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
-    z-index: 1;
+    z-index: 6;
     pointer-events: none;
   }
 
@@ -427,7 +434,7 @@ const mechanismSteps = [
       rgba(0, 255, 157, 0.4),
       rgba(0, 255, 157, 0.15)
     );
-    z-index: 1;
+    z-index: 6;
     pointer-events: none;
   }
 
@@ -443,7 +450,7 @@ const mechanismSteps = [
     -webkit-backdrop-filter: blur(8px);
     transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
     position: relative;
-    z-index: 2;
+    z-index: 10;
   }
 
   .mechanism-item:hover {

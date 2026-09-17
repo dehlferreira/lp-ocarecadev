@@ -14,6 +14,10 @@ const paragraphs = [
 ---
 
 <section id="about" class="section-about scrolly-section section-fade-top section-fade-bottom">
+  <!-- Conector Luminoso de Transição Fluida -->
+  <div class="transition-beam" aria-hidden="true"></div>
+  <div class="transition-ambient-glow" aria-hidden="true"></div>
+
   <!-- Desktop: grid 2 colunas, 5 passos -->
   <div class="about-desktop">
     <div class="scrolly scrolly--5">
@@ -105,9 +109,52 @@ const paragraphs = [
 
 <style>
   .section-about {
+    padding: 4rem 0;
     position: relative;
     overflow: clip;
     background-color: #0a0a0a;
+  }
+
+  @media (min-width: 768px) {
+    .section-about {
+      padding: 6rem 0;
+    }
+  }
+
+  /* Conector de Transição Fluida */
+  .transition-beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 157, 0.04) 15%,
+      rgba(0, 255, 157, 0.45) 50%,
+      rgba(0, 255, 157, 0.04) 85%,
+      transparent 100%
+    );
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .transition-ambient-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    height: 250px;
+    background: radial-gradient(
+      ellipse at top center,
+      rgba(0, 255, 157, 0.07) 0%,
+      transparent 70%
+    );
+    z-index: 6;
+    pointer-events: none;
   }
 
   .about-desktop {
@@ -143,12 +190,16 @@ const paragraphs = [
 
   /* Passos colapsados até revelar — evita reservar altura fantasma */
   .about-reveal {
+    padding: 20px;
+    margin: -20px;
     overflow: hidden;
   }
 
   @media (prefers-reduced-motion: no-preference) {
     @supports ((animation-timeline: view()) and (animation-range: contain)) {
       .about-reveal {
+    padding: 20px;
+    margin: -20px;
         animation-name: about-reveal !important;
       }
 
@@ -275,8 +326,14 @@ const paragraphs = [
     object-position: center 25%;
     border-radius: 50%;
     position: relative;
-    z-index: 2;
+    z-index: 10;
     border: 3px solid var(--glass-border);
+    animation: profile-float 6s ease-in-out infinite;
+  }
+
+  @keyframes profile-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
   }
 
   .neon-glow {
@@ -290,7 +347,13 @@ const paragraphs = [
     border-radius: 50%;
     filter: blur(60px);
     opacity: 0.3;
-    z-index: 1;
+    z-index: 6;
+    animation: neon-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes neon-pulse {
+    0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.9); filter: blur(50px); }
+    50% { opacity: 0.45; transform: translate(-50%, -50%) scale(1.1); filter: blur(70px); }
   }
 
   .about-content {
@@ -337,6 +400,14 @@ const paragraphs = [
 
   :global(.stat-card) {
     text-align: center;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease !important;
+  }
+
+  :global(.stat-card:hover) {
+    transform: translateY(-4px) !important;
+    border-color: rgba(0, 255, 157, 0.4) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.12), 0 0 24px rgba(0, 255, 157, 0.15) !important;
   }
 
   :global(.stat-card h3) {
@@ -384,6 +455,7 @@ const paragraphs = [
     color: var(--color-primary-neon);
     background: rgba(0, 255, 157, 0.06);
     box-shadow: 0 0 20px rgba(0, 255, 157, 0.12);
+    transform: translateY(-2px);
   }
 
   .social-link :global(.icon) {
@@ -492,10 +564,14 @@ const paragraphs = [
     }
 
     .about-mobile-unified .about-reveal {
+    padding: 20px;
+    margin: -20px;
       animation-name: about-reveal-mobile !important;
     }
 
     .about-mobile-unified .about-footer.about-reveal {
+    padding: 20px;
+    margin: -20px;
       animation-name: about-reveal-footer-mobile !important;
     }
 
