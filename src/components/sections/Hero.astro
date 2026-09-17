@@ -599,14 +599,16 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.032) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
+      linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
     background-size: 32px 32px;
-    mask-image: radial-gradient(ellipse 65% 55% at 50% 35%, black 20%, transparent 85%);
-    -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 35%, black 20%, transparent 85%);
+    mask-image: radial-gradient(ellipse 85% 75% at 50% 38%, black 35%, rgba(0, 0, 0, 0.45) 75%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 38%, black 35%, rgba(0, 0, 0, 0.45) 75%, transparent 100%);
     pointer-events: none;
     z-index: 6;
-    animation: hero-grid-drift 24s linear infinite;
+    transform: translateZ(0);
+    will-change: background-position;
+    animation: hero-grid-drift 8s linear infinite;
   }
 
   @keyframes hero-grid-drift {
@@ -622,9 +624,9 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     .hero-tech-grid {
       background-size: 44px 44px;
       background-image:
-        linear-gradient(to right, rgba(255, 255, 255, 0.038) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.038) 1px, transparent 1px);
-      animation: hero-grid-drift-desktop 28s linear infinite;
+        linear-gradient(to right, rgba(255, 255, 255, 0.085) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.085) 1px, transparent 1px);
+      animation: hero-grid-drift-desktop 10s linear infinite;
     }
 
     @keyframes hero-grid-drift-desktop {
@@ -646,16 +648,18 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     opacity: 0.2;
     z-index: 6;
     pointer-events: none;
+    transform: translateZ(0);
     transition: translate 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   /* Mobile: simplifica luzes neon para economizar GPU */
   @media (max-width: 767px) {
     .neon-light {
-      filter: blur(60px);
+      filter: blur(40px);
       animation: none !important;
-      opacity: 0.1;
+      opacity: 0.12;
       translate: none;
+      mix-blend-mode: normal;
     }
   }
 

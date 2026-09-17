@@ -64,11 +64,15 @@ const initScrollAnimations = () => {
               animateCounter(targetEl);
             }
           } else {
-            // Histerese de segurança: só reseta para re-animar quando o elemento
-            // estiver bem fora do campo de visão (pelo menos 120px abaixo da viewport),
-            // evitando que oscilações no limite da tela causem travamentos ou jank.
-            if (entry.boundingClientRect.top > windowH + 120) {
+            // Se o elemento saiu da viewport pelo fundo da tela (o usuário subiu o scroll até a seção anterior):
+            // remove is-revealed para que a animação dispare novamente de forma natural ao descer de volta.
+            if (entry.boundingClientRect.top > 0) {
               targetEl.classList.remove('is-revealed');
+              const counters = targetEl.querySelectorAll('.counter-number');
+              counters.forEach((c) => { delete c.dataset.animated; });
+              if (targetEl.classList.contains('counter-number')) {
+                delete targetEl.dataset.animated;
+              }
             }
           }
         }

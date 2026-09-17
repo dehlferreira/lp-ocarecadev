@@ -140,12 +140,16 @@ const { text = "Role para explorar", class: className = "" } = Astro.props;
     if (!indicator) return;
 
     let ticking = false;
+    let maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+
+    window.addEventListener('resize', () => {
+      maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+    }, { passive: true });
 
     const updateVisibility = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const scrollY = window.scrollY;
-          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
           // Visível na página toda conforme solicitado; oculta apenas no rodapé final
           const isNearBottom = scrollY > maxScroll - 160;
