@@ -103,17 +103,17 @@ test('models section has no BrainArt destinations, clones or vacancy RNG, and co
   assert.match(section, /<p class="model-status">Em breve<\/p>/);
 });
 
-test('header adds Modelos between Resultados and Planos on desktop and mobile', () => {
+test('header orders navigation matching section sequence (Início, Modelos, Resultados, Planos) on desktop and mobile', () => {
   const header = read('src/components/sections/Header.astro');
 
   assert.equal((header.match(/href="#modelos"/g) ?? []).length, 2);
   assert.match(
     header,
-    /<nav class="nav">[\s\S]*href="#social-proof">Resultados<\/a>[\s\S]*href="#modelos">Modelos<\/a>[\s\S]*href="#pricing">Planos<\/a>/,
+    /<nav class="nav">[\s\S]*href="#hero">Início<\/a>[\s\S]*href="#modelos">Modelos<\/a>[\s\S]*href="#social-proof">Resultados<\/a>[\s\S]*href="#pricing">Planos<\/a>/,
   );
   assert.match(
     header,
-    /<nav class="mobile-nav">[\s\S]*href="#social-proof" class="mobile-nav-link">Resultados<\/a>[\s\S]*href="#modelos" class="mobile-nav-link">Modelos<\/a>[\s\S]*href="#pricing" class="mobile-nav-link">Planos<\/a>/,
+    /<nav class="mobile-nav">[\s\S]*href="#hero" class="mobile-nav-link">Início<\/a>[\s\S]*href="#modelos" class="mobile-nav-link">Modelos<\/a>[\s\S]*href="#social-proof" class="mobile-nav-link">Resultados<\/a>[\s\S]*href="#pricing" class="mobile-nav-link">Planos<\/a>/,
   );
 });
 
