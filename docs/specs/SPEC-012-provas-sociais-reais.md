@@ -77,6 +77,16 @@
 - **Causa**: Tags genéricas como `<span>` possuem role implícito `generic`, onde `aria-label` não é permitido sem uma role semântica explícita.
 - **Correção**: Atribuição de `role="img"` ao `<span class="verified-icon">`, tornando `aria-label="Cliente verificado"` um atributo válido e expondo a semântica correta na accessibility tree para agentes de IA e leitores de tela.
 
+### 2.6. Sustentação e Evolução de UX no Desktop — Zoom na Modal de Prova Social (2026-09-17)
+- **Problema**: Em resoluções desktop, ao abrir os prints de conversas na modal (`#proof-lightbox`), a imagem em alta resolução ficava limitada às dimensões da janela sem possibilidade de zoom, dificultando a leitura de textos e mensagens detalhadas.
+- **Solução**: Implementação de zoom interativo e arraste (pan) nativo na modal:
+  1. Barra de ferramentas flutuante (`.lightbox-zoom-toolbar`) com botões acessíveis de Zoom In (`+`), Zoom Out (`-`), Redefinir (`Ajustar`) e indicador percentual de nível de ampliação (`100%` a `250%`).
+  2. Alternância de zoom (1x / 2x) diretamente ao clicar na imagem (`toggle zoom`), com cursor dinâmico (`zoom-in` / `grab` / `grabbing`).
+  3. Navegação por arraste (mouse drag & pan) quando a imagem estiver ampliada, com limitação de bordas (clamp).
+  4. Suporte a zoom com roda do mouse (`wheel`) e atalhos de teclado (`+`, `-`, `0`, `Esc`).
+  5. Reset automático de escala e pan ao fechar o modal ou alternar entre prints.
+  6. Conformidade com G1 (acessibilidade em botões, foco visível `:focus-visible`, live region no nível de zoom), G2 (`prefers-reduced-motion: reduce` sem animações contínuas) e G7 (JavaScript e CSS vanilla puros, zero dependências externas).
+
 ---
 
 ## 3. Definition of Done (DoD)
@@ -89,4 +99,5 @@
 - [x] Os estilos respeitam `prefers-reduced-motion: reduce` e não geram overflow horizontal em 390px, 768px e 1200px+.
 - [x] O arquivo de teste `test/social-proof.test.mjs` foi atualizado e passa com 100% de sucesso.
 - [x] O selo `.verified-icon` possui `role="img"` com `aria-label="Cliente verificado"`, atendendo à regra `aria-allowed-attr` do Lighthouse e auditoria de Navegação Agêntica.
-- [x] O comando rápido `npm run verify` conclui com zero falhas.
+- [ ] A modal de prints em alta resolução disponibiliza controles acessíveis de zoom (+, -, reset) e arraste (pan) no desktop, com reset automático ao fechar.
+- [ ] O comando rápido `npm run verify` conclui com zero falhas.

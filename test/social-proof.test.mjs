@@ -100,3 +100,18 @@ test('prints use 9:16 vertical smartphone ratio and native accessible lightbox (
   assert.match(component, /aria-label="Fechar visualização"/);
   assert.match(component, /data-dialog-src/);
 });
+
+test('lightbox modal provides accessible interactive zoom controls and pan viewport (G1, G2, G3)', () => {
+  const component = read('src/components/sections/SocialProof.astro');
+
+  assert.match(component, /class="lightbox-zoom-toolbar"/);
+  assert.match(component, /id="lightbox-zoom-in"/);
+  assert.match(component, /id="lightbox-zoom-out"/);
+  assert.match(component, /id="lightbox-zoom-reset"/);
+  assert.match(component, /id="lightbox-zoom-level"/);
+  assert.match(component, /class="lightbox-viewport"/);
+  assert.match(component, /aria-label="Aumentar zoom"/);
+  assert.match(component, /aria-label="Diminuir zoom"/);
+  assert.match(component, /aria-label="Ajustar imagem à tela"/);
+});
+
