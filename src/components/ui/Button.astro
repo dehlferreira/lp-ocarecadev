@@ -33,9 +33,9 @@ const Tag = href ? 'a' : 'button';
     letter-spacing: 1px; /* Reduzi levemente o tracking para caber melhor */
     position: relative;
     overflow: hidden;
-    /* Correção para backdrop-filter no Safari Mobile */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    /* Isolamento de camada para evitar glitch de canvas branco no Safari/WebKit */
+    isolation: isolate;
+    background-clip: padding-box;
   }
   
   .btn:active {
@@ -66,16 +66,17 @@ const Tag = href ? 'a' : 'button';
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, rgba(0, 255, 157, 0.35) 0%, rgba(0, 255, 157, 0.12) 100%);
+    background-color: rgba(3, 30, 20, 0.88);
+    background: linear-gradient(135deg, rgba(0, 255, 157, 0.45) 0%, rgba(0, 190, 115, 0.22) 50%, rgba(1, 28, 18, 0.8) 100%);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     color: #ffffff;
     font-weight: 700;
     border: 1px solid rgba(0, 255, 157, 0.55);
-    border-top: 1px solid rgba(255, 255, 255, 0.45); /* Luz suave de chanfro */
+    border-top: 1px solid rgba(255, 255, 255, 0.35); /* Luz suave de chanfro equilibrada */
     border-bottom: 1px solid rgba(0, 255, 157, 0.3);
-    box-shadow: 0 4px 25px rgba(0, 255, 157, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.35), inset 0 -1px 2px rgba(0, 0, 0, 0.25);
-    text-shadow: 0 0 10px rgba(0, 255, 157, 0.7), 0 1px 2px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 25px rgba(0, 255, 157, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.28), inset 0 -1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 10px rgba(0, 255, 157, 0.7), 0 1px 2px rgba(0, 0, 0, 0.85);
     position: relative;
     animation: emerald-glow-pulse 3s ease-in-out infinite alternate;
   }
@@ -102,20 +103,21 @@ const Tag = href ? 'a' : 'button';
 
   @keyframes emerald-glow-pulse {
     0% {
-      box-shadow: 0 4px 20px rgba(0, 255, 157, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+      box-shadow: 0 4px 20px rgba(0, 255, 157, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.28);
     }
     100% {
-      box-shadow: 0 6px 32px rgba(0, 255, 157, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 6px 32px rgba(0, 255, 157, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.4);
     }
   }
 
   .btn-primary:hover {
-    background: linear-gradient(135deg, rgba(0, 255, 157, 0.5) 0%, rgba(0, 255, 157, 0.25) 100%);
+    background-color: rgba(3, 38, 25, 0.92);
+    background: linear-gradient(135deg, rgba(0, 255, 157, 0.6) 0%, rgba(0, 200, 125, 0.3) 50%, rgba(1, 35, 22, 0.85) 100%);
     border-color: var(--color-primary-neon);
-    border-top-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 0 35px rgba(0, 255, 157, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.5);
-    transform: translateY(-3px) scale(1.02) translateZ(0);
-    -webkit-transform: translateY(-3px) scale(1.02) translateZ(0);
+    border-top-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 35px rgba(0, 255, 157, 0.65), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    transform: translateY(-3px) scale(1.02);
+    -webkit-transform: translateY(-3px) scale(1.02);
     animation: none; /* Pausa o pulso no hover */
   }
 
@@ -141,8 +143,8 @@ const Tag = href ? 'a' : 'button';
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
     border-color: rgba(255, 255, 255, 0.25);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.15);
-    transform: translateY(-3px) scale(1.02) translateZ(0);
-    -webkit-transform: translateY(-3px) scale(1.02) translateZ(0);
+    transform: translateY(-3px) scale(1.02);
+    -webkit-transform: translateY(-3px) scale(1.02);
   }
 
   /* Brilho diagonal passando pelo botão (Shine effect) via ::before */
@@ -153,14 +155,16 @@ const Tag = href ? 'a' : 'button';
     left: -100%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
     transform: skewX(-20deg);
     transition: all 0.7s ease;
     pointer-events: none;
   }
 
-  .btn:hover::before {
-    left: 150%;
+  @media (hover: hover) {
+    .btn:hover::before {
+      left: 150%;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
