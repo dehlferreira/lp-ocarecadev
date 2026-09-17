@@ -369,7 +369,7 @@ const points = [
      Animação em Cascata Cinematográfica (Efeito Dominó Bidirecional)
      ========================================================================== */
 
-  /* Estado preparado / quando desfaz a animação ao voltar o scroll */
+
   #problem-content.problem-anim-ready:not(.is-problem-in) .problem-title,
   #problem-content.problem-anim-ready:not(.is-problem-in) .problem-desc,
   .problem-content.problem-anim-ready:not(.is-problem-in) .problem-title,
@@ -377,7 +377,6 @@ const points = [
     opacity: 0 !important;
     transform: translateY(26px) !important;
     transition: opacity 0.4s ease, transform 0.45s ease !important;
-    will-change: transform, opacity;
   }
 
   #problem-content.problem-anim-ready:not(.is-problem-in) .problem-point-card,
@@ -385,7 +384,6 @@ const points = [
     opacity: 0 !important;
     transform: translateX(-40px) !important;
     transition: opacity 0.35s ease, transform 0.45s ease !important;
-    will-change: transform, opacity;
   }
 
   #problem-content.problem-anim-ready:not(.is-problem-in) .problem-mockup-col,
@@ -393,7 +391,6 @@ const points = [
     opacity: 0 !important;
     transform: translateX(50px) !important;
     transition: opacity 0.45s ease, transform 0.5s ease !important;
-    will-change: transform, opacity;
   }
 
   #problem-content.problem-anim-ready:not(.is-problem-in) .problem-punchline,
@@ -401,7 +398,6 @@ const points = [
     opacity: 0 !important;
     transform: translateY(26px) !important;
     transition: opacity 0.4s ease, transform 0.45s ease !important;
-    will-change: transform, opacity;
   }
 
   /* Estado ativo no scroll descendente: Cascata em Dominó */
@@ -533,6 +529,81 @@ const points = [
     #problem-content.is-problem-in .problem-mockup-col,
     .problem-content.is-problem-in .problem-mockup-col {
       transform: translateY(0) !important;
+    }
+
+    /* Durações reduzidas no mobile: elimina janelas de transição longas que acumulam frames */
+    #problem-content.is-problem-in .problem-title,
+    #problem-content.is-problem-in .problem-desc,
+    .problem-content.is-problem-in .problem-title,
+    .problem-content.is-problem-in .problem-desc {
+      transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    #problem-content.is-problem-in .problem-desc,
+    .problem-content.is-problem-in .problem-desc {
+      transition-delay: 0.05s !important;
+    }
+
+    #problem-content.is-problem-in .problem-point-card:nth-child(1),
+    .problem-content.is-problem-in .problem-point-card:nth-child(1) {
+      transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transition-delay: 0.07s !important;
+    }
+
+    #problem-content.is-problem-in .problem-point-card:nth-child(2),
+    .problem-content.is-problem-in .problem-point-card:nth-child(2) {
+      transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transition-delay: 0.14s !important;
+    }
+
+    #problem-content.is-problem-in .problem-point-card:nth-child(3),
+    .problem-content.is-problem-in .problem-point-card:nth-child(3) {
+      transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transition-delay: 0.21s !important;
+    }
+
+    #problem-content.is-problem-in .problem-mockup-col,
+    .problem-content.is-problem-in .problem-mockup-col {
+      transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transition-delay: 0.14s !important;
+    }
+
+    #problem-content.is-problem-in .problem-punchline,
+    .problem-content.is-problem-in .problem-punchline {
+      transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transition-delay: 0.28s !important;
+    }
+
+    /* pain-icon-ignite: substitui box-shadow (repaint) por opacity+scale (compositor-only) */
+    #problem-content.is-problem-in .problem-point-card:nth-child(1) .pain-icon,
+    .problem-content.is-problem-in .problem-point-card:nth-child(1) .pain-icon {
+      animation: pain-icon-ignite-mobile 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.12s forwards;
+    }
+
+    #problem-content.is-problem-in .problem-point-card:nth-child(2) .pain-icon,
+    .problem-content.is-problem-in .problem-point-card:nth-child(2) .pain-icon {
+      animation: pain-icon-ignite-mobile 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.19s forwards;
+    }
+
+    #problem-content.is-problem-in .problem-point-card:nth-child(3) .pain-icon,
+    .problem-content.is-problem-in .problem-point-card:nth-child(3) .pain-icon {
+      animation: pain-icon-ignite-mobile 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.26s forwards;
+    }
+  }
+
+  /* Versão mobile do ignite: sem box-shadow (não é compositor-only) */
+  @keyframes pain-icon-ignite-mobile {
+    0% {
+      transform: scale(0.85);
+      opacity: 0.5;
+    }
+    55% {
+      transform: scale(1.15);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.9;
     }
   }
 

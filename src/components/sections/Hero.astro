@@ -639,6 +639,39 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     }
   }
 
+  /* Mobile: desativa animações de loop contínuo para eliminar custo de composição GPU (G4) */
+  @media (max-width: 767px) {
+    /* Grid estático — background-position animado cria camada GPU extra */
+    .hero-tech-grid {
+      animation: none !important;
+      will-change: auto !important;
+    }
+
+    /* Aura: sem scale, só opacity estático — evita transform composto sobre filtro blur */
+    .hero-img-aura {
+      animation: none !important;
+      opacity: 0.75;
+    }
+
+    /* Badges flutuantes: estáticos no mobile — translateY contínuo aumenta camadas de composição */
+    .badge-speed,
+    .badge-conversion {
+      animation: none !important;
+      transform: none !important;
+    }
+
+    /* Pulse ring: custo de transform+opacity a cada frame — substituído por ponto sólido */
+    .pulse-ring {
+      display: none !important;
+    }
+
+    /* text-neon-pulse: text-shadow não é compositor-only, força repaint */
+    .hero-title .text-neon {
+      animation: none !important;
+      text-shadow: 0 0 18px rgba(0, 255, 157, 0.45) !important;
+    }
+  }
+
   /* Efeitos de Luz */
   .neon-light {
     position: absolute;
