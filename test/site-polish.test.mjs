@@ -343,6 +343,11 @@ test('hero section implements complete premium effects (tech grid, status badge,
   // Destaque na palavra "agir"
   assert.match(hero, /@keyframes\s+text-neon-pulse/);
 
+  // Micro-cards flutuantes devem estar acima da imagem (z-index maior que .hero-img)
+  const imgZIndex = Number(hero.match(/\.hero-img\s*\{[^}]*z-index:\s*(\d+)/)?.[1] ?? 0);
+  const badgeZIndex = Number(hero.match(/\.hero-float-badge\s*\{[^}]*z-index:\s*(\d+)/)?.[1] ?? 0);
+  assert.ok(badgeZIndex > imgZIndex, `hero-float-badge z-index (${badgeZIndex}) deve ser maior que hero-img (${imgZIndex})`);
+
   // Respeito estrito a reduced-motion (G2)
   assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.badge-speed[\s\S]*animation:\s*none\s*!important/);
   assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.pulse-ring[\s\S]*display:\s*none/);

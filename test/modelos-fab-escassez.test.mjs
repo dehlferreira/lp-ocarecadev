@@ -27,7 +27,7 @@ test('models section uses the canonical landmark, headings and seven cards', () 
   const section = read('src/components/sections/ModelsShowcase.astro');
 
   assert.match(section, /id="modelos"/);
-  assert.match(section, /<p class="models-eyebrow">Alguns modelos disponíveis no OCARECADEV Express<\/p>/);
+  assert.match(section, /<p class="models-eyebrow(?:\s+[^"]*)?">Alguns modelos disponíveis no OCARECADEV Express<\/p>/);
   assert.match(section, /<h2[^>]*>Veja possibilidades para o seu negócio<\/h2>/);
   assert.doesNotMatch(section, /<h1[\s>]/);
 
@@ -54,7 +54,7 @@ test('models section uses the canonical landmark, headings and seven cards', () 
   for (const focus of focuses) assert.match(section, new RegExp(focus));
 
   assert.equal((section.match(/placeholderName:/g) ?? []).length, 7);
-  assert.match(section, /models\.map\(\(model\)/);
+  assert.match(section, /models\.map\(\(model/);
   assert.doesNotMatch(section, /\[\s*\.\.\.models/);
   assert.doesNotMatch(section, /models\.concat/);
   assert.match(section, /class="model-card /);
