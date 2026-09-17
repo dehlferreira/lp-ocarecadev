@@ -464,6 +464,18 @@ const paragraphs = [
 
   /* Mobile: tudo num bloco só, centralizado */
   @media (max-width: 767px) {
+    /* Desativa loops contínuos que consomem GPU */
+    .profile-img {
+      animation: none !important;
+    }
+
+    /* neon-pulse anima filter:blur() — extremamente caro no mobile */
+    .neon-glow {
+      animation: none !important;
+      filter: blur(30px);
+      opacity: 0.25;
+    }
+
     .about-mobile-unified .scrolly__stage {
       justify-content: center;
       padding-top: max(calc(env(safe-area-inset-top, 0px) + 2rem), 2.5rem);

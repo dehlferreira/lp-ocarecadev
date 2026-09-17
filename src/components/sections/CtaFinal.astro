@@ -160,10 +160,18 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
   }
 
   @media (max-width: 767px) {
+    /* Desativa loops contínuos: breathe-glow e pulse-ring */
     .neon-glow-large {
+      animation: none !important;
+      opacity: 0.8;
       width: 100%;
       max-width: 400px;
       height: 400px;
+    }
+
+    :global(.pulse-animation)::before {
+      animation: none !important;
+      display: none;
     }
     .cta-title {
       font-size: 1.65rem;

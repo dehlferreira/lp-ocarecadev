@@ -1475,6 +1475,24 @@ const waveformPixels2 = [
   }
 
   @media (max-width: 767px) {
+    /* Remove backdrop-filter de todos os cards: cada um cria camada GPU separada */
+    .proof-card {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(18, 22, 28, 0.72) !important;
+    }
+
+    .phone-zoom-overlay-btn {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(7, 18, 13, 0.95) !important;
+    }
+
+    /* Desativa loop contínuo do pulse-dot */
+    .pulse-dot {
+      animation: none !important;
+    }
+
     .section-social {
       padding: 4rem 0;
     }

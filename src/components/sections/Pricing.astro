@@ -322,6 +322,12 @@ const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
       background: rgba(0, 255, 157, 0.05) !important;
       box-shadow: 0 8px 36px rgba(0, 255, 157, 0.16);
     }
+
+    /* shimmer-badge anima 'left' que força reflow no layout */
+    .recommended-badge::after {
+      animation: none !important;
+      display: none;
+    }
   }
 
   .plan-name {

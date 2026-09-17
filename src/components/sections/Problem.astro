@@ -531,6 +531,20 @@ const points = [
       transform: translateY(0) !important;
     }
 
+    /* Remove backdrop-filter dos cards de dor: 3x camadas de composição simultâneas */
+    .problem-point-card {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(18, 22, 28, 0.72) !important;
+    }
+
+    /* punchline-cost-glow anima text-shadow que força repaint */
+    #problem-content.is-problem-in .punchline-cost,
+    .problem-content.is-problem-in .punchline-cost {
+      animation: none !important;
+      text-shadow: 0 0 12px rgba(0, 255, 157, 0.4) !important;
+    }
+
     /* Durações reduzidas no mobile: elimina janelas de transição longas que acumulam frames */
     #problem-content.is-problem-in .problem-title,
     #problem-content.is-problem-in .problem-desc,

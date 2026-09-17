@@ -436,6 +436,9 @@ const mechanismSteps = [
     );
     z-index: 6;
     pointer-events: none;
+    /* Cresce de cima para baixo junto com os itens */
+    transform-origin: top center;
+    transform: scaleY(0);
   }
 
   .mechanism-item {
@@ -652,6 +655,20 @@ const mechanismSteps = [
      Animação em Cascata de Energia e Scroll Bidirecional na Solution
      ========================================================================== */
 
+  /* Timeline line: escondida e pronta para crescer */
+  #solution-content.solution-anim-ready .mechanism-timeline-line,
+  .solution-content.solution-anim-ready .mechanism-timeline-line {
+    transform: scaleY(0);
+    transition: transform 0.3s ease !important;
+  }
+
+  /* Ao entrar na viewport: linha cresce de cima para baixo cobrindo toda a cascata */
+  #solution-content.is-solution-in .mechanism-timeline-line,
+  .solution-content.is-solution-in .mechanism-timeline-line {
+    transform: scaleY(1) !important;
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.08s !important;
+  }
+
   /* Estado preparado / quando desfaz a animação ao voltar o scroll */
   #solution-content.solution-anim-ready:not(.is-solution-in) .solution-title,
   .solution-content.solution-anim-ready:not(.is-solution-in) .solution-title {
@@ -815,6 +832,25 @@ const mechanismSteps = [
       background: none !important;
     }
 
+    /* Drop-shadow duplo no mockup-frame força rasterização extra pesada */
+    .solution-mockup-frame {
+      filter: none !important;
+    }
+
+    /* flow-tag-ignite: versão mobile sem box-shadow (compositor-friendly) */
+    #solution-content.is-solution-in .flow-tag--1 {
+      animation: flow-tag-ignite-mobile 0.4s ease-out 0.1s forwards;
+    }
+    #solution-content.is-solution-in .flow-tag--2 {
+      animation: flow-tag-ignite-mobile 0.4s ease-out 0.18s forwards;
+    }
+    #solution-content.is-solution-in .flow-tag--3 {
+      animation: flow-tag-ignite-mobile 0.4s ease-out 0.26s forwards;
+    }
+    #solution-content.is-solution-in .flow-tag--4 {
+      animation: flow-tag-ignite-mobile 0.4s ease-out 0.34s forwards;
+    }
+
     /* Durações reduzidas no mobile */
     #solution-content.is-solution-in .solution-title,
     .solution-content.is-solution-in .solution-title {
@@ -860,6 +896,22 @@ const mechanismSteps = [
     .solution-content.is-solution-in .solution-closing {
       transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
       transition-delay: 0.3s !important;
+    }
+  }
+
+  /* Versão mobile do flow-tag ignite: sem box-shadow (compositor-friendly) */
+  @keyframes flow-tag-ignite-mobile {
+    0% {
+      border-color: rgba(255, 255, 255, 0.1);
+      opacity: 0.6;
+    }
+    50% {
+      border-color: #00ff9d;
+      opacity: 1;
+    }
+    100% {
+      border-color: rgba(0, 255, 157, 0.35);
+      opacity: 1;
     }
   }
 

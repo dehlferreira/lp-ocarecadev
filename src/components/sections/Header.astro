@@ -397,6 +397,14 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
       transition: none !important;
     }
   }
+
+  /* Mobile: header fixo recompõe backdrop-filter a cada frame de scroll */
+  @media (max-width: 767px) {
+    .header-card {
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+    }
+  }
 </style>
 
 <script>
