@@ -1,7 +1,15 @@
 ---
 import Button from './Button.astro';
 import Icon from './Icon.astro';
+interface Props {
+  /** Controla se o toast de escassez é exibido. Padrão: false (desativado temporariamente sem remover do projeto). */
+  active?: boolean;
+}
+
+const { active = false } = Astro.props;
 ---
+
+{active && (
 
 <aside class="scarcity-toast" id="scarcity-toast" aria-label="Alerta do plano Express">
   <span class="scarcity-toast__ping" aria-hidden="true"></span>
@@ -28,6 +36,7 @@ import Icon from './Icon.astro';
     <Icon name="x" size={18} stroke={2.5} />
   </button>
 </aside>
+)}
 
 <style>
   .scarcity-toast {
