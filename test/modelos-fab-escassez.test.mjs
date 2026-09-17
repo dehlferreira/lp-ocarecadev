@@ -188,3 +188,19 @@ test('layout mounts FAB and toast before the cookie banner', () => {
   assert.ok(fabMount < cookieMount);
   assert.ok(toastMount < cookieMount);
 });
+
+test('models section positions navigation arrows on carousel sides in desktop layout', () => {
+  const section = read('src/components/sections/ModelsShowcase.astro');
+
+  assert.match(section, /class="models-carousel-container"/);
+  assert.match(section, /id="modelos-prev"/);
+  assert.match(section, /id="modelos-next"/);
+  assert.match(section, /class="models-arrow models-arrow--prev"/);
+  assert.match(section, /class="models-arrow models-arrow--next"/);
+  assert.match(section, /aria-label="Modelo anterior"/);
+  assert.match(section, /aria-label="Próximo modelo"/);
+  assert.match(section, /\.models-carousel-container\s*\{[^}]*position:\s*relative/);
+  assert.match(section, /\.models-arrow--prev\s*\{[^}]*left:/);
+  assert.match(section, /\.models-arrow--next\s*\{[^}]*right:/);
+});
+

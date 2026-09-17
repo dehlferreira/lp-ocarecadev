@@ -122,6 +122,16 @@ Rótulo de “modelo” / “template” no card (eyebrow do card ou o próprio 
 
 **Teclado (G1 / CA-006):** Tab alcança as setas (quando visíveis) e os 7 cards. Foco visível (`:focus-visible`) em setas, cards e controles. Sem armadilha de foco. Sem listener obrigatório de setas do teclado se Tab já percorre os 7.
 
+#### 2.3.1. Aditivo de Evolução (2026-09-17) — Setas de Navegação Laterais no Desktop
+
+Conforme alinhamento de usabilidade e ergonomia de navegação:
+- No desktop (`min-width: 768px`), as setas de navegação anterior e próximo deixam o agrupamento superior e passam a se posicionar diretamente nas laterais esquerda e direita do carrossel (`models-carousel-container`).
+- Botão anterior (`#modelos-prev`, `.models-arrow--prev`) ancorado à esquerda com alinhamento vertical centralizado (`top: calc(50% - 1.5rem); transform: translateY(-50%)`).
+- Botão próximo (`#modelos-next`, `.models-arrow--next`) ancorado à direita com alinhamento vertical centralizado (`top: calc(50% - 1.5rem); transform: translateY(-50%)`).
+- Ambos os botões utilizam acabamento dark glass translúcido (`background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(0, 255, 157, 0.3)`), alvo de toque ≥ 48×48px, foco visível `:focus-visible` e elevação de sombra neon no hover.
+- No mobile (`< 768px`), os botões permanecem `display: none`, preservando o gesto nativo de swipe e touch scroll (G1, G3).
+- Respeita integralmente `prefers-reduced-motion: reduce` (G2), sem animações contínuas nem CLS da página (G3).
+
 ### 2.4. Destino dos cards (D-007 default, CA-004)
 
 `Confirmado` pelo Tech Lead: estado **“em breve” na home**. Sem `src/pages/modelos/`. Sem href BrainArt. Sem 404.
