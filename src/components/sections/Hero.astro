@@ -1,7 +1,7 @@
 ---
 import Button from "../ui/Button.astro";
 import { Image } from "astro:assets";
-import heroPerfil from "../../assets/images/hero-perfil.webp";
+import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
 ---
 
 <section
@@ -9,11 +9,17 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
   class="hero-section section-fade-bottom"
   style="--fade-to: #050709;"
 >
-  <!-- Efeitos de Luz de Fundo Neon -->
-  <div class="neon-light light-1"></div>
-  <div class="neon-light light-2"></div>
+  <!-- Spotlight Beam no topo da Hero (iluminação focal premium estilo Vercel/Linear) -->
+  <div class="hero-spotlight" aria-hidden="true"></div>
 
-  <!-- Grade Tecnológica Sutil no Background (Estilo Linear/Vercel) -->
+  <!-- Aurora Tech Mesh Glow (Luzes Esmeralda Orgânicas) -->
+  <div class="aurora-mesh" aria-hidden="true">
+    <div class="aurora-orb orb-1"></div>
+    <div class="aurora-orb orb-2"></div>
+    <div class="aurora-orb orb-3"></div>
+  </div>
+
+  <!-- Matriz Tecnológica de Micropontos no Background -->
   <div class="hero-tech-grid" aria-hidden="true"></div>
 
   <div class="container hero-grid">
@@ -89,8 +95,55 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     </div>
     <div class="hero-visual" id="hero-image">
       <div class="hero-visual-wrapper">
-        <!-- Aura de iluminação sutil atrás do perfil -->
+        <!-- Aura e halo central de iluminação esmeralda atrás do perfil -->
         <div class="hero-img-aura" aria-hidden="true"></div>
+        <div class="hero-img-core-glow" aria-hidden="true"></div>
+
+        <!-- Painéis Tech HUD Flutuantes Atrás do Especialista (Profundidade 3D) -->
+        <div class="hero-hud hud-left" aria-hidden="true">
+          <div class="hud-top">
+            <span class="hud-tag">CONVERSÃO</span>
+            <span class="hud-pulse-dot"></span>
+          </div>
+          <svg class="hud-chart" viewBox="0 0 110 32" fill="none">
+            <path d="M0 26 L22 20 L44 24 L68 12 L90 15 L110 4" stroke="#00FF9D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M0 26 L22 20 L44 24 L68 12 L90 15 L110 4 L110 32 L0 32 Z" fill="url(#hud-grad-1)" opacity="0.25"></path>
+            <defs>
+              <linearGradient id="hud-grad-1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#00FF9D"></stop>
+                <stop offset="100%" stop-color="#00FF9D" stop-opacity="0"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="hud-bottom">
+            <span class="hud-val">+182%</span>
+            <span class="hud-desc">Leads WhatsApp</span>
+          </div>
+        </div>
+
+        <div class="hero-hud hud-right" aria-hidden="true">
+          <div class="hud-top">
+            <span class="hud-tag">WEB VITALS</span>
+            <span class="hud-pulse-dot active"></span>
+          </div>
+          <div class="hud-metrics">
+            <div class="hud-metric-row">
+              <span class="hud-m-label">LCP</span>
+              <div class="hud-m-bar"><div class="hud-m-fill fill-lcp"></div></div>
+              <span class="hud-m-val">0.6s</span>
+            </div>
+            <div class="hud-metric-row">
+              <span class="hud-m-label">INP</span>
+              <div class="hud-m-bar"><div class="hud-m-fill fill-inp"></div></div>
+              <span class="hud-m-val">28ms</span>
+            </div>
+            <div class="hud-metric-row">
+              <span class="hud-m-label">SCORE</span>
+              <div class="hud-m-bar"><div class="hud-m-fill fill-score"></div></div>
+              <span class="hud-m-val">100</span>
+            </div>
+          </div>
+        </div>
 
         <Image
           src={heroPerfil}
@@ -316,34 +369,238 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     height: auto;
     position: relative;
     z-index: 10;
-    filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.65));
-    -webkit-mask-image: linear-gradient(to bottom, #000000 80%, rgba(0, 0, 0, 0.45) 92%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000000 80%, rgba(0, 0, 0, 0.45) 92%, transparent 100%);
+    filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 24px rgba(0, 255, 157, 0.12));
+    -webkit-mask-image: linear-gradient(to bottom, #000000 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000000 85%, transparent 100%);
   }
 
-  /* Aura de luz esmeralda orgânica atrás da foto */
+  /* Aura de luz esmeralda orgânica e potente atrás da foto */
   .hero-img-aura {
     position: absolute;
-    top: 18%;
-    left: 15%;
-    right: 15%;
-    bottom: 15%;
-    background: radial-gradient(circle, rgba(0, 255, 157, 0.25) 0%, rgba(0, 166, 102, 0.08) 55%, transparent 75%);
+    top: 6%;
+    left: 4%;
+    right: 4%;
+    bottom: 8%;
+    background: radial-gradient(
+      ellipse at 50% 45%,
+      rgba(0, 255, 157, 0.52) 0%,
+      rgba(0, 200, 120, 0.3) 38%,
+      rgba(0, 71, 46, 0.18) 60%,
+      transparent 76%
+    );
     filter: blur(52px);
+    border-radius: 50%;
+    z-index: 5;
+    pointer-events: none;
+    animation: aura-glow 4.8s ease-in-out infinite alternate;
+  }
+
+  /* Núcleo de luz concentrado (Backlight / Rim-Light Halo) diretamente atrás do André */
+  .hero-img-core-glow {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: 340px;
+    height: 340px;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      circle,
+      rgba(0, 255, 157, 0.72) 0%,
+      rgba(0, 230, 140, 0.42) 35%,
+      rgba(0, 166, 102, 0.2) 58%,
+      transparent 75%
+    );
+    filter: blur(34px);
     border-radius: 50%;
     z-index: 6;
     pointer-events: none;
-    animation: aura-glow 6s ease-in-out infinite alternate;
+    mix-blend-mode: screen;
+    animation: core-glow-pulse 4.2s ease-in-out infinite alternate;
   }
 
   @keyframes aura-glow {
     0% {
-      opacity: 0.6;
-      transform: scale(0.94);
+      opacity: 0.65;
+      transform: scale(0.95);
     }
     100% {
       opacity: 1;
       transform: scale(1.08);
+    }
+  }
+
+  @keyframes core-glow-pulse {
+    0% {
+      opacity: 0.72;
+      transform: translateX(-50%) scale(0.94);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.06);
+    }
+  }
+
+  /* ─── Painéis Tech HUD Flutuantes Atrás do Especialista (z-index: 7) ─── */
+  .hero-hud {
+    position: absolute;
+    z-index: 7;
+    background: rgba(8, 14, 11, 0.76);
+    border: 1px solid rgba(0, 255, 157, 0.22);
+    border-radius: 12px;
+    padding: 0.65rem 0.85rem;
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.8), 0 0 24px -4px rgba(0, 255, 157, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    pointer-events: none;
+    user-select: none;
+    will-change: transform;
+  }
+
+  .hud-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .hud-tag {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    color: var(--color-primary-neon);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hud-pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary-neon);
+    box-shadow: 0 0 6px var(--color-primary-neon);
+  }
+
+  .hud-pulse-dot.active {
+    background: #38bdf8;
+    box-shadow: 0 0 6px #38bdf8;
+  }
+
+  .hud-chart {
+    width: 110px;
+    height: 32px;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .hud-bottom {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+
+  .hud-val {
+    font-size: 0.875rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  .hud-desc {
+    font-size: 0.625rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+  }
+
+  .hud-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 105px;
+  }
+
+  .hud-metric-row {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .hud-m-label {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    width: 32px;
+  }
+
+  .hud-m-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .hud-m-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--color-primary-neon);
+  }
+
+  .fill-lcp { width: 92%; }
+  .fill-inp { width: 96%; }
+  .fill-score { width: 100%; background: #38bdf8; }
+
+  .hud-m-val {
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: #ffffff;
+    width: 24px;
+    text-align: right;
+  }
+
+  /* Posicionamento no Desktop com profundidade */
+  @media (min-width: 768px) {
+    .hud-left {
+      top: 18%;
+      left: -32px;
+      animation: float-hud-l 8s ease-in-out infinite alternate;
+    }
+
+    .hud-right {
+      top: 36%;
+      right: -36px;
+      z-index: 12;
+      animation: float-hud-r 9.5s ease-in-out infinite alternate;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hud-left {
+      top: 20%;
+      left: -48px;
+    }
+
+    .hud-right {
+      top: 38%;
+      right: -52px;
+      z-index: 12;
+    }
+  }
+
+  @keyframes float-hud-l {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(6px, -10px, 0);
+    }
+  }
+
+  @keyframes float-hud-r {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-6px, 10px, 0);
     }
   }
 
@@ -594,63 +851,268 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     }
   }
 
-  /* ─── Tech Grid de Background (Estilo Linear/Supabase) ─── */
+  /* Spotlight Beam no topo da Hero (iluminação focal premium estilo Vercel/Linear) */
+  .hero-spotlight {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1100px;
+    height: 520px;
+    background: radial-gradient(ellipse 65% 50% at 50% 0%, rgba(0, 255, 157, 0.18) 0%, rgba(0, 166, 102, 0.05) 50%, transparent 80%);
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* ─── Aurora Tech Mesh Glow (Luzes Esmeralda Orgânicas — Opção A) ─── */
+  .aurora-mesh {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 6;
+  }
+
+  .aurora-orb {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    pointer-events: none;
+  }
+
+  .orb-1 {
+    top: -10%;
+    left: -5%;
+    width: 560px;
+    height: 560px;
+    background: radial-gradient(circle, rgba(0, 255, 157, 0.32) 0%, rgba(0, 166, 102, 0.14) 55%, transparent 75%);
+    filter: blur(95px);
+    translate: calc(var(--mouse-x) * -60px) calc(var(--mouse-y) * -60px);
+    animation: aurora-drift-1 14s ease-in-out infinite alternate;
+  }
+
+  .orb-2 {
+    top: 6%;
+    right: -6%;
+    width: 540px;
+    height: 540px;
+    background: radial-gradient(circle, rgba(0, 255, 157, 0.38) 0%, rgba(0, 166, 102, 0.18) 55%, transparent 75%);
+    filter: blur(85px);
+    translate: calc(var(--mouse-x) * 60px) calc(var(--mouse-y) * 60px);
+    animation: aurora-drift-2 16s ease-in-out infinite alternate-reverse;
+  }
+
+  .orb-3 {
+    bottom: -10%;
+    left: 25%;
+    width: 460px;
+    height: 460px;
+    background: radial-gradient(circle, rgba(0, 71, 46, 0.35) 0%, rgba(0, 166, 102, 0.08) 55%, transparent 75%);
+    filter: blur(110px);
+    animation: aurora-drift-3 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes aurora-drift-1 {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translate3d(35px, 25px, 0) scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(-25px, 45px, 0) scale(0.95);
+      opacity: 0.75;
+    }
+  }
+
+  @keyframes aurora-drift-2 {
+    0% {
+      transform: translate3d(0, 0, 0) scale(0.95);
+      opacity: 0.75;
+    }
+    50% {
+      transform: translate3d(-40px, -20px, 0) scale(1.12);
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(25px, 35px, 0) scale(1);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes aurora-drift-3 {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.65;
+    }
+    50% {
+      transform: translate3d(-30px, -25px, 0) scale(1.15);
+      opacity: 0.9;
+    }
+    100% {
+      transform: translate3d(35px, 20px, 0) scale(0.92);
+      opacity: 0.6;
+    }
+  }
+
+  /* ─── Dot-Matrix Tecnológico de Background ─── */
   .hero-tech-grid {
     position: absolute;
     inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 32px 32px;
-    mask-image: radial-gradient(ellipse 85% 75% at 50% 38%, black 35%, rgba(0, 0, 0, 0.45) 75%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 38%, black 35%, rgba(0, 0, 0, 0.45) 75%, transparent 100%);
+    background-image: radial-gradient(rgba(0, 255, 157, 0.16) 1.25px, transparent 1.25px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 85% 75% at 50% 38%, black 35%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 38%, black 35%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
     pointer-events: none;
     z-index: 6;
     transform: translateZ(0);
-    will-change: background-position;
-    animation: hero-grid-drift 8s linear infinite;
+    will-change: opacity, transform;
+    animation: hero-grid-drift 10s ease-in-out infinite alternate;
   }
 
   @keyframes hero-grid-drift {
     0% {
-      background-position: 0 0;
+      opacity: 0.38;
+      transform: scale(0.98);
     }
     100% {
-      background-position: 32px 32px;
+      opacity: 0.78;
+      transform: scale(1.02);
     }
   }
 
   @media (min-width: 768px) {
     .hero-tech-grid {
-      background-size: 44px 44px;
-      background-image:
-        linear-gradient(to right, rgba(255, 255, 255, 0.085) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.085) 1px, transparent 1px);
-      animation: hero-grid-drift-desktop 10s linear infinite;
+      background-size: 38px 38px;
+      background-image: radial-gradient(rgba(0, 255, 157, 0.2) 1.5px, transparent 1.5px);
+      animation: hero-grid-drift-desktop 12s ease-in-out infinite alternate;
     }
 
     @keyframes hero-grid-drift-desktop {
       0% {
-        background-position: 0 0;
+        opacity: 0.42;
+        transform: scale(0.97);
       }
       100% {
-        background-position: 44px 44px;
+        opacity: 0.82;
+        transform: scale(1.03);
       }
     }
   }
 
-  /* Mobile: desativa animações de loop contínuo para eliminar custo de composição GPU (G4) */
+  /* Mobile: desativa animações de loop contínuo e simplifica efeitos pesados de GPU (G4) */
   @media (max-width: 767px) {
-    /* Grid estático — background-position animado cria camada GPU extra */
+    /* Grid de micropontos estático no mobile — zero repaint */
     .hero-tech-grid {
+      opacity: 0.55;
       animation: none !important;
       will-change: auto !important;
     }
 
-    /* Aura: sem scale, só opacity estático — evita transform composto sobre filtro blur */
+    /* Painéis Tech HUD no Mobile: escala e posicionamento sem overflow (G3) */
+    .hero-hud {
+      padding: 0.45rem 0.65rem;
+      border-radius: 10px;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(8, 14, 11, 0.88);
+    }
+
+    .hud-left {
+      top: 20%;
+      left: 2px;
+      animation: none !important;
+      transform: scale(0.82);
+      transform-origin: left top;
+    }
+
+    .hud-right {
+      top: 38%;
+      right: 6px;
+      z-index: 12;
+      animation: none !important;
+      transform: scale(0.85);
+      transform-origin: right top;
+      background: rgba(8, 14, 11, 0.94);
+      border-color: rgba(0, 255, 157, 0.32);
+      box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.85), 0 0 18px -2px rgba(0, 255, 157, 0.2);
+    }
+
+    /* Aurora orbs no mobile: blur reduzido (35px) e respiração suave via GPU */
+    .aurora-orb {
+      filter: blur(35px);
+      mix-blend-mode: normal;
+      translate: none;
+    }
+
+    .orb-1 {
+      width: 320px;
+      height: 320px;
+      opacity: 0.7;
+      animation: aurora-drift-mobile 10s ease-in-out infinite alternate;
+    }
+
+    .orb-2 {
+      width: 320px;
+      height: 320px;
+      opacity: 0.78;
+      animation: aurora-drift-mobile 12s ease-in-out infinite alternate-reverse;
+    }
+
+    .orb-3 {
+      display: none;
+    }
+
+    @keyframes aurora-drift-mobile {
+      0% {
+        transform: scale(0.96);
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(1.04);
+        opacity: 0.85;
+      }
+    }
+
+    /* Aura e Core Glow aumentados expressivamente no mobile (estáticos para GPU) */
     .hero-img-aura {
       animation: none !important;
-      opacity: 0.75;
+      top: 4%;
+      left: 0%;
+      right: 0%;
+      bottom: 8%;
+      background: radial-gradient(
+        ellipse at 50% 40%,
+        rgba(0, 255, 157, 0.65) 0%,
+        rgba(0, 180, 110, 0.38) 40%,
+        rgba(0, 71, 46, 0.16) 65%,
+        transparent 76%
+      );
+      filter: blur(28px);
+      opacity: 0.95;
+    }
+
+    .hero-img-core-glow {
+      animation: none !important;
+      top: 8%;
+      left: 50%;
+      width: 250px;
+      height: 250px;
+      transform: translateX(-50%);
+      background: radial-gradient(
+        circle,
+        rgba(0, 255, 157, 0.8) 0%,
+        rgba(0, 230, 140, 0.48) 36%,
+        rgba(0, 166, 102, 0.2) 60%,
+        transparent 75%
+      );
+      filter: blur(22px);
+      opacity: 0.95;
     }
 
     /* Badges flutuantes: estáticos no mobile — translateY contínuo aumenta camadas de composição */
@@ -678,11 +1140,6 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
       background: rgba(11, 15, 23, 0.92) !important;
     }
 
-    /* Aura da foto: blur(52px) é extremamente caro, reduzir para 20px */
-    .hero-img-aura {
-      filter: blur(20px);
-    }
-
     /* Foto do hero: drop-shadow força rasterização extra em cada scroll frame */
     .hero-img {
       filter: none;
@@ -696,72 +1153,17 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     }
   }
 
-  /* Efeitos de Luz */
-  .neon-light {
-    position: absolute;
-    border-radius: 50%;
-    mix-blend-mode: screen;
-    filter: blur(128px);
-    opacity: 0.2;
-    z-index: 6;
-    pointer-events: none;
-    transform: translateZ(0);
-    transition: translate 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  /* Mobile: simplifica luzes neon para economizar GPU */
-  @media (max-width: 767px) {
-    .neon-light {
-      filter: blur(40px);
-      animation: none !important;
-      opacity: 0.12;
-      translate: none;
-      mix-blend-mode: normal;
-    }
-  }
-
-  .light-1 {
-    top: -10%;
-    left: -10%;
-    width: 500px;
-    height: 500px;
-    background-color: var(--color-primary-neon);
-    translate: calc(var(--mouse-x) * -100px) calc(var(--mouse-y) * -100px);
-    animation: float-neon 12s ease-in-out infinite alternate;
-  }
-
-  .light-2 {
-    top: 5%;
-    left: 5%;
-    width: 400px;
-    height: 400px;
-    background-color: #00a666;
-    translate: calc(var(--mouse-x) * 100px) calc(var(--mouse-y) * 100px);
-    animation: float-neon 15s ease-in-out infinite alternate-reverse;
-  }
-
-  @keyframes float-neon {
-    0% {
-      transform: scale(1) translate(0, 0);
-    }
-    50% {
-      transform: scale(1.2) translate(100px, -100px);
-    }
-    100% {
-      transform: scale(0.8) translate(-100px, 100px);
-    }
-  }
-
   /* Respeito estrito a Acessibilidade e Movimento Reduzido (G2) */
   @media (prefers-reduced-motion: reduce) {
+    .aurora-orb,
     .hero-tech-grid,
+    .hero-hud,
     .hero-img-aura,
+    .hero-img-core-glow,
     .badge-speed,
     .badge-conversion,
     .pulse-ring,
-    .hero-title .text-neon,
-    .light-1,
-    .light-2 {
+    .hero-title .text-neon {
       animation: none !important;
     }
     .pulse-ring {

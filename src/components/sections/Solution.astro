@@ -820,21 +820,18 @@ const mechanismSteps = [
       background: rgba(18, 22, 28, 0.72) !important;
     }
 
-    /* Desativa loops de circuito/beacon/sheen no mockup: libera GPU para o scroll */
+    /* Loops de circuito/beacon/sheen e drop-shadow no mockup ativos com aceleração por hardware (GPU) */
     .circuit-pulse-node,
     .whatsapp-beacon {
-      animation: none !important;
-      opacity: 0.4;
+      will-change: transform, opacity;
     }
 
     .mockup-hologram-sheen {
-      animation: none !important;
-      background: none !important;
+      will-change: background-position;
     }
 
-    /* Drop-shadow duplo no mockup-frame força rasterização extra pesada */
     .solution-mockup-frame {
-      filter: none !important;
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 20px rgba(0, 255, 157, 0.12));
     }
 
     /* flow-tag-ignite: versão mobile sem box-shadow (compositor-friendly) */

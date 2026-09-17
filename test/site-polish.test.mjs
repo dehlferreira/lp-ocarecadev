@@ -316,12 +316,20 @@ test('premium micro-interactions and organic motion are configured across UI com
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*\.scrolly-step\s*\{[\s\S]*animation:\s*none\s*!important/);
 });
 
-test('hero section implements complete premium effects (tech grid, status badge, floating cards, reduced-motion) (G1, G2, G3)', () => {
+test('hero section implements complete premium effects (aurora mesh glow, status badge, floating cards, reduced-motion) (G1, G2, G3)', () => {
   const hero = read('src/components/sections/Hero.astro');
 
-  // Tech Grid de fundo com máscara radial
+  // Aurora Mesh Glow, Spotlight e Dot-Matrix de fundo
+  assert.match(hero, /class="hero-spotlight"/);
+  assert.match(hero, /class="aurora-mesh"/);
   assert.match(hero, /class="hero-tech-grid"/);
   assert.match(hero, /\.hero-tech-grid[\s\S]*background-image:[\s\S]*radial-gradient/);
+
+  // Painéis Tech HUD Flutuantes atrás da foto (profundidade 3D)
+  assert.match(hero, /class="hero-hud hud-left"/);
+  assert.match(hero, /class="hero-hud hud-right"/);
+  assert.match(hero, /CONVERSÃO/);
+  assert.match(hero, /WEB VITALS/);
 
   // Pill Badge de status com pulse ring
   assert.match(hero, /class="hero-badge"/);
@@ -343,17 +351,25 @@ test('hero section implements complete premium effects (tech grid, status badge,
   // Destaque na palavra "agir"
   assert.match(hero, /@keyframes\s+text-neon-pulse/);
 
-  // Micro-cards flutuantes devem estar acima da imagem (z-index maior que .hero-img)
+  // Hierarquia de profundidade 3D: HUD (atrás) < Foto (meio) < Badges (frente)
+  const hudZIndex = Number(hero.match(/\.hero-hud\s*\{[^}]*z-index:\s*(\d+)/)?.[1] ?? 0);
   const imgZIndex = Number(hero.match(/\.hero-img\s*\{[^}]*z-index:\s*(\d+)/)?.[1] ?? 0);
   const badgeZIndex = Number(hero.match(/\.hero-float-badge\s*\{[^}]*z-index:\s*(\d+)/)?.[1] ?? 0);
+  assert.ok(hudZIndex < imgZIndex, `hero-hud z-index (${hudZIndex}) deve ser menor que hero-img (${imgZIndex})`);
   assert.ok(badgeZIndex > imgZIndex, `hero-float-badge z-index (${badgeZIndex}) deve ser maior que hero-img (${imgZIndex})`);
 
-  // Animação contínua do grid tecnológico (estilo Linear/Vercel)
+  // Animação contínua da Aurora Mesh Glow e Grid
+  assert.match(hero, /@keyframes\s+aurora-drift-1/);
   assert.match(hero, /@keyframes\s+hero-grid-drift/);
-  assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.hero-tech-grid[\s\S]*animation:\s*none\s*!important/);
+  assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.aurora-orb[\s\S]*animation:\s*none\s*!important/);
+
+  // Aura e Core Glow de iluminação do personagem
+  assert.match(hero, /class="hero-img-aura"/);
+  assert.match(hero, /class="hero-img-core-glow"/);
 
   // Respeito estrito a reduced-motion (G2)
   assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.badge-speed[\s\S]*animation:\s*none\s*!important/);
+  assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.hero-img-core-glow[\s\S]*animation:\s*none\s*!important/);
   assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.pulse-ring[\s\S]*display:\s*none/);
 });
 
