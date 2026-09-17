@@ -282,12 +282,34 @@ section[id] {
   }
 
   @media (max-width: 767px) {
+    .scrolly-step,
+    .scroll-animate {
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: auto;
+    }
+
+    html.js-loaded:not(.reduced-motion) .scrolly-step:not(.is-revealed),
+    html.js-loaded:not(.reduced-motion) .scroll-animate:not(.is-revealed) {
+      transform: translateY(20px);
+      will-change: auto;
+    }
+
     html.js-loaded:not(.reduced-motion) .scrolly-step.from-left:not(.is-revealed),
     html.js-loaded:not(.reduced-motion) .scrolly-step.from-right:not(.is-revealed),
     html.js-loaded:not(.reduced-motion) .scroll-animate.anim-left:not(.is-revealed),
     html.js-loaded:not(.reduced-motion) .scroll-animate.anim-right:not(.is-revealed) {
-      transform: translateY(24px);
+      transform: translateY(20px);
+      will-change: auto;
     }
+
+    /* Delays curtos e ágeis no mobile para resposta tátil instantânea */
+    .scrolly-step.s-1, .scroll-animate.delay-100 { transition-delay: 30ms; }
+    .scrolly-step.s-2, .scroll-animate.delay-150 { transition-delay: 60ms; }
+    .scrolly-step.s-3, .scroll-animate.delay-200 { transition-delay: 90ms; }
+    .scrolly-step.s-4, .scroll-animate.delay-300 { transition-delay: 120ms; }
+    .scrolly-step.s-5, .scroll-animate.delay-400 { transition-delay: 160ms; }
+    .scrolly-step.s-6 { transition-delay: 200ms; }
+    .scrolly-step.s-7 { transition-delay: 240ms; }
   }
 
   .scrolly-step,
@@ -299,9 +321,10 @@ section[id] {
   .scroll-animate.is-revealed {
     opacity: 1 !important;
     transform: none !important;
+    will-change: auto;
   }
 
-  /* Stagger em cascata perceptível */
+  /* Stagger em cascata perceptível (desktop) */
   .scrolly-step.s-1, .scroll-animate.delay-100 { transition-delay: 50ms; }
   .scrolly-step.s-2, .scroll-animate.delay-150 { transition-delay: 110ms; }
   .scrolly-step.s-3, .scroll-animate.delay-200 { transition-delay: 170ms; }

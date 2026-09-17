@@ -340,16 +340,27 @@ const categories = [
     card.classList.add('card-spring-ready');
 
     let isTriggered = false;
+    let cachedSectionHeight = section.offsetHeight;
+    let cachedIsMobile = window.innerWidth < 768;
+
+    window.addEventListener('resize', () => {
+      cachedSectionHeight = section.offsetHeight;
+      cachedIsMobile = window.innerWidth < 768;
+    }, { passive: true });
 
     const checkAndTrigger = () => {
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      const sectionHeight = section.offsetHeight;
+      const sectionHeight = cachedSectionHeight || section.offsetHeight;
 
       // Quantos pixels do topo da seção já entraram na janela
       const visibleFromTop = windowHeight - rect.top;
-      const triggerThreshold = sectionHeight * 0.4;
-      const resetThreshold = sectionHeight * 0.32;
+      const triggerThreshold = cachedIsMobile
+        ? Math.min(sectionHeight * 0.4, 120)
+        : sectionHeight * 0.4;
+      const resetThreshold = cachedIsMobile
+        ? Math.max(triggerThreshold - 80, 40)
+        : sectionHeight * 0.32;
 
       // Se desceu o scroll e 40% da seção apareceu: aciona animação de mola
       if (visibleFromTop >= triggerThreshold && rect.bottom > 0) {

@@ -171,6 +171,15 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     }
   }
 
+  /* Mobile: scroll nativo 100% fluido sem recálculo síncrono de CSS variables */
+  @media (max-width: 767px) {
+    .hero-grid {
+      opacity: 1 !important;
+      transform: none !important;
+      will-change: auto !important;
+    }
+  }
+
   /* Textos */
   .hero-content {
     text-align: left;
@@ -597,6 +606,16 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 35%, black 20%, transparent 85%);
     pointer-events: none;
     z-index: 6;
+    animation: hero-grid-drift 24s linear infinite;
+  }
+
+  @keyframes hero-grid-drift {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 32px 32px;
+    }
   }
 
   @media (min-width: 768px) {
@@ -605,6 +624,16 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
       background-image:
         linear-gradient(to right, rgba(255, 255, 255, 0.038) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.038) 1px, transparent 1px);
+      animation: hero-grid-drift-desktop 28s linear infinite;
+    }
+
+    @keyframes hero-grid-drift-desktop {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 44px 44px;
+      }
     }
   }
 
@@ -616,6 +645,7 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
     filter: blur(128px);
     opacity: 0.2;
     z-index: 6;
+    pointer-events: none;
     transition: translate 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
@@ -663,6 +693,7 @@ import heroPerfil from "../../assets/images/hero-perfil.webp";
 
   /* Respeito estrito a Acessibilidade e Movimento Reduzido (G2) */
   @media (prefers-reduced-motion: reduce) {
+    .hero-tech-grid,
     .hero-img-aura,
     .badge-speed,
     .badge-conversion,

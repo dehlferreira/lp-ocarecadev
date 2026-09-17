@@ -530,32 +530,6 @@ const waveformPixels2 = [
 <script is:inline>
   (() => {
     // -------------------------------------------------------------
-    // ANIMATION REPEAT OBSERVER
-    // -------------------------------------------------------------
-    const setupSocialProofRepeat = () => {
-      if (typeof IntersectionObserver === 'undefined') return;
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed');
-          } else {
-            if (entry.boundingClientRect.top > 0) {
-              entry.target.classList.remove('is-revealed');
-            }
-          }
-        });
-      }, {
-        rootMargin: '0px 0px -10% 0px',
-        threshold: 0
-      });
-
-      const elements = document.querySelectorAll('#social-proof .scroll-animate');
-      elements.forEach(el => observer.observe(el));
-    };
-    setupSocialProofRepeat();
-
-    // -------------------------------------------------------------
     // CONTROLE DOS PLAYERS DE ÁUDIO DO WHATSAPP
     // -------------------------------------------------------------
     const audioPlayers = document.querySelectorAll('[data-audio-player]');

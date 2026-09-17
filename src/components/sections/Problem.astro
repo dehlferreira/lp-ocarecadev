@@ -576,11 +576,16 @@ const points = [
     content.querySelectorAll('.is-revealed').forEach((el) => el.classList.remove('is-revealed'));
 
     let isTriggered = false;
+    let cachedSectionHeight = section.offsetHeight;
+
+    window.addEventListener('resize', () => {
+      cachedSectionHeight = section.offsetHeight;
+    }, { passive: true });
 
     const checkAndTrigger = () => {
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      const sectionHeight = section.offsetHeight;
+      const sectionHeight = cachedSectionHeight || section.offsetHeight;
 
       // Cálculo calibrado de visibilidade a partir do topo da viewport
       // Dispara mais tarde: somente quando descer um pouco mais (~48% da seção)

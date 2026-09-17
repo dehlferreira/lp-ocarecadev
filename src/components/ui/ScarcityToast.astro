@@ -111,6 +111,8 @@ import Icon from './Icon.astro';
     background: transparent;
     color: var(--color-text-primary);
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .scarcity-toast__dismiss:focus-visible {
@@ -147,9 +149,18 @@ import Icon from './Icon.astro';
     if (!toast || !dismiss || dismiss.dataset.bound === 'true') return;
 
     dismiss.dataset.bound = 'true';
-    dismiss.addEventListener('click', () => {
+
+    const closeToast = (e?: Event) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       toast.hidden = true;
-    });
+    };
+
+    // Resposta instantânea ao toque (pointerdown) e clique convencional
+    dismiss.addEventListener('click', closeToast);
+    dismiss.addEventListener('pointerdown', closeToast);
   };
 
   setupScarcityToast();

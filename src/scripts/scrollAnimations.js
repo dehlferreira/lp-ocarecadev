@@ -47,12 +47,14 @@ const initScrollAnimations = () => {
   };
 
   // IntersectionObserver Universal: aciona revelação viva e contadores conforme o scroll desce
+  // Com histerese segura para permitir repetição suave ao voltar sem oscilação na borda
   if (typeof IntersectionObserver !== 'undefined') {
     const revealObserver = new IntersectionObserver(
       (entries) => {
+        const windowH = typeof window !== 'undefined' ? window.innerHeight : 800;
         for (const entry of entries) {
+          const targetEl = entry.target;
           if (entry.isIntersecting) {
-            const targetEl = entry.target;
             targetEl.classList.add('is-revealed');
 
             // Dispara contadores dentro do elemento
@@ -62,15 +64,17 @@ const initScrollAnimations = () => {
               animateCounter(targetEl);
             }
           } else {
-            // Remove a classe para a animação refazer quando o elemento voltar do topo (scroll para cima)
-            if (entry.boundingClientRect.top > 0) {
-              entry.target.classList.remove('is-revealed');
+            // Histerese de segurança: só reseta para re-animar quando o elemento
+            // estiver bem fora do campo de visão (pelo menos 120px abaixo da viewport),
+            // evitando que oscilações no limite da tela causem travamentos ou jank.
+            if (entry.boundingClientRect.top > windowH + 120) {
+              targetEl.classList.remove('is-revealed');
             }
           }
         }
       },
       {
-        rootMargin: '0px 0px -10% 0px',
+        rootMargin: '0px 0px -6% 0px',
         threshold: 0,
       }
     );
@@ -105,16 +109,28 @@ const initScrollAnimations = () => {
   };
 
   const header = document.getElementById('main-header');
+  const heroSection = document.getElementById('hero');
 
   let ticking = false;
+  let isHeaderShrunk = false;
+  let cachedHeroHeight = heroSection ? heroSection.offsetHeight : 0;
+  let cachedIsMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+
+  window.addEventListener('resize', () => {
+    if (heroSection) cachedHeroHeight = heroSection.offsetHeight;
+    cachedIsMobile = window.innerWidth < 768;
+  }, { passive: true });
 
   const onScroll = () => {
     const scrolled = window.scrollY;
 
+    // Evita mutação forçada no DOM a cada frame: altera paddingBlock somente quando o estado mudar
     if (header) {
-      // Anima só o padding vertical (encolhe ao rolar); o horizontal fica no CSS
-      // para o header manter o mesmo gutter das seções (1rem).
-      header.style.paddingBlock = scrolled > 50 ? '0.5rem' : '1rem';
+      const shouldShrink = scrolled > 50;
+      if (shouldShrink !== isHeaderShrunk) {
+        isHeaderShrunk = shouldShrink;
+        header.style.paddingBlock = shouldShrink ? '0.5rem' : '1rem';
+      }
     }
 
     if (scrollyFallbackActive) {
@@ -122,14 +138,10 @@ const initScrollAnimations = () => {
     }
 
     // Hero dissolve — opacity + transform only (compositor-friendly, PRD-003)
-    const heroSection = document.getElementById('hero');
-    if (heroSection) {
-      const heroHeight = heroSection.offsetHeight;
-      const isMobile = window.innerWidth < 768;
-      // No mobile, só começa a animar depois que a foto já apareceu (35% da hero)
-      const scrollOffset = isMobile ? heroHeight * 0.35 : 0;
-      const effectiveScroll = Math.max(scrolled - scrollOffset, 0);
-      const rawProgress = Math.min(effectiveScroll / (heroHeight * 0.6), 1);
+    // Mobile First: no mobile o scroll é 100% nativo sem mutações contínuas de CSS variables,
+    // eliminando travadas e garantindo fluidez instantânea na transição para a segunda seção.
+    if (!cachedIsMobile && heroSection && cachedHeroHeight > 0 && scrolled <= cachedHeroHeight * 1.2) {
+      const rawProgress = Math.min(scrolled / (cachedHeroHeight * 0.6), 1);
       const progress = rawProgress * rawProgress;
 
       const opacity = 1 - progress;

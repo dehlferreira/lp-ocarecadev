@@ -348,6 +348,10 @@ test('hero section implements complete premium effects (tech grid, status badge,
   const badgeZIndex = Number(hero.match(/\.hero-float-badge\s*\{[^}]*z-index:\s*(\d+)/)?.[1] ?? 0);
   assert.ok(badgeZIndex > imgZIndex, `hero-float-badge z-index (${badgeZIndex}) deve ser maior que hero-img (${imgZIndex})`);
 
+  // Animação contínua do grid tecnológico (estilo Linear/Vercel)
+  assert.match(hero, /@keyframes\s+hero-grid-drift/);
+  assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.hero-tech-grid[\s\S]*animation:\s*none\s*!important/);
+
   // Respeito estrito a reduced-motion (G2)
   assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.badge-speed[\s\S]*animation:\s*none\s*!important/);
   assert.match(hero, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.pulse-ring[\s\S]*display:\s*none/);

@@ -250,6 +250,8 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     padding: 0;
     z-index: 52;
     position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Área de toque acessível de 44x44px sem alterar o alinhamento visual (G1) */
@@ -343,6 +345,8 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     border-radius: 50%;
     color: var(--color-text-primary, #ffffff);
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
 
@@ -436,9 +440,17 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
       };
 
       newToggle.addEventListener("click", toggleMenu);
+      newToggle.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        toggleMenu();
+      });
 
       if (mobileMenuClose) {
         mobileMenuClose.addEventListener("click", closeMenu);
+        mobileMenuClose.addEventListener("pointerdown", (e) => {
+          e.preventDefault();
+          closeMenu();
+        });
       }
 
       mobileNavLinks.forEach((link) => {

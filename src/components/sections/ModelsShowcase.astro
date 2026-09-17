@@ -503,30 +503,6 @@ const models = [
 </style>
 
 <script>
-  const setupModelsShowcaseRepeat = () => {
-    if (typeof IntersectionObserver === 'undefined') return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-revealed');
-        } else {
-          // Só remove a classe (desfaz animação) se o elemento sair por baixo da tela
-          // Se rolar pra baixo (continuar lendo o site), mantém tudo pronto
-          if (entry.boundingClientRect.top > 0) {
-            entry.target.classList.remove('is-revealed');
-          }
-        }
-      });
-    }, {
-      rootMargin: '0px 0px -10% 0px',
-      threshold: 0
-    });
-
-    const elements = document.querySelectorAll('#modelos .scroll-animate');
-    elements.forEach(el => observer.observe(el));
-  };
-
   const setupModelsTrack = () => {
     const track = document.getElementById('modelos-track');
     const prev = document.getElementById('modelos-prev');
@@ -606,10 +582,8 @@ const models = [
     startAutoplay();
   };
 
-  setupModelsShowcaseRepeat();
   setupModelsTrack();
   document.addEventListener('astro:page-load', () => {
-    setupModelsShowcaseRepeat();
     setupModelsTrack();
   });
 </script>

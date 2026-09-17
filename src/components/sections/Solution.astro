@@ -848,11 +848,16 @@ const mechanismSteps = [
     content.querySelectorAll('.is-revealed').forEach((el) => el.classList.remove('is-revealed'));
 
     let isTriggered = false;
+    let cachedSectionHeight = section.offsetHeight;
+
+    window.addEventListener('resize', () => {
+      cachedSectionHeight = section.offsetHeight;
+    }, { passive: true });
 
     const checkAndTrigger = () => {
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      const sectionHeight = section.offsetHeight;
+      const sectionHeight = cachedSectionHeight || section.offsetHeight;
 
       // Dispara quando descer cerca de ~42% ou 340px da seção
       const visibleFromTop = windowHeight - rect.top;
