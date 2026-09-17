@@ -374,19 +374,19 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
     mask-image: linear-gradient(to bottom, #000000 85%, transparent 100%);
   }
 
-  /* Aura de luz esmeralda orgânica e potente atrás da foto */
+  /* Aura de luz esmeralda orgânica atrás da foto - dosagem suave e elegante */
   .hero-img-aura {
     position: absolute;
-    top: 6%;
-    left: 4%;
-    right: 4%;
-    bottom: 8%;
+    top: 8%;
+    left: 8%;
+    right: 8%;
+    bottom: 10%;
     background: radial-gradient(
       ellipse at 50% 45%,
-      rgba(0, 255, 157, 0.52) 0%,
-      rgba(0, 200, 120, 0.3) 38%,
-      rgba(0, 71, 46, 0.18) 60%,
-      transparent 76%
+      rgba(0, 255, 157, 0.38) 0%,
+      rgba(0, 200, 120, 0.2) 38%,
+      rgba(0, 71, 46, 0.1) 60%,
+      transparent 75%
     );
     filter: blur(52px);
     border-radius: 50%;
@@ -395,22 +395,22 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
     animation: aura-glow 4.8s ease-in-out infinite alternate;
   }
 
-  /* Núcleo de luz concentrado (Backlight / Rim-Light Halo) diretamente atrás do André */
+  /* Núcleo de luz concentrado suave (Backlight / Rim-Light Halo) atrás do André */
   .hero-img-core-glow {
     position: absolute;
-    top: 8%;
+    top: 10%;
     left: 50%;
-    width: 340px;
-    height: 340px;
+    width: 320px;
+    height: 320px;
     transform: translateX(-50%);
     background: radial-gradient(
       circle,
-      rgba(0, 255, 157, 0.72) 0%,
-      rgba(0, 230, 140, 0.42) 35%,
-      rgba(0, 166, 102, 0.2) 58%,
-      transparent 75%
+      rgba(0, 255, 157, 0.46) 0%,
+      rgba(0, 230, 140, 0.25) 35%,
+      rgba(0, 166, 102, 0.1) 58%,
+      transparent 72%
     );
-    filter: blur(34px);
+    filter: blur(42px);
     border-radius: 50%;
     z-index: 6;
     pointer-events: none;
@@ -420,23 +420,23 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
 
   @keyframes aura-glow {
     0% {
-      opacity: 0.65;
+      opacity: 0.55;
       transform: scale(0.95);
     }
     100% {
-      opacity: 1;
-      transform: scale(1.08);
+      opacity: 0.85;
+      transform: scale(1.05);
     }
   }
 
   @keyframes core-glow-pulse {
     0% {
-      opacity: 0.72;
-      transform: translateX(-50%) scale(0.94);
+      opacity: 0.6;
+      transform: translateX(-50%) scale(0.95);
     }
     100% {
-      opacity: 1;
-      transform: translateX(-50%) scale(1.06);
+      opacity: 0.85;
+      transform: translateX(-50%) scale(1.04);
     }
   }
 
@@ -888,8 +888,8 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
     left: -5%;
     width: 560px;
     height: 560px;
-    background: radial-gradient(circle, rgba(0, 255, 157, 0.32) 0%, rgba(0, 166, 102, 0.14) 55%, transparent 75%);
-    filter: blur(95px);
+    background: radial-gradient(circle, rgba(0, 255, 157, 0.26) 0%, rgba(0, 166, 102, 0.1) 55%, transparent 75%);
+    filter: blur(100px);
     translate: calc(var(--mouse-x) * -60px) calc(var(--mouse-y) * -60px);
     animation: aurora-drift-1 14s ease-in-out infinite alternate;
   }
@@ -897,10 +897,10 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
   .orb-2 {
     top: 6%;
     right: -6%;
-    width: 540px;
-    height: 540px;
-    background: radial-gradient(circle, rgba(0, 255, 157, 0.38) 0%, rgba(0, 166, 102, 0.18) 55%, transparent 75%);
-    filter: blur(85px);
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(0, 255, 157, 0.28) 0%, rgba(0, 166, 102, 0.12) 55%, transparent 75%);
+    filter: blur(95px);
     translate: calc(var(--mouse-x) * 60px) calc(var(--mouse-y) * 60px);
     animation: aurora-drift-2 16s ease-in-out infinite alternate-reverse;
   }
@@ -1053,14 +1053,14 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
     .orb-1 {
       width: 320px;
       height: 320px;
-      opacity: 0.7;
+      opacity: 0.6;
       animation: aurora-drift-mobile 10s ease-in-out infinite alternate;
     }
 
     .orb-2 {
-      width: 320px;
-      height: 320px;
-      opacity: 0.78;
+      width: 300px;
+      height: 300px;
+      opacity: 0.65;
       animation: aurora-drift-mobile 12s ease-in-out infinite alternate-reverse;
     }
 
@@ -1071,48 +1071,48 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
     @keyframes aurora-drift-mobile {
       0% {
         transform: scale(0.96);
-        opacity: 0.6;
+        opacity: 0.55;
       }
       100% {
         transform: scale(1.04);
-        opacity: 0.85;
+        opacity: 0.75;
       }
     }
 
-    /* Aura e Core Glow aumentados expressivamente no mobile (estáticos para GPU) */
+    /* Aura e Core Glow calibrados de forma equilibrada no mobile (estáticos para GPU) */
     .hero-img-aura {
       animation: none !important;
-      top: 4%;
-      left: 0%;
-      right: 0%;
-      bottom: 8%;
+      top: 6%;
+      left: 4%;
+      right: 4%;
+      bottom: 10%;
       background: radial-gradient(
         ellipse at 50% 40%,
-        rgba(0, 255, 157, 0.65) 0%,
-        rgba(0, 180, 110, 0.38) 40%,
-        rgba(0, 71, 46, 0.16) 65%,
+        rgba(0, 255, 157, 0.44) 0%,
+        rgba(0, 180, 110, 0.22) 40%,
+        rgba(0, 71, 46, 0.08) 65%,
         transparent 76%
       );
-      filter: blur(28px);
-      opacity: 0.95;
+      filter: blur(34px);
+      opacity: 0.85;
     }
 
     .hero-img-core-glow {
       animation: none !important;
-      top: 8%;
+      top: 10%;
       left: 50%;
-      width: 250px;
-      height: 250px;
+      width: 240px;
+      height: 240px;
       transform: translateX(-50%);
       background: radial-gradient(
         circle,
-        rgba(0, 255, 157, 0.8) 0%,
-        rgba(0, 230, 140, 0.48) 36%,
-        rgba(0, 166, 102, 0.2) 60%,
-        transparent 75%
+        rgba(0, 255, 157, 0.52) 0%,
+        rgba(0, 230, 140, 0.28) 36%,
+        rgba(0, 166, 102, 0.1) 60%,
+        transparent 72%
       );
-      filter: blur(22px);
-      opacity: 0.95;
+      filter: blur(30px);
+      opacity: 0.85;
     }
 
     /* Badges flutuantes: estáticos no mobile — translateY contínuo aumenta camadas de composição */
