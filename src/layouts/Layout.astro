@@ -17,6 +17,34 @@ const { title, description = "OCARECADEV | Landing Pages e Sites Estratégicos q
 const siteUrl = Astro.site || Astro.url;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
 const ogImage = new URL('/images/og-image.jpg', siteUrl);
+const logoImage = new URL('/images/logo-vertical.png', siteUrl);
+
+// Cidades atendidas presencialmente (mesma lista do Perfil da Empresa no Google — SPEC-016).
+// O atendimento remoto cobre o Brasil inteiro.
+const citiesServed = [
+  'Santo André',
+  'São Bernardo do Campo',
+  'São Caetano do Sul',
+  'Mauá',
+  'Diadema',
+  'Ribeirão Pires',
+  'Rio Grande da Serra',
+  'São Paulo',
+];
+
+// Perfis oficiais da marca. O link do Perfil da Empresa no Google entra aqui quando
+// estiver disponível publicamente (SPEC-016 §2.3).
+const officialProfiles = [
+  'https://www.instagram.com/ocarecadev',
+  'https://www.tiktok.com/@ocarecadev',
+];
+
+// Planos e preços: devem espelhar exatamente o que `Pricing.astro` exibe (SPEC-016 §2.2).
+const plans = [
+  { name: 'OCARECADEV Express', description: 'Landing page profissional sobre modelo validado, com botão direto para o WhatsApp e entrega em até 48h.', price: '597' },
+  { name: 'Landing que Vende', description: 'Landing page 100% estratégica e sob medida, com copy de conversão e integração com WhatsApp, Analytics e Pixel.', price: '997' },
+  { name: 'Site Profissional', description: 'Site de 3 a 5 páginas com estrutura institucional e de serviços, integrações e SEO estruturado.', price: '2497', minPrice: true },
+];
 
 const structuredData = [
   {
@@ -24,15 +52,52 @@ const structuredData = [
     '@type': 'ProfessionalService',
     '@id': `${siteUrl}#business`,
     name: 'OCARECADEV',
+    alternateName: 'Ocareca Web Developer',
     url: siteUrl.toString(),
-    logo: ogImage.toString(),
+    logo: logoImage.toString(),
     image: ogImage.toString(),
-    description: 'Criação de landing pages e sites estratégicos para transformar visitantes em contatos e clientes.',
-    areaServed: 'Brasil',
-    sameAs: [
-      'https://www.instagram.com/ocarecadev',
-      'https://www.tiktok.com/@ocarecadev',
+    description: 'Criação de landing pages, sites profissionais, sistemas web e aplicativos para negócios que querem transformar visitantes em clientes no WhatsApp. Sediada em Santo André (SP), atende o ABC, São Paulo e todo o Brasil de forma remota.',
+    telephone: '+55-11-99396-0630',
+    email: 'ocarecadev@gmail.com',
+    priceRange: 'R$ 597 – R$ 2.497+',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Santo André',
+      addressRegion: 'SP',
+      addressCountry: 'BR',
+    },
+    areaServed: [
+      ...citiesServed.map((city) => ({ '@type': 'City', name: city })),
+      { '@type': 'Country', name: 'Brasil' },
     ],
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '09:00',
+      closes: '18:00',
+    },
+    founder: {
+      '@type': 'Person',
+      '@id': `${siteUrl}#founder`,
+      name: 'André Luiz Ferreira',
+      jobTitle: 'Desenvolvedor Web',
+      sameAs: ['https://www.instagram.com/ocarecadev'],
+    },
+    knowsAbout: ['Landing pages', 'Criação de sites', 'Sistemas web', 'Aplicativos Android e iOS', 'SEO', 'Conversão'],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Planos OCARECADEV',
+      itemListElement: plans.map((plan) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: plan.name, description: plan.description },
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'BRL',
+          ...(plan.minPrice ? { minPrice: plan.price } : { price: plan.price }),
+        },
+      })),
+    },
+    sameAs: officialProfiles,
   },
   {
     '@context': 'https://schema.org',

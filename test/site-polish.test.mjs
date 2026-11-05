@@ -28,6 +28,29 @@ test('layout provides canonical social metadata and structured business data', (
   assert.match(layout, /sameAs/);
 });
 
+test('structured business data carries local SEO fields (SPEC-016)', () => {
+  const layout = read('src/layouts/Layout.astro');
+
+  assert.match(layout, /telephone: '\+55-11-99396-0630'/);
+  assert.match(layout, /addressLocality: 'Santo André'/);
+  assert.match(layout, /'@type': 'City'/);
+  assert.match(layout, /openingHoursSpecification/);
+  assert.match(layout, /hasOfferCatalog/);
+  assert.match(layout, /'@type': 'Person'/);
+  // Endereço residencial não é publicado (negócio de área de atendimento).
+  assert.doesNotMatch(layout, /streetAddress/);
+});
+
+test('schema plan prices mirror the visible pricing section (SPEC-016)', () => {
+  const layout = read('src/layouts/Layout.astro');
+  const pricing = read('src/components/sections/Pricing.astro');
+
+  for (const [visible, schema] of [['R$ 597', '597'], ['R$ 997', '997'], ['R$ 2.497', '2497']]) {
+    assert.ok(pricing.includes(visible), `Pricing.astro should show ${visible}`);
+    assert.match(layout, new RegExp(`price: '${schema}'`));
+  }
+});
+
 test('AI discovery document identifies the site and its primary service', () => {
   const llms = read('public/llms.txt');
   const indexMd = read('public/index.md');
