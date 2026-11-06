@@ -8,8 +8,9 @@ test('Santo André page has its own title, h1 and WhatsApp message (SPEC-017)', 
   const page = read('src/pages/criacao-de-sites-santo-andre.astro');
 
   assert.match(page, /title="Criação de Sites em Santo André \| Landing Pages que Vendem \| OCARECADEV"/);
-  assert.equal((page.match(/<h1[\s>]/g) || []).length, 1);
-  assert.match(page, /<h1[^>]*>[\s\S]*Santo André[\s\S]*<\/h1>/);
+  // O h1 vem do Hero compartilhado; a página só fornece o texto do slot.
+  assert.doesNotMatch(page, /<h1[\s>]/);
+  assert.match(page, /<Fragment slot="title">[\s\S]*Santo André[\s\S]*<\/Fragment>/);
   assert.match(page, /Olá! Vi a página de Santo André e quero um orçamento\./);
   assert.match(page, /faqItems=\{faqItems\}/);
   assert.match(page, /<FAQ items=\{faqItems\}/);
@@ -40,4 +41,13 @@ test('shared components stay backwards compatible (SPEC-017)', () => {
   assert.match(layout, /faqItems\s*\n?\s*\?/);
   assert.match(header, /anchorBase = Astro\.url\.pathname === '\/' \? '' : '\/'/);
   assert.doesNotMatch(header, /href="#(hero|modelos|social-proof|pricing)"/);
+});
+
+test('Hero keeps the official home copy when used without props (SPEC-017)', () => {
+  const hero = read('src/components/sections/Hero.astro');
+
+  assert.match(hero, /<slot name="title">[\s\S]*Precisa fazer o visitante <span class="text-neon">agir<\/span>[\s\S]*<\/slot>/);
+  assert.match(hero, /text: "Quero uma landing page para meu negócio"/);
+  assert.match(hero, /trackLocation: "hero_primary"/);
+  assert.equal((hero.match(/<h1[\s>]/g) || []).length, 1);
 });

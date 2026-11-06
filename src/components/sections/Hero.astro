@@ -2,6 +2,44 @@
 import Button from "../ui/Button.astro";
 import { Image } from "astro:assets";
 import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
+
+// Textos da abertura são configuráveis para páginas como /criacao-de-sites-santo-andre/ (SPEC-017).
+// Sem props/slots, renderiza a copy oficial da home.
+interface Cta {
+  text: string;
+  href: string;
+  trackEvent?: string;
+  trackLocation: string;
+  trackItem?: string;
+}
+
+interface Props {
+  badgeText?: string;
+  badgeHighlight?: string;
+  primaryCta?: Cta;
+  secondaryCta?: Cta;
+  imageAlt?: string;
+}
+
+const {
+  badgeText = "Disponível para novos projetos",
+  badgeHighlight = "Alta Conversão",
+  primaryCta = {
+    text: "Quero uma landing page para meu negócio",
+    href: "#pricing",
+    trackEvent: "select_content",
+    trackLocation: "hero_primary",
+    trackItem: "cta_quero_landing_page",
+  },
+  secondaryCta = {
+    text: "Ver como funciona",
+    href: "#como-funciona",
+    trackEvent: "select_content",
+    trackLocation: "hero_secondary",
+    trackItem: "cta_ver_como_funciona",
+  },
+  imageAlt = "André, especialista em Landing Pages",
+} = Astro.props;
 ---
 
 <section
@@ -30,29 +68,33 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
           <span class="pulse-dot"></span>
           <span class="pulse-ring"></span>
         </span>
-        <span class="badge-text">Disponível para novos projetos</span>
+        <span class="badge-text">{badgeText}</span>
         <span class="badge-separator" aria-hidden="true">•</span>
-        <span class="badge-highlight">Alta Conversão</span>
+        <span class="badge-highlight">{badgeHighlight}</span>
       </div>
 
       <h1 class="hero-title" id="hero-title">
-        Seu site não precisa só ser bonito.
-        Precisa fazer o visitante <span class="text-neon">agir</span>
+        <slot name="title">
+          Seu site não precisa só ser bonito.
+          Precisa fazer o visitante <span class="text-neon">agir</span>
+        </slot>
       </h1>
       <p class="hero-subtitle" id="hero-subtitle">
-        Landing pages estratégicas para apresentar sua oferta com clareza, gerar interesse e levar mais pessoas até o seu WhatsApp.
+        <slot name="subtitle">
+          Landing pages estratégicas para apresentar sua oferta com clareza, gerar interesse e levar mais pessoas até o seu WhatsApp.
+        </slot>
       </p>
       <div class="hero-ctas" id="hero-ctas">
         <Button
           type="primary"
-          href="#pricing"
+          href={primaryCta.href}
           id="btn-hero-primary"
           class="btn-large btn-cta-primary"
-          data-track-event="select_content"
-          data-track-location="hero_primary"
-          data-track-item="cta_quero_landing_page"
+          data-track-event={primaryCta.trackEvent ?? "select_content"}
+          data-track-location={primaryCta.trackLocation}
+          data-track-item={primaryCta.trackItem}
         >
-          <span>Quero uma landing page para meu negócio</span>
+          <span>{primaryCta.text}</span>
           <svg
             class="cta-icon"
             viewBox="0 0 24 24"
@@ -68,11 +110,11 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
         </Button>
         <Button
           type="ghost"
-          href="#como-funciona"
+          href={secondaryCta.href}
           class="btn-large btn-cta-ghost"
-          data-track-event="select_content"
-          data-track-location="hero_secondary"
-          data-track-item="cta_ver_como_funciona"
+          data-track-event={secondaryCta.trackEvent ?? "select_content"}
+          data-track-location={secondaryCta.trackLocation}
+          data-track-item={secondaryCta.trackItem}
         >
           <svg
             class="cta-icon"
@@ -89,7 +131,7 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
               fill="currentColor"
               stroke="none"></polygon>
           </svg>
-          <span>Ver como funciona</span>
+          <span>{secondaryCta.text}</span>
         </Button>
       </div>
     </div>
@@ -147,7 +189,7 @@ import heroPerfil from "../../assets/images/hero-perfil-v2.webp";
 
         <Image
           src={heroPerfil}
-          alt="André, especialista em Landing Pages"
+          alt={imageAlt}
           class="hero-img"
           widths={[380, 560, 760, 1120]}
           sizes="(max-width: 767px) 380px, (max-width: 1024px) 500px, 560px"

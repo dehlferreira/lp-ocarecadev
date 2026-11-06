@@ -3,6 +3,7 @@
 // Copy aprovada pelo André em 2026-11-06. Atendimento 100% online.
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/sections/Header.astro';
+import Hero from '../components/sections/Hero.astro';
 import ModelsShowcase from '../components/sections/ModelsShowcase.astro';
 import SocialProof from '../components/sections/SocialProof.astro';
 import About from '../components/sections/About.astro';
@@ -11,8 +12,6 @@ import FAQ from '../components/sections/FAQ.astro';
 import Footer from '../components/sections/Footer.astro';
 import Button from '../components/ui/Button.astro';
 import GlassCard from '../components/ui/GlassCard.astro';
-import { Image } from 'astro:assets';
-import heroPerfil from '../assets/images/hero-perfil-v2.webp';
 
 const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
 // Mensagem própria para identificar os contatos que vieram desta página.
@@ -72,50 +71,30 @@ const faqItems = [
 >
   <Header />
   <main>
-    <section id="hero" class="local-hero">
-      <div class="container local-hero__grid">
-      <div class="local-hero__inner">
-        <p class="local-eyebrow">Santo André · ABC Paulista · Atendimento online</p>
-        <h1 class="local-hero__title">
-          Criação de sites e landing pages em <span class="text-neon">Santo André</span>
-        </h1>
-        <p class="local-hero__lead">
-          Sou o André, desenvolvedor web aqui de Santo André. Crio sites rápidos e landing pages que explicam o que você faz e levam o cliente direto para o seu WhatsApp, sem você precisar sair da sua loja ou do seu consultório.
-        </p>
-        <div class="local-hero__actions">
-          <Button
-            type="primary"
-            class="btn-large"
-            href={localWhatsappUrl}
-            data-track-event="lead"
-            data-track-location="local_santo_andre_hero"
-          >
-            Quero um orçamento pelo WhatsApp
-          </Button>
-          <Button type="ghost" href="#pricing" data-track-event="select_content" data-track-location="local_santo_andre_hero" data-track-item="planos">
-            Ver planos
-          </Button>
-        </div>
-        <ul class="local-proof" aria-label="Destaques">
-          <li>+50 projetos lançados</li>
-          <li>100/100 no PageSpeed mobile</li>
-          <li>Express entregue em até 48h</li>
-        </ul>
-      </div>
-      <div class="local-hero__media">
-        <Image
-          src={heroPerfil}
-          alt="André, desenvolvedor web da OCARECADEV em Santo André"
-          class="local-hero__img"
-          widths={[320, 480, 640, 960]}
-          sizes="(max-width: 767px) 280px, 460px"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-        />
-      </div>
-      </div>
-    </section>
+    <Hero
+      badgeText="Santo André · ABC Paulista"
+      badgeHighlight="Atendimento online"
+      primaryCta={{
+        text: 'Quero um orçamento pelo WhatsApp',
+        href: localWhatsappUrl,
+        trackEvent: 'lead',
+        trackLocation: 'local_santo_andre_hero',
+      }}
+      secondaryCta={{
+        text: 'Ver planos',
+        href: '#pricing',
+        trackLocation: 'local_santo_andre_hero_secondary',
+        trackItem: 'planos',
+      }}
+      imageAlt="André, desenvolvedor web da OCARECADEV em Santo André"
+    >
+      <Fragment slot="title">
+        Criação de sites e landing pages em <span class="text-neon">Santo André</span>
+      </Fragment>
+      <Fragment slot="subtitle">
+        Sou o André, desenvolvedor web aqui de Santo André. Crio sites rápidos e landing pages que explicam o que você faz e levam o cliente direto para o seu WhatsApp, sem você precisar sair da sua loja ou do seu consultório.
+      </Fragment>
+    </Hero>
 
     <section class="local-section" aria-labelledby="local-audience-title">
       <div class="container">
@@ -206,101 +185,6 @@ const faqItems = [
 </Layout>
 
 <style>
-  .local-hero {
-    padding: calc(var(--header-offset) + 3rem) 0 3rem;
-    min-height: 70svh;
-    display: flex;
-    align-items: center;
-    text-align: center;
-  }
-
-  .local-hero__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  .local-hero__media {
-    display: flex;
-    justify-content: center;
-  }
-
-  .local-hero__img {
-    width: min(280px, 75vw);
-    height: auto;
-    aspect-ratio: 1 / 1;
-    border-radius: 24px;
-    border: 1px solid var(--glass-border-highlight);
-    box-shadow: 0 0 60px rgba(0, 255, 157, 0.15);
-    object-fit: cover;
-  }
-
-  @media (min-width: 1024px) {
-    .local-hero__img {
-      width: min(460px, 100%);
-    }
-  }
-
-  .local-hero__inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-  }
-
-  .local-eyebrow {
-    display: inline-block;
-    padding: 0.4rem 1rem;
-    border: 1px solid var(--glass-border-highlight);
-    border-radius: 100px;
-    background: var(--glass-bg);
-    color: var(--color-primary-neon);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-
-  .local-hero__title {
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    line-height: 1.1;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    max-width: 18ch;
-  }
-
-  .local-hero__lead {
-    font-size: clamp(1rem, 2.4vw, 1.2rem);
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-    max-width: 60ch;
-  }
-
-  .local-hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
-  }
-
-  .local-proof {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem 1.5rem;
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0 0;
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
-  }
-
-  .local-proof li::before {
-    content: '✓ ';
-    color: var(--color-primary-neon);
-  }
-
   .local-section {
     padding: 4rem 0;
     position: relative;
@@ -435,25 +319,5 @@ const faqItems = [
     color: var(--color-text-secondary);
     line-height: 1.6;
     max-width: 52ch;
-  }
-  /* Desktop: texto à esquerda e foto à direita. Fica no fim para vencer as regras base. */
-  @media (min-width: 1024px) {
-    .local-hero {
-      text-align: left;
-    }
-
-    .local-hero__grid {
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: 3rem;
-    }
-
-    .local-hero__inner {
-      align-items: flex-start;
-    }
-
-    .local-hero__actions,
-    .local-proof {
-      justify-content: flex-start;
-    }
   }
 </style>

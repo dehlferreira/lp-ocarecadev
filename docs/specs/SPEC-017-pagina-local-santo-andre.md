@@ -16,8 +16,8 @@ Implementa PRD-010. Não exige ADR: aplica a arquitetura existente (ARCH-001, AD
 
 ### 2.1. Rota nova — `src/pages/criacao-de-sites-santo-andre.astro`
 
-- Seções próprias: hero (h1), "para quem", processo online, "por que alguém da região", CTA final. Copy integral no arquivo, conforme aprovação de 2026-11-06.
-- Reaproveita sem alteração: `Header`, `Pricing`, `ModelsShowcase`, `SocialProof`, `About`, `Footer`. Hero com a foto `hero-perfil-v2.webp` (dimensões geradas pelo `astro:assets`, G3).
+- Abertura: componente `Hero` da home com textos via props/slots (mesmo visual: foto, cartões flutuantes, fundo). Seções próprias: "para quem", processo online, "por que alguém da região", CTA final. Copy integral no arquivo, conforme aprovação de 2026-11-06.
+- Reaproveita sem alteração: `Header`, `Pricing`, `ModelsShowcase`, `SocialProof`, `About`, `Footer`. `Hero.astro`: props `badgeText`, `badgeHighlight`, `primaryCta`, `secondaryCta`, `imageAlt` e slots `title`/`subtitle`; sem eles, renderiza a copy oficial da home.
 - `FAQ` recebe as perguntas locais via prop.
 - CTAs locais: `data-track-event="lead"` com `data-track-location` `local_santo_andre_hero` e `local_santo_andre_final_cta` (G6: nada dispara antes do consentimento, mesmo pipeline).
 
