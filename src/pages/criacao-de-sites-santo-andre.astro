@@ -5,11 +5,14 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/sections/Header.astro';
 import ModelsShowcase from '../components/sections/ModelsShowcase.astro';
 import SocialProof from '../components/sections/SocialProof.astro';
+import About from '../components/sections/About.astro';
 import Pricing from '../components/sections/Pricing.astro';
 import FAQ from '../components/sections/FAQ.astro';
 import Footer from '../components/sections/Footer.astro';
 import Button from '../components/ui/Button.astro';
 import GlassCard from '../components/ui/GlassCard.astro';
+import { Image } from 'astro:assets';
+import heroPerfil from '../assets/images/hero-perfil-v2.webp';
 
 const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
 // Mensagem própria para identificar os contatos que vieram desta página.
@@ -70,7 +73,8 @@ const faqItems = [
   <Header />
   <main>
     <section id="hero" class="local-hero">
-      <div class="container container--narrow local-hero__inner">
+      <div class="container local-hero__grid">
+      <div class="local-hero__inner">
         <p class="local-eyebrow">Santo André · ABC Paulista · Atendimento online</p>
         <h1 class="local-hero__title">
           Criação de sites e landing pages em <span class="text-neon">Santo André</span>
@@ -97,6 +101,19 @@ const faqItems = [
           <li>100/100 no PageSpeed mobile</li>
           <li>Express entregue em até 48h</li>
         </ul>
+      </div>
+      <div class="local-hero__media">
+        <Image
+          src={heroPerfil}
+          alt="André, desenvolvedor web da OCARECADEV em Santo André"
+          class="local-hero__img"
+          widths={[320, 480, 640, 960]}
+          sizes="(max-width: 767px) 280px, 460px"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
       </div>
     </section>
 
@@ -160,6 +177,7 @@ const faqItems = [
     <Pricing />
     <ModelsShowcase />
     <SocialProof />
+    <About />
     <FAQ items={faqItems} title="Perguntas frequentes sobre criação de sites em Santo André" />
 
     <section class="local-cta" aria-labelledby="local-cta-title">
@@ -194,6 +212,34 @@ const faqItems = [
     display: flex;
     align-items: center;
     text-align: center;
+  }
+
+  .local-hero__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .local-hero__media {
+    display: flex;
+    justify-content: center;
+  }
+
+  .local-hero__img {
+    width: min(280px, 75vw);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border-highlight);
+    box-shadow: 0 0 60px rgba(0, 255, 157, 0.15);
+    object-fit: cover;
+  }
+
+  @media (min-width: 1024px) {
+    .local-hero__img {
+      width: min(460px, 100%);
+    }
   }
 
   .local-hero__inner {
@@ -389,5 +435,25 @@ const faqItems = [
     color: var(--color-text-secondary);
     line-height: 1.6;
     max-width: 52ch;
+  }
+  /* Desktop: texto à esquerda e foto à direita. Fica no fim para vencer as regras base. */
+  @media (min-width: 1024px) {
+    .local-hero {
+      text-align: left;
+    }
+
+    .local-hero__grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 3rem;
+    }
+
+    .local-hero__inner {
+      align-items: flex-start;
+    }
+
+    .local-hero__actions,
+    .local-proof {
+      justify-content: flex-start;
+    }
   }
 </style>
