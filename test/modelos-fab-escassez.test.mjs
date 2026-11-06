@@ -106,14 +106,16 @@ test('models section has no BrainArt destinations, clones or vacancy RNG, and co
 test('header orders navigation matching section sequence (Início, Modelos, Resultados, Planos) on desktop and mobile', () => {
   const header = read('src/components/sections/Header.astro');
 
-  assert.equal((header.match(/href="#modelos"/g) ?? []).length, 2);
+  // Âncoras usam anchorBase para funcionar fora da home (SPEC-017); a ordem continua a mesma.
+  const a = (id) => `href=\\{\`\\$\\{anchorBase\\}#${id}\`\\}`;
+  assert.equal((header.match(/#modelos`\}/g) ?? []).length, 2);
   assert.match(
     header,
-    /<nav class="nav">[\s\S]*href="#hero">Início<\/a>[\s\S]*href="#modelos">Modelos<\/a>[\s\S]*href="#social-proof">Resultados<\/a>[\s\S]*href="#pricing">Planos<\/a>/,
+    new RegExp(`<nav class="nav">[\\s\\S]*${a('hero')}>Início<\\/a>[\\s\\S]*${a('modelos')}>Modelos<\\/a>[\\s\\S]*${a('social-proof')}>Resultados<\\/a>[\\s\\S]*${a('pricing')}>Planos<\\/a>`),
   );
   assert.match(
     header,
-    /<nav class="mobile-nav">[\s\S]*href="#hero" class="mobile-nav-link">Início<\/a>[\s\S]*href="#modelos" class="mobile-nav-link">Modelos<\/a>[\s\S]*href="#social-proof" class="mobile-nav-link">Resultados<\/a>[\s\S]*href="#pricing" class="mobile-nav-link">Planos<\/a>/,
+    new RegExp(`<nav class="mobile-nav">[\\s\\S]*${a('hero')} class="mobile-nav-link">Início<\\/a>[\\s\\S]*${a('modelos')} class="mobile-nav-link">Modelos<\\/a>[\\s\\S]*${a('social-proof')} class="mobile-nav-link">Resultados<\\/a>[\\s\\S]*${a('pricing')} class="mobile-nav-link">Planos<\\/a>`),
   );
 });
 

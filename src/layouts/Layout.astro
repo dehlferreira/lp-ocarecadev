@@ -9,9 +9,11 @@ import CookieConsent from '../components/ui/CookieConsent.astro';
 interface Props {
 	title: string;
 	description?: string;
+	/** Perguntas da página para o FAQPage do JSON-LD; omitido = FAQ da home (SPEC-017). */
+	faqItems?: { q: string; a: string }[];
 }
 
-const { title, description = "OCARECADEV | Landing Pages e Sites Estratégicos que Convertem" } = Astro.props;
+const { title, description = "OCARECADEV | Landing Pages e Sites Estratégicos que Convertem", faqItems } = Astro.props;
 
 // URLs absolutas evitam versões duplicadas da página em buscadores e previews sociais.
 const siteUrl = Astro.site || Astro.url;
@@ -111,7 +113,9 @@ const structuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
+    mainEntity: faqItems
+      ? faqItems.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } }))
+      : [
       { '@type': 'Question', name: 'Já tenho Instagram. Ainda preciso de uma landing page?', acceptedAnswer: { '@type': 'Answer', text: 'O Instagram é ótimo para atrair atenção, mas é limitado para explicar uma oferta completa e fechar. Na landing page, o visitante não se distrai com notificações ou concorrentes: ele encontra sua proposta de valor clara e um botão direto para conversar com você no WhatsApp.' } },
       { '@type': 'Question', name: 'Preciso anunciar para a página funcionar?', acceptedAnswer: { '@type': 'Answer', text: 'Não obrigatoriamente. Uma landing page bem estruturada potencializa qualquer tráfego que você já receba, seja do link da bio do Instagram, indicação de clientes, Google Meu Negócio ou abordagens diretas. Quando você decidir investir em anúncios (Google ou Meta), a página já estará pronta para converter esse tráfego em contatos.' } },
       { '@type': 'Question', name: 'Vocês também fazem os textos da página?', acceptedAnswer: { '@type': 'Answer', text: 'Sim. Nós estruturamos toda a copy (redação persuasiva) com base no seu público, nos seus diferenciais e no objetivo da página. Você só precisa nos passar as informações essenciais sobre o seu negócio e validar o conteúdo antes da publicação.' } },

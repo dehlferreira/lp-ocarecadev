@@ -1,7 +1,17 @@
 ---
 import GlassCard from '../ui/GlassCard.astro';
 
-const faqs = [
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  items?: FaqItem[];
+  title?: string;
+}
+
+const defaultFaqs: FaqItem[] = [
   {
     q: 'Já tenho Instagram. Ainda preciso de uma landing page?',
     a: 'O Instagram é ótimo para atrair atenção, mas é limitado para explicar uma oferta completa e fechar. Na landing page, o visitante não se distrai com notificações ou concorrentes: ele encontra sua proposta de valor clara e um botão direto para conversar com você no WhatsApp.',
@@ -39,12 +49,15 @@ const faqs = [
     a: 'No plano OCARECADEV Express, entregamos em até 48 horas úteis após o envio das informações básicas. Na Landing que Vende e no Site Profissional, o prazo médio é de 5 a 10 dias úteis, dependendo do escopo e do tempo de alinhamento.',
   },
 ];
+
+const { items = defaultFaqs, title = 'Perguntas Frequentes' } = Astro.props;
+const faqs = items;
 ---
 
 <section id="faq" class="section-faq section-fade-top section-fade-bottom">
   <div class="container container--narrow">
     <div class="section-header">
-      <h2 class="section-title scroll-animate">Perguntas Frequentes</h2>
+      <h2 class="section-title scroll-animate">{title}</h2>
     </div>
 
     <div class="faq-grid">

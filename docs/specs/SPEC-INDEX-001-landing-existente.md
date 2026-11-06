@@ -22,6 +22,7 @@
 | `docs/specs/SPEC-014-revisao-fluidez-scroll-e-desmonte-scrollytelling.md` | Implementada |
 | `docs/specs/SPEC-015-animacoes-premium-e-micro-interacoes.md` | Implementada |
 | `docs/specs/SPEC-016-dados-estruturados-seo-local.md` | Em Progresso |
+| `docs/specs/SPEC-017-pagina-local-santo-andre.md` | Em Progresso |
 
 Quem marca DoD é o `quality-assurance-validation-agent`.
 
