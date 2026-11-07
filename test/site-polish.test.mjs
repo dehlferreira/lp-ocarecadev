@@ -37,6 +37,8 @@ test('structured business data carries local SEO fields (SPEC-016)', () => {
   assert.match(layout, /openingHoursSpecification/);
   assert.match(layout, /hasOfferCatalog/);
   assert.match(layout, /'@type': 'Person'/);
+  // Perfil da Empresa no Google ligado à mesma entidade (SPEC-016 §2.3).
+  assert.match(layout, /'https:\/\/maps\.google\.com\/\?cid=\d+'/);
   // Endereço residencial não é publicado (negócio de área de atendimento).
   assert.doesNotMatch(layout, /streetAddress/);
 });

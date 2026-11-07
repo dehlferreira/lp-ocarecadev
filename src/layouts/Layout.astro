@@ -34,11 +34,12 @@ const citiesServed = [
   'São Paulo',
 ];
 
-// Perfis oficiais da marca. O link do Perfil da Empresa no Google entra aqui quando
-// estiver disponível publicamente (SPEC-016 §2.3).
+// Perfis oficiais da marca, incluindo o Perfil da Empresa no Google (SPEC-016 §2.3).
+// O link usa o CID do Maps, que não muda se o nome ou a URL da ficha mudarem.
 const officialProfiles = [
   'https://www.instagram.com/ocarecadev',
   'https://www.tiktok.com/@ocarecadev',
+  'https://maps.google.com/?cid=685601683631023624',
 ];
 
 // Planos e preços: devem espelhar exatamente o que `Pricing.astro` exibe (SPEC-016 §2.2).
