@@ -31,7 +31,13 @@ Trilha: sustentação/SEO técnico sem PRD novo (`skills/maintenance-triage/SKIL
 
 - Incluir o link público do Perfil da Empresa no Google em `officialProfiles` (`sameAs`) quando ele estiver indexado no Maps.
 
-### 2.4. Estratégia de teste
+### 2.4. Correção 2026-11-06 — documentos para IAs (`public/llms.txt`, `public/index.md`)
+
+- Estava errado: `index.md` anunciava "Plano Express a partir de R$ 997" e "Plano Pro R$ 1.997"; `llms.txt` citava planos "Express, Pro e Personalizado" e âncoras inexistentes (`#planos`, `#contato`). Nenhum dos dois citava a página de Santo André.
+- Correção: planos, preços e prazos iguais a `Pricing.astro`/FAQ; âncoras reais (`#pricing`, `#faq`, `#modelos`, `#social-proof`); página `/criacao-de-sites-santo-andre/`; atendimento 100% online.
+- Teste: `site-polish.test.mjs` exige os três preços visíveis nos dois documentos e proíbe os nomes/âncoras antigos.
+
+### 2.5. Estratégia de teste
 
 - `test/site-polish.test.mjs`: campos locais presentes, ausência de `streetAddress`, preços do schema iguais aos de `Pricing.astro`.
 - Validação externa recomendada após deploy: Rich Results Test / Schema Markup Validator na URL de produção.
@@ -44,3 +50,4 @@ Trilha: sustentação/SEO técnico sem PRD novo (`skills/maintenance-triage/SKIL
 - [ ] `npm run build` sem erros e `dist/index.html` contém o JSON-LD válido (parse JSON sem erro).
 - [ ] `npm test` com 0 falhas.
 - [ ] Link do Perfil da Empresa adicionado ao `sameAs` (§2.3).
+- [ ] `llms.txt` e `index.md` com planos, preços e páginas reais (§2.4).
