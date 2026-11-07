@@ -27,9 +27,11 @@ Trilha: sustentação/SEO técnico sem PRD novo (`skills/maintenance-triage/SKIL
 
 - Preços do `hasOfferCatalog` espelham `src/components/sections/Pricing.astro` (597, 997, a partir de 2.497). Mudou o preço visível, muda o schema na mesma entrega.
 
-### 2.3. Pendência
+### 2.3. Perfil da Empresa no `sameAs`
 
-- Incluir o link público do Perfil da Empresa no Google em `officialProfiles` (`sameAs`) quando ele estiver indexado no Maps.
+- O link público do Perfil da Empresa no Google entra em `officialProfiles` (`sameAs`).
+- 2026-11-07: perfil publicado no Maps; incluído como `https://maps.google.com/?cid=685601683631023624`. O formato por CID não muda se o nome ou a URL da ficha mudarem.
+- Teste: `site-polish.test.mjs` exige um link `maps.google.com/?cid=` no layout.
 
 ### 2.4. Correção 2026-11-06 — documentos para IAs (`public/llms.txt`, `public/index.md`)
 
