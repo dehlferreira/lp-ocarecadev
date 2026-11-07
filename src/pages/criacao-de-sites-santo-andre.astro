@@ -1,0 +1,323 @@
+---
+// Página local "Criação de sites em Santo André" — PRD-010 / SPEC-017.
+// Copy aprovada pelo André em 2026-11-06. Atendimento 100% online.
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/sections/Header.astro';
+import Hero from '../components/sections/Hero.astro';
+import ModelsShowcase from '../components/sections/ModelsShowcase.astro';
+import SocialProof from '../components/sections/SocialProof.astro';
+import About from '../components/sections/About.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import Footer from '../components/sections/Footer.astro';
+import Button from '../components/ui/Button.astro';
+import GlassCard from '../components/ui/GlassCard.astro';
+
+const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
+// Mensagem própria para identificar os contatos que vieram desta página.
+const localWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Vi a página de Santo André e quero um orçamento.')}`;
+
+const audiences = [
+  { title: 'Comércio e lojas de bairro', text: 'Para quem vende no balcão e quer ser encontrado por quem mora perto.' },
+  { title: 'Clínicas e consultórios', text: 'Para apresentar especialidades e levar o paciente direto para o agendamento.' },
+  { title: 'Prestadores de serviço', text: 'Oficinas, reformas, assistência técnica e quem atende na casa do cliente.' },
+  { title: 'Profissionais liberais', text: 'Advogados, contadores, psicólogos e quem precisa transmitir confiança logo de cara.' },
+];
+
+const steps = [
+  { title: 'Conversa pelo WhatsApp', text: 'Você me conta o que vende e para quem.' },
+  { title: 'Videochamada de alinhamento', text: 'Se preferir, de 20 a 30 minutos, sem sair do seu negócio.' },
+  { title: 'Eu escrevo, desenho e desenvolvo', text: 'Texto, estrutura e design pensados para o cliente agir.' },
+  { title: 'Você aprova e a página vai ao ar', text: 'Com WhatsApp e Google Analytics configurados.' },
+];
+
+const reasons = [
+  { title: 'Conheço o cliente do ABC', text: 'A linguagem, os bairros e a concorrência local.' },
+  { title: 'Página pensada para buscas locais', text: 'Texto e estrutura preparados para quem pesquisa com o nome da cidade.' },
+  { title: 'Resposta rápida', text: 'Mesmo fuso, mesma rotina, atendimento de segunda a sábado.' },
+  { title: 'Sem intermediário', text: 'Você fala direto com quem desenvolve.' },
+];
+
+const cities = ['Santo André', 'São Bernardo do Campo', 'São Caetano do Sul', 'Diadema', 'Mauá', 'Ribeirão Pires', 'Rio Grande da Serra'];
+
+const faqItems = [
+  {
+    q: 'Quanto custa criar um site em Santo André?',
+    a: 'Uma landing page começa em R$ 597 no plano Express. A Landing que Vende, sob medida, custa R$ 997, e sites completos partem de R$ 2.497. O domínio fica no seu nome e custa em média R$ 40 por ano no Registro.br.',
+  },
+  {
+    q: 'O atendimento é presencial?',
+    a: 'Não. Todo o processo é online, pelo WhatsApp e por videochamada. Você não precisa sair do seu negócio, e mesmo assim fala com alguém daqui da região.',
+  },
+  {
+    q: 'Vocês atendem outras cidades do ABC?',
+    a: 'Sim: São Bernardo, São Caetano, Diadema, Mauá, Ribeirão Pires, Rio Grande da Serra, São Paulo e clientes de todo o Brasil.',
+  },
+  {
+    q: 'Em quanto tempo o site fica pronto?',
+    a: 'O Express sai em até 48 horas úteis depois que você envia as informações. A Landing que Vende e o Site Profissional levam de 5 a 10 dias úteis.',
+  },
+  {
+    q: 'Meu site vai aparecer no Google?',
+    a: 'A página é entregue rápida e com a estrutura técnica que o Google valoriza. A posição depende da concorrência e leva algumas semanas, e combinar o site com o Perfil da Empresa no Google acelera bastante.',
+  },
+];
+---
+
+<Layout
+  title="Criação de Sites em Santo André | Landing Pages que Vendem | OCARECADEV"
+  description="Criação de sites e landing pages em Santo André e no ABC. Páginas rápidas, com texto que vende e botão direto para o WhatsApp. Planos a partir de R$ 597. Atendimento online."
+  faqItems={faqItems}
+>
+  <Header />
+  <main>
+    <Hero
+      badgeText="Santo André · ABC Paulista"
+      badgeHighlight="Atendimento online"
+      primaryCta={{
+        text: 'Quero um orçamento pelo WhatsApp',
+        href: localWhatsappUrl,
+        trackEvent: 'lead',
+        trackLocation: 'local_santo_andre_hero',
+      }}
+      secondaryCta={{
+        text: 'Ver planos',
+        href: '#pricing',
+        trackLocation: 'local_santo_andre_hero_secondary',
+        trackItem: 'planos',
+      }}
+      imageAlt="André, desenvolvedor web da OCARECADEV em Santo André"
+    >
+      <Fragment slot="title">
+        Criação de sites e landing pages em <span class="text-neon">Santo André</span>
+      </Fragment>
+      <Fragment slot="subtitle">
+        Sou o André, desenvolvedor web aqui de Santo André. Crio sites rápidos e landing pages que explicam o que você faz e levam o cliente direto para o seu WhatsApp, sem você precisar sair da sua loja ou do seu consultório.
+      </Fragment>
+    </Hero>
+
+    <section class="local-section" aria-labelledby="local-audience-title">
+      <div class="container">
+        <div class="section-header local-section__header">
+          <h2 id="local-audience-title" class="section-title scroll-animate">Seu negócio é bom. Mas aparece quando o cliente pesquisa?</h2>
+          <p class="local-section__intro scroll-animate">
+            Antes de ir até você, o cliente do ABC pesquisa no Google: "dentista em Santo André", "oficina perto de mim", "salão de beleza em São Bernardo". Se o seu negócio não tem uma página clara, ele escolhe quem tem.
+          </p>
+        </div>
+        <div class="local-grid">
+          {audiences.map((item) => (
+            <GlassCard class="local-card scroll-animate">
+              <h3 class="local-card__title">{item.title}</h3>
+              <p class="local-card__text">{item.text}</p>
+            </GlassCard>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="local-section" aria-labelledby="local-process-title">
+      <div class="container">
+        <div class="section-header local-section__header">
+          <h2 id="local-process-title" class="section-title scroll-animate">100% online, sem perder tempo com deslocamento</h2>
+        </div>
+        <ol class="local-steps">
+          {steps.map((step, i) => (
+            <li class="local-step scroll-animate">
+              <span class="local-step__number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="local-card__title">{step.title}</h3>
+                <p class="local-card__text">{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <p class="local-cities scroll-animate">
+          Atendo {cities.slice(0, -1).join(', ')} e {cities[cities.length - 1]}, e clientes de todo o Brasil.
+        </p>
+      </div>
+    </section>
+
+    <section class="local-section" aria-labelledby="local-reasons-title">
+      <div class="container">
+        <div class="section-header local-section__header">
+          <h2 id="local-reasons-title" class="section-title scroll-animate">Por que contratar um desenvolvedor de Santo André</h2>
+        </div>
+        <div class="local-grid">
+          {reasons.map((item) => (
+            <GlassCard class="local-card scroll-animate">
+              <h3 class="local-card__title">{item.title}</h3>
+              <p class="local-card__text">{item.text}</p>
+            </GlassCard>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Pricing />
+    <ModelsShowcase />
+    <SocialProof />
+    <About />
+    <FAQ items={faqItems} title="Perguntas frequentes sobre criação de sites em Santo André" />
+
+    <section class="local-cta" aria-labelledby="local-cta-title">
+      <div class="container container--narrow">
+        <div class="local-cta__content scroll-animate anim-scale">
+          <h2 id="local-cta-title" class="local-cta__title">
+            Seu próximo cliente de Santo André está <span class="text-neon">pesquisando agora</span>
+          </h2>
+          <p class="local-cta__text">
+            Quando ele encontrar você, a página precisa deixar claro o que você faz e como chamar no WhatsApp.
+          </p>
+          <Button
+            type="primary"
+            class="btn-large"
+            href={localWhatsappUrl}
+            data-track-event="lead"
+            data-track-location="local_santo_andre_final_cta"
+          >
+            Quero conversar sobre meu projeto
+          </Button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .local-section {
+    padding: 4rem 0;
+    position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .local-section {
+      padding: 5rem 0;
+    }
+  }
+
+  .local-section__header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Mesma escala dos títulos de seção da home (ex.: Pricing.astro). */
+  .local-section .section-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--color-text-primary);
+    max-width: 24ch;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .local-section .section-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .local-section__intro {
+    max-width: 62ch;
+    margin: 1rem auto 0;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .local-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .local-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .local-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .local-card__title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 0.5rem;
+  }
+
+  .local-card__text {
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .local-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    max-width: 720px;
+  }
+
+  .local-step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    background: var(--glass-bg);
+  }
+
+  .local-step__number {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-primary-neon);
+    min-width: 2.25rem;
+  }
+
+  .local-cities {
+    text-align: center;
+    margin: 2rem auto 0;
+    max-width: 62ch;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .local-cta {
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .local-cta {
+      padding: 6rem 0;
+    }
+  }
+
+  .local-cta__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .local-cta__title {
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+    line-height: 1.15;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .local-cta__text {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    max-width: 52ch;
+  }
+</style>

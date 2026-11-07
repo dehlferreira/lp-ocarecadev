@@ -17,6 +17,7 @@ Documentos migrados de `docs/prds/` para `docs/prd/` em 2026-09-01, com históri
 | `docs/prd/PRD-005-arquitetura-e-performance.md` | performance, SEO, restrições de stack |
 | `docs/prd/PRD-006-copy-final-e-secoes-faltantes.md` | copy e seções |
 | `docs/prd/PRD-007-modelos-fab-escassez.md` | carrossel de modelos, FAB WhatsApp, alerta de escassez (Express) |
+| `docs/prd/PRD-010-pagina-local-santo-andre.md` | página local "Criação de sites em Santo André" (SEO local) |
 
 Copy oficial: `docs/referencias/copy-completa-landing.md`.
 

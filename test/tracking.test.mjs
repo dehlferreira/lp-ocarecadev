@@ -430,8 +430,10 @@ test('only WhatsApp CTAs declare lead tracking', () => {
   const header = read('src/components/sections/Header.astro');
   const pricing = read('src/components/sections/Pricing.astro');
   const finalCta = read('src/components/sections/CtaFinal.astro');
-  assert.match(hero, /data-track-event="select_content"/);
-  assert.doesNotMatch(hero, /data-track-event="lead"/);
+  // Hero recebe os CTAs por props (SPEC-017); os padrões da home continuam select_content.
+  assert.match(hero, /data-track-event=\{primaryCta\.trackEvent \?\? "select_content"\}/);
+  assert.equal((hero.match(/trackEvent: "select_content"/g) ?? []).length, 2);
+  assert.doesNotMatch(hero, /data-track-event="lead"|trackEvent: "lead"/);
   assert.equal((header.match(/data-track-event="lead"/g) ?? []).length, 2);
   assert.equal((pricing.match(/data-track-event="lead"/g) ?? []).length, 3);
   assert.equal((finalCta.match(/data-track-event="lead"/g) ?? []).length, 1);
@@ -714,8 +716,10 @@ test('micro-interactions and navigation links declare track-item and location at
   const faq = read('src/components/sections/FAQ.astro');
   const models = read('src/components/sections/ModelsShowcase.astro');
 
-  assert.match(hero, /data-track-location="hero_primary"[\s\S]*data-track-item="cta_quero_landing_page"/);
-  assert.match(hero, /data-track-location="hero_secondary"[\s\S]*data-track-item="cta_ver_como_funciona"/);
+  assert.match(hero, /trackLocation: "hero_primary",\s*trackItem: "cta_quero_landing_page"/);
+  assert.match(hero, /trackLocation: "hero_secondary",\s*trackItem: "cta_ver_como_funciona"/);
+  assert.match(hero, /data-track-location=\{primaryCta\.trackLocation\}/);
+  assert.match(hero, /data-track-item=\{secondaryCta\.trackItem\}/);
 
   assert.match(header, /data-track-location="header_nav"/);
   assert.match(header, /data-track-location="header_mobile_nav"/);
