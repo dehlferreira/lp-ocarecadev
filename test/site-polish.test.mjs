@@ -516,3 +516,16 @@ test('solution section implements top transition bridge, mobile connected timeli
 });
 
 
+
+test('AI discovery documents state the real plans and the local page (SPEC-016)', () => {
+  const pricing = read('src/components/sections/Pricing.astro');
+
+  for (const doc of [read('public/llms.txt'), read('public/index.md')]) {
+    for (const price of ['R$ 597', 'R$ 997', 'R$ 2.497']) {
+      assert.ok(pricing.includes(price), `Pricing.astro should show ${price}`);
+      assert.ok(doc.includes(price), `AI doc should mention ${price}`);
+    }
+    assert.match(doc, /criacao-de-sites-santo-andre/);
+    assert.doesNotMatch(doc, /Plano Pro|Personalizado|#planos|#contato/);
+  }
+});

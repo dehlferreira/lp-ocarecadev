@@ -1,17 +1,17 @@
-# OCARECADEV — Landing Pages que Geram Clientes
+# OCARECADEV — Landing Pages e Sites que Levam Clientes ao WhatsApp
 
-> Criação de landing pages e sites estratégicos para transformar visitas em contatos e clientes.
+> Criação de landing pages, sites profissionais, sistemas web e aplicativos para negócios que querem transformar visitantes em contatos.
 
 ## Visão Geral
 
-OCARECADEV é uma consultoria e estúdio especializado no desenvolvimento de páginas de alta conversão para empresas e profissionais autônomos. Combinamos copywriting persuasivo, design moderno, velocidade extrema e acessibilidade total para garantir o menor custo por lead e a melhor taxa de agendamento via WhatsApp.
+A OCARECADEV é a marca de André Luiz Ferreira, desenvolvedor web de Santo André (SP). Cria páginas rápidas, com texto e estrutura pensados para o visitante entender a oferta e chamar no WhatsApp. Atende Santo André, o ABC Paulista, São Paulo e clientes de todo o Brasil, de forma 100% online (WhatsApp e videochamada).
 
 ## Diferenciais
 
-- **Velocidade Extrema (Core Web Vitals):** Páginas estáticas com Astro, CSS vanilla e carregamento abaixo de 1 segundo.
-- **Copywriting Orientado à Vendas:** Textos focados em quebrar objeções e despertar o desejo imediato de contato.
-- **Otimizado para Mobile:** Mais de 80% do tráfego chega pelo celular; garantimos ergonomia e toque rápido no WhatsApp.
-- **Transparência e Autonomia:** Sem taxas ocultas e sem mensalidades abusivas de manutenção.
+- **Velocidade:** páginas estáticas, com nota 100/100 no PageSpeed mobile.
+- **Texto que vende:** a copy é escrita junto com o projeto, com foco em clareza e em responder objeções.
+- **Feito para celular:** botão direto para o WhatsApp e navegação rápida no toque.
+- **Sem amarras:** o código e o domínio pertencem ao cliente, sem mensalidade obrigatória.
 
 ## Modelos de Portfólio no Ar
 
@@ -25,30 +25,32 @@ OCARECADEV é uma consultoria e estúdio especializado no desenvolvimento de pá
 
 ## Planos e Valores
 
-### 1. Plano Express
-- **Investimento:** A partir de R$ 997
-- **Prazo:** Pronto em até 48 horas
-- **Indicado para:** Quem precisa começar a anunciar hoje com uma estrutura enxuta e validada.
+### 1. OCARECADEV Express — R$ 597
+- **Prazo:** até 48 horas úteis após o envio das informações.
+- **Indicado para:** quem precisa colocar a empresa online rápido, sobre um modelo validado.
 
-### 2. Plano Pro
-- **Investimento:** A partir de R$ 1.997
-- **Prazo:** Pronto em até 5 a 7 dias úteis
-- **Indicado para:** Negócios consolidados que buscam design exclusivo, múltiplas dobras de quebra de objeção e alta taxa de conversão.
+### 2. Landing que Vende — R$ 997
+- **Prazo:** 5 a 10 dias úteis.
+- **Indicado para:** quem quer uma landing page 100% sob medida, com copy de conversão e integração com WhatsApp, Google Analytics e Meta Pixel.
 
-### 3. Plano Personalizado
-- **Investimento:** Sob consulta
-- **Indicado para:** Projetos com integrações avançadas, múltiplos produtos ou fluxos sob medida.
+### 3. Site Profissional — a partir de R$ 2.497
+- **Prazo:** 5 a 10 dias úteis, conforme o escopo.
+- **Indicado para:** negócios que precisam de 3 a 5 páginas, estrutura institucional e de serviços, integrações e SEO estruturado.
 
-## Perguntas Frequentes (FAQ)
+Também desenvolve sistemas web e aplicativos Android e iOS, com orçamento sob consulta.
 
-- **Preciso entender de tecnologia?** Não. Nós cuidamos de todo o processo técnico, do domínio à publicação.
-- **Em quanto tempo fica pronto?** A partir de 48h no plano Express e de 5 a 7 dias úteis no plano Pro.
-- **Vou conseguir editar depois?** Sim, você terá total acesso e instruções para eventuais alterações.
-- **Isso realmente funciona?** Funciona quando é feito com método, copy validada e velocidade — exatamente como construímos cada projeto.
+## Perguntas Frequentes
+
+- **Preciso anunciar para a página funcionar?** Não. A página aproveita o tráfego que já existe (Instagram, indicações, Google) e fica pronta para anúncios.
+- **Vocês escrevem os textos?** Sim. A copy é estruturada com base no público e nos diferenciais do cliente.
+- **Domínio e hospedagem estão incluídos?** O domínio fica no nome do cliente (cerca de R$ 40/ano no Registro.br); a configuração e a hospedagem são feitas pela OCARECADEV.
+- **O atendimento é presencial?** Não. Todo o processo é online.
+- **A página é minha?** Sim, 100%: código e domínio pertencem ao cliente.
 
 ## Contato Direto
 
 - **Site:** [https://www.ocarecadev.com.br/](https://www.ocarecadev.com.br/)
-- **WhatsApp:** Contato via botão direto no site oficial.
+- **Santo André e ABC:** [https://www.ocarecadev.com.br/criacao-de-sites-santo-andre/](https://www.ocarecadev.com.br/criacao-de-sites-santo-andre/)
+- **WhatsApp:** (11) 99396-0630
 - **Instagram:** [@ocarecadev](https://www.instagram.com/ocarecadev)
 - **TikTok:** [@ocarecadev](https://www.tiktok.com/@ocarecadev)

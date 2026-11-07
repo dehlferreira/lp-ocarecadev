@@ -1,17 +1,18 @@
 # OCARECADEV
 
-> OCARECADEV cria landing pages e sites estratégicos para transformar visitas em contatos e clientes.
+> OCARECADEV cria landing pages, sites profissionais, sistemas web e aplicativos para negócios que querem transformar visitantes em contatos no WhatsApp. Sediada em Santo André (SP), atende o ABC, São Paulo e todo o Brasil de forma 100% online.
 
-Landing pages de alta conversão, carregamento ultra-rápido (Core Web Vitals), acessibilidade e arquitetura estática moderna para pequenas e médias empresas e profissionais liberais.
+Responsável: André Luiz Ferreira, desenvolvedor web. Atendimento de segunda a sábado, das 9h às 18h, pelo WhatsApp e por videochamada.
 
-## Páginas e Seções Principais
+## Páginas
 
-- [Página Inicial](https://www.ocarecadev.com.br/): Apresentação do serviço, posicionamento, proposta de valor e metodologia de conversão.
-- [Modelos Prontos por Nicho](https://www.ocarecadev.com.br/#modelos): Vitrine interativa de landing pages prontas e ativas para nichos especializados.
-- [Planos e Investimento](https://www.ocarecadev.com.br/#planos): Valores transparentes dos pacotes Express, Pro e Personalizado com escopo detalhado.
-- [Resultados e Depoimentos](https://www.ocarecadev.com.br/#social-proof): Depoimentos reais de clientes, avaliações e métricas de conversão.
-- [Perguntas Frequentes (FAQ)](https://www.ocarecadev.com.br/#faq): Respostas sobre prazos de entrega, domínio, hospedagem, edição e suporte.
-- [Contato via WhatsApp](https://www.ocarecadev.com.br/#contato): Canal direto para solicitação de orçamento e atendimento imediato.
+- [Página Inicial](https://www.ocarecadev.com.br/): Apresentação do serviço, processo, modelos, depoimentos, planos e perguntas frequentes.
+- [Criação de Sites em Santo André](https://www.ocarecadev.com.br/criacao-de-sites-santo-andre/): Criação de sites e landing pages para negócios de Santo André e do ABC Paulista, com atendimento online.
+- [Modelos Prontos por Nicho](https://www.ocarecadev.com.br/#modelos): Vitrine de landing pages de demonstração por segmento.
+- [Resultados e Depoimentos](https://www.ocarecadev.com.br/#social-proof): Depoimentos reais de clientes em áudio e prints.
+- [Planos e Investimento](https://www.ocarecadev.com.br/#pricing): OCARECADEV Express (R$ 597), Landing que Vende (R$ 997) e Site Profissional (a partir de R$ 2.497).
+- [Perguntas Frequentes](https://www.ocarecadev.com.br/#faq): Prazos, domínio, hospedagem, textos e propriedade do projeto.
+- [Política de Privacidade](https://www.ocarecadev.com.br/politica-de-privacidade/): Como os dados dos visitantes são tratados (LGPD).
 
 ## Modelos de Portfólio no Ar
 
@@ -25,5 +26,6 @@ Landing pages de alta conversão, carregamento ultra-rápido (Core Web Vitals), 
 
 ## Opcional
 
+- [Versão em Markdown do site](https://www.ocarecadev.com.br/index.md): Resumo completo com planos, prazos e contato.
 - [Instagram @ocarecadev](https://www.instagram.com/ocarecadev): Bastidores, dicas de conversão e novidades.
-- [TikTok @ocarecadev](https://www.tiktok.com/@ocarecadev): Conteúdos curtos sobre marketing digital e páginas para negócios locais.
+- [TikTok @ocarecadev](https://www.tiktok.com/@ocarecadev): Conteúdos curtos sobre sites e páginas para negócios locais.
