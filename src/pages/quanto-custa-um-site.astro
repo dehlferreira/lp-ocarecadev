@@ -1,0 +1,429 @@
+---
+// Artigo "Quanto custa um site em 2026" — PRD-011 / SPEC-020.
+// Texto aprovado pelo André em 2026-11-10. Só preços reais (os mesmos de Pricing.astro).
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/sections/Header.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import Footer from '../components/sections/Footer.astro';
+import Button from '../components/ui/Button.astro';
+import imgCareca from '../assets/images/artigo-quanto-custa/careca-explicando-precos.webp';
+import imgRascunhos from '../assets/images/artigo-quanto-custa/rascunhos-de-layout.webp';
+import imgChave from '../assets/images/artigo-quanto-custa/chave-e-cofrinho.webp';
+import imgVitrine from '../assets/images/artigo-quanto-custa/vitrine-porta-fechada.webp';
+
+const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
+// Mensagem própria para identificar os contatos que vieram do artigo.
+const articleWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Li o artigo sobre quanto custa um site e quero um orçamento.')}`;
+
+const priceFactors = [
+  {
+    title: 'Quantidade de páginas',
+    text: 'Uma landing page é uma página só, feita pra uma ação: te chamar no WhatsApp. Um site institucional tem várias (início, serviços, sobre, contato), e cada uma precisa ser pensada.',
+  },
+  {
+    title: 'Modelo pronto ou sob medida',
+    text: 'Partir de uma estrutura que já funciona é mais rápido e mais barato. Sob medida exige estudar o seu negócio, o seu cliente e a sua concorrência.',
+  },
+  {
+    title: 'Quem escreve o texto',
+    text: 'Texto é o que vende. Se você manda tudo pronto, o trabalho é menor. Se o texto é criado do zero pra convencer, isso entra no preço (e costuma valer cada centavo).',
+  },
+  {
+    title: 'Integrações',
+    text: 'WhatsApp é o básico. Google Analytics, Pixel da Meta, formulários e agenda online somam etapas de configuração e teste.',
+  },
+  {
+    title: 'Prazo',
+    text: 'Quem precisa pra ontem paga pela prioridade. Quem planeja com antecedência economiza.',
+  },
+];
+
+const cheapSigns = [
+  { title: 'Domínio no nome de quem fez', text: 'Se a relação acabar, você pode perder o endereço que todo mundo já conhece.' },
+  { title: 'Site lento no celular', text: 'A maioria dos clientes vai abrir o seu site pelo celular. Se demora pra carregar, ele fecha e vai pro concorrente.' },
+  { title: 'Sem botão claro pra falar com você', text: 'Site bonito que não diz o que fazer depois é vitrine sem porta.' },
+  { title: 'Texto genérico', text: '"Qualidade e compromisso" qualquer um escreve. O cliente quer saber o que você resolve, pra quem e quanto custa.' },
+  { title: 'Sem medição', text: 'Se ninguém sabe quantas pessoas entraram e quantas clicaram no WhatsApp, não dá pra melhorar nada.' },
+];
+
+// Mesmos preços e itens de Pricing.astro (SPEC-020: manter em sincronia).
+const comparisonRows = [
+  { label: 'Preço', values: ['R$ 597 (ou 6x R$ 113,75)', 'R$ 997 (ou 6x R$ 189,96)', 'a partir de R$ 2.497'] },
+  { label: 'Páginas', values: ['1', '1', '3 a 5'] },
+  { label: 'Ponto de partida', values: ['modelo validado', 'sob medida', 'sob medida'] },
+  { label: 'Texto', values: ['personalização do seu conteúdo', 'copy criada pra converter', 'estrutura institucional e de serviços'] },
+  { label: 'Integrações', values: ['botão do WhatsApp', 'WhatsApp, Analytics e Pixel, com rastreio de cliques', 'integrações avançadas e rastreio'] },
+  { label: 'Extra', values: ['entrega em até 48h', '1 revisão estratégica', 'SEO estruturado, pronto pra tráfego pago'] },
+  { label: 'Pra quem', values: ['precisa estar online rápido', 'quer transformar visita em contato', 'precisa apresentar empresa e serviços'] },
+];
+const plans = ['Express', 'Landing que Vende', 'Site Profissional'];
+
+const faqItems = [
+  {
+    q: 'Quanto custa um site simples?',
+    a: 'Na OCARECADEV, o mais simples é o Express: uma landing page profissional sobre modelo validado, com botão pro WhatsApp, por R$ 597 à vista e entregue em até 48h.',
+  },
+  {
+    q: 'Quanto custa um site profissional?',
+    a: 'Um site de 3 a 5 páginas, com serviços, sobre e contato, sai a partir de R$ 2.497. O valor final depende do número de páginas e das integrações, e vem numa proposta feita pro seu caso.',
+  },
+  {
+    q: 'Qual a diferença entre landing page e site?',
+    a: 'Landing page é uma página só, com um objetivo: fazer a pessoa te chamar. Site tem várias páginas e apresenta a empresa inteira. Pra quem quer começar a vender rápido, a landing page costuma ser o melhor primeiro passo.',
+  },
+  {
+    q: 'Dá pra parcelar?',
+    a: 'Sim. O Express sai em 6x de R$ 113,75 e a Landing que Vende em 6x de R$ 189,96.',
+  },
+  {
+    q: 'Vocês atendem só em Santo André?',
+    a: 'Não. O atendimento é 100% online, pra todo o Brasil. Pra quem é do ABC, tem uma página só sobre Santo André e região.',
+  },
+];
+---
+
+<Layout
+  title="Quanto custa um site em 2026? Preços reais e o que muda o valor | OCARECADEV"
+  description="Quanto custa um site em 2026: preços reais de landing page e site profissional, o que muda o valor e os custos que ninguém conta. Planos a partir de R$ 597."
+  faqItems={faqItems}
+  ogImagePath="/images/og-quanto-custa-um-site.jpg"
+  ogImageAlt="André, da OCARECADEV, explicando quanto custa um site"
+>
+  <Header />
+  <main>
+    <article class="article">
+      <header class="article-hero">
+        <div class="container article-hero__grid">
+          <div class="article-hero__text">
+            <p class="article-kicker">Preços reais · atualizado em novembro de 2026</p>
+            <h1 class="article-title">Quanto custa um site em <span class="text-neon">2026</span>?</h1>
+            <p class="article-lead">
+              Resposta curta: depende do que o seu negócio precisa. Aqui na OCARECADEV, os preços são estes, sem letra miúda:
+            </p>
+            <ul class="article-prices">
+              <li><strong>Landing page sobre modelo pronto (Express):</strong> R$ 597 à vista ou 6x de R$ 113,75, entregue em até 48h.</li>
+              <li><strong>Landing page sob medida (Landing que Vende):</strong> R$ 997 à vista ou 6x de R$ 189,96.</li>
+              <li><strong>Site profissional de 3 a 5 páginas:</strong> a partir de R$ 2.497, com proposta feita pro seu caso.</li>
+            </ul>
+          </div>
+          <figure class="article-hero__figure">
+            <Image
+              src={imgCareca}
+              alt="André, da OCARECADEV, sentado à mesa com uma calculadora, explicando preços de sites"
+              widths={[480, 760, 1120]}
+              sizes="(max-width: 899px) 100vw, 560px"
+              loading="eager"
+              fetchpriority="high"
+              class="article-img"
+            />
+          </figure>
+        </div>
+      </header>
+
+      <div class="container container--narrow article-body">
+        <p>
+          Se você pesquisou "quanto custa um site" e achou desde "site grátis" até orçamento de cinco dígitos, não é erro. É que "site" virou nome pra muita coisa diferente. Nesta página eu mostro o que muda o preço, o que costuma ficar escondido no orçamento e como escolher sem cair em cilada.
+        </p>
+
+        <section aria-labelledby="fatores">
+          <h2 id="fatores">O que faz o preço de um site mudar</h2>
+          <Image src={imgRascunhos} alt="Rascunhos de layout de site feitos a lápis sobre uma mesa escura, com régua e notebook" widths={[480, 760, 1120]} sizes="(max-width: 799px) 100vw, 760px" class="article-img" />
+          <p>O preço não vem do "tamanho" do site. Vem do trabalho que existe por trás dele. Estes são os 5 pontos que mais mexem no valor:</p>
+          <ol class="article-list">
+            {priceFactors.map((item) => (
+              <li><strong>{item.title}.</strong> {item.text}</li>
+            ))}
+          </ol>
+          <p>Se um orçamento não explica nenhum desses pontos, pergunte. Preço sem explicação é o primeiro sinal de cilada.</p>
+        </section>
+
+        <section aria-labelledby="custos">
+          <h2 id="custos">Os custos que quase ninguém conta</h2>
+          <Image src={imgChave} alt="Mão segurando uma chave de casa ao lado de um cofrinho e moedas" widths={[480, 760, 1120]} sizes="(max-width: 799px) 100vw, 760px" class="article-img" />
+          <p>O valor do projeto é só uma parte. Antes de fechar, confira estes três:</p>
+          <ul class="article-list">
+            <li>
+              <strong>Domínio (o endereço, tipo seunegocio.com.br):</strong> R$ 40 por ano no
+              <a href="https://registro.br/ajuda/" target="_blank" rel="noopener noreferrer">Registro.br</a>, que é o órgão oficial. O domínio tem que ficar no <strong>seu nome</strong>, nunca no nome de quem fez o site.
+            </li>
+            <li><strong>Hospedagem (onde o site fica no ar):</strong> varia conforme a tecnologia. Nos sites da OCARECADEV, fica em média uns R$ 50 por ano.</li>
+            <li>
+              <strong>Manutenção e alterações:</strong> trocar um preço, uma foto ou um telefone pode ser cobrado à parte. Pergunte antes quanto custa e em quanto tempo é feito. Aqui, quem quer atualizar preços, imagens e conteúdos com frequência pode contratar um pacote mensal. É opcional: você escolhe se precisa.
+            </li>
+          </ul>
+          <p>Tem empresa que cobra barato no projeto e recupera na mensalidade. Some tudo em 12 meses antes de comparar orçamentos.</p>
+        </section>
+
+        <section aria-labelledby="barato">
+          <h2 id="barato">Site barato que sai caro</h2>
+          <Image src={imgVitrine} alt="Vitrine de loja iluminada à noite com a porta de aço fechada e a calçada vazia" widths={[480, 760, 1120]} sizes="(max-width: 799px) 100vw, 760px" class="article-img" />
+          <p>Site barato não é problema. Problema é site barato que não traz cliente. Fique de olho nestes sinais:</p>
+          <ul class="article-list">
+            {cheapSigns.map((item) => (
+              <li><strong>{item.title}.</strong> {item.text}</li>
+            ))}
+          </ul>
+          <p>A conta é simples: um site que traz um cliente por mês se paga rápido. Um site que não traz nenhum é caro, por qualquer preço.</p>
+        </section>
+
+        <section aria-labelledby="comparativo">
+          <h2 id="comparativo">Comparando os 3 planos da OCARECADEV</h2>
+          <div class="table-wrap" role="region" aria-labelledby="comparativo" tabindex="0">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th scope="col"><span class="visually-hidden">Item</span></th>
+                  {plans.map((plan) => <th scope="col">{plan}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row) => (
+                  <tr>
+                    <th scope="row">{row.label}</th>
+                    {row.values.map((value, i) => <td data-plan={plans[i]}>{value}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="article-note">
+            Os mesmos planos estão na <a href="/#pricing">seção de planos do site</a>. É do ABC? Veja também a página de
+            <a href="/criacao-de-sites-santo-andre/">criação de sites em Santo André e região</a>.
+          </p>
+        </section>
+      </div>
+    </article>
+
+    <FAQ items={faqItems} title="Perguntas frequentes sobre o preço de um site" />
+
+    <section class="article-cta" aria-labelledby="article-cta-title">
+      <div class="container container--narrow">
+        <div class="article-cta__content scroll-animate anim-scale">
+          <h2 id="article-cta-title" class="article-cta__title">Quer saber quanto fica <span class="text-neon">o seu</span>?</h2>
+          <p class="article-cta__text">Me conta o que você vende e pra quem. Eu respondo no WhatsApp com o plano certo pro seu momento, sem enrolação.</p>
+          <Button
+            type="primary"
+            class="btn-large"
+            href={articleWhatsappUrl}
+            data-track-event="lead"
+            data-track-location="artigo_quanto_custa_final_cta"
+          >
+            Quero meu orçamento no WhatsApp
+          </Button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .article-hero {
+    padding: 8rem 0 2.5rem;
+  }
+
+  .article-hero__grid {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .article-hero__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .article-kicker {
+    color: var(--color-primary-neon);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+  }
+
+  .article-title {
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    line-height: 1.1;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin: 0 0 1rem;
+  }
+
+  .article-lead {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+
+  .article-prices {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.6rem;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+  }
+
+  .article-hero__figure {
+    margin: 0;
+  }
+
+  .article-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+  }
+
+  .article-body {
+    padding-bottom: 2rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+
+  .article-body section {
+    margin-top: 3.5rem;
+  }
+
+  .article-body h2 {
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    line-height: 1.2;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin: 0 0 1.25rem;
+  }
+
+  .article-body .article-img {
+    margin: 0 0 1.5rem;
+  }
+
+  .article-body strong {
+    color: var(--color-text-primary);
+  }
+
+  .article-body a {
+    color: var(--color-primary-neon);
+  }
+
+  .article-list {
+    padding-left: 1.3rem;
+    display: grid;
+    gap: 0.9rem;
+    margin: 1rem 0 1.25rem;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    background: var(--glass-bg);
+  }
+
+  .compare-table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .compare-table th,
+  .compare-table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .compare-table thead th {
+    color: var(--color-primary-neon);
+    font-weight: 700;
+  }
+
+  .compare-table tbody th {
+    color: var(--color-text-primary);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .compare-table tbody tr:last-child th,
+  .compare-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  /* No celular a tabela vira um card por linha, sem rolagem lateral. */
+  @media (max-width: 640px) {
+    .compare-table {
+      min-width: 0;
+    }
+
+    .compare-table thead {
+      display: none;
+    }
+
+    .compare-table tbody tr {
+      display: block;
+      padding: 1rem;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .compare-table tbody th,
+    .compare-table tbody td {
+      display: block;
+      padding: 0.2rem 0;
+      border: 0;
+    }
+
+    .compare-table tbody th {
+      margin-bottom: 0.4rem;
+    }
+
+    .compare-table tbody td::before {
+      content: attr(data-plan) ': ';
+      color: var(--color-primary-neon);
+      font-weight: 600;
+    }
+  }
+
+  .article-note {
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .article-cta {
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .article-cta__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .article-cta__title {
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+    line-height: 1.15;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .article-cta__text {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    max-width: 52ch;
+  }
+</style>
