@@ -1,4 +1,25 @@
-/* Google Fonts agora carregado via <link> no Layout.astro para evitar render-blocking */
+/* Outfit local (SPEC-019): mesmos pesos que vinham do Google Fonts (400, 600, 700) */
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/outfit-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/outfit-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/outfit-700.woff2") format("woff2");
+}
 
 :root {
   /* Fundo da Página (Base Dark) */
