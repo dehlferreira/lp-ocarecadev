@@ -146,10 +146,9 @@ const structuredData = [
 		<link rel="describedby" href="/llms.txt" />
 		<link rel="alternate" type="text/markdown" href="/index.md" />
 
-		<!-- Google Fonts: preconnect + display=swap para renderização imediata e fluida -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" />
+		<!-- Fonte Outfit servida pelo próprio site (SPEC-019): sem CSS externo bloqueando a renderização -->
+		<link rel="preload" href="/fonts/outfit-700.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin />
 		<title>{title}</title>
 
 		<!-- Open Graph / Preview Link Settings (WhatsApp, Meta, LinkedIn, Telegram) -->
