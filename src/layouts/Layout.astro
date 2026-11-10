@@ -11,14 +11,19 @@ interface Props {
 	description?: string;
 	/** Perguntas da página para o FAQPage do JSON-LD; omitido = FAQ da home (SPEC-017). */
 	faqItems?: { q: string; a: string }[];
+	/** Imagem de compartilhamento (1200x630) em /public; omitida = og-image padrão (SPEC-020). */
+	ogImagePath?: string;
+	ogImageAlt?: string;
 }
 
-const { title, description = "OCARECADEV | Landing Pages e Sites Estratégicos que Convertem", faqItems } = Astro.props;
+const { title, description = "OCARECADEV | Landing Pages e Sites Estratégicos que Convertem", faqItems, ogImagePath = '/images/og-image.jpg', ogImageAlt = 'André da OCARECADEV - Landing Pages Estratégicas' } = Astro.props;
 
 // URLs absolutas evitam versões duplicadas da página em buscadores e previews sociais.
 const siteUrl = Astro.site || Astro.url;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
-const ogImage = new URL('/images/og-image.jpg', siteUrl);
+const ogImage = new URL(ogImagePath, siteUrl);
+// A entidade da empresa no JSON-LD usa sempre a imagem padrão, mesmo quando a página troca a de compartilhamento.
+const brandImage = new URL('/images/og-image.jpg', siteUrl);
 const logoImage = new URL('/images/logo-vertical.png', siteUrl);
 
 // Cidades atendidas presencialmente (mesma lista do Perfil da Empresa no Google — SPEC-016).
@@ -58,7 +63,7 @@ const structuredData = [
     alternateName: 'Ocareca Web Developer',
     url: siteUrl.toString(),
     logo: logoImage.toString(),
-    image: ogImage.toString(),
+    image: brandImage.toString(),
     description: 'Criação de landing pages, sites profissionais, sistemas web e aplicativos para negócios que querem transformar visitantes em clientes no WhatsApp. Sediada em Santo André (SP), atende o ABC, São Paulo e todo o Brasil de forma remota.',
     telephone: '+55-11-99396-0630',
     email: 'ocarecadev@gmail.com',
@@ -163,7 +168,7 @@ const structuredData = [
 		<meta property="og:image:type" content="image/jpeg" />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:image:alt" content="André da OCARECADEV - Landing Pages Estratégicas" />
+		<meta property="og:image:alt" content={ogImageAlt} />
 
 		<!-- Twitter / X Cards -->
 		<meta name="twitter:card" content="summary_large_image" />
