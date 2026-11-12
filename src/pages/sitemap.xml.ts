@@ -17,6 +17,11 @@ export const GET: APIRoute = () =>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>${siteUrl}/criacao-de-sites-sao-bernardo-do-campo/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>${siteUrl}/quanto-custa-um-site/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
