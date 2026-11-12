@@ -51,6 +51,7 @@ Também desenvolve sistemas web e aplicativos Android e iOS, com orçamento sob 
 
 - **Site:** [https://www.ocarecadev.com.br/](https://www.ocarecadev.com.br/)
 - **Santo André e ABC:** [https://www.ocarecadev.com.br/criacao-de-sites-santo-andre/](https://www.ocarecadev.com.br/criacao-de-sites-santo-andre/)
+- **São Bernardo do Campo:** [https://www.ocarecadev.com.br/criacao-de-sites-sao-bernardo-do-campo/](https://www.ocarecadev.com.br/criacao-de-sites-sao-bernardo-do-campo/)
 - **Quanto custa um site em 2026:** [https://www.ocarecadev.com.br/quanto-custa-um-site/](https://www.ocarecadev.com.br/quanto-custa-um-site/)
 - **WhatsApp:** (11) 99396-0630
 - **Instagram:** [@ocarecadev](https://www.instagram.com/ocarecadev)
