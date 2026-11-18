@@ -1,0 +1,403 @@
+---
+// Página de nicho "Landing page para advogados" — PRD-013 / SPEC-022.
+// Composição das páginas locais (SPEC-017/021) com copy do nicho. Atendimento 100% online, Brasil todo.
+// Regras de publicidade da advocacia: o texto informa o advogado (cliente); não é parecer jurídico.
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/sections/Header.astro';
+import Hero from '../components/sections/Hero.astro';
+import SocialProof from '../components/sections/SocialProof.astro';
+import About from '../components/sections/About.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import Footer from '../components/sections/Footer.astro';
+import Button from '../components/ui/Button.astro';
+import GlassCard from '../components/ui/GlassCard.astro';
+import thumbAdvocacia from '../assets/images/modelo-advocacia.webp';
+
+const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '5511999999999';
+// Mensagem própria para identificar os contatos que vieram desta página.
+const nicheWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Vi a página de landing page para advogados e quero um orçamento.')}`;
+const modelUrl = 'https://lp-modelo-advocacia.vercel.app/';
+
+const includes = [
+  { title: 'Áreas de atuação claras', text: 'Trabalhista, família, previdenciário, empresarial: cada área explicada em linguagem que o cliente entende.' },
+  { title: 'Quem é o advogado', text: 'Nome, número da OAB, formação e trajetória. É isso que gera confiança antes do primeiro contato.' },
+  { title: 'Conteúdo informativo', text: 'Perguntas frequentes e explicações sobre direitos e procedimentos, no formato que o Provimento 205/2021 incentiva.' },
+  { title: 'Contato sem atrito', text: 'Botão para o WhatsApp do escritório, telefone e e-mail, funcionando bem no celular.' },
+];
+
+const avoids = [
+  { title: 'Valores de honorários', text: 'Nada de preço, forma de pagamento, gratuidade ou desconto na página.' },
+  { title: 'Promessa de resultado', text: 'Nenhum "ganhe sua causa" ou percentual de êxito.' },
+  { title: 'Exposição de clientes', text: 'Sem depoimentos, nomes de clientes ou casos concretos.' },
+  { title: 'Autoengrandecimento', text: 'Sem "o melhor escritório", comparação com colegas ou ostentação.' },
+];
+
+const steps = [
+  { title: 'Conversa pelo WhatsApp', text: 'Você me conta as áreas de atuação e o perfil de cliente do escritório.' },
+  { title: 'Videochamada de alinhamento', text: 'Se preferir, de 20 a 30 minutos, sem sair do escritório.' },
+  { title: 'Eu escrevo, desenho e desenvolvo', text: 'Texto sóbrio e informativo, estrutura e design pensados para transmitir confiança.' },
+  { title: 'Você revisa e a página vai ao ar', text: 'Você aprova cada texto antes da publicação, com WhatsApp e Google Analytics configurados.' },
+];
+
+const faqItems = [
+  {
+    q: 'Quanto custa uma landing page para advogados?',
+    a: 'O plano Express, feito sobre o Modelo Advocacia, custa R$ 597. A Landing que Vende, sob medida para o escritório, custa R$ 997, e sites completos com várias áreas de atuação partem de R$ 2.497. O domínio fica no nome do escritório e custa em média R$ 40 por ano no Registro.br.',
+  },
+  {
+    q: 'A landing page respeita o Provimento 205/2021 da OAB?',
+    a: 'Ela é pensada para isso: linguagem sóbria e informativa, sem valores de honorários, sem promessa de resultado, sem expor clientes ou casos e sem comparação com colegas. A responsabilidade ética pelo conteúdo é do advogado, por isso você revisa e aprova cada texto antes de a página ir ao ar.',
+  },
+  {
+    q: 'Posso colocar depoimentos de clientes na página?',
+    a: 'Não é recomendado. As regras de publicidade da advocacia vedam a menção a clientes e a casos concretos. A confiança vem da apresentação do advogado, das áreas de atuação e de conteúdo informativo.',
+  },
+  {
+    q: 'Em quanto tempo a página fica pronta?',
+    a: 'O Express sai em até 48 horas úteis depois que você envia as informações. A Landing que Vende e o Site Profissional levam de 5 a 10 dias úteis, mais o tempo da sua revisão.',
+  },
+  {
+    q: 'Vocês atendem escritórios de qualquer cidade?',
+    a: 'Sim. Todo o processo é online, pelo WhatsApp e por videochamada, para escritórios e advogados autônomos de todo o Brasil.',
+  },
+];
+---
+
+<Layout
+  title="Landing Page para Advogados | Site para Escritório de Advocacia | OCARECADEV"
+  description="Landing page para advogados e escritórios de advocacia: página rápida, sóbria e informativa, pensada para respeitar o Provimento 205/2021 da OAB, com botão para o WhatsApp. Planos a partir de R$ 597."
+  faqItems={faqItems}
+>
+  <Header />
+  <main>
+    <Hero
+      badgeText="Advocacia · Provimento 205/2021"
+      badgeHighlight="Atendimento online"
+      primaryCta={{
+        text: 'Quero um orçamento pelo WhatsApp',
+        href: nicheWhatsappUrl,
+        trackEvent: 'lead',
+        trackLocation: 'lp_advogados_hero',
+      }}
+      secondaryCta={{
+        text: 'Ver planos',
+        href: '#pricing',
+        trackLocation: 'lp_advogados_hero_secondary',
+        trackItem: 'planos',
+      }}
+      imageAlt="André, desenvolvedor web da OCARECADEV, que cria landing pages para advogados"
+    >
+      <Fragment slot="title">
+        Landing page para <span class="text-neon">advogados</span> e escritórios de advocacia
+      </Fragment>
+      <Fragment slot="subtitle">
+        Sou o André, desenvolvedor web. Crio landing pages que apresentam o escritório com clareza, passam confiança e levam o cliente direto para o seu WhatsApp, com texto sóbrio e informativo, pensado para respeitar as regras de publicidade da OAB.
+      </Fragment>
+    </Hero>
+
+    <section class="local-section" aria-labelledby="adv-search-title">
+      <div class="container">
+        <div class="section-header local-section__header">
+          <h2 id="adv-search-title" class="section-title scroll-animate">Antes de ligar, o cliente pesquisa o seu nome</h2>
+          <p class="local-section__intro scroll-animate">
+            Quem precisa de um advogado procura no Google "advogado trabalhista perto de mim" ou digita o nome que recebeu de indicação. Se o escritório só tem um perfil no Instagram ou um cartão de visita, a pessoa não entende o que você faz e procura outro. Uma landing page responde em poucos segundos: quem é você, em que área atua e como falar com o escritório.
+          </p>
+        </div>
+        <div class="local-grid">
+          {includes.map((item) => (
+            <GlassCard class="local-card scroll-animate">
+              <h3 class="local-card__title">{item.title}</h3>
+              <p class="local-card__text">{item.text}</p>
+            </GlassCard>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="local-section" aria-labelledby="adv-oab-title">
+      <div class="container">
+        <div class="section-header local-section__header">
+          <h2 id="adv-oab-title" class="section-title scroll-animate">Feita para respeitar o Provimento 205/2021 da OAB</h2>
+          <p class="local-section__intro scroll-animate">
+            A publicidade da advocacia tem regras próprias. A OAB permite presença digital e conteúdo informativo, mas veda a captação de clientela e a mercantilização. Por isso a página não usa a linguagem de venda de um comércio e deixa de fora:
+          </p>
+        </div>
+        <div class="local-grid">
+          {avoids.map((item) => (
+            <GlassCard class="local-card scroll-animate">
+              <h3 class="local-card__title">{item.title}</h3>
+              <p class="local-card__text">{item.text}</p>
+            </GlassCard>
+          ))}
+        </div>
+        <p class="local-cities scroll-animate">
+          Eu cuido do texto e da estrutura, mas a responsabilidade ética pelo conteúdo é do advogado. Você revisa e aprova tudo antes de a página ir ao ar.
+        </p>
+      </div>
+    </section>
+
+    <section class="local-section" aria-labelledby="adv-model-title">
+      <div class="container">
+        <div class="section-header local-section__header">
+          <h2 id="adv-model-title" class="section-title scroll-animate">Veja o Modelo Advocacia funcionando</h2>
+          <p class="local-section__intro scroll-animate">
+            É a base do plano Express para escritórios. Você troca o conteúdo pelo do seu escritório e a página fica pronta em até 48 horas úteis.
+          </p>
+        </div>
+        <a
+          class="adv-model scroll-animate"
+          href={modelUrl}
+          target="_blank"
+          rel="noopener"
+          data-track-event="select_content"
+          data-track-location="lp_advogados_modelo"
+          data-track-item="modelo_advocacia"
+        >
+          <Image
+            src={thumbAdvocacia}
+            alt="Tela do Modelo Advocacia, landing page de demonstração para escritório de advocacia"
+            width={800}
+            height={500}
+            loading="lazy"
+            decoding="async"
+            class="adv-model__img"
+          />
+          <span class="adv-model__caption">
+            <span class="adv-model__tag">Modelo de demonstração</span>
+            Abrir o Modelo Advocacia em nova aba
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="local-section" aria-labelledby="adv-process-title">
+      <div class="container">
+        <div class="section-header local-section__header">
+          <h2 id="adv-process-title" class="section-title scroll-animate">100% online, sem tirar você do escritório</h2>
+        </div>
+        <ol class="local-steps">
+          {steps.map((step, i) => (
+            <li class="local-step scroll-animate">
+              <span class="local-step__number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="local-card__title">{step.title}</h3>
+                <p class="local-card__text">{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <p class="local-cities scroll-animate">
+          Atendo advogados autônomos e escritórios de todo o Brasil.
+        </p>
+      </div>
+    </section>
+
+    <Pricing />
+    <SocialProof />
+    <About />
+    <FAQ items={faqItems} title="Perguntas frequentes sobre landing page para advogados" />
+
+    <section class="local-cta" aria-labelledby="local-cta-title">
+      <div class="container container--narrow">
+        <div class="local-cta__content scroll-animate anim-scale">
+          <h2 id="local-cta-title" class="local-cta__title">
+            Quando o cliente pesquisar o seu nome, ele vai <span class="text-neon">encontrar o escritório</span>
+          </h2>
+          <p class="local-cta__text">
+            Uma página clara, sóbria e no seu domínio, que explica o que você faz e como falar com você.
+          </p>
+          <Button
+            type="primary"
+            class="btn-large"
+            href={nicheWhatsappUrl}
+            data-track-event="lead"
+            data-track-location="lp_advogados_final_cta"
+          >
+            Quero conversar sobre a página do escritório
+          </Button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .local-section {
+    padding: 4rem 0;
+    position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .local-section {
+      padding: 5rem 0;
+    }
+  }
+
+  .local-section__header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Mesma escala dos títulos de seção da home (ex.: Pricing.astro). */
+  .local-section .section-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--color-text-primary);
+    max-width: 24ch;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .local-section .section-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .local-section__intro {
+    max-width: 62ch;
+    margin: 1rem auto 0;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .local-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .local-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .local-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .local-card__title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 0.5rem;
+  }
+
+  .local-card__text {
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .local-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    max-width: 720px;
+  }
+
+  .local-step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    background: var(--glass-bg);
+  }
+
+  .local-step__number {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-primary-neon);
+    min-width: 2.25rem;
+  }
+
+  .local-cities {
+    text-align: center;
+    margin: 2rem auto 0;
+    max-width: 62ch;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .local-cta {
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .local-cta {
+      padding: 6rem 0;
+    }
+  }
+
+  .local-cta__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .local-cta__title {
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+    line-height: 1.15;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .local-cta__text {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    max-width: 52ch;
+  }
+  .adv-model {
+    display: block;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--glass-bg);
+    text-decoration: none;
+    color: var(--color-text-primary);
+  }
+
+  .adv-model:focus-visible {
+    outline: 2px solid var(--color-primary-neon);
+    outline-offset: 4px;
+  }
+
+  .adv-model__img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .adv-model__caption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+  }
+
+  .adv-model__tag {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-primary-neon);
+    color: var(--color-primary-neon);
+  }
+</style>
